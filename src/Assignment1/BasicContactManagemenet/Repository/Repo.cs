@@ -7,20 +7,40 @@ using BasicContactManagement.Models;
 
 namespace BasicContactManagement.Repository
 {
+    /// <summary>
+    /// Repo class - storage
+    /// </summary>
     internal class Repo
     {
+        /// <summary>
+        /// Contact List
+        /// </summary>
+        /// <value>The contact List</value>
         public static List<ContactInfo> ContactList { get; set; } = new List<ContactInfo>();
 
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <param name="contact">Adds to List</param>
         public void StoreInContactList(ContactInfo contact)
         {
             ContactList.Add(contact);
         }
 
+        /// <summary>
+        /// Read
+        /// </summary>
+        /// <returns>returns Contact List</returns>
         public List<ContactInfo> ReturnContactList()
         {
             return ContactList;
         }
 
+        /// <summary>
+        /// UpdateContact List
+        /// </summary>
+        /// <param name="index">index</param>
+        /// <param name="newContact">contact Object</param>
         public void UpdateContactList(int index, ContactInfo newContact)
         {
             ContactInfo oldContact = ContactList[index];
@@ -30,6 +50,10 @@ namespace BasicContactManagement.Repository
             oldContact.Note = newContact.Note;
         }
 
+        /// <summary>
+        /// Delete from in-memory
+        /// </summary>
+        /// <param name="index">index</param>
         public void DeleteContactFromRepo(int index)
         {
             ContactList.RemoveAt(index);

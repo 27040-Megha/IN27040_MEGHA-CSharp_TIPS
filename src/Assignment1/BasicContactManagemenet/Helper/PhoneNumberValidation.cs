@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace BasicContactManagemenet.Helper
 {
+    /// <summary>
+    /// Class for PhoneNumber Validation
+    /// </summary>
     internal class PhoneNumberValidation
     {
+        /// <summary>
+        /// Function for PhoneNumber Validation
+        /// </summary>
+        /// <param name="phnNumber">Phone Number</param>
+        /// <returns>Boolean Value</returns>
         public static bool ValidatePhnNumber(string phnNumber)
         {
             bool isParsingSuccessful = long.TryParse(phnNumber, out long result);

@@ -10,10 +10,18 @@ using BasicContactManagement.View;
 
 namespace BasicContactManagement.Services
 {
+    /// <summary>
+    /// ContactManager Class
+    /// </summary>
     internal class ContactManager
     {
         private Repo _contactRepo = new Repo();
 
+        /// <summary>
+        /// AddContact
+        /// </summary>
+        /// <param name="contact">contact object</param>
+        /// <returns>Boolean value</returns>
         public bool AddContact(ContactInfo contact)
         {
             bool isValidEmail = EmailValidation.ValidateEmail(contact.Email);
@@ -26,12 +34,20 @@ namespace BasicContactManagement.Services
             return false;
         }
 
+        /// <summary>
+        /// ViewAll Contacts
+        /// </summary>
+        /// <returns>list of contact objects</returns>
         public List<ContactInfo> AllContacts()
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             return contactList;
         }
 
+        /// <summary>
+        /// Display all sorted contacts
+        /// </summary>
+        /// <returns>List of contact names</returns>
         public List<string> SortedContacts()
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
@@ -44,6 +60,12 @@ namespace BasicContactManagement.Services
             contactNames.Sort();
             return contactNames;
         }
+        /// <summary>
+        /// editContactDetails
+        /// </summary>
+        /// <param name="id">contact id</param>
+        /// <param name="contact">contactName</param>
+        /// <returns>boolean value</returns>
         public bool EditContactDetails(string id, ContactInfo contact)
         {
             if(!((EmailValidation.ValidateEmail(contact.Email))||(PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber))))
@@ -64,6 +86,11 @@ namespace BasicContactManagement.Services
             return true;
         }
 
+        /// <summary>
+        /// SearchContactDetails
+        /// </summary>
+        /// <param name="name">name</param>
+        /// <returns>contactInfo object</returns>
         public ContactInfo SearchContactDetails(string name)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
@@ -78,6 +105,11 @@ namespace BasicContactManagement.Services
             }
             return null;
         }
+        
+        /// <summary>
+        /// Delete contact from list
+        /// </summary>
+        /// <param name="id">id of the contact</param>
         public void DeleteContactDetails(string id)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
