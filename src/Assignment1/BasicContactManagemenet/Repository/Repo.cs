@@ -22,7 +22,7 @@ namespace BasicContactManagement.Repository
         /// Create
         /// </summary>
         /// <param name="contact">Adds to List</param>
-        public void StoreInContactList(ContactInfo contact)
+        internal void StoreInContactList(ContactInfo contact)
         {
             ContactList.Add(contact);
         }
@@ -31,7 +31,7 @@ namespace BasicContactManagement.Repository
         /// Read
         /// </summary>
         /// <returns>returns Contact List</returns>
-        public List<ContactInfo> ReturnContactList()
+        internal List<ContactInfo> ReturnContactList()
         {
             return ContactList;
         }
@@ -41,7 +41,7 @@ namespace BasicContactManagement.Repository
         /// </summary>
         /// <param name="index">index</param>
         /// <param name="newContact">contact Object</param>
-        public void UpdateContactList(int index, ContactInfo newContact)
+        internal void UpdateContactList(int index, ContactInfo newContact)
         {
             ContactInfo oldContact = ContactList[index];
             oldContact.Name = newContact.Name;
@@ -54,7 +54,7 @@ namespace BasicContactManagement.Repository
         /// Delete from in-memory
         /// </summary>
         /// <param name="index">index</param>
-        public void DeleteContactFromRepo(int index)
+        internal void DeleteContactFromRepo(int index)
         {
             ContactList.RemoveAt(index);
         }

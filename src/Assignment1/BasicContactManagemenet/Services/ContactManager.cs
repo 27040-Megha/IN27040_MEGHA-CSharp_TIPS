@@ -22,7 +22,7 @@ namespace BasicContactManagement.Services
         /// </summary>
         /// <param name="contact">contact object</param>
         /// <returns>Boolean value</returns>
-        public bool AddContact(ContactInfo contact)
+        internal bool AddContact(ContactInfo contact)
         {
             bool isValidEmail = EmailValidation.ValidateEmail(contact.Email);
             bool isValidPhnNumber = PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber);
@@ -39,7 +39,7 @@ namespace BasicContactManagement.Services
         /// ViewAll Contacts
         /// </summary>
         /// <returns>list of contact objects</returns>
-        public List<ContactInfo> DisplayAllContacts()
+        internal List<ContactInfo> DisplayAllContacts()
         {
             return _contactRepo.ReturnContactList();
         }
@@ -48,7 +48,7 @@ namespace BasicContactManagement.Services
         /// Display all sorted contacts
         /// </summary>
         /// <returns>List of contact names</returns>
-        public List<string> SortContacts()
+        internal List<string> SortContacts()
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             List<string> contactNames = new List<string>();
@@ -66,7 +66,7 @@ namespace BasicContactManagement.Services
         /// <param name="myGuid">myGuid id</param>
         /// <param name="contact">contactName</param>
         /// <returns>boolean value</returns>
-        public bool EditContactDetails(Guid myGuid, ContactInfo contact)
+        internal bool EditContactDetails(Guid myGuid, ContactInfo contact)
         {
             if (!EmailValidation.ValidateEmail(contact.Email) || !PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber) || !NameValidation.ValidateName(contact.Name))
             {
@@ -89,7 +89,7 @@ namespace BasicContactManagement.Services
         /// </summary>
         /// <param name="name">name</param>
         /// <returns>contactInfo object</returns>
-        public List<ContactInfo> SearchContactDetails(string name)
+        internal List<ContactInfo> SearchContactDetails(string name)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             List<ContactInfo> matchedContacts = new List<ContactInfo>();
@@ -110,7 +110,7 @@ namespace BasicContactManagement.Services
         /// </summary>
         /// <param name="myGuid">id of the contact</param>
         /// <returns>Boolean value</returns>
-        public bool DeleteContactDetails(Guid myGuid)
+        internal bool DeleteContactDetails(Guid myGuid)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             for (int i = 0; i < contactList.Count; i++)

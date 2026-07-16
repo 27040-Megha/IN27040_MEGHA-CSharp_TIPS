@@ -16,24 +16,9 @@ namespace BasicContactManagement.View
         private ContactManager _manageContact = new ContactManager();
 
         /// <summary>
-        /// The method displays menu option
-        /// </summary>
-        public void DisplayMenuOptions()
-        {
-            Console.WriteLine("Enter ShortCut (Eg. A/a to Add contact):");
-            Console.WriteLine("[A]dd Contact");
-            Console.WriteLine("[V]iew ContactList");
-            Console.WriteLine("[L]ist Sorted Contact Names");
-            Console.WriteLine("[E]dit Contact");
-            Console.WriteLine("[S]earch Contact Details");
-            Console.WriteLine("[D]elete Contact");
-            Console.WriteLine("[C]lose Application");
-        }
-
-        /// <summary>
         /// Displays And handles menu function
         /// </summary>
-        public void DisplayAndHandlesMenu()
+        internal void DisplayAndHandlesMenu()
         {
             Console.WriteLine("Basic Contact Manager Application");
             string ch;
@@ -70,10 +55,25 @@ namespace BasicContactManagement.View
         }
 
         /// <summary>
+        /// The method displays menu option
+        /// </summary>
+        private void DisplayMenuOptions()
+        {
+            Console.WriteLine("Enter ShortCut (Eg. A/a to Add contact):");
+            Console.WriteLine("[A]dd Contact");
+            Console.WriteLine("[V]iew ContactList");
+            Console.WriteLine("[L]ist Sorted Contact Names");
+            Console.WriteLine("[E]dit Contact");
+            Console.WriteLine("[S]earch Contact Details");
+            Console.WriteLine("[D]elete Contact");
+            Console.WriteLine("[C]lose Application");
+        }
+
+        /// <summary>
         /// Gets user Contact details, creates object and returns
         /// </summary>
         /// <returns>ContactInfo object</returns>
-        public ContactInfo GetUserInput()
+        private ContactInfo GetUserInput()
         {
             Console.WriteLine("Enter Name: ");
             string name = Console.ReadLine();
@@ -90,7 +90,7 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Gets input required for adding contact details
         /// </summary>
-        public void GetAddContactDetails()
+        private void GetAddContactDetails()
         {
             ContactInfo contact = GetUserInput();
             bool isContactAdded = _manageContact.AddContact(contact);
@@ -107,7 +107,7 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Displays all contact details
         /// </summary>
-        public void ViewAllContacts()
+        private void ViewAllContacts()
         {
             List<ContactInfo> contactList = _manageContact.DisplayAllContacts();
             if(contactList.Count==0)
@@ -124,7 +124,7 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Displays Sorted Contact List
         /// </summary>
-        public void ViewSortedContactList()
+        private void ViewSortedContactList()
         {
             List<string> contactNamesSorted = _manageContact.SortContacts();
             for (int i = 0; i < contactNamesSorted.Count; i++)
@@ -137,7 +137,7 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Edit contact
         /// </summary>
-        public void EditContact()
+        private void EditContact()
         {
             Guid id = GetID();
             ContactInfo contact = GetUserInput();
@@ -155,7 +155,7 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Finds Contact
         /// </summary>
-        public void SearchContact()
+        private void SearchContact()
         {
             Console.WriteLine("Enter name to be searched:");
             string name = Console.ReadLine();
@@ -177,7 +177,7 @@ namespace BasicContactManagement.View
         /// Displays Contact details
         /// </summary>
         /// <param name="contact">contact info</param>
-        public void Display(ContactInfo contact)
+        private void Display(ContactInfo contact)
         {
             Console.WriteLine("ID: " + contact.Id);
             Console.WriteLine("Name: " + contact.Name);
@@ -190,7 +190,7 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Delete Contact function
         /// </summary>
-        public void DeleteContact()
+        private void DeleteContact()
         {
             Guid id = GetID();
             if (_manageContact.DeleteContactDetails(id))
