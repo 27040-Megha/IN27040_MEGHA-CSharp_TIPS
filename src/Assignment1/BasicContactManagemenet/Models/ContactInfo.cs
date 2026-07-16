@@ -45,13 +45,13 @@ namespace BasicContactManagement.Models
         /// Name of PhnNumber
         /// </summary>
         /// <value>The PhnNumber of the contact.</value>
-        public string? PhnNumber { get; set; }
+        public string PhnNumber { get; set; }
 
         /// <summary>
         /// Email of Contact
         /// </summary>
         /// <value>The Email of the contact.</value>
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Note of Contact
