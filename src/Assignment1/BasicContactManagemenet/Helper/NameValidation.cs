@@ -16,7 +16,7 @@ namespace BasicContactManagemenet.Helper
         /// </summary>
         /// <param name="name">Contact Name</param>
         /// <returns>Boolean Value</returns>
-        public static bool ValidateName(string name)
+        internal static bool ValidateName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
