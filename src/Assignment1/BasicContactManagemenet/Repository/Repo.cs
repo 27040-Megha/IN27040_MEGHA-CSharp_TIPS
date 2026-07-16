@@ -16,7 +16,7 @@ namespace BasicContactManagement.Repository
         /// Gets or sets the global repository of saved contact records.
         /// </summary> 
         /// <value>A list containing all active ContactInfo instances in the application.</value> 
-        public static List<ContactInfo> ContactList { get; set; } = new List<ContactInfo>();
+        private static List<ContactInfo> ContactList { get; set; } = new List<ContactInfo>();
 
         /// <summary>
         /// Create
