@@ -16,14 +16,17 @@ namespace BasicContactManagemenet.Helper
         /// </summary>
         /// <param name="phnNumber">Phone Number</param>
         /// <returns>Boolean Value</returns>
-        internal static bool ValidatePhnNumber(string phnNumber)
+        internal static bool ValidatePhnNumber(List<string> phnNumber)
         {
-            bool isParsingSuccessful = long.TryParse(phnNumber, out long result);
-            if (isParsingSuccessful && phnNumber.Length==10)
+            for (int i = 0; i < phnNumber.Count; i++)
             {
-                return true;
+                bool isParsingSuccessful = long.TryParse(phnNumber[i], out long result);
+                if (!isParsingSuccessful || !(phnNumber[i].Length == 10))
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
     }
 }

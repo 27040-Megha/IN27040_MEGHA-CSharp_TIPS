@@ -18,7 +18,7 @@ namespace BasicContactManagement.Models
         /// <param name="phnNumber">phnNumber of contact</param>
         /// <param name="email">email of contact</param>
         /// <param name="note">Description of contact</param>
-        public ContactInfo(string name, string phnNumber, string email, string note)
+        public ContactInfo(string name, List<string> phnNumber, string email, string note)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -44,8 +44,8 @@ namespace BasicContactManagement.Models
         /// <summary>
         /// Name of PhnNumber
         /// </summary>
-        /// <value>The PhnNumber of the contact.</value>
-        public string PhnNumber { get; set; }
+        /// <value>The List of phone numbers of the contact.</value>
+        public List<string> PhnNumber { get; set; }
 
         /// <summary>
         /// Email of Contact

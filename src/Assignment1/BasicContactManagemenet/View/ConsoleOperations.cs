@@ -77,8 +77,14 @@ namespace BasicContactManagement.View
         {
             Console.WriteLine("Enter Name: ");
             string name = Console.ReadLine();
-            Console.WriteLine("Enter Phone Number: ");
-            string phnNumber = Console.ReadLine();
+            Console.WriteLine("How many Phone numbers do you want to store for this contact?");
+            int n = int.Parse(Console.ReadLine());
+            List<string> phnNumber = new List<string>();
+            for(int i=0;i<n;i++)
+            {
+                Console.WriteLine("Enter Phone Number " + (i+1));
+                phnNumber.Add(Console.ReadLine());
+            }
             Console.WriteLine("Enter Email: ");
             string email = Console.ReadLine();
             Console.WriteLine("Enter Note: ");
@@ -181,7 +187,10 @@ namespace BasicContactManagement.View
         {
             Console.WriteLine("ID: " + contact.Id);
             Console.WriteLine("Name: " + contact.Name);
-            Console.WriteLine("Phone Number: " + contact.PhnNumber);
+            for (int i = 0; i < contact.PhnNumber.Count; i++)
+            {
+                Console.WriteLine("Phone Number "+(i+1)+": "+ contact.PhnNumber[i]);
+            }
             Console.WriteLine("Email: " + contact.Email);
             Console.WriteLine("Note: " + contact.Note);
             PrintDivider();
