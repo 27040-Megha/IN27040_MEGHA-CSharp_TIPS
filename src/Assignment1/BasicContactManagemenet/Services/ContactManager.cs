@@ -26,7 +26,8 @@ namespace BasicContactManagement.Services
         {
             bool isValidEmail = EmailValidation.ValidateEmail(contact.Email);
             bool isValidPhnNumber = PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber);
-            if(isValidEmail==true && isValidPhnNumber==true)
+            bool isValidName = NameValidation.ValidateName(contact.Name);
+            if(isValidEmail && isValidPhnNumber && isValidName)
             {
                 _contactRepo.StoreInContactList(contact);
                 return true;
@@ -38,52 +39,49 @@ namespace BasicContactManagement.Services
         /// ViewAll Contacts
         /// </summary>
         /// <returns>list of contact objects</returns>
-        public List<ContactInfo> AllContacts()
+        public List<ContactInfo> DisplayAllContacts()
         {
-            List<ContactInfo> contactList = _contactRepo.ReturnContactList();
-            return contactList;
+            return _contactRepo.ReturnContactList();
         }
 
         /// <summary>
         /// Display all sorted contacts
         /// </summary>
         /// <returns>List of contact names</returns>
-        public List<string> SortedContacts()
+        public List<string> SortContacts()
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             List<string> contactNames = new List<string>();
             for (int i = 0; i < contactList.Count; i++)
             {
-                ContactInfo contact = contactList[i];
-                contactNames.Add(contact.Name);
+                contactNames.Add(contactList[i].Name);
             }
             contactNames.Sort();
             return contactNames;
         }
+
         /// <summary>
         /// editContactDetails
         /// </summary>
-        /// <param name="id">contact id</param>
+        /// <param name="myGuid">myGuid id</param>
         /// <param name="contact">contactName</param>
         /// <returns>boolean value</returns>
-        public bool EditContactDetails(string id, ContactInfo contact)
+        public bool EditContactDetails(Guid myGuid, ContactInfo contact)
         {
-            if(!((EmailValidation.ValidateEmail(contact.Email))||(PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber))))
+            if (!EmailValidation.ValidateEmail(contact.Email) || !PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber) || !NameValidation.ValidateName(contact.Name))
             {
                 return false;
             }
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             for (int i = 0; i < contactList.Count; i++)
             {
-                ContactInfo currentContact = contactList[i];
-                string guidContact = currentContact.Id.ToString();
-                if (guidContact == id)
+                if (contactList[i].Id == myGuid)
                 {
-                    Repo contactrepo = new Repo();
-                    contactrepo.UpdateContactList(i, contact);
+                    _contactRepo.UpdateContactList(i, contact);
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -91,38 +89,39 @@ namespace BasicContactManagement.Services
         /// </summary>
         /// <param name="name">name</param>
         /// <returns>contactInfo object</returns>
-        public ContactInfo SearchContactDetails(string name)
+        public List<ContactInfo> SearchContactDetails(string name)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
+            List<ContactInfo> matchedContacts = new List<ContactInfo>();
+
             for (int i = 0; i < contactList.Count; i++)
             {
                 ContactInfo contact = contactList[i];
-                string  currentContactName= contact.Name;
-                if (name == currentContactName)
+                if (string.Equals(contact.Name, name))
                 {
-                    return contact;
+                    matchedContacts.Add(contact); 
                 }
             }
-            return null;
+            return matchedContacts; 
         }
-        
+
         /// <summary>
         /// Delete contact from list
         /// </summary>
-        /// <param name="id">id of the contact</param>
-        public void DeleteContactDetails(string id)
+        /// <param name="myGuid">id of the contact</param>
+        /// <returns>Boolean value</returns>
+        public bool DeleteContactDetails(Guid myGuid)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             for (int i = 0; i < contactList.Count; i++)
             {
-                ContactInfo contact = contactList[i];
-                string sid = contact.Id.ToString();
-                if (sid == id)
+                if (contactList[i].Id == myGuid)
                 {
-                    Repo contactRepo = new Repo();
-                    contactRepo.DeleteContactFromRepo(i);
+                    _contactRepo.DeleteContactFromRepo(i);
+                    return true;
                 }
             }
+            return false;
         }
     }
 }

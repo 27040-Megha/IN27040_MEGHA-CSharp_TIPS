@@ -16,13 +16,9 @@ namespace BasicContactManagemenet.Helper
         /// </summary>
         /// <param name="email">email input</param>
         /// <returns>boolean value</returns>
-        public static bool ValidateEmail(string email)
+        internal static bool ValidateEmail(string email)
         {
-            if(email.Contains("@") && email.Contains("."))
-            {
-                return true;
-            }
-            return false;
+            return email.Contains("@") && email.Contains(".");
         }
     }
 }

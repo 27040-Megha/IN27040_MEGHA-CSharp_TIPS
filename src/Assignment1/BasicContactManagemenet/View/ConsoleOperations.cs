@@ -16,59 +16,64 @@ namespace BasicContactManagement.View
         private ContactManager _manageContact = new ContactManager();
 
         /// <summary>
+        /// The method displays menu option
+        /// </summary>
+        public void DisplayMenuOptions()
+        {
+            Console.WriteLine("Enter ShortCut (Eg. A/a to Add contact):");
+            Console.WriteLine("[A]dd Contact");
+            Console.WriteLine("[V]iew ContactList");
+            Console.WriteLine("[L]ist Sorted Contact Names");
+            Console.WriteLine("[E]dit Contact");
+            Console.WriteLine("[S]earch Contact Details");
+            Console.WriteLine("[D]elete Contact");
+            Console.WriteLine("[C]lose Application");
+        }
+
+        /// <summary>
         /// Displays And handles menu function
         /// </summary>
         public void DisplayAndHandlesMenu()
         {
             Console.WriteLine("Basic Contact Manager Application");
-            char ch;
+            string ch;
             do
             {
-                Console.WriteLine("Enter ShortCut (Eg. A/a to Add contact):");
-                Console.WriteLine("[A]dd Contact");
-                Console.WriteLine("[V]iew ContactList");
-                Console.WriteLine("[L]ist Sorted Contact Names");
-                Console.WriteLine("[E]dit Contact");
-                Console.WriteLine("[S]earch Contact Details");
-                Console.WriteLine("[D]elete Contact");
-                Console.WriteLine("[C]lose Application");
-                ch = char.Parse(Console.ReadLine());
+                DisplayMenuOptions();
+                ch = Console.ReadLine();
                 switch (ch)
                 {
-                    case 'A':
-                    case 'a':
+                    case "A":
                         GetAddContactDetails();
                         break;
-                    case 'V':
-                    case 'v':
+                    case "V":
                         ViewAllContacts();
                         break;
-                    case 'L':
-                    case 'l':
+                    case "L":
                         ViewSortedContactList();
                         break;
-                    case 'E':
-                    case 'e':
+                    case "E":
                         EditContact();
                         break;
-                    case 'S':
-                    case 's':
+                    case "S":
                         SearchContact();
                         break;
-                    case 'D':
-                    case 'd':
+                    case "D":
                         DeleteContact();
                         break;
                     default:
+                        Console.WriteLine("Invalid Menu Option");
                         break;
                 }
             }
-            while (!(ch == 'c' || ch == 'C'));
+            while (!(ch == "C"));
         }
+
         /// <summary>
-        /// Gets input required for adding contact details
+        /// Gets user Contact details, creates object and returns
         /// </summary>
-        public void GetAddContactDetails()
+        /// <returns>ContactInfo object</returns>
+        public ContactInfo GetUserInput()
         {
             Console.WriteLine("Enter Name: ");
             string name = Console.ReadLine();
@@ -79,6 +84,15 @@ namespace BasicContactManagement.View
             Console.WriteLine("Enter Note: ");
             string description = Console.ReadLine();
             ContactInfo contact = new ContactInfo(name, phnNumber, email, description);
+            return contact;
+        }
+
+        /// <summary>
+        /// Gets input required for adding contact details
+        /// </summary>
+        public void GetAddContactDetails()
+        {
+            ContactInfo contact = GetUserInput();
             bool isContactAdded = _manageContact.AddContact(contact);
             if (isContactAdded == true)
             {
@@ -86,7 +100,7 @@ namespace BasicContactManagement.View
             }
             else
             {
-                Console.WriteLine("Can't Create Contact. Check your Email and Phone number");
+                Console.WriteLine("Can't Create Contact. Check the details you entered");
             }
         }
 
@@ -95,7 +109,11 @@ namespace BasicContactManagement.View
         /// </summary>
         public void ViewAllContacts()
         {
-            List<ContactInfo> contactList = _manageContact.AllContacts();
+            List<ContactInfo> contactList = _manageContact.DisplayAllContacts();
+            if(contactList.Count==0)
+            {
+                Console.WriteLine("No contacts saved in ContactList");
+            }
             for (int i = 0; i < contactList.Count; i++)
             {
                 ContactInfo contact = contactList[i];
@@ -108,23 +126,12 @@ namespace BasicContactManagement.View
         /// </summary>
         public void ViewSortedContactList()
         {
-            List<string> contactNamesSorted = _manageContact.SortedContacts();
+            List<string> contactNamesSorted = _manageContact.SortContacts();
             for (int i = 0; i < contactNamesSorted.Count; i++)
             {
                 Console.WriteLine(contactNamesSorted[i]);
             }
-            Console.WriteLine("---------------------------------------------");
-        }
-
-        /// <summary>
-        /// GetID
-        /// </summary>
-        /// <returns>return id entered by user</returns>
-        public string GetID()
-        {
-            Console.WriteLine("Enter ID:");
-            string id = Console.ReadLine();
-            return id;
+            PrintDivider();
         }
 
         /// <summary>
@@ -132,24 +139,16 @@ namespace BasicContactManagement.View
         /// </summary>
         public void EditContact()
         {
-            string id = GetID();
-            Console.WriteLine("Enter new Name:");
-            string name = Console.ReadLine();
-            Console.WriteLine("Enter new PhnNumber:");
-            string phnNumber = Console.ReadLine();
-            Console.WriteLine("Enter new Email:");
-            string email = Console.ReadLine();
-            Console.WriteLine("Enter new Note:");
-            string note = Console.ReadLine();
-            ContactInfo contact = new ContactInfo(name, phnNumber, email, note);
-            bool isEditted = _manageContact.EditContactDetails(id, contact);
-            if (isEditted == true)
+            Guid id = GetID();
+            ContactInfo contact = GetUserInput();
+            bool isEdited = _manageContact.EditContactDetails(id, contact);
+            if (isEdited == true)
             {
-                Console.WriteLine("Contact Editted Successfully");
+                Console.WriteLine("Contact Edited Successfully");
             }
             else
             {
-                Console.WriteLine("Not editted");
+                Console.WriteLine("Not edited (Invalid Email, Name or PhnNumber format or GUID entered)");
             }
         }
 
@@ -160,28 +159,32 @@ namespace BasicContactManagement.View
         {
             Console.WriteLine("Enter name to be searched:");
             string name = Console.ReadLine();
-            ContactInfo contact = _manageContact.SearchContactDetails(name);
-            if (contact != null)
+            List<ContactInfo> matchedContacts = _manageContact.SearchContactDetails(name);
+            if(matchedContacts.Count==0)
             {
-                Display(contact);
+                Console.WriteLine("No contacts found");
             }
             else
             {
-                Console.WriteLine("No contact with the name found");
+                for(int i=0;i<matchedContacts.Count;i++)
+                {
+                    Display(matchedContacts[i]);
+                }
             }
         }
+
         /// <summary>
         /// Displays Contact details
         /// </summary>
         /// <param name="contact">contact info</param>
-        public static void Display(ContactInfo contact)
+        public void Display(ContactInfo contact)
         {
             Console.WriteLine("ID: " + contact.Id);
             Console.WriteLine("Name: " + contact.Name);
             Console.WriteLine("Phone Number: " + contact.PhnNumber);
             Console.WriteLine("Email: " + contact.Email);
             Console.WriteLine("Note: " + contact.Note);
-            Console.WriteLine("---------------------------------------------");
+            PrintDivider();
         }
 
         /// <summary>
@@ -189,9 +192,34 @@ namespace BasicContactManagement.View
         /// </summary>
         public void DeleteContact()
         {
-            string id = GetID();
-            _manageContact.DeleteContactDetails(id);
-            Console.WriteLine("Contact Deleted Successfully");
+            Guid id = GetID();
+            if (_manageContact.DeleteContactDetails(id))
+            {
+                Console.WriteLine("Contact Deleted Successfully");
+            }
+            else
+            {
+                Console.WriteLine("GUID not found");
+            }
+        }
+
+        /// <summary>
+        /// GetID
+        /// </summary>
+        /// <returns>return id entered by user</returns>
+        private Guid GetID()
+        {
+            Console.WriteLine("Enter ID:");
+            Guid myGuid = Guid.Parse(Console.ReadLine());
+            return myGuid;
+        }
+
+        /// <summary>
+        /// Prints Divider Line
+        /// </summary>
+        private void PrintDivider()
+        {
+            Console.WriteLine("---------------------------------------------");
         }
     }
 }

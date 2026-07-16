@@ -13,7 +13,7 @@ namespace BasicContactManagement.Models
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactInfo"/> class.
-        /// </summary>      
+        /// </summary>
         /// <param name="name">name of contact</param>
         /// <param name="phnNumber">phnNumber of contact</param>
         /// <param name="email">email of contact</param>
@@ -34,21 +34,25 @@ namespace BasicContactManagement.Models
         /// ID
         /// </value>
         public Guid Id { get; set; }
+
         /// <summary>
-        /// Name of Contact
+        /// Gets or sets name of Contact
         /// </summary>
         /// <value>The name of the contact.</value>
-        public string? Name { get; set; }
+        public string Name { get; set; }
+
         /// <summary>
         /// Name of PhnNumber
         /// </summary>
         /// <value>The PhnNumber of the contact.</value>
         public string? PhnNumber { get; set; }
+
         /// <summary>
         /// Email of Contact
         /// </summary>
         /// <value>The Email of the contact.</value>
         public string? Email { get; set; }
+
         /// <summary>
         /// Note of Contact
         /// </summary>

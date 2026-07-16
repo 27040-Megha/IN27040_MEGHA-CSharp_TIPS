@@ -12,10 +12,10 @@ namespace BasicContactManagement.Repository
     /// </summary>
     internal class Repo
     {
-        /// <summary>
-        /// Contact List
-        /// </summary>
-        /// <value>The contact List</value>
+        /// <summary> 
+        /// Gets or sets the global repository of saved contact records.
+        /// </summary> 
+        /// <value>A list containing all active ContactInfo instances in the application.</value> 
         public static List<ContactInfo> ContactList { get; set; } = new List<ContactInfo>();
 
         /// <summary>

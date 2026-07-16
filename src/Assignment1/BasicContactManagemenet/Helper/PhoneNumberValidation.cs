@@ -19,7 +19,7 @@ namespace BasicContactManagemenet.Helper
         public static bool ValidatePhnNumber(string phnNumber)
         {
             bool isParsingSuccessful = long.TryParse(phnNumber, out long result);
-            if (isParsingSuccessful==true && phnNumber.Length==10)
+            if (isParsingSuccessful && phnNumber.Length==10)
             {
                 return true;
             }
