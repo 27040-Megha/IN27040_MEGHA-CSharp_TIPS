@@ -28,10 +28,10 @@ namespace BasicContactManagement.Models
         }
 
         /// <summary>
-        /// Randomly Generated Unique ID
+        /// Randomly Generates Unique ID
         /// </summary>
         /// <value>
-        /// ID
+        /// UserID
         /// </value>
         public Guid Id { get; set; }
 
@@ -42,7 +42,7 @@ namespace BasicContactManagement.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Name of PhnNumber
+        /// Gets or sets list of phone numbers
         /// </summary>
         /// <value>The List of phone numbers of the contact.</value>
         public List<string> PhnNumber { get; set; }

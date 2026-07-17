@@ -9,7 +9,7 @@ using BasicContactManagement.Services;
 namespace BasicContactManagement.View
 {
     /// <summary>
-    /// ConsoleOperations
+    /// Provides functionality for all Console Operations
     /// </summary>
     internal class ConsoleOperations
     {
@@ -29,7 +29,7 @@ namespace BasicContactManagement.View
                 switch (ch)
                 {
                     case "A":
-                        GetAddContactDetails();
+                        AddContactDetails();
                         break;
                     case "V":
                         ViewAllContacts();
@@ -55,7 +55,7 @@ namespace BasicContactManagement.View
         }
 
         /// <summary>
-        /// The method displays menu option
+        /// Displays menu option
         /// </summary>
         private void DisplayMenuOptions()
         {
@@ -96,11 +96,11 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Gets input required for adding contact details
         /// </summary>
-        private void GetAddContactDetails()
+        private void AddContactDetails()
         {
             ContactInfo contact = GetUserInput();
             bool isContactAdded = _manageContact.AddContact(contact);
-            if (isContactAdded == true)
+            if (isContactAdded)
             {
                 Console.WriteLine("Contact Added Successfully");
             }
@@ -123,7 +123,7 @@ namespace BasicContactManagement.View
             for (int i = 0; i < contactList.Count; i++)
             {
                 ContactInfo contact = contactList[i];
-                Display(contact);
+                DisplayContact(contact);
             }
         }
 
@@ -145,10 +145,10 @@ namespace BasicContactManagement.View
         /// </summary>
         private void EditContact()
         {
-            Guid id = GetID();
+            Guid userId = GetUserID();
             ContactInfo contact = GetUserInput();
-            bool isEdited = _manageContact.EditContactDetails(id, contact);
-            if (isEdited == true)
+            bool isEdited = _manageContact.EditContactDetails(userId, contact);
+            if (isEdited)
             {
                 Console.WriteLine("Contact Edited Successfully");
             }
@@ -174,7 +174,7 @@ namespace BasicContactManagement.View
             {
                 for(int i=0;i<matchedContacts.Count;i++)
                 {
-                    Display(matchedContacts[i]);
+                    DisplayContact(matchedContacts[i]);
                 }
             }
         }
@@ -182,8 +182,8 @@ namespace BasicContactManagement.View
         /// <summary>
         /// Displays Contact details
         /// </summary>
-        /// <param name="contact">contact info</param>
-        private void Display(ContactInfo contact)
+        /// <param name="contact">contactInfo object</param>
+        private void DisplayContact(ContactInfo contact)
         {
             Console.WriteLine("ID: " + contact.Id);
             Console.WriteLine("Name: " + contact.Name);
@@ -201,26 +201,26 @@ namespace BasicContactManagement.View
         /// </summary>
         private void DeleteContact()
         {
-            Guid id = GetID();
-            if (_manageContact.DeleteContactDetails(id))
+            Guid userId = GetUserID();
+            if (_manageContact.DeleteContactDetails(userId))
             {
                 Console.WriteLine("Contact Deleted Successfully");
             }
             else
             {
-                Console.WriteLine("GUID not found");
+                Console.WriteLine("Contact not found");
             }
         }
 
         /// <summary>
-        /// GetID
+        /// Gets UserId (Guid) from user
         /// </summary>
-        /// <returns>return id entered by user</returns>
-        private Guid GetID()
+        /// <returns>return Guid entered by user</returns>
+        private Guid GetUserID()
         {
             Console.WriteLine("Enter ID:");
-            Guid myGuid = Guid.Parse(Console.ReadLine());
-            return myGuid;
+            Guid userId = Guid.Parse(Console.ReadLine());
+            return userId;
         }
 
         /// <summary>

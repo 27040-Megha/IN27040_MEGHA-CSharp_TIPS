@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace BasicContactManagemenet.Helper
 {
     /// <summary>
-    /// Class for Name Validation
+    /// Provides validation function for contact names.
     /// </summary>
     internal class NameValidation
     {
         /// <summary>
-        /// Function for Name Validation
+        /// Validates whether the specified name contains only alphanumeric characters and is not empty.
         /// </summary>
-        /// <param name="name">Contact Name</param>
-        /// <returns>Boolean Value</returns>
+        /// <param name="name">The contact name string to validate.</param>
+        /// <returns>Returns true if the name is valid otherwise false</returns>
         internal static bool ValidateName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

@@ -11,14 +11,14 @@ using BasicContactManagement.View;
 namespace BasicContactManagement.Services
 {
     /// <summary>
-    /// ContactManager Class
+    /// Provides all functionality to do Business Logic Operation
     /// </summary>
     internal class ContactManager
     {
         private Repo _contactRepo = new Repo();
 
         /// <summary>
-        /// AddContact
+        /// Adds Contact Details
         /// </summary>
         /// <param name="contact">contact object</param>
         /// <returns>Boolean value</returns>
@@ -29,14 +29,14 @@ namespace BasicContactManagement.Services
             bool isValidName = NameValidation.ValidateName(contact.Name);
             if(isValidEmail && isValidPhnNumber && isValidName)
             {
-                _contactRepo.StoreInContactList(contact);
+                _contactRepo.AddToContactList(contact);
                 return true;
             }
             return false;
         }
 
         /// <summary>
-        /// ViewAll Contacts
+        /// View All Contacts
         /// </summary>
         /// <returns>list of contact objects</returns>
         internal List<ContactInfo> DisplayAllContacts()
@@ -47,7 +47,7 @@ namespace BasicContactManagement.Services
         /// <summary>
         /// Display all sorted contacts
         /// </summary>
-        /// <returns>List of contact names</returns>
+        /// <returns>List of sorted contact names</returns>
         internal List<string> SortContacts()
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
@@ -61,12 +61,12 @@ namespace BasicContactManagement.Services
         }
 
         /// <summary>
-        /// editContactDetails
+        /// Edit Contact Details
         /// </summary>
-        /// <param name="myGuid">myGuid id</param>
-        /// <param name="contact">contactName</param>
+        /// <param name="userId">Guid of user</param>
+        /// <param name="contact">Contact Object</param>
         /// <returns>boolean value</returns>
-        internal bool EditContactDetails(Guid myGuid, ContactInfo contact)
+        internal bool EditContactDetails(Guid userId, ContactInfo contact)
         {
             if (!EmailValidation.ValidateEmail(contact.Email) || !PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber) || !NameValidation.ValidateName(contact.Name))
             {
@@ -75,7 +75,7 @@ namespace BasicContactManagement.Services
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             for (int i = 0; i < contactList.Count; i++)
             {
-                if (contactList[i].Id == myGuid)
+                if (contactList[i].Id == userId)
                 {
                     _contactRepo.UpdateContactList(i, contact);
                     return true;
@@ -85,10 +85,10 @@ namespace BasicContactManagement.Services
         }
 
         /// <summary>
-        /// SearchContactDetails
+        /// Search Contact Details
         /// </summary>
-        /// <param name="name">name</param>
-        /// <returns>contactInfo object</returns>
+        /// <param name="name">Contact name to be searched</param>
+        /// <returns>List of contactInfo object that matches the name</returns>
         internal List<ContactInfo> SearchContactDetails(string name)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
@@ -108,14 +108,14 @@ namespace BasicContactManagement.Services
         /// <summary>
         /// Delete contact from list
         /// </summary>
-        /// <param name="myGuid">id of the contact</param>
-        /// <returns>Boolean value</returns>
-        internal bool DeleteContactDetails(Guid myGuid)
+        /// <param name="userId">Guid of the contact</param>
+        /// <returns>true if contact is sucessfully deleted, otherwise false</returns>
+        internal bool DeleteContactDetails(Guid userId)
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             for (int i = 0; i < contactList.Count; i++)
             {
-                if (contactList[i].Id == myGuid)
+                if (contactList[i].Id == userId)
                 {
                     _contactRepo.DeleteContactFromRepo(i);
                     return true;

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace BasicContactManagemenet.Helper
 {
     /// <summary>
-    /// Class for PhoneNumber Validation
+    /// Provides validation function for contact Phone Number.
     /// </summary>
     internal class PhoneNumberValidation
     {
         /// <summary>
-        /// Function for PhoneNumber Validation
+        /// Validates whether the specified Phone Number contains only 10 digits
         /// </summary>
-        /// <param name="phnNumber">Phone Number</param>
-        /// <returns>Boolean Value</returns>
+        /// <param name="phnNumber">List of phone numbers to validate</param>
+        /// <returns>true if all the phone numbers in list  is valid otherwise false</returns>
         internal static bool ValidatePhnNumber(List<string> phnNumber)
         {
             for (int i = 0; i < phnNumber.Count; i++)

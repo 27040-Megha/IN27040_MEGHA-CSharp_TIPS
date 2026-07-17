@@ -13,37 +13,37 @@ namespace BasicContactManagement.Repository
     internal class Repo
     {
         /// <summary> 
-        /// Gets or sets the global repository of saved contact records.
+        /// Global repository of saved contact records.
         /// </summary> 
-        /// <value>A list containing all active ContactInfo instances in the application.</value> 
-        private static List<ContactInfo> ContactList { get; set; } = new List<ContactInfo>();
+        /// <value>A list containing all active ContactInfo instances</value> 
+        private static List<ContactInfo> _contactList = new List<ContactInfo>();
 
         /// <summary>
-        /// Create
+        /// Adds contact object in global repository list
         /// </summary>
-        /// <param name="contact">Adds to List</param>
-        internal void StoreInContactList(ContactInfo contact)
+        /// <param name="contact">Contact Object to be added in list</param>
+        internal void AddToContactList(ContactInfo contact)
         {
-            ContactList.Add(contact);
+            _contactList.Add(contact);
         }
 
         /// <summary>
-        /// Read
+        /// Returns List of Contact Details
         /// </summary>
-        /// <returns>returns Contact List</returns>
+        /// <returns>List of ContactInfo objects</returns>
         internal List<ContactInfo> ReturnContactList()
         {
-            return ContactList;
+            return _contactList;
         }
 
         /// <summary>
         /// UpdateContact List
         /// </summary>
-        /// <param name="index">index</param>
+        /// <param name="index">index of contact object to be updated</param>
         /// <param name="newContact">contact Object</param>
         internal void UpdateContactList(int index, ContactInfo newContact)
         {
-            ContactInfo oldContact = ContactList[index];
+            ContactInfo oldContact = _contactList[index];
             oldContact.Name = newContact.Name;
             oldContact.PhnNumber = newContact.PhnNumber;
             oldContact.Email = newContact.Email;
@@ -53,10 +53,10 @@ namespace BasicContactManagement.Repository
         /// <summary>
         /// Delete from in-memory
         /// </summary>
-        /// <param name="index">index</param>
+        /// <param name="index">index of contact object to be deleted</param>
         internal void DeleteContactFromRepo(int index)
         {
-            ContactList.RemoveAt(index);
+            _contactList.RemoveAt(index);
         }
     }
 }
