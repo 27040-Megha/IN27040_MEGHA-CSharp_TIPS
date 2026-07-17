@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BasicContactManagement.Models;
 using BasicContactManagement.Services;
+using Microsoft.VisualBasic;
 
 namespace BasicContactManagement.View
 {
@@ -120,9 +121,8 @@ namespace BasicContactManagement.View
             {
                 Console.WriteLine("No contacts saved in ContactList");
             }
-            for (int i = 0; i < contactList.Count; i++)
+            foreach (var contact in contactList)
             {
-                ContactInfo contact = contactList[i];
                 DisplayContact(contact);
             }
         }
@@ -133,9 +133,9 @@ namespace BasicContactManagement.View
         private void ViewSortedContactList()
         {
             List<string> contactNamesSorted = _manageContact.SortContacts();
-            for (int i = 0; i < contactNamesSorted.Count; i++)
+            foreach (var contactNames in contactNamesSorted)
             {
-                Console.WriteLine(contactNamesSorted[i]);
+                Console.WriteLine(contactNames);
             }
             PrintDivider();
         }
@@ -172,9 +172,9 @@ namespace BasicContactManagement.View
             }
             else
             {
-                for(int i=0;i<matchedContacts.Count;i++)
+                foreach(ContactInfo contacts in matchedContacts)
                 {
-                    DisplayContact(matchedContacts[i]);
+                    DisplayContact(contacts);
                 }
             }
         }

@@ -52,9 +52,9 @@ namespace BasicContactManagement.Services
         {
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             List<string> contactNames = new List<string>();
-            for (int i = 0; i < contactList.Count; i++)
+            foreach (var contact in contactList)
             {
-                contactNames.Add(contactList[i].Name);
+                contactNames.Add(contact.Name);
             }
             contactNames.Sort();
             return contactNames;
@@ -94,9 +94,8 @@ namespace BasicContactManagement.Services
             List<ContactInfo> contactList = _contactRepo.ReturnContactList();
             List<ContactInfo> matchedContacts = new List<ContactInfo>();
 
-            for (int i = 0; i < contactList.Count; i++)
+            foreach (var contact in contactList)
             {
-                ContactInfo contact = contactList[i];
                 if (string.Equals(contact.Name, name))
                 {
                     matchedContacts.Add(contact); 

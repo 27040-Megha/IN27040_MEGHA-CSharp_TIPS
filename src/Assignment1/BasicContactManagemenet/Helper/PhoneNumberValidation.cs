@@ -14,14 +14,14 @@ namespace BasicContactManagemenet.Helper
         /// <summary>
         /// Validates whether the specified Phone Number contains only 10 digits
         /// </summary>
-        /// <param name="phnNumber">List of phone numbers to validate</param>
+        /// <param name="phnNumbers">List of phone numbers to validate</param>
         /// <returns>true if all the phone numbers in list  is valid otherwise false</returns>
-        internal static bool ValidatePhnNumber(List<string> phnNumber)
+        internal static bool ValidatePhnNumber(List<string> phnNumbers)
         {
-            for (int i = 0; i < phnNumber.Count; i++)
+            foreach (var phnNumber in phnNumbers)
             {
-                bool isParsingSuccessful = long.TryParse(phnNumber[i], out long result);
-                if (!isParsingSuccessful || !(phnNumber[i].Length == 10))
+                bool isParsingSuccessful = long.TryParse(phnNumber, out long result);
+                if (!isParsingSuccessful || !(phnNumber.Length == 10))
                 {
                     return false;
                 }
