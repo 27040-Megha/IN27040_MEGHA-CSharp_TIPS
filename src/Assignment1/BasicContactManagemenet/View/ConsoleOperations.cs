@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using BasicContactManagement.Models;
@@ -22,29 +23,33 @@ namespace BasicContactManagement.View
         internal void DisplayAndHandlesMenu()
         {
             Console.WriteLine("Basic Contact Manager Application");
-            string ch;
+            char ch;
             do
             {
                 DisplayMenuOptions();
-                ch = Console.ReadLine();
+                ch = char.Parse(Console.ReadLine());
+                if(char.IsLower(ch))
+                {
+                    ch = char.ToUpper(ch);
+                }
                 switch (ch)
                 {
-                    case "A":
+                    case 'A':
                         AddContactDetails();
                         break;
-                    case "V":
+                    case 'V':
                         ViewAllContacts();
                         break;
-                    case "L":
+                    case 'L':
                         ViewSortedContactList();
                         break;
-                    case "E":
+                    case 'E':
                         EditContact();
                         break;
-                    case "S":
+                    case 'S':
                         SearchContact();
                         break;
-                    case "D":
+                    case 'D':
                         DeleteContact();
                         break;
                     default:
@@ -52,7 +57,7 @@ namespace BasicContactManagement.View
                         break;
                 }
             }
-            while (!(ch == "C"));
+            while (!(ch == 'C'));
         }
 
         /// <summary>
@@ -79,9 +84,9 @@ namespace BasicContactManagement.View
             Console.WriteLine("Enter Name: ");
             string name = Console.ReadLine();
             Console.WriteLine("How many Phone numbers do you want to store for this contact?");
-            int n = int.Parse(Console.ReadLine());
+            int phnNumberCount = int.Parse(Console.ReadLine());
             List<string> phnNumber = new List<string>();
-            for(int i=0;i<n;i++)
+            for(int i=0;i<phnNumberCount;i++)
             {
                 Console.WriteLine("Enter Phone Number " + (i+1));
                 phnNumber.Add(Console.ReadLine());
@@ -133,6 +138,10 @@ namespace BasicContactManagement.View
         private void ViewSortedContactList()
         {
             List<string> contactNamesSorted = _manageContact.SortContacts();
+            if(contactNamesSorted.Count==0)
+            {
+                Console.WriteLine("No Contacts stored in Contact List");
+            }
             foreach (var contactNames in contactNamesSorted)
             {
                 Console.WriteLine(contactNames);

@@ -21,7 +21,7 @@ namespace BasicContactManagemenet.Helper
             foreach (var phnNumber in phnNumbers)
             {
                 bool isParsingSuccessful = long.TryParse(phnNumber, out long result);
-                if (!isParsingSuccessful || !(phnNumber.Length == 10))
+                if (!isParsingSuccessful || phnNumber.Length != 10 || result < 0)
                 {
                     return false;
                 }

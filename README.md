@@ -1,10 +1,7 @@
 # Basic Contact Management System
  
 A simple **C# Console Application** developed using a layered architecture to perform basic contact management operations. The application allows users to **Add, View, Search, Update, and Delete** contacts through an interactive console-based menu.
- 
-The project is structured to separate responsibilities across different layers. 
----
- 
+
 # Features
  
 - Add a new contact
@@ -85,9 +82,9 @@ The repository is responsible only for storing and retrieving data.
 The **Services** layer contains the application's business logic.
  
 This layer:
--Receives requests from the View
--Communicates with the Repository to access or modify contact data
--Performs the required processing and returns data to View
+- Receives requests from the View
+- Communicates with the Repository to access or modify contact data
+- Performs the required processing and returns data to View
  
 It acts as the bridge between the user interface and the data storage layer.
  

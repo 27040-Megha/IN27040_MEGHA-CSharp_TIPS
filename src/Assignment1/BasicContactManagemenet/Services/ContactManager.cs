@@ -23,11 +23,8 @@ namespace BasicContactManagement.Services
         /// <param name="contact">contact object</param>
         /// <returns>Boolean value</returns>
         internal bool AddContact(ContactInfo contact)
-        {
-            bool isValidEmail = EmailValidation.ValidateEmail(contact.Email);
-            bool isValidPhnNumber = PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber);
-            bool isValidName = NameValidation.ValidateName(contact.Name);
-            if(isValidEmail && isValidPhnNumber && isValidName)
+        {         
+            if(IsValidContact(contact))
             {
                 _contactRepo.AddToContactList(contact);
                 return true;
@@ -68,7 +65,7 @@ namespace BasicContactManagement.Services
         /// <returns>boolean value</returns>
         internal bool EditContactDetails(Guid userId, ContactInfo contact)
         {
-            if (!EmailValidation.ValidateEmail(contact.Email) || !PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber) || !NameValidation.ValidateName(contact.Name))
+            if (!IsValidContact(contact))
             {
                 return false;
             }
@@ -119,6 +116,23 @@ namespace BasicContactManagement.Services
                     _contactRepo.DeleteContactFromRepo(i);
                     return true;
                 }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if all contactinfo is valid
+        /// </summary>
+        /// <param name="contact">ContactInfo object</param>
+        /// <returns>boolean value</returns>
+        private bool IsValidContact(ContactInfo contact)
+        {
+            bool isValidEmail = EmailValidation.ValidateEmail(contact.Email);
+            bool isValidPhnNumber = PhoneNumberValidation.ValidatePhnNumber(contact.PhnNumber);
+            bool isValidName = NameValidation.ValidateName(contact.Name);
+            if(isValidEmail && isValidPhnNumber && isValidName)
+            {
+                return true;
             }
             return false;
         }
