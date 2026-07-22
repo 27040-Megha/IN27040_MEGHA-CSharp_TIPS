@@ -132,7 +132,7 @@ namespace EmployeeHierarchy.View
             {
                 return true;
             }
-            Console.WriteLine("Name should contain only digits");
+            Console.WriteLine("Name should contain only alphabets");
             return false;
         }
     }

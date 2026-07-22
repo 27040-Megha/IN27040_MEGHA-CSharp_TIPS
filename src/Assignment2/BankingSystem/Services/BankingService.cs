@@ -24,7 +24,7 @@ namespace BankingSystem.Services
         /// <param name="accountType">Account Type</param>
         public void CreateBankAccount(string accountNumber, string name, decimal balance, string accountType)
         {
-            if(accountType.Equals("Saving"))
+            if(accountType.Equals("Savings"))
             {
                 SavingsAccount savingAccount = new SavingsAccount(accountNumber, name, balance);
                 _bankRepo.AddAccountInRepo(savingAccount);
