@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Basic Contact Management System
  
 A simple **C# Console Application** developed using a layered architecture to perform basic contact management operations. The application allows users to **Add, View, Search, Update, and Delete** contacts through an interactive console-based menu.
@@ -18,6 +19,188 @@ A simple **C# Console Application** developed using a layered architecture to pe
  
 A simple C# Console Application that demonstrates object-oriented programming concepts by implementing a Banking System. The application supports creating Savings and Checking accounts, depositing money, and withdrawing money.
 >>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
+=======
+# ASSIGNMENT - 2: Object Oriented Programming
+# TASK-1: Shape Hierarchy 
+A simple C# Console Application that demonstrates object-oriented programming concepts using inheritance and polymorphism. The application calculates the area of different shapes and displays their details.
+ 
+---
+ 
+# Project Structure
+ 
+```
+ShapeHierarchy
+│
+├── Models
+│   ├── Shape.cs
+│   ├── Rectangle.cs
+│   └── Circle.cs
+│
+├── Services
+│   └── ShapeService.cs
+│
+├── View
+│   └── ConsoleOperations.cs
+│
+└── Program.cs
+```
+ 
+---
+ 
+# Folder Description
+ 
+## Models
+ 
+Contains the shape classes and area calculation logic.
+ 
+| Class | Description |
+|--------|-------------|
+| **Shape** | Abstract base class containing common shape properties and area calculation method. |
+| **Rectangle** | Inherits from Shape and calculates the area of a rectangle. |
+| **Circle** | Inherits from Shape and calculates the area of a circle. |
+ 
+---
+ 
+## Services
+ 
+Contains the business logic of the application.
+ 
+| Class | Description |
+|--------|-------------|
+| **ShapeService** | Creates shape objects, calculates their area and returns shape details. |
+ 
+---
+ 
+## View
+ 
+Handles user interaction through the console.
+ 
+| Class | Description |
+|--------|-------------|
+| **ConsoleOperations** | Displays the menu, accepts user input, invokes service methods and prints shape details. |
+ 
+---
+ 
+## Program
+ 
+| File | Description |
+|------|-------------|
+| **Program.cs** | Entry point of the application. Starts the Shape Hierarchy menu. |
+ 
+---
+ 
+# MVC Overview
+ 
+### Model
+- Represents shape data.
+- Contains shape properties and area calculation logic.
+- Includes `Shape`, `Rectangle` and `Circle`.
+ 
+### View
+- Interacts with the user.
+- Displays menu and shape details.
+- Collects user input.
+ 
+### Service 
+- Acts as the bridge between View and Models.
+- Creates shape objects, calculates area and returns formatted shape information.
+ 
+---
+---
+ 
+# TASK-2: Employee Hierarchy
+ 
+A simple C# Console Application that demonstrates object-oriented programming concepts using inheritance and polymorphism. The application calculates bonuses for different employee types and displays employee details.
+ 
+---
+ 
+# Project Structure
+ 
+```
+EmployeeHierarchy
+│
+├── Models
+│   ├── Employee.cs
+│   ├── Manager.cs
+│   └── Developer.cs
+│
+├── Services
+│   └── EmployeeService.cs
+│
+├── View
+│   └── EmployeeConsoleOperations.cs
+│
+└── Program.cs
+```
+ 
+---
+ 
+# Folder Description
+ 
+## Models
+ 
+Contains the employee classes and business logic.
+ 
+| Class | Description |
+|--------|-------------|
+| **Employee** | Abstract base class containing common employee properties and bonus calculation method. |
+| **Manager** | Inherits from Employee and calculates a 20% salary bonus. |
+| **Developer** | Inherits from Employee and calculates a 10% salary bonus. |
+ 
+---
+ 
+## Services
+ 
+Contains the business logic of the application.
+ 
+| Class | Description |
+|--------|-------------|
+| **EmployeeService** | Creates employee objects, calculates bonuses and returns employee details. |
+ 
+---
+ 
+## View
+ 
+Handles user interaction through the console.
+ 
+| Class | Description |
+|--------|-------------|
+| **EmployeeConsoleOperations** | Displays the menu, accepts user input, invokes service methods and prints employee details. |
+ 
+---
+ 
+## Program
+ 
+| File | Description |
+|------|-------------|
+| **Program.cs** | Entry point of the application. Starts the Employee Hierarchy menu. |
+ 
+---
+ 
+# MVC Overview
+ 
+### Model
+- Represents employee data.
+- Contains employee properties and bonus calculation logic.
+- Includes `Employee`, `Manager` and `Developer`.
+ 
+### View
+- Interacts with the user.
+- Displays menus and employee details.
+- Collects user input.
+ 
+### Service 
+- Acts as the bridge between View and Models.
+- Creates employee objects, calculates bonuses and returns formatted employee information.
+ 
+---
+***
+ 
+
+# TASK -3: Banking System
+ 
+A simple C# Console Application that demonstrates object-oriented programming concepts. The application supports creating Savings and Checking accounts, depositing money, and withdrawing money.
+>>>>>>> 56089b4 (feat: Documentation added for all tasks)
  
 ---
  

@@ -7,8 +7,17 @@ using ShapeHierarchy.Models;
 
 namespace ShapeHierarchy.Services
 {
+    /// <summary>
+    /// Contains the business logic of the application.
+    /// </summary>
     internal class ShapeService
     {
+        /// <summary>
+        /// Creates circle objects, calculates their area and returns circle details
+        /// </summary>
+        /// <param name="color">color of circle</param>
+        /// <param name="radius">radius of circle</param>
+        /// <returns>Details of circle after calculating area</returns>
         public string CircleShapeService(string color, double radius)
         {
             Circle circleObject = CreateCircle(color, radius);
@@ -16,6 +25,13 @@ namespace ShapeHierarchy.Services
             return PrintCircleDetails(circleObject, areaOfCircle);
         }
 
+        /// <summary>
+        /// Creates rectangle objects, calculates their area and returns rectangle details
+        /// </summary>
+        /// <param name="color">color of rectangle</param>
+        /// <param name="length">length of rectangle</param>
+        /// <param name="width">width of rectangle</param>
+        /// <returns>Details of circle after calculating area</returns>
         public string RectangleShapeService(string color, double length, double width)
         {
             Rectangle rectangleObject = CreateRectangle(color, length, width);
@@ -52,6 +68,5 @@ namespace ShapeHierarchy.Services
         {
             return $"{circle.GetDetails()} \nArea: {area}";
         }
-
     }
 }

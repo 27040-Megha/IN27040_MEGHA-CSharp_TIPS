@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using EmployeeHierarchy.Models;
 using EmployeeHierarchy.Services;
 
 namespace EmployeeHierarchy.View
 {
+    /// <summary>
+    /// Handles user interaction through the console.
+    /// </summary>
     internal class EmployeeConsoleOperations
     {
         private EmployeeService _employeeService = new EmployeeService();
-
+        /// <summary>
+        /// Handles Employee Hierarchy console Operations
+        /// </summary>
         internal void ShowEmployeeHierarchy()
         {
             int choice;
@@ -18,17 +24,16 @@ namespace EmployeeHierarchy.View
                 PrintMenu();
                 choice = GetMenuChoice();
                 ProcessMenuChoice(choice);
-            } while (choice != 3);
+            } 
+            while (choice != 3);
         }
-
         private void PrintMenu()
         {
-            Console.WriteLine("EMPLOYEE HIERARCHY");
-            Console.WriteLine("----------------------------");
-            Console.WriteLine("1. Manager");
-            Console.WriteLine("2. Developer");
-            Console.WriteLine("3. Exit");
-            Console.Write("Enter your choice: ");
+            Console.WriteLine("EMPLOYEE HIERARCHY\n" +
+                "1. Manager\n" +
+                "2. Developer\n" +
+                "3. Exit\n" +
+                "Enter your choice: ");
         }
 
         private int GetMenuChoice()
@@ -63,6 +68,10 @@ namespace EmployeeHierarchy.View
         private void ManagerService()
         {
             var (name, salary) = GetEmployeeInputs();
+            if (name == null || salary == -1)
+            {
+                return;
+            }
             string managerDetails = ProcessManagerService(name, salary);
             PrintEmployeeDetails(managerDetails);
         }
@@ -70,6 +79,10 @@ namespace EmployeeHierarchy.View
         private void ViewDeveloperService()
         {
             var (name, salary) = GetEmployeeInputs();
+            if (name == null || salary == -1)
+            {
+                return;
+            }
             string developerDetails = ProcessDeveloperService(name, salary);
             PrintEmployeeDetails(developerDetails);
         }
@@ -78,6 +91,10 @@ namespace EmployeeHierarchy.View
         {
             Console.WriteLine("Enter Name : ");
             string name = Console.ReadLine();
+            if (!ValidateName(name))
+            {
+                return (null, -1);
+            }
             Console.Write($"Enter salary: ");
             decimal salary = ReturnValidSalary();
             return (name, salary);
@@ -105,8 +122,18 @@ namespace EmployeeHierarchy.View
             {
                 return salary;
             }
-            Console.Write("Invalid salary. Enter a positive numeric value: ");
-            return ReturnValidSalary();
+            Console.WriteLine("Enter a positive salary");
+            return -1;
+        }
+
+        private bool ValidateName(string name)
+        {
+            if (!string.IsNullOrEmpty(name) && name.All(char.IsLetter))
+            {
+                return true;
+            }
+            Console.WriteLine("Name should contain only digits");
+            return false;
         }
     }
 }
