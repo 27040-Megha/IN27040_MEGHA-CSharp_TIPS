@@ -25,7 +25,12 @@ namespace BankingSystem.View
             do
             {
                 DisplayMenu();
-                choice = int.Parse(Console.ReadLine());
+                string inputChoice = Console.ReadLine();
+                bool isValidChoice = int.TryParse(inputChoice, out choice);
+                if(!isValidChoice)
+                {
+                    choice = 0;
+                }
                 switch (choice)
                 {
                     case 1:
@@ -86,9 +91,31 @@ namespace BankingSystem.View
                 Console.WriteLine("Invalid initial deposit amount");
                 return null;
             }
-            Console.WriteLine("Enter Account Type as (Saving/Checking): ");
-            string accountType = Console.ReadLine();
+            Console.WriteLine("Enter Account Type (1-Savings, 2-Checking): ");
+            string accountTypeInput = Console.ReadLine();
+            string accountType = ValidateAndGetAccountType(accountTypeInput);
+            if (accountType == null)
+            {
+                Console.WriteLine("Invalid Account Type. Must be 1 or 2.");
+                return null;
+            }
             return (accountNumber, name, amount, accountType);
+        }
+
+        private string? ValidateAndGetAccountType(string input)
+        {
+            if (input == "1")
+            {
+                return "Savings";
+            }
+            else if (input == "2")
+            {
+                return "Checking";
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private string GetAccountNumber()
