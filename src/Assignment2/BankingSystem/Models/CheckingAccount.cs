@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace BankingSystem.Models
 {
-    public class CheckingAccount : IBankAccount
+    /// <summary>
+    /// Implements a checking account with normal deposit and withdrawal operations.
+    /// </summary>
+    public class CheckingAccount : BankAccount
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CheckingAccount"/> class.
+        /// Constructor that assigns the given parameters
+        /// </summary>
+        /// <param name="accountNumber">Account Number of the User</param>
+        /// <param name="name">User Name</param>
+        /// <param name="balance">Account Balance given by user when creating Object</param>
         public CheckingAccount(string accountNumber, string name, decimal balance)
         {
             AccountNumber = accountNumber;
@@ -15,21 +25,20 @@ namespace BankingSystem.Models
             Balance = balance;
         }
 
-        public string AccountNumber { get; set; }
-
-        public string Name { get; set; }
-
-        public decimal Balance { get; set; }
-
+        /// <summary>
+        /// Sets Account Type to Checking Account
+        /// </summary>
+        /// <value>
+        /// Account Type 
+        /// </value>
         public string AccountType => "Checking Account";
 
-        public decimal Deposit(decimal depositAmount)
-        {
-            Balance+=depositAmount;
-            return Balance;
-        }
-
-        public decimal Withdraw(decimal withdrawAmount)
+        /// <summary>
+        /// Updates and returns the balance amount after Subtracting the deposit amount with balance
+        /// </summary>
+        /// <param name="withdrawAmount">Amount to withdraw</param>
+        /// <returns>-1.0 if insufficient balance, Balance amount after withdrawl</returns>
+        public override decimal Withdraw(decimal withdrawAmount)
         {
             if (Balance >= withdrawAmount)
             {

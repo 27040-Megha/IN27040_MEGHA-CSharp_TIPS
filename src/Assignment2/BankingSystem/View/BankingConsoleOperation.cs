@@ -8,9 +8,16 @@ using BankingSystem.Services;
 
 namespace BankingSystem.View
 {
+    /// <summary>
+    /// Handles user interaction through the console.
+    /// </summary>
     public class BankingConsoleOperation
     {
         private BankingService _bankingService = new BankingService();
+        
+        /// <summary>
+        /// Handles menu
+        /// </summary>
         public void HandleMenu()
         {
             Console.WriteLine("Banking System");
@@ -34,7 +41,8 @@ namespace BankingSystem.View
                         Console.WriteLine("Enter choice (1/2/3): ");
                         break;
                 }
-            } while (choice != 4);
+            } 
+            while (choice != 4);
         }
 
         private void DisplayMenu()
@@ -97,14 +105,14 @@ namespace BankingSystem.View
 
         private bool ValidateInitialAmount(decimal amount)
         {
-            decimal initialDepositAmount = 100;
+            decimal initialDepositAmount = 1000;
             if (amount >= initialDepositAmount)
             {
                 return true;
             }
             else
             {
-                Console.WriteLine("Minimum initial deposit should be Rs.100.");
+                Console.WriteLine("Minimum initial deposit should be Rs.1000.");
                 return false;
             }
         }

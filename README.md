@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Basic Contact Management System
  
 A simple **C# Console Application** developed using a layered architecture to perform basic contact management operations. The application allows users to **Add, View, Search, Update, and Delete** contacts through an interactive console-based menu.
@@ -12,10 +13,16 @@ A simple **C# Console Application** developed using a layered architecture to pe
 - Delete a contact using ID
 - Automatically generates a unique Contact ID using GUID
 - Validating Email and Phone Number before adding to contacts and editing contact
+=======
+# Banking System
+ 
+A simple C# Console Application that demonstrates object-oriented programming concepts by implementing a Banking System. The application supports creating Savings and Checking accounts, depositing money, and withdrawing money.
+>>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
  
 ---
  
 # Project Structure
+<<<<<<< HEAD
 
 (IN27040_MEGHA-CSharp_TIPS -> src -> Assignment1 -> BasicContactManagement)
  
@@ -36,12 +43,35 @@ BasicContactManagement
 │
 ├── Helper
 │   └── EmailValidation.cs, PhoneNumberValidation.cs
+=======
+ 
+```
+BankingSystem
+│
+├── Helper
+│   └── FieldValidation.cs
+│
+├── Models
+│   ├── BankAccount.cs
+│   ├── SavingsAccount.cs
+│   └── CheckingAccount.cs
+│
+├── Repository
+│   └── BankRepository.cs
+│
+├── Services
+│   └── BankingService.cs
+│
+├── View
+│   └── BankingConsoleOperation.cs
+>>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
 │
 └── Program.cs
 ```
  
 ---
  
+<<<<<<< HEAD
 # Folder Responsibilities
  
 ## Models
@@ -57,11 +87,35 @@ Each contact contains:
 - Note
  
 The constructor initializes the contact object whenever a new contact is created.
+=======
+# Folder Description
+ 
+## Helper
+ 
+Contains helper methods used across the application.
+ 
+| Class | Description |
+|--------|-------------|
+| **FieldValidation** | Validates account number, customer name and transaction amounts. |
+ 
+---
+ 
+## Models
+ 
+Contains the account definitions.
+ 
+| Class | Description |
+|--------|-------------|
+| **BankAccount** | Abstract Base Class defines common properties and methods for all bank accounts. |
+| **SavingsAccount** | Implements a savings account with minimum balance validation during withdrawal. |
+| **CheckingAccount** | Implements a checking account with normal deposit and withdrawal operations. |
+>>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
  
 ---
  
 ## Repository
  
+<<<<<<< HEAD
 The **Repository** layer acts as the application's data storage.
  
 It contains:
@@ -74,11 +128,19 @@ It contains:
   - Delete (DeleteContactFromRepo())
  
 The repository is responsible only for storing and retrieving data.
+=======
+Handles storage and retrieval of account data.
+ 
+| Class | Description |
+|--------|-------------|
+| **BankRepository** | Stores bank accounts in a list and performs add, search and update operations. |
+>>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
  
 ---
  
 ## Services
  
+<<<<<<< HEAD
 The **Services** layer contains the application's business logic.
  
 This layer:
@@ -87,11 +149,19 @@ This layer:
 - Performs the required processing and returns data to View
  
 It acts as the bridge between the user interface and the data storage layer.
+=======
+Contains the business logic of the application.
+ 
+| Class | Description |
+|--------|-------------|
+| **BankingService** | Creates accounts and performs deposit and withdrawal by interacting with the repository. |
+>>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
  
 ---
  
 ## View
  
+<<<<<<< HEAD
 The **View** layer is responsible for all user interaction.
  
 Its responsibilities include:
@@ -171,3 +241,43 @@ This project follows a simple layered architecture where each component has a sp
 - **Program** is the entry point of the application.
  
 ---
+=======
+Handles user interaction through the console.
+ 
+| Class | Description |
+|--------|-------------|
+| **BankingConsoleOperation** | Displays menus, accepts user input, validates data and invokes service methods. |
+ 
+---
+ 
+## Program
+ 
+| File | Description |
+|------|-------------|
+| **Program.cs** | Entry point of the application. Starts the banking menu. |
+ 
+---
+ 
+# MVC Overview
+ 
+### Model
+- Represents bank account data.
+- Contains account properties and transaction logic.
+- Includes `IBankAccount`, `SavingsAccount` and `CheckingAccount`.
+ 
+### View
+- Interacts with the user.
+- Displays menus and messages.
+- Collects and validates input.
+ 
+### Service 
+- Acts as the bridge between View and Repository.
+- Executes business logic for account creation, deposit and withdrawal.
+ 
+### Repository
+- Maintains the collection of bank accounts.
+- Performs data storage, retrieval and update operations.
+ 
+---
+ 
+>>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
