@@ -15,12 +15,14 @@ namespace ShapeHierarchy.Models
             Radius = radius;
         }
         public double Radius { get; set; }
-        public double AreaOfCircle { get; set; }
-
         public override double CalculateArea()
         {
-            AreaOfCircle = Math.PI * Math.Pow(Radius, 2);
-            return AreaOfCircle;
+            Area = Math.PI * Math.Pow(Radius, 2);
+            return Area;
+        }
+        public override string GetDetails()
+        {
+            return $"{base.GetDetails()} \nRadius: {Radius:F2}";
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using ShapeHierarchy.Models;
 
 namespace ShapeHierarchy.Models
@@ -17,11 +19,14 @@ namespace ShapeHierarchy.Models
         }
         public double Width { get; set; }
         public double Length { get; set; }
-        public double AreaOfRectangle { get; set; }
         public override double CalculateArea()
         {
-            AreaOfRectangle = Length * Width;
-            return AreaOfRectangle;
+            Area = Length * Width;
+            return Area;
+        }
+        public override string GetDetails()
+        {
+            return $"{base.GetDetails()} \nLength: {Length:F2} \nWidth: {Width:F2}";
         }
     }
 }

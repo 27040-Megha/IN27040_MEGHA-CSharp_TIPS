@@ -1,10 +1,14 @@
-﻿namespace Assignments
+﻿using EmployeeHierarchy.View;
+
+namespace Assignments
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            EmployeeConsoleOperations consoleOperations = new EmployeeConsoleOperations();
+
+            consoleOperations.ShowEmployeeHierarchy();
         }
     }
 }
