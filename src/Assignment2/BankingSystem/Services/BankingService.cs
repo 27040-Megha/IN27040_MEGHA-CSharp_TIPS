@@ -14,7 +14,7 @@ namespace BankingSystem.Services
     public class BankingService
     {
         private BankRepository _bankRepo = new BankRepository();
-        
+
         /// <summary>
         /// Create Bank Account Object and Add in repo
         /// </summary>
@@ -22,9 +22,16 @@ namespace BankingSystem.Services
         /// <param name="name">Name of the user</param>
         /// <param name="balance">Balane </param>
         /// <param name="accountType">Account Type</param>
-        public void CreateBankAccount(string accountNumber, string name, decimal balance, string accountType)
+        /// <returns>true upon successfull account creation otherwise false</returns>
+        public bool CreateBankAccount(string accountNumber, string name, decimal balance, string accountType)
         {
-            if(accountType.Equals("Savings"))
+            BankAccount existingAccount = _bankRepo.GetAccountByNumber(accountNumber);
+            if (existingAccount != null)
+            {
+                return false; 
+            }
+
+            if (accountType.Equals("Savings"))
             {
                 SavingsAccount savingAccount = new SavingsAccount(accountNumber, name, balance);
                 _bankRepo.AddAccountInRepo(savingAccount);
@@ -34,6 +41,8 @@ namespace BankingSystem.Services
                 CheckingAccount checkingAccount = new CheckingAccount(accountNumber, name, balance);
                 _bankRepo.AddAccountInRepo(checkingAccount);
             }
+
+            return true; 
         }
 
         /// <summary>

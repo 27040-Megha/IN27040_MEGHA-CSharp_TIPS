@@ -29,11 +29,7 @@ namespace EmployeeHierarchy.View
         }
         private void PrintMenu()
         {
-            Console.WriteLine("EMPLOYEE HIERARCHY\n" +
-                "1. Manager\n" +
-                "2. Developer\n" +
-                "3. Exit\n" +
-                "Enter your choice: ");
+            Console.WriteLine(EmployeeMessages.MenuOptions);
         }
 
         private int GetMenuChoice()
@@ -50,17 +46,17 @@ namespace EmployeeHierarchy.View
             switch (choice)
             {
                 case 1:
-                    Console.WriteLine("\nMANAGER DETAILS");
+                    Console.WriteLine(EmployeeMessages.ManagerHeader);
                     ManagerService();
                     break;
                 case 2:
-                    Console.WriteLine("\nDEVELOPER DETAILS");
+                    Console.WriteLine(EmployeeMessages.DeveloperHeader);
                     ViewDeveloperService();
                     break;
                 case 3:
                     break;
                 default:
-                    Console.WriteLine("Enter a valid choice (1/2/3)");
+                    Console.WriteLine(EmployeeMessages.InvalidChoice);
                     break;
             }
         }
@@ -89,13 +85,13 @@ namespace EmployeeHierarchy.View
 
         private (string name, decimal salary) GetEmployeeInputs()
         {
-            Console.WriteLine("Enter Name : ");
+            Console.WriteLine(EmployeeMessages.NamePrompt);
             string name = Console.ReadLine();
             if (!ValidateName(name))
             {
                 return (null, -1);
             }
-            Console.Write($"Enter salary: ");
+            Console.Write(EmployeeMessages.SalaryPrompt);
             decimal salary = ReturnValidSalary();
             return (name, salary);
         }
@@ -122,7 +118,7 @@ namespace EmployeeHierarchy.View
             {
                 return salary;
             }
-            Console.WriteLine("Enter a positive salary");
+            Console.WriteLine(EmployeeMessages.InvalidSalary);
             return -1;
         }
 
@@ -132,7 +128,7 @@ namespace EmployeeHierarchy.View
             {
                 return true;
             }
-            Console.WriteLine("Name should contain only alphabets");
+            Console.WriteLine(EmployeeMessages.InvalidName);
             return false;
         }
     }

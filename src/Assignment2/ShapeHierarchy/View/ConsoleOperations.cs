@@ -31,11 +31,7 @@ namespace ShapeHierarchy.View
 
         private void PrintMenu()
         {
-            Console.WriteLine("\nSHAPE HIERARCHY\n" +
-                "1. RECTANGLE\n" +
-                "2. CIRCLE\n" +
-                "3. Exit\n" +
-                "Enter your choice: ");
+            Console.WriteLine(UserMessages.MenuOptions);
         }
 
         private int GetMenuChoice()
@@ -52,29 +48,29 @@ namespace ShapeHierarchy.View
             switch (choice)
             {
                 case 1:
-                    Console.WriteLine("\nRECTANGLE");
+                    Console.WriteLine(UserMessages.RectangleHeader);
                     HandleRectangleService();
                     break;
                 case 2:
-                    Console.WriteLine("\nCIRCLE");
+                    Console.WriteLine(UserMessages.CircleHeader);
                     HandleCircleService();
                     break;
                 case 3:
                     break;
                 default:
-                    Console.WriteLine("Enter valid choice!");
+                    Console.WriteLine(UserMessages.InvalidChoice);
                     break;
             }
         }
         private string GetInputcolor()
         {
-            Console.WriteLine("Enter color:");
+            Console.WriteLine(UserMessages.ColorPrompt);
             string color = Console.ReadLine();
             if (!string.IsNullOrEmpty(color) && color.All(char.IsLetter))
             {
                 return color;
             }
-            Console.WriteLine("Invalid color entered.");
+            Console.WriteLine(UserMessages.InvalidColor);
             return null;
         }
 
@@ -96,13 +92,13 @@ namespace ShapeHierarchy.View
             {
                 return (null, -1, -1);
             }
-            Console.WriteLine("Enter Length:");
+            Console.WriteLine(UserMessages.LengthPrompt);
             double length = ReturnValidInput();
             if (length == -1)
             {
                 return (null, -1, -1);
             }
-            Console.WriteLine("Enter Width:");
+            Console.WriteLine(UserMessages.WidthPrompt);
             double width = ReturnValidInput();
             if (width == -1)
             {
@@ -140,7 +136,7 @@ namespace ShapeHierarchy.View
             {
                 return (null, -1);
             }
-            Console.WriteLine("Enter Radius:");
+            Console.WriteLine(UserMessages.RadiusPrompt);
             double radius = ReturnValidInput();
             if (radius == -1)
             {
@@ -165,7 +161,7 @@ namespace ShapeHierarchy.View
             bool isWidthValid = double.TryParse(Console.ReadLine(), out double resultNumber);
             if (!isWidthValid || resultNumber <= 0)
             {
-                Console.WriteLine("Invalid Input. Returning to main menu.");
+                Console.WriteLine(UserMessages.InvalidNumberInput);
                 return -1;
             }
             return resultNumber;

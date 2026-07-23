@@ -20,7 +20,7 @@ namespace BankingSystem.View
         /// </summary>
         public void HandleMenu()
         {
-            Console.WriteLine("Banking System");
+            Console.WriteLine(BankingMessages.AppTitle);
             int choice;
             do
             {
@@ -43,7 +43,7 @@ namespace BankingSystem.View
                         DepositAmount();
                         break;
                     default:
-                        Console.WriteLine("Enter choice (1/2/3): ");
+                        Console.WriteLine(BankingMessages.InvalidMenuChoice);
                         break;
                 }
             } 
@@ -52,12 +52,7 @@ namespace BankingSystem.View
 
         private void DisplayMenu()
         {
-            Console.WriteLine("\nMENU\n" +
-                "1. Add Account\n" +
-                "2. Withdraw\n" +
-                "3. Deposit\n" +
-                "4. Exit\n" +
-                "Enter Your choice (1/2/3/4):");
+            Console.WriteLine(BankingMessages.MenuOptions);
         }
 
         private void AddBankAccount()
@@ -68,7 +63,15 @@ namespace BankingSystem.View
                 return;
             }
             var (accountNumber, name, balance, accountType) = details.Value;
-            _bankingService.CreateBankAccount(accountNumber, name, balance, accountType);
+            bool isCreated = _bankingService.CreateBankAccount(accountNumber, name, balance, accountType);
+            if (!isCreated)
+            {
+                Console.WriteLine(BankingMessages.AccountAlreadyExistsError);
+            }
+            else
+            {
+                Console.WriteLine(BankingMessages.AccountCreationSuccessful);
+            }
         }
 
         private (string accountNumber, string name, decimal balance, string accountType)? GetAccountDetailsInput()
@@ -78,25 +81,24 @@ namespace BankingSystem.View
             {
                 return null;
             }
-            Console.WriteLine("Enter Account Holder Name: ");
+            Console.WriteLine(BankingMessages.NamePrompt);
             string name = Console.ReadLine();
             if (!FieldValidation.IsValidName(name))
             {
-                Console.WriteLine("Validation Error: Name must contain alphabets only. Returning to menu.");
+                Console.WriteLine(BankingMessages.InvalidNameError);
                 return null;
             }
-            Console.WriteLine("Enter Initial amount deposit: ");
+            Console.WriteLine(BankingMessages.InitialDepositPrompt);
             if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || !FieldValidation.IsValidAmount(amount) || !ValidateInitialAmount(amount))
             {
-                Console.WriteLine("Invalid initial deposit amount");
                 return null;
             }
-            Console.WriteLine("Enter Account Type (1-Savings, 2-Checking): ");
+            Console.WriteLine(BankingMessages.AccountTypePrompt);
             string accountTypeInput = Console.ReadLine();
             string accountType = ValidateAndGetAccountType(accountTypeInput);
             if (accountType == null)
             {
-                Console.WriteLine("Invalid Account Type. Must be 1 or 2.");
+                Console.WriteLine(BankingMessages.InvalidAccountType);
                 return null;
             }
             return (accountNumber, name, amount, accountType);
@@ -120,11 +122,11 @@ namespace BankingSystem.View
 
         private string GetAccountNumber()
         {
-            Console.WriteLine("Enter Account Number (Exactly 12 digits): ");
+            Console.WriteLine(BankingMessages.AccountNumberPrompt);
             string accountNumber = Console.ReadLine();
             if (!FieldValidation.IsValidAccountNumber(accountNumber))
             {
-                Console.WriteLine("Account Number must be exactly 12 numeric digits.");
+                Console.WriteLine(BankingMessages.InvalidAccountNumber);
                 return null;
             }
             return accountNumber;
@@ -139,7 +141,7 @@ namespace BankingSystem.View
             }
             else
             {
-                Console.WriteLine("Minimum initial deposit should be Rs.1000.");
+                Console.WriteLine(BankingMessages.InvalidInitialDeposit);
                 return false;
             }
         }
@@ -151,7 +153,7 @@ namespace BankingSystem.View
             {
                 return;
             }
-            Console.WriteLine("Enter Amount to Withdraw: ");
+            Console.WriteLine(BankingMessages.WithdrawPrompt);
             decimal.TryParse(Console.ReadLine(), out decimal amount);
             if(!ValidateAmount(amount))
             {
@@ -160,15 +162,15 @@ namespace BankingSystem.View
             decimal result = _bankingService.WithdrawService(accountNumber, amount);
             if (result == -2.0m)
             {
-                Console.WriteLine("Account not found.");
+                Console.WriteLine(BankingMessages.AccountNotFoundError);
             }
             else if (result == -1.0m)
             {
-                Console.WriteLine("Transaction Failed. Insufficient balance in Account.");
+                Console.WriteLine(BankingMessages.InsufficientBalanceError);
             }
             else
             {
-                Console.WriteLine($"Withdrawal successful! New balance: Rs.{result}");
+                Console.WriteLine(string.Format(BankingMessages.WithdrawSuccess, result));
             }
         }
 
@@ -176,7 +178,7 @@ namespace BankingSystem.View
         {
             if (!FieldValidation.IsValidAmount(amount))
             {
-                Console.WriteLine("Please enter a valid amount greater than 0.");
+                Console.WriteLine(BankingMessages.InvalidAmountError);
                 return false;
             }
             return true;
@@ -189,7 +191,7 @@ namespace BankingSystem.View
             {
                 return;
             }
-            Console.WriteLine("Enter Amount to Deposit: ");
+            Console.WriteLine(BankingMessages.DepositPrompt);
             decimal.TryParse(Console.ReadLine(), out decimal amount);
             if (!ValidateAmount(amount))
             {
@@ -198,11 +200,11 @@ namespace BankingSystem.View
             decimal result = _bankingService.DepositService(accountNumber, amount);
             if (result == -2.0m)
             {
-                Console.WriteLine("Account not found.");
+                Console.WriteLine(BankingMessages.AccountNotFoundError);
             }
             else
             {
-                Console.WriteLine($"Deposit successful! New balance: Rs.{result}");
+                Console.WriteLine(string.Format(BankingMessages.DepositSuccess, result));
             }
         }
     }
