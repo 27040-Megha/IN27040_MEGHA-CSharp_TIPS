@@ -109,7 +109,7 @@ namespace ShapeHierarchy.View
 
         private string ProcessRectangleService(string color, double length, double width)
         {
-            ShapeService shapeService = new ShapeService();
+            var shapeService = new ShapeService();
             return shapeService.RectangleShapeService(color, length, width);
         }
 
@@ -147,7 +147,7 @@ namespace ShapeHierarchy.View
 
         private string ProcessCircleService(string color, double radius)
         {
-            ShapeService shapeService = new ShapeService();
+            var shapeService = new ShapeService();
             return shapeService.CircleShapeService(color, radius);
         }
 

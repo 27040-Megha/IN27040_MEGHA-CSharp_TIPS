@@ -42,7 +42,7 @@ namespace BankingSystem.Models
         /// <returns>-1.0 if insufficient balance, Balance amount after withdrawl</returns>
         public override decimal Withdraw(decimal withdrawAmount)
         {
-            if ((Balance >= withdrawAmount) && ((Balance - withdrawAmount) >= _minimumBalance))
+            if ((Balance - withdrawAmount) >= _minimumBalance)
             {
                 Balance-=withdrawAmount;
                 return Balance;

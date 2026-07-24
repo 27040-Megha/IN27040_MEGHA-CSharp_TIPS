@@ -33,12 +33,12 @@ namespace BankingSystem.Services
 
             if (accountType.Equals("Savings"))
             {
-                SavingsAccount savingAccount = new SavingsAccount(accountNumber, name, balance);
+                var savingAccount = new SavingsAccount(accountNumber, name, balance);
                 _bankRepo.AddAccountInRepo(savingAccount);
             }
             else
             {
-                CheckingAccount checkingAccount = new CheckingAccount(accountNumber, name, balance);
+                var checkingAccount = new CheckingAccount(accountNumber, name, balance);
                 _bankRepo.AddAccountInRepo(checkingAccount);
             }
 
@@ -59,10 +59,6 @@ namespace BankingSystem.Services
                 return -2.0m;
             }
             decimal result = bankAccount.Withdraw(amount);
-            if (result != -1.0m)
-            {
-                _bankRepo.UpdateAccountInRepo(bankAccount);
-            }
             return result;
         }
 
@@ -80,10 +76,6 @@ namespace BankingSystem.Services
                 return -2.0m;
             }
             decimal result = bankAccount.Deposit(amount);
-            if (result != -1.0m)
-            {
-                _bankRepo.UpdateAccountInRepo(bankAccount);
-            }
             return result;
         }
     }

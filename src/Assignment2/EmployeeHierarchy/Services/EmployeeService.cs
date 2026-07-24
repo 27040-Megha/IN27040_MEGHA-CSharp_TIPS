@@ -18,7 +18,7 @@ namespace EmployeeHierarchy.Services
         {
             Manager manager = CreateManager(name, salary);
             AssignManagerBonus(manager);
-            return PrintManagerDetails(manager);
+            return GetManagerDetails(manager);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace EmployeeHierarchy.Services
         {
             Developer developer = CreateDeveloper(name, salary);
             AssignDeveloperBonus(developer);
-            return PrintDeveloperDetails(developer);
+            return GetDeveloperDetails(developer);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace EmployeeHierarchy.Services
         /// </summary>
         /// <param name="manager">Manager Object</param>
         /// <returns>Details of manager</returns>
-        private string PrintManagerDetails(Manager manager)
+        private string GetManagerDetails(Manager manager)
         {
             return manager.GetDetails();
         }
@@ -89,7 +89,7 @@ namespace EmployeeHierarchy.Services
         /// </summary>
         /// <param name="developer">Developer Object</param>
         /// <returns>Details of developer</returns>
-        private string PrintDeveloperDetails(Developer developer)
+        private string GetDeveloperDetails(Developer developer)
         {
             return developer.GetDetails();
         }

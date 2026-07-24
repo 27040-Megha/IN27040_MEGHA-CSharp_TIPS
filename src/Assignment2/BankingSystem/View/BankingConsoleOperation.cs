@@ -58,7 +58,7 @@ namespace BankingSystem.View
         private void AddBankAccount()
         {
             var details = GetAccountDetailsInput();
-            if (details == null)
+            if (details.Equals(null))
             {
                 return;
             }
@@ -104,7 +104,7 @@ namespace BankingSystem.View
             return (accountNumber, name, amount, accountType);
         }
 
-        private string? ValidateAndGetAccountType(string input)
+        private string ValidateAndGetAccountType(string input)
         {
             if (input == "1")
             {
@@ -139,11 +139,8 @@ namespace BankingSystem.View
             {
                 return true;
             }
-            else
-            {
-                Console.WriteLine(BankingMessages.InvalidInitialDeposit);
-                return false;
-            }
+            Console.WriteLine(BankingMessages.InvalidInitialDeposit);
+            return false;
         }
 
         private void WithdrawFromAccount()

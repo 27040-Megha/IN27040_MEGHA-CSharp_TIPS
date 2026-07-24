@@ -41,28 +41,12 @@ namespace BankingSystem.Repository
         {
             for (int i = 0; i < _bankAccountList.Count; i++)
             {
-                if (_bankAccountList[i].AccountNumber==(accountNumber))
+                if (_bankAccountList[i].AccountNumber.Equals(accountNumber))
                 {
                     return _bankAccountList[i];
                 }
             }
             return null;
-        }
-
-        /// <summary>
-        /// Updates Account in Repo after withdraw and deposit 
-        /// </summary>
-        /// <param name="updatedAccount">Object that needs to be updated</param>
-        public void UpdateAccountInRepo(BankAccount updatedAccount)
-        {
-            for (int i = 0; i < _bankAccountList.Count; i++)
-            {
-                if (_bankAccountList[i].AccountNumber == updatedAccount.AccountNumber)
-                {
-                    _bankAccountList[i] = updatedAccount;
-                    break;
-                }
-            }
         }
     }
 }

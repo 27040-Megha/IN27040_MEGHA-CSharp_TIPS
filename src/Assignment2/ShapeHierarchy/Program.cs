@@ -4,7 +4,7 @@ namespace Assignments
     /// <summary>
     /// Entry point of application
     /// </summary>
-    internal class Program
+    public class Program
     {
         /// <summary>
         /// Entry point - Starts the Shape Hierarchy
