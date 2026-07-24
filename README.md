@@ -627,5 +627,9 @@ Handles user interaction through the console.
 - Performs data storage, retrieval and update operations.
  
 ---
+<<<<<<< HEAD
  
 >>>>>>> 2a1dbe3 (fix: Changed Interface bank Account to abstract class Bank Account for task-3)
+=======
+ 
+>>>>>>> 0f9dd0b (fix: Resolving conflict)
