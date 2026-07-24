@@ -37,7 +37,7 @@ namespace BankingSystem.Models
         /// Updates and returns the balance amount after Subtracting the deposit amount with balance
         /// </summary>
         /// <param name="withdrawAmount">Amount to withdraw</param>
-        /// <returns>-1.0 if insufficient balance, Balance amount after withdrawl</returns>
+        /// <returns>-1.0 if insufficient balance, Balance amount after withdrawal</returns>
         public override decimal Withdraw(decimal withdrawAmount)
         {
             if (Balance >= withdrawAmount)

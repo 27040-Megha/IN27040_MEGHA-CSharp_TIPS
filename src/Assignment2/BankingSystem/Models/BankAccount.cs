@@ -58,7 +58,7 @@ namespace BankingSystem.Models
         /// Abstract method that subclass overrides for Withdraw of Amount
         /// </summary>
         /// <param name="withDrawAmount">Amount to withdraw</param>
-        /// <returns>Balance amount after withdrawl</returns>
+        /// <returns>Balance amount after withdrawal</returns>
         public abstract decimal Withdraw(decimal withDrawAmount);
     }
 }
