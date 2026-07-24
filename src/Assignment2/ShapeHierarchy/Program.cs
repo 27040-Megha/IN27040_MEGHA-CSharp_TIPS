@@ -12,7 +12,7 @@ namespace Assignments
         /// <param name="args">Args</param>
         public static void Main(string[] args)
         {
-            ConsoleOperations consoleOperator = new ConsoleOperations();
+            var consoleOperator = new ConsoleOperations();
             consoleOperator.ShowShapeHierarchy();
         }
     }

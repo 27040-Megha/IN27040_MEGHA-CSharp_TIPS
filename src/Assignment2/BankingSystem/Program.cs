@@ -13,7 +13,7 @@ namespace Assignments
         /// <param name="args">Args</param>
         public static void Main(string[] args)
         {
-            BankingConsoleOperation bankingConsole = new BankingConsoleOperation();
+            var bankingConsole = new BankingConsoleOperation();
             bankingConsole.HandleMenu();
         }
     }

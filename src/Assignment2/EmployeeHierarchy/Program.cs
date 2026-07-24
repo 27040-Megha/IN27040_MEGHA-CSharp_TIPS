@@ -13,7 +13,7 @@ namespace Assignments
         /// <param name="args">Args</param>
         public static void Main(string[] args)
         {
-            EmployeeConsoleOperations consoleOperations = new EmployeeConsoleOperations();
+            var consoleOperations = new EmployeeConsoleOperations();
 
             consoleOperations.ShowEmployeeHierarchy();
         }
