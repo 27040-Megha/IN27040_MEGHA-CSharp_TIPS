@@ -1,4 +1,5 @@
-﻿using InventoryManagement.Repository;
+﻿using System;
+using InventoryManagement.Repository;
 using InventoryManagement.Service;
 using InventoryManagement.View;
 

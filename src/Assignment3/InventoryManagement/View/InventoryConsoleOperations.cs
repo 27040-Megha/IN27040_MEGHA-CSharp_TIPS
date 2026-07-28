@@ -8,15 +8,26 @@ using InventoryManagement.Service;
 
 namespace InventoryManagement.View
 {
+    /// <summary>
+    /// Provides methods for all Console Operations
+    /// </summary>
     public class InventoryConsoleOperations
-    {      
+    {
         private readonly IInventoryService _service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InventoryConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="service">Service object injected in Program.cs while creating object for InventoryConsoleOperations</param>
         public InventoryConsoleOperations(IInventoryService service)
         {
-            _service = service;
+            this._service = service;
         }
 
+        /// <summary>
+        /// Prints the text in Red Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteRedLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -24,6 +35,10 @@ namespace InventoryManagement.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Prints the text in Green Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteGreenLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -31,6 +46,10 @@ namespace InventoryManagement.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Prints the text in Yellow Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteYellowLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -38,37 +57,41 @@ namespace InventoryManagement.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Handles Menu Options
+        /// </summary>
         public void HandleMenu()
         {
             Console.WriteLine(InventoryResource.MenuHeader);
             byte choice;
             do
             {
-                DisplayMenu();
+                this.DisplayMenu();
                 bool isValidChoice = byte.TryParse(Console.ReadLine(), out choice);
-                if(!isValidChoice)
+                if (!isValidChoice)
                 {
                     choice = 0;
                 }
+
                 switch (choice)
                 {
                     case 1:
-                        AddProducts();
+                        this.AddProducts();
                         break;
                     case 2:
-                        EditProducts();
+                        this.EditProducts();
                         break;
                     case 3:
-                        DeleteProducts();
+                        this.DeleteProducts();
                         break;
                     case 4:
-                        SearchProductByName();
+                        this.SearchProductByName();
                         break;
                     case 5:
-                        SearchProductByID();
+                        this.SearchProductByID();
                         break;
                     case 6:
-                        ViewAllProducts();
+                        this.ViewAllProducts();
                         break;
                     default:
                         WriteRedLine(InventoryResource.InvalidChoiceError);
@@ -85,17 +108,19 @@ namespace InventoryManagement.View
 
         private void AddProducts()
         {
-            string productID = GetProductIDInput();
+            string productID = this.GetProductIDInput();
             if (productID == null)
             {
                 return;
             }
-            var details = GetProductDetailsInput();
+
+            var details = this.GetProductDetailsInput();
             if (details == null)
             {
                 return;
             }
-            bool isSuccessfullyAdded = _service.AddProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
+
+            bool isSuccessfullyAdded = this._service.AddProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
             if (isSuccessfullyAdded)
             {
                 WriteGreenLine(InventoryResource.AddSuccess);
@@ -115,6 +140,7 @@ namespace InventoryManagement.View
                 WriteRedLine(InventoryResource.InvalidNameError);
                 return null;
             }
+
             Console.WriteLine(InventoryResource.PromptProductCategory);
             string productCategory = Console.ReadLine();
             if (!FieldValidation.ValidateString(productCategory))
@@ -122,6 +148,7 @@ namespace InventoryManagement.View
                 WriteRedLine(InventoryResource.InvalidCategoryError);
                 return null;
             }
+
             Console.WriteLine(InventoryResource.PromptUnitPrice);
             string inputPrice = Console.ReadLine();
             if (!decimal.TryParse(inputPrice, out decimal unitPrice) || !(unitPrice > 0))
@@ -129,14 +156,16 @@ namespace InventoryManagement.View
                 WriteRedLine(InventoryResource.InvalidPriceError);
                 return null;
             }
+
             Console.WriteLine(InventoryResource.PromptStockQuantity);
             string stockInput = Console.ReadLine();
-            bool isStockValid = int.TryParse(stockInput, out int stockQuantity) && stockQuantity>=0;
+            bool isStockValid = int.TryParse(stockInput, out int stockQuantity) && stockQuantity >= 0;
             if (!isStockValid)
             {
                 WriteRedLine(InventoryResource.InvalidStockError);
                 return null;
             }
+
             return (productName, productCategory, unitPrice, stockQuantity);
         }
 
@@ -156,17 +185,19 @@ namespace InventoryManagement.View
 
         private void EditProducts()
         {
-            string productID = GetProductIDInput();
+            string productID = this.GetProductIDInput();
             if (productID == null)
             {
                 return;
             }
-            var details = GetProductDetailsInput();
+
+            var details = this.GetProductDetailsInput();
             if (details == null)
             {
                 return;
             }
-            bool isSuccessfullyEdited = _service.EditProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
+
+            bool isSuccessfullyEdited = this._service.EditProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
             if (isSuccessfullyEdited)
             {
                 WriteGreenLine(InventoryResource.EditSuccess);
@@ -179,12 +210,13 @@ namespace InventoryManagement.View
 
         private void DeleteProducts()
         {
-            string productID = GetProductIDInput();
+            string productID = this.GetProductIDInput();
             if (productID == null)
             {
                 return;
             }
-            bool isDeleted = _service.DeleteProductDetails(productID);
+
+            bool isDeleted = this._service.DeleteProductDetails(productID);
             if (isDeleted)
             {
                 WriteGreenLine(InventoryResource.DeleteSuccess);
@@ -204,45 +236,50 @@ namespace InventoryManagement.View
                 WriteRedLine(InventoryResource.InvalidNameError);
                 return;
             }
-            List<IProduct> productList = _service.GetProductsByName(productName);
-            if(productList.Count==0)
+
+            List<IProduct> productList = this._service.GetProductsByName(productName);
+            if (productList.Count == 0)
             {
                 WriteRedLine(InventoryResource.SearchNameNotFoundError);
                 return;
             }
-            foreach(var product in productList)
+
+            foreach (var product in productList)
             {
-                DisplayProduct(product);
+                this.DisplayProduct(product);
             }
         }
 
         private void SearchProductByID()
         {
-            string productID = GetProductIDInput();
+            string productID = this.GetProductIDInput();
             if (productID == null)
             {
                 return;
             }
-            IProduct product = _service.FindProductById(productID);
+
+            IProduct product = this._service.FindProductById(productID);
             if (product == null)
             {
                 WriteRedLine(InventoryResource.SearchIDNotFoundError);
                 return;
             }
-            DisplayProduct(product);
+
+            this.DisplayProduct(product);
         }
 
         private void ViewAllProducts()
         {
-            List<IProduct> productsList = _service.GetAllProductDetails();
-            if(productsList.Count==0)
+            List<IProduct> productsList = this._service.GetAllProductDetails();
+            if (productsList.Count == 0)
             {
                 WriteYellowLine(InventoryResource.InventoryEmptyWarning);
                 return;
             }
+
             foreach (var product in productsList)
             {
-                DisplayProduct(product);
+                this.DisplayProduct(product);
             }
         }
 
