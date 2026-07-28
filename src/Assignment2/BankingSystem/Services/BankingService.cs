@@ -25,7 +25,7 @@ namespace BankingSystem.Services
         /// <returns>true upon successfull account creation otherwise false</returns>
         public bool CreateBankAccount(string accountNumber, string name, decimal balance, string accountType)
         {
-            BankAccount existingAccount = _bankRepo.GetAccountByNumber(accountNumber);
+            var existingAccount = _bankRepo.GetAccountByNumber(accountNumber);
             if (existingAccount != null)
             {
                 return false; 
@@ -51,15 +51,15 @@ namespace BankingSystem.Services
         /// <param name="accountNumber">Account Number of the user</param>
         /// <param name="amount">Amount to withdraw</param>
         /// <returns>Balance upon successful withdrawl, -2.0 if account not found</returns>
-        public decimal WithdrawService(string accountNumber, decimal amount)
+        public decimal WithdrawAmount(string accountNumber, decimal amount)
         {
-            BankAccount bankAccount = _bankRepo.GetAccountByNumber(accountNumber);
+            var bankAccount = _bankRepo.GetAccountByNumber(accountNumber);
             if (bankAccount == null)
             {
                 return -2.0m;
             }
-            decimal result = bankAccount.Withdraw(amount);
-            return result;
+            decimal updatedBalance = bankAccount.Withdraw(amount);
+            return updatedBalance;
         }
 
         /// <summary>
@@ -68,15 +68,15 @@ namespace BankingSystem.Services
         /// <param name="accountNumber">Account Number of the user</param>
         /// <param name="amount">Amount to deposit</param>
         /// <returns>Balance upon successful deposit, -2.0 if account not found</returns>
-        public decimal DepositService(string accountNumber, decimal amount)
+        public decimal DepositAmount(string accountNumber, decimal amount)
         {
-            BankAccount bankAccount = _bankRepo.GetAccountByNumber(accountNumber);
+            var bankAccount = _bankRepo.GetAccountByNumber(accountNumber);
             if (bankAccount == null)
             {
                 return -2.0m;
             }
-            decimal result = bankAccount.Deposit(amount);
-            return result;
+            decimal updatedBalance = bankAccount.Deposit(amount);
+            return updatedBalance;
         }
     }
 }

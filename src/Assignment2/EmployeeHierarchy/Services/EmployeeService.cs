@@ -9,38 +9,12 @@ namespace EmployeeHierarchy.Services
     internal class EmployeeService
     {
         /// <summary>
-        /// Creates Manager objects, calculates bonuses and returns employee details.
-        /// </summary>
-        /// <param name="name">manager name</param>
-        /// <param name="salary">manager salary</param>
-        /// <returns>Details of Manager</returns>
-        public string ManagerEmployeeService(string name, decimal salary)
-        {
-            Manager manager = CreateManager(name, salary);
-            AssignManagerBonus(manager);
-            return GetManagerDetails(manager);
-        }
-
-        /// <summary>
-        /// Creates Developer objects, calculates bonuses and returns employee details.
-        /// </summary>
-        /// <param name="name">developer name</param>
-        /// <param name="salary">developer salary</param>
-        /// <returns>Details of Developer</returns>
-        public string DeveloperEmployeeService(string name, decimal salary)
-        {
-            Developer developer = CreateDeveloper(name, salary);
-            AssignDeveloperBonus(developer);
-            return GetDeveloperDetails(developer);
-        }
-
-        /// <summary>
         /// Creates Manager object
         /// </summary>
         /// <param name="name">manager name</param>
         /// <param name="salary">manager salary</param>
         /// <returns>Manager Object</returns>
-        private Manager CreateManager(string name, decimal salary)
+        internal Manager CreateManager(string name, decimal salary)
         {
             return new Manager(name, salary);
         }
@@ -49,7 +23,7 @@ namespace EmployeeHierarchy.Services
         /// Calclulate Manager Bonus and set in the object property
         /// </summary>
         /// <param name="manager">Manager object</param>
-        private void AssignManagerBonus(Manager manager)
+        internal void SetManagerBonus(Manager manager)
         {
             manager.Bonus = manager.CalculateBonus();
         }
@@ -59,7 +33,7 @@ namespace EmployeeHierarchy.Services
         /// </summary>
         /// <param name="manager">Manager Object</param>
         /// <returns>Details of manager</returns>
-        private string GetManagerDetails(Manager manager)
+        internal string GetManagerDetails(Manager manager)
         {
             return manager.GetDetails();
         }
@@ -70,7 +44,7 @@ namespace EmployeeHierarchy.Services
         /// <param name="name">developer name</param>
         /// <param name="salary">develoer salary</param>
         /// <returns>Developer Object</returns>
-        private Developer CreateDeveloper(string name, decimal salary)
+        internal Developer CreateDeveloper(string name, decimal salary)
         {
             return new Developer(name, salary);
         }
@@ -79,7 +53,7 @@ namespace EmployeeHierarchy.Services
         /// Calclulate Developer Bonus and set in the object property
         /// </summary>
         /// <param name="developer">Developer object</param>
-        private void AssignDeveloperBonus(Developer developer)
+        internal void SetDeveloperBonus(Developer developer)
         {
             developer.Bonus = developer.CalculateBonus();
         }
@@ -89,7 +63,7 @@ namespace EmployeeHierarchy.Services
         /// </summary>
         /// <param name="developer">Developer Object</param>
         /// <returns>Details of developer</returns>
-        private string GetDeveloperDetails(Developer developer)
+        internal string GetDeveloperDetails(Developer developer)
         {
             return developer.GetDetails();
         }

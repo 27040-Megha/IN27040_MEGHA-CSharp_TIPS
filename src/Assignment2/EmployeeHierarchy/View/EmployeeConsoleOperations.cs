@@ -47,11 +47,11 @@ namespace EmployeeHierarchy.View
             {
                 case 1:
                     Console.WriteLine(EmployeeMessages.ManagerHeader);
-                    ManagerService();
+                    HandleEmployeeService("Manager");
                     break;
                 case 2:
                     Console.WriteLine(EmployeeMessages.DeveloperHeader);
-                    ViewDeveloperService();
+                    HandleEmployeeService("Developer");
                     break;
                 case 3:
                     break;
@@ -61,26 +61,36 @@ namespace EmployeeHierarchy.View
             }
         }
 
-        private void ManagerService()
+        private void HandleEmployeeService(string employeeType)
         {
             var (name, salary) = GetEmployeeInputs();
             if (name == null || salary == -1)
             {
                 return;
             }
-            string managerDetails = ProcessManagerService(name, salary);
-            PrintEmployeeDetails(managerDetails);
+
+            var employee = CreateEmployee(employeeType, name, salary);
+            if (employee != null)
+            {
+                PrintEmployeeDetails(employee);
+            }
         }
 
-        private void ViewDeveloperService()
+        private Employee CreateEmployee(string employeeType, string name, decimal salary)
         {
-            var (name, salary) = GetEmployeeInputs();
-            if (name == null || salary == -1)
+            if (employeeType == "Manager")
             {
-                return;
+                var manager = _employeeService.CreateManager(name, salary);
+                _employeeService.SetManagerBonus(manager);
+                return manager;
             }
-            string developerDetails = ProcessDeveloperService(name, salary);
-            PrintEmployeeDetails(developerDetails);
+            else if (employeeType == "Developer")
+            {
+                var developer = _employeeService.CreateDeveloper(name, salary);
+                _employeeService.SetDeveloperBonus(developer);
+                return developer;
+            }
+            return null;
         }
 
         private (string name, decimal salary) GetEmployeeInputs()
@@ -96,19 +106,18 @@ namespace EmployeeHierarchy.View
             return (name, salary);
         }
 
-        private string ProcessManagerService(string name, decimal salary)
+        private void PrintEmployeeDetails(Employee employee)
         {
-            return _employeeService.ManagerEmployeeService(name, salary);
-        }
-
-        private string ProcessDeveloperService(string name, decimal salary)
-        {
-            return _employeeService.DeveloperEmployeeService(name, salary);
-        }
-
-        private void PrintEmployeeDetails(string details)
-        {
-            Console.WriteLine(details);
+            string details;
+            if (employee is Manager manager)
+            {
+                details = _employeeService.GetManagerDetails(manager);
+            }
+            else
+            {
+                var developer = (Developer)employee;
+                details = _employeeService.GetDeveloperDetails(developer);
+            }
         }
 
         private decimal ReturnValidSalary()

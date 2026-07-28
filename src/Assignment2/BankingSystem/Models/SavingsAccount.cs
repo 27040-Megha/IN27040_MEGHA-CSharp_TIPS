@@ -47,10 +47,7 @@ namespace BankingSystem.Models
                 Balance-=withdrawAmount;
                 return Balance;
             }
-            else
-            {
-                return -1.0m;
-            }
+            return -1.0m;
         }
     }
 }

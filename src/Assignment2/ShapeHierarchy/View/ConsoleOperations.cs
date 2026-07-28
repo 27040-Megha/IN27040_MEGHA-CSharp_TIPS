@@ -14,6 +14,8 @@ namespace ShapeHierarchy.View
     /// </summary>
     internal class ConsoleOperations
     {
+        private readonly ShapeService _shapeService = new ShapeService();
+
         /// <summary>
         /// Displays the menu, accepts user input, invokes service methods and prints shape details.
         /// </summary>
@@ -81,8 +83,10 @@ namespace ShapeHierarchy.View
             {
                 return;
             }
-            string result = ProcessRectangleService(color, length, width);
-            PrintRectangleResult(result);
+            var rectangleObject = _shapeService.CreateRectangle(color, length, width);
+            double area = _shapeService.GetRectangleArea(rectangleObject);
+            string rectangleDetails = _shapeService.PrintRectangleDetails(rectangleObject, area);
+            Console.WriteLine(rectangleDetails);
         }
 
         private (string color, double length, double width) GetRectangleInput()
@@ -107,17 +111,6 @@ namespace ShapeHierarchy.View
             return (color, length, width);
         }
 
-        private string ProcessRectangleService(string color, double length, double width)
-        {
-            var shapeService = new ShapeService();
-            return shapeService.RectangleShapeService(color, length, width);
-        }
-
-        private void PrintRectangleResult(string result)
-        {
-            Console.WriteLine(result);
-        }
-
         private void HandleCircleService()
         {
             var (color, radius) = GetCircleInputs();
@@ -125,8 +118,10 @@ namespace ShapeHierarchy.View
             {
                 return;
             }
-            string result = ProcessCircleService(color, radius);
-            PrintCircleResult(result);
+            var circleObject = _shapeService.CreateCircle(color, radius);
+            double area = _shapeService.GetCircleArea(circleObject);
+            string circleDetails = _shapeService.PrintCircleDetails(circleObject, area);
+            Console.WriteLine(circleDetails);
         }
 
         private (string color, double radius) GetCircleInputs()
@@ -143,17 +138,6 @@ namespace ShapeHierarchy.View
                 return (null, -1);
             }
             return (color, radius);
-        }
-
-        private string ProcessCircleService(string color, double radius)
-        {
-            var shapeService = new ShapeService();
-            return shapeService.CircleShapeService(color, radius);
-        }
-
-        private void PrintCircleResult(string result)
-        {
-            Console.WriteLine(result);
         }
 
         private double ReturnValidInput()

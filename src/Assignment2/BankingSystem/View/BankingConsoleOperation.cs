@@ -64,13 +64,13 @@ namespace BankingSystem.View
             }
             var (accountNumber, name, balance, accountType) = details.Value;
             bool isCreated = _bankingService.CreateBankAccount(accountNumber, name, balance, accountType);
-            if (!isCreated)
+            if (isCreated)
             {
-                Console.WriteLine(BankingMessages.AccountAlreadyExistsError);
+                Console.WriteLine(BankingMessages.AccountCreationSuccessful);
             }
             else
             {
-                Console.WriteLine(BankingMessages.AccountCreationSuccessful);
+                Console.WriteLine(BankingMessages.AccountAlreadyExistsError);
             }
         }
 
@@ -89,13 +89,13 @@ namespace BankingSystem.View
                 return null;
             }
             Console.WriteLine(BankingMessages.InitialDepositPrompt);
-            if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || !FieldValidation.IsValidAmount(amount) || !ValidateInitialAmount(amount))
+            if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || !FieldValidation.IsValidAmount(amount) || !IsInitialAmountValid(amount))
             {
                 return null;
             }
             Console.WriteLine(BankingMessages.AccountTypePrompt);
             string accountTypeInput = Console.ReadLine();
-            string accountType = ValidateAndGetAccountType(accountTypeInput);
+            string accountType = GetAccountType(accountTypeInput);
             if (accountType == null)
             {
                 Console.WriteLine(BankingMessages.InvalidAccountType);
@@ -104,7 +104,7 @@ namespace BankingSystem.View
             return (accountNumber, name, amount, accountType);
         }
 
-        private string ValidateAndGetAccountType(string input)
+        private string GetAccountType(string input)
         {
             if (input == "1")
             {
@@ -132,7 +132,7 @@ namespace BankingSystem.View
             return accountNumber;
         }
 
-        private bool ValidateInitialAmount(decimal amount)
+        private bool IsInitialAmountValid(decimal amount)
         {
             decimal initialDepositAmount = 1000;
             if (amount >= initialDepositAmount)
@@ -143,7 +143,7 @@ namespace BankingSystem.View
             return false;
         }
 
-        private void WithdrawFromAccount()
+        private void WithdrawAmount()
         {
             string accountNumber = GetAccountNumber();
             if (accountNumber == null)
@@ -152,26 +152,26 @@ namespace BankingSystem.View
             }
             Console.WriteLine(BankingMessages.WithdrawPrompt);
             decimal.TryParse(Console.ReadLine(), out decimal amount);
-            if(!ValidateAmount(amount))
+            if(!IsAmountValid(amount))
             {
                 return;
             }
-            decimal result = _bankingService.WithdrawService(accountNumber, amount);
-            if (result == -2.0m)
+            decimal updatedBalance = _bankingService.WithdrawAmount(accountNumber, amount);
+            if (updatedBalance == -2.0m)
             {
                 Console.WriteLine(BankingMessages.AccountNotFoundError);
             }
-            else if (result == -1.0m)
+            else if (updatedBalance == -1.0m)
             {
                 Console.WriteLine(BankingMessages.InsufficientBalanceError);
             }
             else
             {
-                Console.WriteLine(string.Format(BankingMessages.WithdrawSuccess, result));
+                Console.WriteLine(string.Format(BankingMessages.WithdrawSuccess, updatedBalance));
             }
         }
 
-        private bool ValidateAmount(decimal amount)
+        private bool IsAmountValid(decimal amount)
         {
             if (!FieldValidation.IsValidAmount(amount))
             {
@@ -190,18 +190,18 @@ namespace BankingSystem.View
             }
             Console.WriteLine(BankingMessages.DepositPrompt);
             decimal.TryParse(Console.ReadLine(), out decimal amount);
-            if (!ValidateAmount(amount))
+            if (!IsAmountValid(amount))
             {
                 return;
             }
-            decimal result = _bankingService.DepositService(accountNumber, amount);
-            if (result == -2.0m)
+            decimal updatedBalance = _bankingService.DepositAmount(accountNumber, amount);
+            if (updatedBalance == -2.0m)
             {
                 Console.WriteLine(BankingMessages.AccountNotFoundError);
             }
             else
             {
-                Console.WriteLine(string.Format(BankingMessages.DepositSuccess, result));
+                Console.WriteLine(string.Format(BankingMessages.DepositSuccess, updatedBalance));
             }
         }
     }

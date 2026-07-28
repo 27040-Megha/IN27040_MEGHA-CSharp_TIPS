@@ -61,7 +61,7 @@ namespace BankingSystem {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An account with this account number already exists..
+        ///   Looks up a localized string similar to Account is not created. Check Details and Try Again.
         /// </summary>
         internal static string AccountAlreadyExistsError {
             get {
@@ -75,6 +75,15 @@ namespace BankingSystem {
         internal static string AccountCreationSuccessful {
             get {
                 return ResourceManager.GetString("AccountCreationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account is not Created. Check your details and try again.
+        /// </summary>
+        internal static string AccountNotCreated {
+            get {
+                return ResourceManager.GetString("AccountNotCreated", resourceCulture);
             }
         }
         
