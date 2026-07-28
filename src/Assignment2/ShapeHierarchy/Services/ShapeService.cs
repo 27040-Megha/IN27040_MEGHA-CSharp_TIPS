@@ -12,19 +12,14 @@ namespace ShapeHierarchy.Services
     /// </summary>
     internal class ShapeService
     {
-        internal Rectangle CreateRectangle(string color, double length, double width)
+        internal Rectangle CreateRectangleShape(string color, double length, double width)
         {
             return new Rectangle(color, length, width);
         }
 
-        internal double GetRectangleArea(Rectangle rectangle)
+        internal string PrintRectangleDetails(Rectangle rectangle)
         {
-            return rectangle.CalculateArea();
-        }
-
-        internal string PrintRectangleDetails(Rectangle rectangle, double area)
-        {
-            return $"{rectangle.GetDetails()} \nArea: {area}";
+            return $"{rectangle.GetDetails()}";
         }
 
         internal Circle CreateCircle(string color, double radius)
@@ -32,14 +27,9 @@ namespace ShapeHierarchy.Services
             return new Circle(color, radius);
         }
 
-        internal double GetCircleArea(Circle circle)
+        internal string PrintCircleDetails(Circle circle)
         {
-            return circle.CalculateArea();
-        }
-
-        internal string PrintCircleDetails(Circle circle, double area)
-        {
-            return $"{circle.GetDetails()} \nArea: {area}";
+            return $"{circle.GetDetails()}";
         }
     }
 }

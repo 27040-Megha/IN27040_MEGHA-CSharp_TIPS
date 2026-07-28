@@ -59,7 +59,7 @@ namespace ShapeHierarchy.Models
         /// <returns>A string containing the complete details of the rectangle.</returns>
         public override string GetDetails()
         {
-            return $"{base.GetDetails()} \nLength: {Length:F2} \nWidth: {Width:F2}";
+            return $"{base.GetDetails()} \nLength: {Length:F2} \nWidth: {Width:F2} \nArea:{CalculateArea()}";
         }
     }
 }

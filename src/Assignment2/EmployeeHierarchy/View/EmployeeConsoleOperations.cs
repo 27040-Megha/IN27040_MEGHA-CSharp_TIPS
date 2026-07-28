@@ -47,11 +47,13 @@ namespace EmployeeHierarchy.View
             {
                 case 1:
                     Console.WriteLine(EmployeeMessages.ManagerHeader);
-                    HandleEmployeeService("Manager");
+                    var managerObject = CreateEmployee("Manager");
+                    PrintEmployeeDetails(managerObject);
                     break;
                 case 2:
                     Console.WriteLine(EmployeeMessages.DeveloperHeader);
-                    HandleEmployeeService("Developer");
+                    var developerObject = CreateEmployee("Developer");
+                    PrintEmployeeDetails(developerObject);
                     break;
                 case 3:
                     break;
@@ -61,19 +63,15 @@ namespace EmployeeHierarchy.View
             }
         }
 
-        private void HandleEmployeeService(string employeeType)
+        private Employee CreateEmployee(string employeeType)
         {
             var (name, salary) = GetEmployeeInputs();
             if (name == null || salary == -1)
             {
-                return;
+                return null;
             }
-
             var employee = CreateEmployee(employeeType, name, salary);
-            if (employee != null)
-            {
-                PrintEmployeeDetails(employee);
-            }
+            return employee;
         }
 
         private Employee CreateEmployee(string employeeType, string name, decimal salary)
@@ -118,6 +116,7 @@ namespace EmployeeHierarchy.View
                 var developer = (Developer)employee;
                 details = _employeeService.GetDeveloperDetails(developer);
             }
+            Console.WriteLine(details);
         }
 
         private decimal ReturnValidSalary()

@@ -47,7 +47,7 @@ namespace ShapeHierarchy.Models
         /// <returns>A string containing the formatted details of the circle.</returns>
         public override string GetDetails()
         {
-            return $"{base.GetDetails()} \nRadius: {Radius:F2}";
+            return $"{base.GetDetails()} \nRadius: {Radius:F2} \nArea:{CalculateArea()}";
         }
     }
 }

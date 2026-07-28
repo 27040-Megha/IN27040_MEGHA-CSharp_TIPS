@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using ShapeHierarchy.Models;
 using ShapeHierarchy.Services;
 
 namespace ShapeHierarchy.View
@@ -51,11 +51,13 @@ namespace ShapeHierarchy.View
             {
                 case 1:
                     Console.WriteLine(UserMessages.RectangleHeader);
-                    HandleRectangleService();
+                    var rectangleObject = CreateRectangle();
+                    PrintDetails(_shapeService.PrintRectangleDetails(rectangleObject));
                     break;
                 case 2:
                     Console.WriteLine(UserMessages.CircleHeader);
-                    HandleCircleService();
+                    var circleObject = CreateCircle();
+                    PrintDetails(_shapeService.PrintCircleDetails(circleObject));
                     break;
                 case 3:
                     break;
@@ -76,17 +78,20 @@ namespace ShapeHierarchy.View
             return null;
         }
 
-        private void HandleRectangleService()
+        private Rectangle CreateRectangle()
         {
             var (color, length, width) = GetRectangleInput();
             if (color == null || length == -1 || width == -1)
             {
-                return;
+                return null;
             }
-            var rectangleObject = _shapeService.CreateRectangle(color, length, width);
-            double area = _shapeService.GetRectangleArea(rectangleObject);
-            string rectangleDetails = _shapeService.PrintRectangleDetails(rectangleObject, area);
-            Console.WriteLine(rectangleDetails);
+            var rectangleObject = _shapeService.CreateRectangleShape(color, length, width);
+            return rectangleObject;
+        }
+
+        private void PrintDetails(string shapeDetails)
+        {
+            Console.WriteLine(shapeDetails);
         }
 
         private (string color, double length, double width) GetRectangleInput()
@@ -111,17 +116,15 @@ namespace ShapeHierarchy.View
             return (color, length, width);
         }
 
-        private void HandleCircleService()
+        private Circle CreateCircle()
         {
             var (color, radius) = GetCircleInputs();
             if (color == null || radius == -1)
             {
-                return;
+                return null;
             }
             var circleObject = _shapeService.CreateCircle(color, radius);
-            double area = _shapeService.GetCircleArea(circleObject);
-            string circleDetails = _shapeService.PrintCircleDetails(circleObject, area);
-            Console.WriteLine(circleDetails);
+            return circleObject;
         }
 
         private (string color, double radius) GetCircleInputs()
