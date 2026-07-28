@@ -37,7 +37,7 @@ namespace BankingSystem.View
                         AddBankAccount();
                         break;
                     case 2:
-                        WithdrawFromAccount();
+                        WithdrawAmount();
                         break;
                     case 3:
                         DepositAmount();
