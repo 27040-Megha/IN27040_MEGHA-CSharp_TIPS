@@ -9,15 +9,15 @@ namespace InventoryManagement.Service
 {
     public interface IInventoryService
     {
-        public bool AddProductToRepo(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
+        public bool AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
 
-        public List<IProduct> GetAllProductsFromRepo();
+        public List<IProduct> GetAllProductDetails();
 
-        public bool EditProductInRepo(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
+        public bool EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
 
-        public bool DeleteProductFromRepo(string productID);
+        public bool DeleteProductDetails(string productID);
 
-        public IProduct SearchProductByIdInRepo(string productID);
+        public IProduct FindProductById(string productID);
 
         public List<IProduct> GetProductsByName(string productName);
     }

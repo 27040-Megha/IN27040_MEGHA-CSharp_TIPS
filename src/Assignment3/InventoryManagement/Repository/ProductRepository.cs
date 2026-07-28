@@ -11,7 +11,7 @@ namespace InventoryManagement.Repository
     {
         private readonly List<IProduct> _productsRepo = new List<IProduct>();
 
-        public bool AddProductInInventory(IProduct product)
+        public bool AddProduct(IProduct product)
         {
             if (FindProductById(product.ProductId)==null)
             {
@@ -21,12 +21,12 @@ namespace InventoryManagement.Repository
             return false;
         }
 
-        public List<IProduct> GetAllProductsFromInventory()
+        public List<IProduct> GetAllProducts()
         {
             return _productsRepo;
         }
 
-        public bool EditProductInInventory(IProduct updatedProduct)
+        public bool EditProduct(IProduct updatedProduct)
         {
             var existingProduct = FindProductById(updatedProduct.ProductId);
             if (existingProduct==null)
@@ -41,7 +41,7 @@ namespace InventoryManagement.Repository
             return true;
         }
 
-        public bool DeleteProductFromInventory(string productID)
+        public bool DeleteProduct(string productID)
         {
             var product = FindProductById(productID);
             if (product != null)

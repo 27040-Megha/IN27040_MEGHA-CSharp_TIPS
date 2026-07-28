@@ -95,7 +95,7 @@ namespace InventoryManagement.View
             {
                 return;
             }
-            bool isSuccessfullyAdded = _service.AddProductToRepo(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
+            bool isSuccessfullyAdded = _service.AddProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
             if (isSuccessfullyAdded)
             {
                 WriteGreenLine(InventoryResource.AddSuccess);
@@ -166,7 +166,7 @@ namespace InventoryManagement.View
             {
                 return;
             }
-            bool isSuccessfullyEdited = _service.EditProductInRepo(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
+            bool isSuccessfullyEdited = _service.EditProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
             if (isSuccessfullyEdited)
             {
                 WriteGreenLine(InventoryResource.EditSuccess);
@@ -184,7 +184,7 @@ namespace InventoryManagement.View
             {
                 return;
             }
-            bool isDeleted = _service.DeleteProductFromRepo(productID);
+            bool isDeleted = _service.DeleteProductDetails(productID);
             if (isDeleted)
             {
                 WriteGreenLine(InventoryResource.DeleteSuccess);
@@ -223,7 +223,7 @@ namespace InventoryManagement.View
             {
                 return;
             }
-            IProduct product = _service.SearchProductByIdInRepo(productID);
+            IProduct product = _service.FindProductById(productID);
             if (product == null)
             {
                 WriteRedLine(InventoryResource.SearchIDNotFoundError);
@@ -234,7 +234,7 @@ namespace InventoryManagement.View
 
         private void ViewAllProducts()
         {
-            List<IProduct> productsList = _service.GetAllProductsFromRepo();
+            List<IProduct> productsList = _service.GetAllProductDetails();
             if(productsList.Count==0)
             {
                 WriteYellowLine(InventoryResource.InventoryEmptyWarning);

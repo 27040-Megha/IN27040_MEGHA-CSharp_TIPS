@@ -9,13 +9,13 @@ namespace InventoryManagement.Repository
 {
     public interface IProductRepository
     {
-        public bool AddProductInInventory(IProduct product);
+        public bool AddProduct(IProduct product);
 
-        public List<IProduct> GetAllProductsFromInventory();
+        public List<IProduct> GetAllProducts();
 
-        public bool EditProductInInventory(IProduct updatedProduct);
+        public bool EditProduct(IProduct updatedProduct);
         
-        public bool DeleteProductFromInventory(string productID);
+        public bool DeleteProduct(string productID);
 
         public IProduct FindProductById(string newProductID);
 

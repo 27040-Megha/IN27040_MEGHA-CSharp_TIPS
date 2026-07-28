@@ -17,33 +17,33 @@ namespace InventoryManagement.Service
             _repository = repository;
         }
 
-        public bool AddProductToRepo(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
+        public bool AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
         {
             Product product = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
-            if(_repository.AddProductInInventory(product))
+            if(_repository.AddProduct(product))
             {
                 return true;
             }
             return false;
         }
 
-        public List<IProduct> GetAllProductsFromRepo()
+        public List<IProduct> GetAllProductDetails()
         {
-            return _repository.GetAllProductsFromInventory();
+            return _repository.GetAllProducts();
         }
 
-        public bool EditProductInRepo(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
+        public bool EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
         {
             Product updatedProduct = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
-            return _repository.EditProductInInventory(updatedProduct);
+            return _repository.EditProduct(updatedProduct);
         }
 
-        public bool DeleteProductFromRepo(string productID)
+        public bool DeleteProductDetails(string productID)
         {
-            return _repository.DeleteProductFromInventory(productID);
+            return _repository.DeleteProduct(productID);
         }
 
-        public IProduct SearchProductByIdInRepo(string productID)
+        public IProduct FindProductById(string productID)
         {
             return _repository.FindProductById(productID);
         }
