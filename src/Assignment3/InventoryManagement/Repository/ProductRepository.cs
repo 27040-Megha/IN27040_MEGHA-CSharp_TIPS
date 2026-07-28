@@ -43,13 +43,11 @@ namespace InventoryManagement.Repository
 
         public bool DeleteProductFromInventory(string productID)
         {
-            foreach (var product in _productsRepo)
+            var product = FindProductById(productID);
+            if (product != null)
             {
-                if (FindProductById(product.ProductId)!=null)
-                {
-                    _productsRepo.Remove(product);
-                    return true;
-                }
+                _productsRepo.Remove(product);
+                return true;
             }
             return false;
         }
