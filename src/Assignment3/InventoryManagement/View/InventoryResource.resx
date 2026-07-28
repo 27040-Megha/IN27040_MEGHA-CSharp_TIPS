@@ -164,6 +164,9 @@ Total Price: {5}</value>
   <data name="InvalidStockError" xml:space="preserve">
     <value>Enter valid Stock Quantity</value>
   </data>
+  <data name="InvalidStringFormat" xml:space="preserve">
+    <value>Invalid input! The input should not be null or empty and should contain only letters</value>
+  </data>
   <data name="InventoryEmptyWarning" xml:space="preserve">
     <value>No Products in Inventory</value>
   </data>
@@ -179,6 +182,9 @@ Total Price: {5}</value>
 6. View all Products
 7. Exit
 Enter Your Choice:</value>
+  </data>
+  <data name="NullReferenceMessage" xml:space="preserve">
+    <value>Null Reference has been caught: {0}</value>
   </data>
   <data name="PromptProductCategory" xml:space="preserve">
     <value>Enter Product Category:</value>

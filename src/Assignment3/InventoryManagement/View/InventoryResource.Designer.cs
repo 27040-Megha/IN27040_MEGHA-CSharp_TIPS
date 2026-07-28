@@ -192,6 +192,15 @@ namespace InventoryManagement.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid input! The input should not be null or empty and should contain only letters.
+        /// </summary>
+        internal static string InvalidStringFormat {
+            get {
+                return ResourceManager.GetString("InvalidStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Products in Inventory.
         /// </summary>
         internal static string InventoryEmptyWarning {
@@ -222,6 +231,15 @@ namespace InventoryManagement.View {
         internal static string MenuOptions {
             get {
                 return ResourceManager.GetString("MenuOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Null Reference has been caught: {0}.
+        /// </summary>
+        internal static string NullReferenceMessage {
+            get {
+                return ResourceManager.GetString("NullReferenceMessage", resourceCulture);
             }
         }
         

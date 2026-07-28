@@ -140,7 +140,6 @@ namespace InventoryManagement.View
             return (productName, productCategory, unitPrice, stockQuantity);
         }
 
-
         private string GetProductIDInput()
         {
             Console.WriteLine(InventoryResource.PromptProductID);
