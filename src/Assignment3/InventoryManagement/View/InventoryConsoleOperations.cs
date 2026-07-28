@@ -19,21 +19,21 @@ namespace InventoryManagement.View
 
         public static void WriteRedLine(string text)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(text);
             Console.ResetColor();
         }
 
         public static void WriteGreenLine(string text)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(text);
             Console.ResetColor();
         }
 
         public static void WriteYellowLine(string text)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(text);
             Console.ResetColor();
         }
