@@ -40,8 +40,7 @@ namespace InventoryManagement.View
             }
             catch (NullReferenceException ex)
             {
-                InventoryConsoleOperations.WriteRedLine(string.Format(InventoryResource.NullReferenceMessage, ex.Message));
-                return false;
+                throw;
             }
         }
 
@@ -50,7 +49,7 @@ namespace InventoryManagement.View
         /// </summary>
         /// <param name="inputString">Name or Category of product</param>
         /// <returns>true if string is valid, otherwise false</returns>
-        public static bool ValidateString(string? inputString)
+        public static bool ValidateString(string inputString)
         {
             if (string.IsNullOrEmpty(inputString) || !inputString.All(char.IsLetter))
             {

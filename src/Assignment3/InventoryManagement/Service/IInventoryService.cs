@@ -56,5 +56,11 @@ namespace InventoryManagement.Service
         /// <param name="productName">Product Name</param>
         /// <returns>List of Products matching the given product name</returns>
         public List<IProduct> GetProductsByName(string productName);
+
+        /// <summary>
+        /// Returns total number of products in the Inventory
+        /// </summary>
+        /// <returns>Total Number of Products</returns>
+        public int GetProductsCount();
     }
 }

@@ -174,9 +174,17 @@ namespace InventoryManagement.View
             Console.WriteLine(InventoryResource.PromptProductID);
             string productID = Console.ReadLine();
 
-            if (!FieldValidation.ValidateProductID(productID))
+            try
             {
-                WriteRedLine(InventoryResource.InvalidIDError);
+                if (!FieldValidation.ValidateProductID(productID))
+                {
+                    WriteRedLine(InventoryResource.InvalidIDError);
+                    return null;
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                WriteRedLine(string.Format(InventoryResource.NullReferenceMessage, ex.Message));
                 return null;
             }
 
@@ -185,6 +193,11 @@ namespace InventoryManagement.View
 
         private void EditProducts()
         {
+            if(!this.HasProducts())
+            {
+                return;
+            }
+
             string productID = this.GetProductIDInput();
             if (productID == null)
             {
@@ -208,8 +221,24 @@ namespace InventoryManagement.View
             }
         }
 
+        private bool HasProducts()
+        {
+            if (_service.GetProductsCount() == 0)
+            {
+                WriteYellowLine(InventoryResource.InventoryEmptyWarning);
+                return false;
+            }
+
+            return true;
+        }
+
         private void DeleteProducts()
         {
+            if (!this.HasProducts())
+            {
+                return;
+            }
+
             string productID = this.GetProductIDInput();
             if (productID == null)
             {
@@ -229,6 +258,11 @@ namespace InventoryManagement.View
 
         private void SearchProductByName()
         {
+            if (!this.HasProducts())
+            {
+                return;
+            }
+
             Console.WriteLine(InventoryResource.PromptProductName);
             string productName = Console.ReadLine();
             if (!FieldValidation.ValidateString(productName))
@@ -252,6 +286,11 @@ namespace InventoryManagement.View
 
         private void SearchProductByID()
         {
+            if (!this.HasProducts())
+            {
+                return;
+            }
+
             string productID = this.GetProductIDInput();
             if (productID == null)
             {
@@ -270,13 +309,12 @@ namespace InventoryManagement.View
 
         private void ViewAllProducts()
         {
-            List<IProduct> productsList = this._service.GetAllProductDetails();
-            if (productsList.Count == 0)
+            if (!this.HasProducts())
             {
-                WriteYellowLine(InventoryResource.InventoryEmptyWarning);
                 return;
             }
 
+            List<IProduct> productsList = this._service.GetAllProductDetails();
             foreach (var product in productsList)
             {
                 this.DisplayProduct(product);

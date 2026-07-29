@@ -89,5 +89,14 @@ namespace InventoryManagement.Service
         {
             return this._repository.FindProductsByName(productName);
         }
+
+        /// <summary>
+        /// Returns total number of products in the Inventory
+        /// </summary>
+        /// <returns>Total Number of Products</returns>
+        public int GetProductsCount()
+        {
+            return this.GetAllProductDetails().Count;
+        }
     }
 }
