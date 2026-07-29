@@ -33,12 +33,7 @@ namespace InventoryManagement.Service
         {
             Product product = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
 
-            if (this._repository.AddProduct(product))
-            {
-                return true;
-            }
-
-            return false;
+            return this._repository.AddProduct(product);
         }
 
         /// <summary>
