@@ -7,7 +7,7 @@ namespace InventoryManagement.Service
     /// <summary>
     /// Implements IInventoryService and Provides business logic for all operations
     /// </summary>
-    internal class InventoryServices : IInventoryService
+    public class InventoryServices : IInventoryService
     {
         private readonly IProductRepository _repository;
 

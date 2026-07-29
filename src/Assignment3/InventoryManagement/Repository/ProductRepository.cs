@@ -6,7 +6,7 @@ namespace InventoryManagement.Repository
     /// <summary>
     /// Implements IProductRepository and Provides concrete methods
     /// </summary>
-    internal class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly List<IProduct> _productsRepo = new List<IProduct>();
 
