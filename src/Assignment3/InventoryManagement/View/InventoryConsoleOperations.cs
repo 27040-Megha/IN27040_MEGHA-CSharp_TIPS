@@ -193,7 +193,7 @@ namespace InventoryManagement.View
 
         private void EditProducts()
         {
-            if(!this.HasProducts())
+            if (!this.HasProducts())
             {
                 return;
             }
@@ -223,7 +223,7 @@ namespace InventoryManagement.View
 
         private bool HasProducts()
         {
-            if (_service.GetProductsCount() == 0)
+            if (this._service.GetProductsCount() == 0)
             {
                 WriteYellowLine(InventoryResource.InventoryEmptyWarning);
                 return false;
