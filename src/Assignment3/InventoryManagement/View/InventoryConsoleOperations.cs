@@ -76,22 +76,22 @@ namespace InventoryManagement.View
                 switch (choice)
                 {
                     case 1:
-                        this.AddProducts();
+                        this.CreateProduct();
                         break;
                     case 2:
-                        this.EditProducts();
+                        this.UpdateProduct();
                         break;
                     case 3:
-                        this.DeleteProducts();
+                        this.RemoveProduct();
                         break;
                     case 4:
-                        this.SearchProductByName();
+                        this.SearchByName();
                         break;
                     case 5:
-                        this.SearchProductByID();
+                        this.SearchByID();
                         break;
                     case 6:
-                        this.ViewAllProducts();
+                        this.DisplayInventory();
                         break;
                     default:
                         WriteRedLine(InventoryResource.InvalidChoiceError);
@@ -106,11 +106,17 @@ namespace InventoryManagement.View
             Console.WriteLine(InventoryResource.MenuOptions);
         }
 
-        private void AddProducts()
+        private void CreateProduct()
         {
             string productID = this.GetProductIDInput();
             if (productID == null)
             {
+                return;
+            }
+
+            if(_service.FindProductById(productID) != null)
+            {
+                WriteRedLine(InventoryResource.AddDuplicateError);
                 return;
             }
 
@@ -120,15 +126,8 @@ namespace InventoryManagement.View
                 return;
             }
 
-            bool isSuccessfullyAdded = this._service.AddProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
-            if (isSuccessfullyAdded)
-            {
-                WriteGreenLine(InventoryResource.AddSuccess);
-            }
-            else
-            {
-                WriteRedLine(InventoryResource.AddDuplicateError);
-            }
+            this._service.AddProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
+            WriteGreenLine(InventoryResource.AddSuccess);
         }
 
         private (string Name, string Category, decimal Price, int Stock)? GetProductDetailsInput()
@@ -191,9 +190,9 @@ namespace InventoryManagement.View
             return productID;
         }
 
-        private void EditProducts()
+        private void UpdateProduct()
         {
-            if (!this.HasProducts())
+            if (!this.IsProductsEmpty())
             {
                 return;
             }
@@ -204,24 +203,24 @@ namespace InventoryManagement.View
                 return;
             }
 
+            var existingProduct = _service.FindProductById(productID);
+            if ( existingProduct == null)
+            {
+                WriteRedLine(InventoryResource.EditIDNotFound);
+                return;
+            }
+
             var details = this.GetProductDetailsInput();
             if (details == null)
             {
                 return;
             }
 
-            bool isSuccessfullyEdited = this._service.EditProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock);
-            if (isSuccessfullyEdited)
-            {
-                WriteGreenLine(InventoryResource.EditSuccess);
-            }
-            else
-            {
-                WriteRedLine(InventoryResource.EditNotFoundError);
-            }
+            this._service.EditProductDetails(productID, details.Value.Name, details.Value.Category, details.Value.Price, details.Value.Stock, existingProduct);
+            WriteGreenLine(InventoryResource.EditSuccess);
         }
 
-        private bool HasProducts()
+        private bool IsProductsEmpty()
         {
             if (this._service.GetProductsCount() == 0)
             {
@@ -232,9 +231,9 @@ namespace InventoryManagement.View
             return true;
         }
 
-        private void DeleteProducts()
+        private void RemoveProduct()
         {
-            if (!this.HasProducts())
+            if (!this.IsProductsEmpty())
             {
                 return;
             }
@@ -256,9 +255,9 @@ namespace InventoryManagement.View
             }
         }
 
-        private void SearchProductByName()
+        private void SearchByName()
         {
-            if (!this.HasProducts())
+            if (!this.IsProductsEmpty())
             {
                 return;
             }
@@ -284,9 +283,9 @@ namespace InventoryManagement.View
             }
         }
 
-        private void SearchProductByID()
+        private void SearchByID()
         {
-            if (!this.HasProducts())
+            if (!this.IsProductsEmpty())
             {
                 return;
             }
@@ -307,14 +306,17 @@ namespace InventoryManagement.View
             this.DisplayProduct(product);
         }
 
-        private void ViewAllProducts()
+        private void DisplayInventory()
         {
-            if (!this.HasProducts())
+            if (!this.IsProductsEmpty())
             {
                 return;
             }
 
             List<IProduct> productsList = this._service.GetAllProductDetails();
+
+            Console.WriteLine(new string('-', 95));
+            Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-10} | {4,-10} | {5,-12} |", "ID", "Name", "Category", "Price", "Stock", "Total Price");
             foreach (var product in productsList)
             {
                 this.DisplayProduct(product);
@@ -323,8 +325,15 @@ namespace InventoryManagement.View
 
         private void DisplayProduct(IProduct product)
         {
-            Console.WriteLine(string.Format(InventoryResource.DisplayDetails, product.ProductId, product.ProductName, product.Category, product.Price, product.StockQuantity, product.TotalPrice));
-            Console.WriteLine(InventoryResource.DisplayDivider);
+            Console.WriteLine(new string('-', 95));
+            Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-10:N2} | {4,-10} | {5,-12:N2} |",
+                product.ProductId,
+                product.ProductName,
+                product.Category,
+                product.Price,
+                product.StockQuantity,
+                product.TotalPrice);
+            Console.WriteLine(new string('-', 95));
         }
     }
 }

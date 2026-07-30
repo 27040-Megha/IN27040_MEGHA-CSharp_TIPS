@@ -16,8 +16,7 @@ namespace InventoryManagement.Service
         /// <param name="productCategory">Category of the product</param>
         /// <param name="unitPrice">Unit Price of the product</param>
         /// <param name="stockQuantity">Stock Quantity of the product</param>
-        /// <returns>true if successfully added, else false</returns>
-        public bool AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
+        public void AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
 
         /// <summary>
         /// Returns all Products in Inventory Repo
@@ -33,8 +32,8 @@ namespace InventoryManagement.Service
         /// <param name="productCategory">Category of the product</param>
         /// <param name="unitPrice">Unit Price of the product</param>
         /// <param name="stockQuantity">Stock Quantity of the product</param>
-        /// <returns>true if successfully updated, else false</returns>
-        public bool EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
+        /// <param name="existingProduct">Product Instance that needs to be updated</param>
+        public void EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity, IProduct existingProduct);
 
         /// <summary>
         /// Deletes Product Object from the repo

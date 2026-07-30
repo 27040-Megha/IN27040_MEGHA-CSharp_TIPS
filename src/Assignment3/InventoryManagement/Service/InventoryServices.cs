@@ -28,12 +28,11 @@ namespace InventoryManagement.Service
         /// <param name="productCategory">Category of the product</param>
         /// <param name="unitPrice">Unit Price of the product</param>
         /// <param name="stockQuantity">Stock Quantity of the product</param>
-        /// <returns>true if successfully added, else false</returns>
-        public bool AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
+        public void AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
         {
             Product product = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
 
-            return this._repository.AddProduct(product);
+            this._repository.SaveProduct(product);
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace InventoryManagement.Service
         /// <returns>List of Product Items</returns>
         public List<IProduct> GetAllProductDetails()
         {
-            return this._repository.GetAllProducts();
+            return this._repository.FetchAllProducts();
         }
 
         /// <summary>
@@ -53,11 +52,11 @@ namespace InventoryManagement.Service
         /// <param name="productCategory">Category of the product</param>
         /// <param name="unitPrice">Unit Price of the product</param>
         /// <param name="stockQuantity">Stock Quantity of the product</param>
-        /// <returns>true if successfully updated, else false</returns>
-        public bool EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
+        /// <param name="existingProduct">Product Instance that needs to be updated</param>
+        public void EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity, IProduct existingProduct)
         {
             Product updatedProduct = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
-            return this._repository.EditProduct(updatedProduct);
+            this._repository.UpdateProduct(existingProduct, updatedProduct);
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace InventoryManagement.Service
         /// <returns>true if successfully deleted, else false</returns>
         public bool DeleteProductDetails(string productID)
         {
-            return this._repository.DeleteProduct(productID);
+            return this._repository.RemoveProduct(productID);
         }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace InventoryManagement.Service
         /// <returns>Product Object if found otherwise null</returns>
         public IProduct FindProductById(string productID)
         {
-            return this._repository.FindProductById(productID);
+            return this._repository.FetchProductById(productID);
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace InventoryManagement.Service
         /// <returns>List of Products matching the given product name</returns>
         public List<IProduct> GetProductsByName(string productName)
         {
-            return this._repository.FindProductsByName(productName);
+            return this._repository.FetchProductsByName(productName);
         }
 
         /// <summary>

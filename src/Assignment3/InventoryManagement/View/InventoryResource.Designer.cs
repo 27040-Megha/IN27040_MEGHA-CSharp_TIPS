@@ -120,6 +120,15 @@ namespace InventoryManagement.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product ID not found to update .
+        /// </summary>
+        internal static string EditIDNotFound {
+            get {
+                return ResourceManager.GetString("EditIDNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to update product details..
         /// </summary>
         internal static string EditNotFoundError {

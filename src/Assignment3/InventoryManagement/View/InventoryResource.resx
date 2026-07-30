@@ -140,6 +140,9 @@ Total Price: {5}</value>
   <data name="DisplayDivider" xml:space="preserve">
     <value>------------------------------------------------------------------------</value>
   </data>
+  <data name="EditIDNotFound" xml:space="preserve">
+    <value>Product ID not found to update </value>
+  </data>
   <data name="EditNotFoundError" xml:space="preserve">
     <value>Failed to update product details.</value>
   </data>
