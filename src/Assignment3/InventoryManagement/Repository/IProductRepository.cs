@@ -30,22 +30,7 @@ namespace InventoryManagement.Repository
         /// <summary>
         /// Deletes product from Inventory Repo
         /// </summary>
-        /// <param name="productID">ProductID of the product to be deleted</param>
-        /// <returns>true if product was successfully deleted, else false </returns>
-        public bool RemoveProduct(string productID);
-
-        /// <summary>
-        /// Finds product by ID in Inventory Repo
-        /// </summary>
-        /// <param name="productID">ProductID to be searched</param>
-        /// <returns>Product Object found with the ID, else null</returns>
-        public IProduct FetchProductById(string productID);
-
-        /// <summary>
-        /// Returns List Of Products that is found with the same name matching the given product name
-        /// </summary>
-        /// <param name="productName">Product Name</param>
-        /// <returns>List of Products matching the given product name</returns>
-        public List<IProduct> FetchProductsByName(string productName);
+        /// <param name="product">Product Instance to be deleted from the repo</param>
+        public void RemoveProduct(IProduct product);
     }
 }

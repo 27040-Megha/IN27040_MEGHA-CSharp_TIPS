@@ -66,7 +66,13 @@ namespace InventoryManagement.Service
         /// <returns>true if successfully deleted, else false</returns>
         public bool DeleteProductDetails(string productID)
         {
-            return this._repository.RemoveProduct(productID);
+            var product = this.FindProductById(productID);
+            if (product != null)
+            {
+                this._repository.RemoveProduct(product);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -76,7 +82,15 @@ namespace InventoryManagement.Service
         /// <returns>Product Object if found otherwise null</returns>
         public IProduct FindProductById(string productID)
         {
-            return this._repository.FetchProductById(productID);
+            var productList = this.GetAllProductDetails();
+            for(int i=0;i<productList.Count;i++)
+            {
+                if (productList[i].ProductId.Equals(productID))
+                {
+                    return productList[i];
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -86,7 +100,16 @@ namespace InventoryManagement.Service
         /// <returns>List of Products matching the given product name</returns>
         public List<IProduct> GetProductsByName(string productName)
         {
-            return this._repository.FetchProductsByName(productName);
+            var productList = this.GetAllProductDetails();
+            var matchingProductList = new List<IProduct>();
+            for(int i=0;i<productList.Count;i++)
+            {
+                if (productList[i].ProductName.Equals(productName))
+                {
+                    matchingProductList.Add(productList[i]);
+                }
+            }
+            return matchingProductList;
         }
 
         /// <summary>

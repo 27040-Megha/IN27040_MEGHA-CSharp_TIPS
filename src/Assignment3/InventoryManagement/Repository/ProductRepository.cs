@@ -45,55 +45,10 @@ namespace InventoryManagement.Repository
         /// <summary>
         /// Deletes product from Inventory Repo
         /// </summary>
-        /// <param name="productID">ProductID of the product to be deleted</param>
-        /// <returns>true if product was successfully deleted, else false </returns>
-        public bool RemoveProduct(string productID)
+        /// <param name="product">Product Object to be deleted</param>
+        public void RemoveProduct(IProduct product)
         {
-            var product = this.FetchProductById(productID);
-            if (product != null)
-            {
-                this._productsRepo.Remove(product);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Finds product by ID in Inventory Repo
-        /// </summary>
-        /// <param name="productID">ProductID to be searched</param>
-        /// <returns>Product Object found with the ID, else null</returns>
-        public IProduct FetchProductById(string productID)
-        {
-            foreach (var product in this._productsRepo)
-            {
-                if (product.ProductId.Equals(productID))
-                {
-                    return product;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Returns List Of Products that is found with the same name matching the given product name
-        /// </summary>
-        /// <param name="productName">Product Name</param>
-        /// <returns>List of Products matching the given product name</returns>
-        public List<IProduct> FetchProductsByName(string productName)
-        {
-            var matchingProductList = new List<IProduct>();
-            foreach (var product in this._productsRepo)
-            {
-                if (product.ProductName.Equals(productName))
-                {
-                    matchingProductList.Add(product);
-                }
-            }
-
-            return matchingProductList;
+            this._productsRepo.Remove(product);
         }
     }
 }
