@@ -8,7 +8,15 @@ namespace InventoryManagement.Repository
     /// </summary>
     public class ProductRepository : IProductRepository
     {
-        private readonly List<IProduct> _productsRepo = new List<IProduct>();
+        private readonly List<IProduct> _productsRepo;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductRepository"/> class.
+        /// </summary>
+        public ProductRepository()
+        {
+             _productsRepo = new List<IProduct>();
+        }
 
         /// <summary>
         /// Adds product to Inventory Repo
