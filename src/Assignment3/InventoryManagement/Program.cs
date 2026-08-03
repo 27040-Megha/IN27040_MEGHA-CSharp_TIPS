@@ -18,11 +18,11 @@ namespace InventoryManagement
         {
             try
             {
-                IProductRepository productRepository = new ProductRepository();
+                var productRepository = new ProductRepository();
 
-                IInventoryService inventoryService = new InventoryServices(productRepository);
+                var inventoryService = new InventoryServices(productRepository);
 
-                InventoryConsoleOperations inventoryConsole = new InventoryConsoleOperations(inventoryService);
+                var inventoryConsole = new InventoryConsoleOperations(inventoryService);
                 inventoryConsole.HandleMenu();
             }
             catch (Exception ex)

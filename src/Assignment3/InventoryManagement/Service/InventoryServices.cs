@@ -30,7 +30,7 @@ namespace InventoryManagement.Service
         /// <param name="stockQuantity">Stock Quantity of the product</param>
         public void AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
         {
-            Product product = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
+            var product = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
 
             this._repository.SaveProduct(product);
         }
@@ -55,7 +55,7 @@ namespace InventoryManagement.Service
         /// <param name="existingProduct">Product Instance that needs to be updated</param>
         public void EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity, IProduct existingProduct)
         {
-            Product updatedProduct = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
+            var updatedProduct = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
             this._repository.UpdateProduct(existingProduct, updatedProduct);
         }
 
