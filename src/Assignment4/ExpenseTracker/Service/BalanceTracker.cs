@@ -13,24 +13,33 @@ namespace ExpenseTracker.Service
     {
         public static decimal BalanceAmount { get; private set; }
 
+        public static decimal TotalIncome { get; private set; }
+
+        public static decimal TotalExpense { get; private set; }
+
         public static void HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, IFinancialRecord? oldRecord)
         {
             switch(action)
             {
                 case TransactionAction.Added:
                     BalanceAmount += currentRecord.Amount;
+                    TotalIncome += currentRecord.Amount;
                     break;
 
                 case TransactionAction.Updated:
-                    if(oldRecord is not null)
+                    if (oldRecord is not null)
                     {
                         BalanceAmount -= oldRecord.Amount;
                         BalanceAmount += currentRecord.Amount;
+                        TotalIncome -= oldRecord.Amount;
+                        TotalIncome += currentRecord.Amount;
                     }
+
                     break;
 
                 case TransactionAction.Deleted:
                     BalanceAmount -= currentRecord.Amount;
+                    TotalIncome -= currentRecord.Amount;
                     break;
             }
         }
@@ -41,6 +50,7 @@ namespace ExpenseTracker.Service
             {
                 case TransactionAction.Added:
                     BalanceAmount -= currentRecord.Amount;
+                    TotalExpense += currentRecord.Amount;
                     break;
 
                 case TransactionAction.Updated:
@@ -48,11 +58,14 @@ namespace ExpenseTracker.Service
                     {
                         BalanceAmount += oldRecord.Amount;
                         BalanceAmount -= currentRecord.Amount;
+                        TotalExpense -= oldRecord.Amount;
+                        TotalExpense += currentRecord.Amount;
                     }
                     break;
 
                 case TransactionAction.Deleted:
                     BalanceAmount += currentRecord.Amount;
+                    TotalExpense -= currentRecord.Amount;
                     break;
             }
         }

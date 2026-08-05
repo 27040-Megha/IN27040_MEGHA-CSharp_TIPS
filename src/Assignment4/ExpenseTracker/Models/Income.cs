@@ -9,6 +9,13 @@ namespace ExpenseTracker.Models
 {
     public class Income : IFinancialRecord
     {
+        private Income _oldRecord;
+
+        public Income(Income oldRecord)
+        {
+            this._oldRecord = oldRecord;
+        }
+
         public Income(decimal amount, DateTime date, string description, string source)
         {
             TransactionID = Guid.NewGuid();
@@ -17,6 +24,7 @@ namespace ExpenseTracker.Models
             Description = description;
             Source = source;
         }
+
         public Guid TransactionID { get; init; }
 
         public decimal Amount { get; set; }

@@ -9,94 +9,72 @@ namespace ExpenseTracker.Repository
 {
     public class FinancialRepository : IFinancialRepository
     {
-        private readonly List<Income> _incomeRepo;
+        private readonly List<Income> _incomeRepo = new();
+        private readonly List<Expense> _expenseRepo = new();
 
-        private readonly List<Expense> _expenseRepo;
-
-        public FinancialRepository()
-        {
-            _incomeRepo = new List<Income>();
-            _expenseRepo = new List<Expense>();
-        }
-
-        public static event FinancialRecordHandler RecordHandler;
-
-        public decimal Balance { get; set; }
+        public event FinancialRecordHandler? RecordHandler;
 
         public void AddIncome(Income record)
         {
             _incomeRepo.Add(record);
-            RecordHandler.Invoke(TransactionAction.Added, record, null);
+            RecordHandler?.Invoke(TransactionAction.Added, record, null);
         }
 
         public void AddExpense(Expense record)
         {
             _expenseRepo.Add(record);
-            RecordHandler.Invoke(TransactionAction.Added, record, null);
+            RecordHandler?.Invoke(TransactionAction.Added, record, null);
         }
 
-        public bool Update<T>(T existingRecord, T updatedRecord)
+        public void UpdateIncomeInRepo(Income oldRecord, Income newRecord)
         {
-            throw new Exception();
+            RecordHandler?.Invoke(TransactionAction.Updated, newRecord, oldRecord);
+            Income oldRecordCopy = new Income(oldRecord);
+            oldRecord.Amount = newRecord.Amount;
+            oldRecord.Date = newRecord.Date;
+            oldRecord.Description = newRecord.Description;
+            oldRecord.Source = newRecord.Source;
+        }
+
+        public void UpdateExpenseInRepo(Expense oldRecord, Expense newRecord)
+        {
+            RecordHandler?.Invoke(TransactionAction.Updated, newRecord, oldRecord);
+            oldRecord.Amount = newRecord.Amount;
+            oldRecord.Date = newRecord.Date;
+            oldRecord.Description = newRecord.Description;
+            oldRecord.Category = newRecord.Category;
         }
 
         public void DeleteIncomeInRepo(Income record)
         {
-            if (record==null)
+            if (_incomeRepo.Remove(record))
             {
-                return;
+                RecordHandler?.Invoke(TransactionAction.Deleted, record, null);
             }
-
-            _incomeRepo.Remove(record);
-            RecordHandler?.Invoke(TransactionAction.Deleted, record, null);
         }
 
         public void DeleteExpenseInRepo(Expense record)
         {
-            if (record == null)
+            if (_expenseRepo.Remove(record))
             {
-                return;
+                RecordHandler?.Invoke(TransactionAction.Deleted, record, null);
             }
-
-            _expenseRepo.Remove(record);
-            RecordHandler?.Invoke(TransactionAction.Deleted, record, null);
         }
 
-        public T GetById<T>(Guid id) where T : class
+        public T? GetById<T>(Guid id) where T : class, IFinancialRecord
         {
             if (typeof(T) == typeof(Income))
             {
-                foreach (var transaction in _incomeRepo)
-                {
-                    if (transaction.TransactionID == id)
-                    {
-                        return transaction as T;
-                    }
-                }
+                return _incomeRepo.FirstOrDefault(x => x.TransactionID == id) as T;
             }
-
             if (typeof(T) == typeof(Expense))
             {
-                foreach (var transaction in _expenseRepo)
-                {
-                    if (transaction.TransactionID == id)
-                    {
-                        return transaction as T;
-                    }
-                }
+                return _expenseRepo.FirstOrDefault(x => x.TransactionID == id) as T;
             }
-
-            return default;
+            return null;
         }
 
-        public IEnumerable<Expense> GetAllExpense()
-        {
-            return _expenseRepo;
-        }
-
-        public IEnumerable<Income> GetAllIncome()
-        {
-            return _incomeRepo;
-        }
+        public IEnumerable<Expense> GetAllExpense() => _expenseRepo;
+        public IEnumerable<Income> GetAllIncome() => _incomeRepo;
     }
 }
