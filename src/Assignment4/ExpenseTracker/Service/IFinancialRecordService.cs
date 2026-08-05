@@ -21,14 +21,12 @@ namespace ExpenseTracker.Service
 
         public void DeleteExpenseRecord(Guid id);
 
-        public Expense? GetExpenseById(Guid id);
-
         public Income? GetIncomeById(Guid id);
+
+        public Expense? GetExpenseById(Guid id);
 
         public IEnumerable<Income> GetAllIncome();
 
         public IEnumerable<Expense> GetAllExpense();
-
-        public decimal GetBalance();
     }
 }
