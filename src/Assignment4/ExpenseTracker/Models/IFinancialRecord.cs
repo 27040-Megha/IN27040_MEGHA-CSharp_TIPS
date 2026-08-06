@@ -14,7 +14,7 @@ namespace ExpenseTracker.Models
 
         public decimal Amount { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
 
         public string Description { get; set; }
     }

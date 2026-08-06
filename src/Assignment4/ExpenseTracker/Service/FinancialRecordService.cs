@@ -14,21 +14,21 @@ namespace ExpenseTracker.Service
             _repository = repository;
         }
 
-        public void AddIncome(decimal amount, DateTime date, string description, string source)
+        public void AddIncome(decimal amount, DateOnly date, string description, string source)
         {
             var income = new Income(amount, date, description, source);
             _repository.AddIncome(income);
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, income));
         }
 
-        public void AddExpense(decimal amount, DateTime date, string description, string category)
+        public void AddExpense(decimal amount, DateOnly date, string description, string category)
         {
             var expense = new Expense(amount, date, description, category);
             _repository.AddExpense(expense);
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, expense));
         }
 
-        public bool UpdateIncome(Guid id, decimal amount, DateTime date, string description, string source)
+        public bool UpdateIncome(Guid id, decimal amount, DateOnly date, string description, string source)
         {
             var existing = _repository.GetIncomeById(id);
             if (existing is null)
@@ -43,7 +43,7 @@ namespace ExpenseTracker.Service
             return true;
         }
 
-        public bool UpdateExpense(Guid id, decimal amount, DateTime date, string description, string category)
+        public bool UpdateExpense(Guid id, decimal amount, DateOnly date, string description, string category)
         {
             var existing = _repository.GetExpenseById(id);
             if (existing is null)
@@ -58,34 +58,38 @@ namespace ExpenseTracker.Service
             return true;
         }
 
-        public void DeleteIncomeRecord(Guid id)
+        public bool DeleteIncomeRecord(Guid id)
         {
             var record = _repository.GetIncomeById(id);
-            if (record != null)
+            if (record == null)
             {
-                this._repository.DeleteIncomeInRepo(record);
+                return false;
             }
 
+            this._repository.DeleteIncomeInRepo(record);
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
+            return true;
         }
 
-        public void DeleteExpenseRecord(Guid id)
+        public bool DeleteExpenseRecord(Guid id)
         {
             var record = _repository.GetExpenseById(id);
-            if (record != null)
+            if (record == null)
             {
-                this._repository.DeleteExpenseInRepo(record);
+                return false;
             }
 
+            this._repository.DeleteExpenseInRepo(record);
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
+            return true;
         }
 
         public Income GetIncomeById(Guid id) => _repository.GetIncomeById(id);
 
         public Expense GetExpenseById(Guid id) => _repository.GetExpenseById(id);
 
-        public IEnumerable<Income> GetAllIncome() => _repository.GetAllIncome();
+        public IReadOnlyList<Income> GetAllIncome() => _repository.GetAllIncome();
 
-        public IEnumerable<Expense> GetAllExpense() => _repository.GetAllExpense();
+        public IReadOnlyList<Expense> GetAllExpense() => _repository.GetAllExpense();
     }
 }
