@@ -16,73 +16,73 @@ namespace ExpenseTracker.Service
 
         public void AddIncome(decimal amount, DateTime date, string description, string source)
         {
-            _repository.RecordHandler += BalanceTracker.HandleIncomeTransaction;
-            _repository.AddIncome(new Income(amount, date, description, source));
-            _repository.RecordHandler -= BalanceTracker.HandleIncomeTransaction;
+            var income = new Income(amount, date, description, source);
+            _repository.AddIncome(income);
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, income));
         }
 
         public void AddExpense(decimal amount, DateTime date, string description, string category)
         {
-            _repository.RecordHandler += BalanceTracker.HandleExpenseTransaction;
-            _repository.AddExpense(new Expense(amount, date, description, category));
-            _repository.RecordHandler -= BalanceTracker.HandleExpenseTransaction;
+            var expense = new Expense(amount, date, description, category);
+            _repository.AddExpense(expense);
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, expense));
         }
 
         public bool UpdateIncome(Guid id, decimal amount, DateTime date, string description, string source)
         {
-            var existing = _repository.GetById<Income>(id);
+            var existing = _repository.GetIncomeById(id);
             if (existing is null)
             {
                 return false;
             }
 
+            decimal existingAmount = existing.Amount;
             var updatedIncome = new Income(amount, date, description, source);
-            _repository.RecordHandler += BalanceTracker.HandleIncomeTransaction;
             _repository.UpdateIncomeInRepo(existing, updatedIncome);
-            _repository.RecordHandler -= BalanceTracker.HandleIncomeTransaction;
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Updated, existing, existingAmount));
             return true;
         }
 
         public bool UpdateExpense(Guid id, decimal amount, DateTime date, string description, string category)
         {
-            var existing = _repository.GetById<Expense>(id);
+            var existing = _repository.GetExpenseById(id);
             if (existing is null)
             {
                 return false;
             }
 
+            decimal existingAmount = existing.Amount;
             var updatedExpense = new Expense(amount, date, description, category);
-            _repository.RecordHandler += BalanceTracker.HandleExpenseTransaction;
             _repository.UpdateExpenseInRepo(existing, updatedExpense);
-            _repository.RecordHandler -= BalanceTracker.HandleExpenseTransaction;
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Updated, existing, existingAmount));
             return true;
         }
 
         public void DeleteIncomeRecord(Guid id)
         {
-            var record = _repository.GetById<Income>(id);
-            _repository.RecordHandler += BalanceTracker.HandleIncomeTransaction;
+            var record = _repository.GetIncomeById(id);
             if (record != null)
             {
-                _repository.DeleteIncomeInRepo(record);
+                this._repository.DeleteIncomeInRepo(record);
             }
-            _repository.RecordHandler -= BalanceTracker.HandleIncomeTransaction;
+
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
         }
 
         public void DeleteExpenseRecord(Guid id)
         {
-            var record = _repository.GetById<Expense>(id);
-            _repository.RecordHandler += BalanceTracker.HandleExpenseTransaction;
+            var record = _repository.GetExpenseById(id);
             if (record != null)
             {
-                _repository.DeleteExpenseInRepo(record);
+                this._repository.DeleteExpenseInRepo(record);
             }
-            _repository.RecordHandler -= BalanceTracker.HandleExpenseTransaction;
+
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
         }
 
-        public Income? GetIncomeById(Guid id) => _repository.GetById<Income>(id);
+        public Income GetIncomeById(Guid id) => _repository.GetIncomeById(id);
 
-        public Expense? GetExpenseById(Guid id) => _repository.GetById<Expense>(id);
+        public Expense GetExpenseById(Guid id) => _repository.GetExpenseById(id);
 
         public IEnumerable<Income> GetAllIncome() => _repository.GetAllIncome();
 
