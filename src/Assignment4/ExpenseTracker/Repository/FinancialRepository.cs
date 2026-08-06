@@ -64,8 +64,8 @@ namespace ExpenseTracker.Repository
             return this._expenseRepo.FirstOrDefault(x => x.TransactionID == id);
         }
 
-        public IEnumerable<Expense> GetAllExpense() => this._expenseRepo;
+        public IReadOnlyList<Expense> GetAllExpense() => this._expenseRepo;
 
-        public IEnumerable<Income> GetAllIncome() => this._incomeRepo;
+        public IReadOnlyList<Income> GetAllIncome() => this._incomeRepo;
     }
 }

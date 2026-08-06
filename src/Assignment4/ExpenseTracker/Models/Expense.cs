@@ -9,7 +9,7 @@ namespace ExpenseTracker.Models
 {
     public class Expense : IFinancialRecord
     {
-        public Expense(decimal amount, DateTime date, string description, string category)
+        public Expense(decimal amount, DateOnly date, string description, string category)
         {
             TransactionID = Guid.NewGuid();
             Amount = amount;
@@ -22,7 +22,7 @@ namespace ExpenseTracker.Models
 
         public decimal Amount { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
 
         public string Description { get; set; }
 
