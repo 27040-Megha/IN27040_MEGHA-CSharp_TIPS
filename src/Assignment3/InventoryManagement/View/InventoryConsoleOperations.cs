@@ -9,6 +9,52 @@ using InventoryManagement.Service;
 namespace InventoryManagement.View
 {
     /// <summary>
+    /// Enum for Menu Options
+    /// </summary>
+    public enum MenuOption : byte
+    {
+        /// <summary>
+        /// Invalid Choice
+        /// </summary>
+        Invalid = 0,
+
+        /// <summary>
+        /// Add Product in Inventory
+        /// </summary>
+        CreateProduct,
+
+        /// <summary>
+        /// Update Product in Inventory
+        /// </summary>
+        UpdateProduct,
+
+        /// <summary>
+        /// Remove Product
+        /// </summary>
+        RemoveProduct,
+
+        /// <summary>
+        /// Search Product By Name
+        /// </summary>
+        SearchByName,
+
+        /// <summary>
+        /// Search Product by ProductID
+        /// </summary>
+        SearchByID,
+
+        /// <summary>
+        /// Display Product Details from Inventory
+        /// </summary>
+        DisplayInventory,
+
+        /// <summary>
+        /// Exit Application
+        /// </summary>
+        Exit,
+    }
+
+    /// <summary>
     /// Provides methods for all Console Operations
     /// </summary>
     public class InventoryConsoleOperations
@@ -63,34 +109,31 @@ namespace InventoryManagement.View
         public void HandleMenu()
         {
             Console.WriteLine(InventoryResource.MenuHeader);
-            byte choice;
+            byte input;
+            MenuOption choice;
             do
             {
                 this.DisplayMenu();
-                bool isValidChoice = byte.TryParse(Console.ReadLine(), out choice);
-                if (!isValidChoice)
-                {
-                    choice = 0;
-                }
-
+                bool isValidChoice = byte.TryParse(Console.ReadLine(), out input);
+                choice = isValidChoice ? (MenuOption)input : MenuOption.Invalid;
                 switch (choice)
                 {
-                    case 1:
+                    case MenuOption.CreateProduct:
                         this.CreateProduct();
                         break;
-                    case 2:
+                    case MenuOption.UpdateProduct:
                         this.UpdateProduct();
                         break;
-                    case 3:
+                    case MenuOption.RemoveProduct:
                         this.RemoveProduct();
                         break;
-                    case 4:
+                    case MenuOption.SearchByName:
                         this.SearchByName();
                         break;
-                    case 5:
+                    case MenuOption.SearchByID:
                         this.SearchByID();
                         break;
-                    case 6:
+                    case MenuOption.DisplayInventory:
                         this.DisplayInventory();
                         break;
                     default:
@@ -98,7 +141,7 @@ namespace InventoryManagement.View
                         break;
                 }
             }
-            while (choice != 7);
+            while (choice != MenuOption.Exit);
         }
 
         private void DisplayMenu()
