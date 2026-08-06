@@ -11,6 +11,7 @@ namespace Assignments
         {
             try
             {
+                FinancialEventPublisher.FinancialRecordChangeHandler += BalanceTracker.HandleFinancialRecordChange;
                 var financialRepository = new FinancialRepository();
 
                 var financialService = new FinancialRecordService(financialRepository);
@@ -18,7 +19,7 @@ namespace Assignments
                 var view = new ExpenseTrackerView(financialService);
                 view.Run();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Exception Caught: " + ex.Message);
                 Console.ReadKey();
