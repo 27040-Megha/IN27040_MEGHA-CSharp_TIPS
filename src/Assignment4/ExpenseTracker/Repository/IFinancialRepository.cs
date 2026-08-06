@@ -25,8 +25,8 @@ namespace ExpenseTracker.Repository
 
         public Expense? GetExpenseById(Guid id);
 
-        public IEnumerable<Expense> GetAllExpense();
+        public IReadOnlyList<Expense> GetAllExpense();
 
-        public IEnumerable<Income> GetAllIncome();
+        public IReadOnlyList<Income> GetAllIncome();
     }
 }
