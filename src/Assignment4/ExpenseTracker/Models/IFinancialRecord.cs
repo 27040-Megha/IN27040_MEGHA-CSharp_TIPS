@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace ExpenseTracker.Models
 {
-    public delegate void FinancialRecordHandler(TransactionAction action, IFinancialRecord currentRecord, IFinancialRecord? oldRecord);
-
     public enum TransactionAction { Added, Updated, Deleted}
 
     public interface IFinancialRecord

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ExpenseTracker.Models;
@@ -17,7 +18,19 @@ namespace ExpenseTracker.Service
 
         public static decimal TotalExpense { get; private set; }
 
-        public static void HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, IFinancialRecord? oldRecord)
+        public static void HandleFinancialRecordChange(object? sender, FinancialEventArgs e)
+        {
+            if (e.CurrentRecord is Income)
+            {
+                HandleIncomeTransaction(e.Action, e.CurrentRecord, e.OldAmount);
+            }
+            else if (e.CurrentRecord is Expense)
+            {
+                HandleExpenseTransaction(e.Action, e.CurrentRecord, e.OldAmount);
+            }
+        }
+
+        private static void HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
         {
             switch(action)
             {
@@ -27,14 +40,8 @@ namespace ExpenseTracker.Service
                     break;
 
                 case TransactionAction.Updated:
-                    if (oldRecord is not null)
-                    {
-                        BalanceAmount -= oldRecord.Amount;
-                        BalanceAmount += currentRecord.Amount;
-                        TotalIncome -= oldRecord.Amount;
-                        TotalIncome += currentRecord.Amount;
-                    }
-
+                    BalanceAmount = BalanceAmount - oldAmount + currentRecord.Amount;
+                    TotalIncome = TotalIncome - oldAmount + currentRecord.Amount;
                     break;
 
                 case TransactionAction.Deleted:
@@ -44,7 +51,7 @@ namespace ExpenseTracker.Service
             }
         }
 
-        public static void HandleExpenseTransaction(TransactionAction action, IFinancialRecord currentRecord, IFinancialRecord? oldRecord)
+        private static void HandleExpenseTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
         {
             switch (action)
             {
@@ -54,13 +61,8 @@ namespace ExpenseTracker.Service
                     break;
 
                 case TransactionAction.Updated:
-                    if (oldRecord is not null)
-                    {
-                        BalanceAmount += oldRecord.Amount;
-                        BalanceAmount -= currentRecord.Amount;
-                        TotalExpense -= oldRecord.Amount;
-                        TotalExpense += currentRecord.Amount;
-                    }
+                    BalanceAmount = BalanceAmount + oldAmount - currentRecord.Amount;
+                    TotalIncome = TotalIncome - oldAmount + currentRecord.Amount;
                     break;
 
                 case TransactionAction.Deleted:

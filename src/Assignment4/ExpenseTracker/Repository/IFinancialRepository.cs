@@ -9,8 +9,6 @@ namespace ExpenseTracker.Repository
 {
     public interface IFinancialRepository
     {
-        public event FinancialRecordHandler? RecordHandler;
-
         public void AddIncome(Income record);
 
         public void AddExpense(Expense record);
@@ -23,8 +21,9 @@ namespace ExpenseTracker.Repository
 
         public void DeleteExpenseInRepo(Expense record);
 
-        public T? GetById<T>(Guid id)
-            where T : class, IFinancialRecord;
+        public Income? GetIncomeById(Guid id);
+
+        public Expense? GetExpenseById(Guid id);
 
         public IEnumerable<Expense> GetAllExpense();
 
