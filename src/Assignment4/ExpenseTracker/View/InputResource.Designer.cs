@@ -61,6 +61,218 @@ namespace ExpenseTracker.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string CategoryPrompt {
+            get {
+                return ResourceManager.GetString("CategoryPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string DescriptionPrompt {
+            get {
+                return ResourceManager.GetString("DescriptionPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new Details to be edited: .
+        /// </summary>
+        internal static string EditPrompt {
+            get {
+                return ResourceManager.GetString("EditPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expense Record added successfully!.
+        /// </summary>
+        internal static string ExpenseAddedSuccess {
+            get {
+                return ResourceManager.GetString("ExpenseAddedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Index: {0} | Amt: {1} | Date: {2} | Description: {3} | Category: {4}.
+        /// </summary>
+        internal static string ExpenseRecordFormat {
+            get {
+                return ResourceManager.GetString("ExpenseRecordFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Expense Records.
+        /// </summary>
+        internal static string ExpenseRecordsHeader {
+            get {
+                return ResourceManager.GetString("ExpenseRecordsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.Income
+        ///2.Expense
+        ///Enter Your Choice (1/2).
+        /// </summary>
+        internal static string FinanceType {
+            get {
+                return ResourceManager.GetString("FinanceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Income Record added successfully!.
+        /// </summary>
+        internal static string IncomeAddedSuccess {
+            get {
+                return ResourceManager.GetString("IncomeAddedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Index: {0} | Amt: {1} | Date: {2} | Description: {3} | Source: {4}.
+        /// </summary>
+        internal static string IncomeRecordFormat {
+            get {
+                return ResourceManager.GetString("IncomeRecordFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Income Records.
+        /// </summary>
+        internal static string IncomeRecordsHeader {
+            get {
+                return ResourceManager.GetString("IncomeRecordsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Choice, Enter a valid choice.
+        /// </summary>
+        internal static string InvalidChoice {
+            get {
+                return ResourceManager.GetString("InvalidChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Index Entered.
+        /// </summary>
+        internal static string InvalidIndex {
+            get {
+                return ResourceManager.GetString("InvalidIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}, Attempt [{1}/{2}].
+        /// </summary>
+        internal static string MaximumAttempts {
+            get {
+                return ResourceManager.GetString("MaximumAttempts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. Add Income
+        ///2. Add Expense
+        ///3. View all Financial Records
+        ///4. Delete Financial Record
+        ///5. Edit Financial Record
+        ///6. View Summary Report
+        ///7. Exit
+        ///Enter Choice:.
+        /// </summary>
+        internal static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Financial Records in the Expense Tracker Application.
+        /// </summary>
+        internal static string NoRecordFound {
+            get {
+                return ResourceManager.GetString("NoRecordFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Amount:.
+        /// </summary>
+        internal static string PromptAmount {
+            get {
+                return ResourceManager.GetString("PromptAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Date (YYYY/MM/DD) : .
+        /// </summary>
+        internal static string PromptDate {
+            get {
+                return ResourceManager.GetString("PromptDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter index of Record: .
+        /// </summary>
+        internal static string PromptIndex {
+            get {
+                return ResourceManager.GetString("PromptIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter {0}: .
+        /// </summary>
+        internal static string PromptString {
+            get {
+                return ResourceManager.GetString("PromptString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.
+        /// </summary>
+        internal static string ResultMessage {
+            get {
+                return ResourceManager.GetString("ResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        internal static string SourcePrompt {
+            get {
+                return ResourceManager.GetString("SourcePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary Details
+        ///Total Income  : {0}
+        ///Total Expense : {1}
+        ///Net Balance    : {2}.
+        /// </summary>
+        internal static string SummaryDetailsBlock {
+            get {
+                return ResourceManager.GetString("SummaryDetailsBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to your Expense Tracker !.
         /// </summary>
         internal static string WelcomeUser {

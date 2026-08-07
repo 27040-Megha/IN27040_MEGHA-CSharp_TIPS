@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using ExpenseTracker.Models;
 using ExpenseTracker.Repository;
 
@@ -11,77 +12,85 @@ namespace ExpenseTracker.Service
 
         public FinancialRecordService(IFinancialRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
 
         public void AddIncome(decimal amount, DateOnly date, string description, string source)
         {
             var income = new Income(amount, date, description, source);
-            _repository.AddIncome(income);
-            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, income));
+            this._repository.AddIncome(income);
+            this.NotifyAdd(income);
         }
 
         public void AddExpense(decimal amount, DateOnly date, string description, string category)
         {
             var expense = new Expense(amount, date, description, category);
-            _repository.AddExpense(expense);
-            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, expense));
+            this._repository.AddExpense(expense);
+            this.NotifyAdd(expense);
         }
 
-        public bool UpdateIncome(Guid id, decimal amount, DateOnly date, string description, string source)
+        public Result UpdateIncome(int index, decimal amount, DateOnly date, string description, string source)
         {
-            var existing = _repository.GetIncomeById(id);
-            if (existing is null)
+            var indexResult = this.CheckValidIndexForIncome(index);
+            if (!indexResult.IsSuccess)
             {
-                return false;
+                return indexResult;
             }
 
-            decimal existingAmount = existing.Amount;
+            var incomeRepo = this.GetAllIncome();
+            var existingRecord = this.GetIncomeById(incomeRepo[index].TransactionID);
+            decimal existingAmount = existingRecord.Amount;
             var updatedIncome = new Income(amount, date, description, source);
-            _repository.UpdateIncomeInRepo(existing, updatedIncome);
-            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Updated, existing, existingAmount));
-            return true;
+            this._repository.UpdateIncomeInRepo(existingRecord, updatedIncome);
+            this.NotifyUpdate(existingRecord, existingAmount);
+            return new Result(true, "Successfully Updated the Income Record");
         }
 
-        public bool UpdateExpense(Guid id, decimal amount, DateOnly date, string description, string category)
+        public Result UpdateExpense(int index, decimal amount, DateOnly date, string description, string category)
         {
-            var existing = _repository.GetExpenseById(id);
-            if (existing is null)
+            var indexResult = this.CheckValidIndexForExpense(index);
+            if (!indexResult.IsSuccess)
             {
-                return false;
+                return indexResult;
             }
 
-            decimal existingAmount = existing.Amount;
+            var expenseRepo = this.GetAllExpense();
+            var existingRecord = this.GetExpenseById(expenseRepo[index].TransactionID);
+            decimal existingAmount = existingRecord.Amount;
             var updatedExpense = new Expense(amount, date, description, category);
-            _repository.UpdateExpenseInRepo(existing, updatedExpense);
-            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Updated, existing, existingAmount));
-            return true;
+            this._repository.UpdateExpenseInRepo(existingRecord, updatedExpense);
+            this.NotifyUpdate(existingRecord, existingAmount);
+            return new Result(true, "Successfully Updated the Expense Record");
         }
 
-        public bool DeleteIncomeRecord(Guid id)
+        public Result DeleteIncomeRecord(int index)
         {
-            var record = _repository.GetIncomeById(id);
-            if (record == null)
+            var indexResult = this.CheckValidIndexForIncome(index);
+            if (!indexResult.IsSuccess)
             {
-                return false;
+                return indexResult;
             }
 
+            var incomeRepo = this.GetAllIncome();
+            var record = this._repository.GetIncomeById(incomeRepo[index].TransactionID);
             this._repository.DeleteIncomeInRepo(record);
-            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
-            return true;
+            this.NotifyDelete(record);
+            return new Result(true, "Successfully Deleted the Income Record");
         }
 
-        public bool DeleteExpenseRecord(Guid id)
+        public Result DeleteExpenseRecord(int index)
         {
-            var record = _repository.GetExpenseById(id);
-            if (record == null)
+            var indexResult = this.CheckValidIndexForExpense(index);
+            if (!indexResult.IsSuccess)
             {
-                return false;
+                return indexResult;
             }
 
+            var expenseRepo = this.GetAllExpense();
+            var record = this._repository.GetExpenseById(expenseRepo[index].TransactionID);
             this._repository.DeleteExpenseInRepo(record);
-            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
-            return true;
+            this.NotifyDelete(record);
+            return new Result(true, "Successfully Deleted the Expense Record");
         }
 
         public Income GetIncomeById(Guid id) => _repository.GetIncomeById(id);
@@ -91,5 +100,44 @@ namespace ExpenseTracker.Service
         public IReadOnlyList<Income> GetAllIncome() => _repository.GetAllIncome();
 
         public IReadOnlyList<Expense> GetAllExpense() => _repository.GetAllExpense();
+
+        public int GetIncomeCount() => this._repository.GetAllIncome().Count;
+
+        public int GetExpenseCount() => this._repository.GetAllExpense().Count;
+
+        private Result CheckValidIndexForExpense(int index)
+        {
+            if (index >= this._repository.GetAllExpense().Count)
+            {
+                return new Result(false, "Index Out Of Range");
+            }
+
+            return new Result(true, "Valid Index");
+        }
+
+        private Result CheckValidIndexForIncome(int index)
+        {
+            if (index >= this._repository.GetAllIncome().Count)
+            {
+                return new Result(false, "Index Out Of Range");
+            }
+
+            return new Result(true, "Valid Index");
+        }
+
+        private void NotifyAdd(IFinancialRecord record)
+        {
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, record));
+        }
+
+        private void NotifyUpdate(IFinancialRecord existingRecord, decimal existingAmount)
+        {
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Updated, existingRecord, existingAmount));
+        }
+
+        private void NotifyDelete(IFinancialRecord record)
+        {
+            FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
+        }
     }
 }

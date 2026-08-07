@@ -32,7 +32,7 @@ namespace ExpenseTracker.Service
 
         private static void HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
         {
-            switch(action)
+            switch (action)
             {
                 case TransactionAction.Added:
                     BalanceAmount += currentRecord.Amount;
