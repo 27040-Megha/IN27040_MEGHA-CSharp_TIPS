@@ -177,7 +177,7 @@ Enter Choice:</value>
     <value>Enter Amount:</value>
   </data>
   <data name="PromptDate" xml:space="preserve">
-    <value>Enter Date (YYYY/MM/DD) : </value>
+    <value>Enter Date : </value>
   </data>
   <data name="PromptIndex" xml:space="preserve">
     <value>Enter index of Record: </value>
@@ -196,6 +196,12 @@ Enter Choice:</value>
 Total Income  : {0}
 Total Expense : {1}
 Net Balance    : {2}</value>
+  </data>
+  <data name="TotalExpense" xml:space="preserve">
+    <value>Total Expense: {0}</value>
+  </data>
+  <data name="TotalIncome" xml:space="preserve">
+    <value>Total Income: {0}</value>
   </data>
   <data name="WelcomeUser" xml:space="preserve">
     <value>Welcome to your Expense Tracker !</value>

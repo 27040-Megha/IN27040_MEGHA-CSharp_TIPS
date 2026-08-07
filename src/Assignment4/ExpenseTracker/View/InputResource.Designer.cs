@@ -216,7 +216,7 @@ namespace ExpenseTracker.View {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter Date (YYYY/MM/DD) : .
+        ///   Looks up a localized string similar to Enter Date : .
         /// </summary>
         internal static string PromptDate {
             get {
@@ -269,6 +269,24 @@ namespace ExpenseTracker.View {
         internal static string SummaryDetailsBlock {
             get {
                 return ResourceManager.GetString("SummaryDetailsBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Expense: {0}.
+        /// </summary>
+        internal static string TotalExpense {
+            get {
+                return ResourceManager.GetString("TotalExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Income: {0}.
+        /// </summary>
+        internal static string TotalIncome {
+            get {
+                return ResourceManager.GetString("TotalIncome", resourceCulture);
             }
         }
         

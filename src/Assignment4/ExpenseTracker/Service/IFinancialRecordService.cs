@@ -9,17 +9,17 @@ namespace ExpenseTracker.Service
 {
     public interface IFinancialRecordService
     {
-        public void AddIncome(decimal amount, DateOnly date, string description, string source);
+        public void SaveIncome(decimal amount, DateOnly date, string description, string source);
 
-        public void AddExpense(decimal amount, DateOnly date, string description, string category);
+        public void SaveExpense(decimal amount, DateOnly date, string description, string category);
 
-        public Result UpdateIncome(int index, decimal amount, DateOnly date, string description, string source);
+        public Result ModifyIncome(int index, decimal amount, DateOnly date, string description, string source);
 
-        public Result UpdateExpense(int index, decimal amount, DateOnly date, string description, string category);
+        public Result ModifyExpense(int index, decimal amount, DateOnly date, string description, string category);
 
-        public Result DeleteIncomeRecord(int index);
+        public Result RemoveIncome(int index);
 
-        public Result DeleteExpenseRecord(int index);
+        public Result RemoveExpense(int index);
 
         public int GetIncomeCount();
 

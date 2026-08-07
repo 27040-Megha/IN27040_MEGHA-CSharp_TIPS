@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Repository
@@ -13,20 +10,20 @@ namespace ExpenseTracker.Repository
 
         public void AddExpense(Expense record);
 
-        public void UpdateIncomeInRepo(Income oldRecord, Income newRecord);
+        public void UpdateIncome(Income oldRecord, Income newRecord);
 
-        public void UpdateExpenseInRepo(Expense oldRecord, Expense newRecord);
+        public void UpdateExpense(Expense oldRecord, Expense newRecord);
 
-        public void DeleteIncomeInRepo(Income record);
+        public void DeleteIncome(Income record);
 
-        public void DeleteExpenseInRepo(Expense record);
+        public void DeleteExpense(Expense record);
 
-        public Income? GetIncomeById(Guid id);
+        public Income? FindIncome(Guid id);
 
-        public Expense? GetExpenseById(Guid id);
+        public Expense? FindExpense(Guid id);
 
-        public IReadOnlyList<Expense> GetAllExpense();
+        public IReadOnlyList<Expense> ReturnAllExpense();
 
-        public IReadOnlyList<Income> GetAllIncome();
+        public IReadOnlyList<Income> ReturnAllIncome();
     }
 }
