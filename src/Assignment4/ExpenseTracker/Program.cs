@@ -5,8 +5,15 @@ using ExpenseTracker.View;
 
 namespace Assignments
 {
+    /// <summary>
+    /// Main Class
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry Point of Application
+        /// </summary>
+        /// <param name="args">Arguments</param>
         public static void Main(string[] args)
         {
             try

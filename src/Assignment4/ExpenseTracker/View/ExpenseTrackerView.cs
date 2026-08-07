@@ -5,17 +5,28 @@ using ExpenseTracker.Validation;
 
 namespace ExpenseTracker.View
 {
+    /// <summary>
+    /// Handles all console interactions with the user. Fetches text to display from resource file InputResource.resx
+    /// </summary>
     public class ExpenseTrackerView
     {
         private const int MaxAttempts = 3;
 
         private readonly IFinancialRecordService _service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpenseTrackerView"/> class.
+        /// </summary>
+        /// <param name="service">Service object</param>
         public ExpenseTrackerView(IFinancialRecordService service)
         {
             this._service = service;
         }
 
+        /// <summary>
+        /// Prints the text in Red Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteRedLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -23,6 +34,10 @@ namespace ExpenseTracker.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Prints the text in Green Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteGreenLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -30,6 +45,10 @@ namespace ExpenseTracker.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Prints the text in Yellow Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteYellowLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -37,6 +56,10 @@ namespace ExpenseTracker.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Prints the text in Blue Color
+        /// </summary>
+        /// <param name="text">Input string</param>
         public static void WriteBlueLine(string text)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -44,6 +67,9 @@ namespace ExpenseTracker.View
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Entry point of View (Called from Main)
+        /// </summary>
         public void Run()
         {
             WriteBlueLine(InputResource.WelcomeUser);

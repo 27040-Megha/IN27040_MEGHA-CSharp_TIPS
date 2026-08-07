@@ -6,16 +6,62 @@ using System.Threading.Tasks;
 
 namespace ExpenseTracker.Models
 {
-    public enum TransactionAction { Added, Updated, Deleted}
+    /// <summary>
+    /// Transaction Action
+    /// </summary>
+    public enum TransactionAction
+    {
+        /// <summary>
+        /// Added Income/Expense Record
+        /// </summary>
+        Added,
 
+        /// <summary>
+        /// Updated Income/Expense Record
+        /// </summary>
+        Updated,
+
+        /// <summary>
+        /// Deleted Income/Expense Record
+        /// </summary>
+        Deleted,
+    }
+
+    /// <summary>
+    /// Interface for Financial Record
+    /// </summary>
     public interface IFinancialRecord
     {
+        /// <summary>
+        /// Gets the unique TransactionID of the record.
+        /// </summary>
+        /// <value>
+        /// TransactionID
+        /// </value>
         public Guid TransactionID { get; init; }
 
+        /// <summary>
+        /// Gets or sets the record.Amount
+        /// </summary>
+        /// <value>
+        /// Amount
+        /// </value>
         public decimal Amount { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Date of Transaction
+        /// </summary>
+        /// <value>
+        /// Date
+        /// </value>
         public DateOnly Date { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description of the transaction.
+        /// </summary>
+        /// <value>
+        /// Description
+        /// </value>
         public string Description { get; set; }
     }
 }

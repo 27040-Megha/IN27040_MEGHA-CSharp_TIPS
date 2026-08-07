@@ -1,30 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpenseTracker.Models
 {
+    /// <summary>
+    /// Data Class that holds Transaction Action(Add, Update, Delete) and IFinancial Records
+    /// </summary>
     public class FinancialEventArgs : EventArgs
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FinancialEventArgs"/> class.
+        /// </summary>
+        /// <param name="action">Transaction Action(Added, Deleted)</param>
+        /// <param name="currentRecord">Record that was Added/Deleted</param>
         public FinancialEventArgs(TransactionAction action, IFinancialRecord currentRecord)
         {
-            Action = action;
-            CurrentRecord = currentRecord;
+            this.Action = action;
+            this.CurrentRecord = currentRecord;
         }
 
-        public FinancialEventArgs(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount=0)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FinancialEventArgs"/> class.
+        /// </summary>
+        /// <param name="action">Transaction Action(Updated)</param>
+        /// <param name="currentRecord">New Updated Record</param>
+        /// <param name="oldAmount">Old amount that has to be subtracted from the net balance</param>
+        public FinancialEventArgs(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount = 0)
         {
-            Action = action;
-            CurrentRecord = currentRecord;
-            OldAmount = oldAmount;
+            this.Action = action;
+            this.CurrentRecord = currentRecord;
+            this.OldAmount = oldAmount;
         }
 
+        /// <summary>
+        /// Gets the Transaction Action
+        /// </summary>
+        /// <value>
+        /// Transaction Action
+        /// </value>
         public TransactionAction Action { get; }
 
+        /// <summary>
+        /// Gets the Financial Record
+        /// </summary>
+        /// <value>
+        /// IFinancialRecord record
+        /// </value>
         public IFinancialRecord CurrentRecord { get; }
 
+        /// <summary>
+        /// Gets the Old Record Amount
+        /// </summary>
+        /// <value>
+        /// Old Record Amount
+        /// </value>
         public decimal OldAmount { get; }
     }
 }
