@@ -13,17 +13,17 @@ namespace ExpenseTracker.Service
 
         public void AddExpense(decimal amount, DateOnly date, string description, string category);
 
-        public bool UpdateIncome(Guid id, decimal amount, DateOnly date, string description, string source);
+        public Result UpdateIncome(int index, decimal amount, DateOnly date, string description, string source);
 
-        public bool UpdateExpense(Guid id, decimal amount, DateOnly date, string description, string category);
+        public Result UpdateExpense(int index, decimal amount, DateOnly date, string description, string category);
 
-        public bool DeleteIncomeRecord(Guid id);
+        public Result DeleteIncomeRecord(int index);
 
-        public bool DeleteExpenseRecord(Guid id);
+        public Result DeleteExpenseRecord(int index);
 
-        public Income? GetIncomeById(Guid id);
+        public int GetIncomeCount();
 
-        public Expense? GetExpenseById(Guid id);
+        public int GetExpenseCount();
 
         public IReadOnlyList<Income> GetAllIncome();
 

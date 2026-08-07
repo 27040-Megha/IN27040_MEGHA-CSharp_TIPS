@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 using ExpenseTracker.Models;
 using ExpenseTracker.Service;
 using ExpenseTracker.Validation;
-using ExpenseTracker.Common;
 
 namespace ExpenseTracker.View
 {
@@ -14,297 +15,376 @@ namespace ExpenseTracker.View
 
         public ExpenseTrackerView(IFinancialRecordService service)
         {
-            _service = service;
+            this._service = service;
+        }
+
+        public static void WriteRedLine(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
+        public static void WriteGreenLine(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
+        public static void WriteYellowLine(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
+        public static void WriteBlueLine(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
 
         public void Run()
         {
-            byte choice;
+            WriteBlueLine(InputResource.WelcomeUser);
+            byte userChoice;
+            MenuOption menuChoice;
             do
             {
-                DisplayMenu();
-                bool isValidChoice = byte.TryParse(Console.ReadLine(), out choice);
+                this.DisplayMenu();
+                bool isValidChoice = byte.TryParse(Console.ReadLine(), out userChoice);
                 if (!isValidChoice)
                 {
-                    choice = 0;
+                    menuChoice = MenuOption.Invalid;
+                }
+                else
+                {
+                    menuChoice = (MenuOption)userChoice;
                 }
 
-                switch (choice)
+                switch (menuChoice)
                 {
-                    case 1:
-                        AddIncome();
+                    case MenuOption.AddIncome:
+                        this.AddIncome();
                         break;
-                    case 2:
-                        AddExpense();
+                    case MenuOption.AddExpense:
+                        this.AddExpense();
                         break;
-                    case 3:
-                        ViewAllRecords();
+                    case MenuOption.ViewAllRecord:
+                        this.ViewAllRecords();
                         break;
-                    case 4:
-                        DeleteRecord();
+                    case MenuOption.DeleteRecord:
+                        this.DeleteRecord();
                         break;
-                    case 5:
-                        EditRecord();
+                    case MenuOption.EditRecord:
+                        this.EditRecord();
                         break;
-                    case 6:
-                        ViewSummary();
-                        break;
-                    case 7:
-                        Console.WriteLine("App Exited");
+                    case MenuOption.ViewSummary:
+                        this.ViewSummary();
                         break;
                     default:
-                        Console.WriteLine("Invalid Choice, Enter a valid choice");
+                        WriteRedLine(InputResource.InvalidChoice);
                         break;
                 }
             }
-            while (choice != 7);
+            while (menuChoice != MenuOption.Exit);
         }
 
         private void DisplayMenu()
         {
-            Console.WriteLine("Welcome to Expense Tracker Application");
-            Console.WriteLine("1. Add Income");
-            Console.WriteLine("2. Add Expense");
-            Console.WriteLine("3. View all Financial Records");
-            Console.WriteLine("4. Delete Financial Record");
-            Console.WriteLine("5. Edit Financial Record");
-            Console.WriteLine("6. View Summary Report");
-            Console.WriteLine("7. Exit");
-            Console.Write("Enter Choice: ");
+            Console.WriteLine(InputResource.Menu);
         }
 
         private void ViewSummary()
         {
-            Console.WriteLine("\nSummary Details");
-            Console.WriteLine("Total Income: " + BalanceTracker.TotalIncome);
-            Console.WriteLine("Total Expense: " + BalanceTracker.TotalExpense);
-            Console.WriteLine("Net Balance: " + BalanceTracker.BalanceAmount);
+            WriteBlueLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount));
+        }
+
+        private (decimal amount, DateOnly date, string description)? GetUserInput()
+        {
+            var amountResult = this.GetValidAmount();
+            if (!amountResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, amountResult.Message));
+                return null;
+            }
+
+            decimal amount = amountResult.AmountData;
+            var dateResult = this.GetValidDate();
+            if (!dateResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, dateResult.Message));
+                return null;
+            }
+
+            DateOnly date = dateResult.DateData;
+            var descriptionResult = this.GetValidString("Description");
+            if (!descriptionResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, descriptionResult.Message));
+                return null;
+            }
+
+            string description = descriptionResult.StringData;
+            return (amount, date, description);
+        }
+
+        private (decimal amount, DateOnly date, string description, string source)? GetIncomeInput()
+        {
+            var inputDetails = this.GetUserInput();
+            if (inputDetails == null)
+            {
+                return null;
+            }
+
+            var sourceResult = this.GetValidString("Source");
+            if (!sourceResult.IsSuccess)
+            {
+                return null;
+            }
+
+            string source = sourceResult.StringData;
+            return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
+        }
+
+        private (decimal amount, DateOnly date, string description, string category)? GetExpenseInput()
+        {
+            var inputDetails = this.GetUserInput();
+            if (inputDetails == null)
+            {
+                return null;
+            }
+
+            var categoryResult = this.GetValidString("Category");
+            if (!categoryResult.IsSuccess)
+            {
+                return null;
+            }
+
+            string category = categoryResult.StringData;
+            return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, category);
         }
 
         private void AddIncome()
         {
-            Result amountResult = GetValidDecimal();
-            if (!amountResult.IsSuccess)
+            var incomeInputDetails = this.GetIncomeInput();
+            if (incomeInputDetails == null)
             {
                 return;
             }
 
-            decimal amount = amountResult.DecimalData;
-            Result dateResult = GetValidDate();
-            if (!dateResult.IsSuccess)
-            {
-                return;
-            }
-
-            DateOnly date = dateResult.DateData;
-            Result descResult = GetValidString("Description");
-            if (!descResult.IsSuccess)
-            {
-                return;
-            }
-
-            string desc = descResult.StringData;
-
-            Result sourceResult = GetValidString("Source");
-            if (!sourceResult.IsSuccess)
-            {
-                return;
-            }
-
-            string source = sourceResult.StringData;
-            _service.AddIncome(amount, date, desc, source);
-            Console.WriteLine("Income Record added successfully!");
+            this._service.AddIncome(incomeInputDetails.Value.amount, incomeInputDetails.Value.date, incomeInputDetails.Value.description, incomeInputDetails.Value.source);
+            WriteGreenLine(InputResource.IncomeAddedSuccess);
         }
 
         private void AddExpense()
         {
-            Result amountResult = GetValidDecimal();
-            if (!amountResult.IsSuccess)
+            var expenseInputDetails = this.GetExpenseInput();
+            if (expenseInputDetails == null)
             {
                 return;
             }
 
-            decimal amount = amountResult.DecimalData;
-            Result dateResult = GetValidDate();
-            if (!dateResult.IsSuccess)
-            {
-                return;
-            }
-
-            DateOnly date = dateResult.DateData;
-            Result descResult = GetValidString("Description");
-            if (!descResult.IsSuccess)
-            {
-                return;
-            }
-
-            string desc = descResult.StringData;
-            Result categoryResult = GetValidString("Category");
-            if (!categoryResult.IsSuccess)
-            {
-                return;
-            }
-
-            string category = categoryResult.StringData;
-            _service.AddExpense(amount, date, desc, category);
-            Console.WriteLine("Expense Record added successfully!");
+            this._service.AddExpense(expenseInputDetails.Value.amount, expenseInputDetails.Value.date, expenseInputDetails.Value.description, expenseInputDetails.Value.category);
+            WriteGreenLine(InputResource.ExpenseAddedSuccess);
         }
 
         private void ViewAllRecords()
         {
-            Console.WriteLine("\nIncome Records");
-            ViewIncomeRecords();
-            Console.WriteLine("\nExpense Records");
-            ViewExpenseRecords();
+            WriteBlueLine(InputResource.IncomeRecordsHeader);
+            this.ViewIncomeRecords();
+            WriteBlueLine(InputResource.ExpenseRecordsHeader);
+            this.ViewExpenseRecords();
         }
 
         private void ViewIncomeRecords()
         {
-            var income = _service.GetAllIncome();
+            var income = this._service.GetAllIncome();
             for (int i = 0; i < income.Count; i++)
             {
-                Console.WriteLine($"Index: {i} | Amt: {income[i].Amount} | Date: {income[i].Date} | Description: {income[i].Description} | Source: {income[i].Source} ");
+                Console.WriteLine(string.Format(InputResource.IncomeRecordFormat, i + 1, income[i].Amount, income[i].Date, income[i].Description, income[i].Source));
             }
         }
 
         private void ViewExpenseRecords()
         {
-            var expense = _service.GetAllExpense();
+            var expense = this._service.GetAllExpense();
             for (int i = 0; i < expense.Count; i++)
             {
-                Console.WriteLine($"Index: {i} | Amt: {expense[i].Amount} | Date: {expense[i].Date} | Description: {expense[i].Description} | Source: {expense[i].Category} ");
+               Console.WriteLine(string.Format(InputResource.ExpenseRecordFormat, i + 1, expense[i].Amount, expense[i].Date, expense[i].Description, expense[i].Category));
+            }
+        }
+
+        private void DeleteIncomeRecord(int index)
+        {
+            var deleteResult = this._service.DeleteIncomeRecord(index);
+            if (!deleteResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, deleteResult.Message));
+            }
+            else
+            {
+                WriteGreenLine(string.Format(InputResource.ResultMessage, deleteResult.Message));
+            }
+        }
+
+        private void DeleteExpenseRecord(int index)
+        {
+            var deleteResult = this._service.DeleteExpenseRecord(index);
+            if (!deleteResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, deleteResult.Message));
+            }
+            else
+            {
+                WriteGreenLine(string.Format(InputResource.ResultMessage, deleteResult.Message));
             }
         }
 
         private void DeleteRecord()
         {
-            Console.Write("Delete: 1.Income 2.Expense? ");
-            if (int.TryParse(Console.ReadLine(), out int type) && (type == 1 || type == 2))
+            int transactionType = this.GetFinanceType();
+            if (transactionType == -1)
             {
-                Result idResult = GetValidGuid();
-                if (!idResult.IsSuccess)
-                {
-                    return;
-                }
-
-                Guid id = idResult.GuidData;
-                if (type == 1)
-                {
-                    if (_service.DeleteIncomeRecord(id))
-                    {
-                        Console.WriteLine("Deleted successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Record not found.");
-                    }
-                }
-                else
-                {
-                    if (_service.DeleteExpenseRecord(id))
-                    {
-                        Console.WriteLine("Deleted successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Record not found.");
-                    }
-                }
-
                 return;
             }
 
-            Console.WriteLine("Invalid Choice");
+            int index = this.GetValidIndex();
+            if (index == -1)
+            {
+                return;
+            }
+
+            if (transactionType == 1)
+            {
+                if (this._service.GetIncomeCount() == 0)
+                {
+                    WriteYellowLine(InputResource.NoRecordFound);
+                    return;
+                }
+
+                this.DeleteIncomeRecord(index);
+            }
+            else
+            {
+                if (this._service.GetExpenseCount() == 0)
+                {
+                    WriteYellowLine(InputResource.NoRecordFound);
+                    return;
+                }
+
+                this.DeleteExpenseRecord(index);
+            }
+        }
+
+        private int GetFinanceType()
+        {
+            Console.Write(InputResource.FinanceType);
+            if (int.TryParse(Console.ReadLine(), out int type) && (type == 1 || type == 2))
+            {
+                return type;
+            }
+            else
+            {
+                WriteRedLine(InputResource.InvalidChoice);
+                return -1;
+            }
         }
 
         private void EditRecord()
         {
-            Console.Write("Edit: 1.Income 2.Expense? ");
-            if (int.TryParse(Console.ReadLine(), out int type) && (type == 1 || type == 2))
+            int transactionType = this.GetFinanceType();
+            if (transactionType == -1)
             {
-                Result idResult = GetValidGuid();
-                if (!idResult.IsSuccess) 
-                {
-                    return;
-                }
-
-                Guid id = idResult.GuidData;
-                Result amountResult = GetValidDecimal();
-                if (!amountResult.IsSuccess) 
-                {
-                    return;
-                }
-
-                decimal amount = amountResult.DecimalData;
-                Result dateResult = GetValidDate();
-                if (!dateResult.IsSuccess)
-                {
-                    return;
-                }
-
-                DateOnly date = dateResult.DateData;
-                Result descResult = GetValidString("Description");
-                if (!descResult.IsSuccess)
-                {
-                    return;
-                }
-
-                string desc = descResult.StringData;
-                if (type == 1)
-                {
-                    Result sourceResult = GetValidString("Source");
-                    if (!sourceResult.IsSuccess)
-                    {
-                        return;
-                    }
-
-                    string source = sourceResult.StringData;
-                    if (_service.UpdateIncome(id, amount, date, desc, source))
-                    {
-                        Console.WriteLine("Updated successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Record not found.");
-                    }
-                }
-                else
-                {
-                    Result categoryResult = GetValidString("Category");
-                    if (!categoryResult.IsSuccess) 
-                    {
-                        return;
-                    }
-
-                    string category = categoryResult.StringData;
-                    if (_service.UpdateExpense(id, amount, date, desc, category))
-                    {
-                        Console.WriteLine("Updated successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Record not found.");
-                    }
-                }
-
                 return;
             }
 
-            Console.WriteLine("Invalid Choice");
+            int index = this.GetValidIndex();
+            if (index == -1)
+            {
+                return;
+            }
+
+            Console.WriteLine(InputResource.EditPrompt);
+            if (transactionType == 1)
+            {
+                if (this._service.GetIncomeCount() == 0)
+                {
+                    WriteYellowLine(InputResource.NoRecordFound);
+                    return;
+                }
+
+                this.EditIncome(index);
+            }
+            else
+            {
+                if (this._service.GetExpenseCount() == 0)
+                {
+                    WriteYellowLine(InputResource.NoRecordFound);
+                    return;
+                }
+
+                this.EditExpense(index);
+            }
         }
 
-        private Result GetValidDecimal()
+        private void EditIncome(int index)
+        {
+            var newIncome = this.GetIncomeInput();
+            var isEditedResult = this._service.UpdateIncome(index, newIncome.Value.amount, newIncome.Value.date, newIncome.Value.description, newIncome.Value.source);
+            if (!isEditedResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, isEditedResult.Message));
+            }
+            else
+            {
+                WriteGreenLine(string.Format(InputResource.ResultMessage, isEditedResult.Message));
+            }
+        }
+
+        private void EditExpense(int index)
+        {
+            var newExpense = this.GetExpenseInput();
+            var isEditedResult = this._service.UpdateExpense(index, newExpense.Value.amount, newExpense.Value.date, newExpense.Value.description, newExpense.Value.category);
+            if (!isEditedResult.IsSuccess)
+            {
+                WriteRedLine(string.Format(InputResource.ResultMessage, isEditedResult.Message));
+            }
+            else
+            {
+                WriteGreenLine(string.Format(InputResource.ResultMessage, isEditedResult.Message));
+            }
+        }
+
+        private int GetValidIndex()
+        {
+            Console.WriteLine(InputResource.PromptIndex);
+            bool isValidIndex = int.TryParse(Console.ReadLine(), out int index);
+            if (!isValidIndex || index < 1)
+            {
+                WriteRedLine(InputResource.InvalidIndex);
+                return -1;
+            }
+
+            return index - 1;
+        }
+
+        private Result GetValidAmount()
         {
             for (int i = 1; i <= MaxAttempts; i++)
             {
-                Console.Write("Enter Amount: ");
-                Result result = InputValidator.ValidateAmount(Console.ReadLine());
-                if (result.IsSuccess)
+                Console.Write(InputResource.PromptAmount);
+                var amountResult = InputValidator.ValidateAmount(Console.ReadLine());
+                if (amountResult.IsSuccess)
                 {
-                    return result;
+                    return amountResult;
                 }
-                Console.WriteLine($"{result.Message} (Attempt {i}/{MaxAttempts})");
+
+                WriteYellowLine(string.Format(InputResource.MaximumAttempts, amountResult.Message, i, MaxAttempts));
             }
+
             return new Result(false, "Max attempts reached for Amount entry.");
         }
 
@@ -312,14 +392,16 @@ namespace ExpenseTracker.View
         {
             for (int i = 1; i <= MaxAttempts; i++)
             {
-                Console.Write("Enter Date (YYYY/MM/DD/): ");
-                Result result = InputValidator.ValidateDate(Console.ReadLine());
-                if (result.IsSuccess)
+                Console.Write(InputResource.PromptDate);
+                var dateResult = InputValidator.ValidateDate(Console.ReadLine());
+                if (dateResult.IsSuccess)
                 {
-                    return result;
+                    return dateResult;
                 }
-                Console.WriteLine($"{result.Message} (Attempt {i}/{MaxAttempts})");
+
+                WriteYellowLine(string.Format(InputResource.MaximumAttempts, dateResult.Message, i, MaxAttempts));
             }
+
             return new Result(false, "Max attempts reached for Date entry.");
         }
 
@@ -327,34 +409,17 @@ namespace ExpenseTracker.View
         {
             for (int i = 1; i <= MaxAttempts; i++)
             {
-                Console.Write($"Enter {fieldName}: ");
-                Result result = InputValidator.ValidateString(Console.ReadLine(), fieldName);
-                if (result.IsSuccess)
+                Console.Write(string.Format(InputResource.PromptString, fieldName));
+                var stringResult = InputValidator.ValidateString(Console.ReadLine(), fieldName);
+                if (stringResult.IsSuccess)
                 {
-                    return result;
+                    return stringResult;
                 }
 
-                Console.WriteLine($"{result.Message} (Attempt {i}/{MaxAttempts})");
+                WriteYellowLine(string.Format(InputResource.MaximumAttempts, stringResult.Message, i, MaxAttempts));
             }
 
             return new Result(false, $"Max attempts reached for {fieldName} entry.");
-        }
-
-        private Result GetValidGuid()
-        {
-            for (int i = 1; i <= MaxAttempts; i++)
-            {
-                Console.Write("Enter GUID: ");
-                Result result = InputValidator.ValidateGuid(Console.ReadLine());
-                if (result.IsSuccess)
-                {
-                    return result;
-                }
-
-                Console.WriteLine($"{result.Message} (Attempt {i}/{MaxAttempts})");
-            }
-
-            return new Result(false, "Max attempts reached for GUID entry.");
         }
     }
 }

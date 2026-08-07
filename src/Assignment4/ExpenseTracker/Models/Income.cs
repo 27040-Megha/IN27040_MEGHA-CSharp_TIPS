@@ -11,11 +11,11 @@ namespace ExpenseTracker.Models
     {
         public Income(decimal amount, DateOnly date, string description, string source)
         {
-            TransactionID = Guid.NewGuid();
-            Amount = amount;
-            Date = date;
-            Description = description;
-            Source = source;
+            this.TransactionID = Guid.NewGuid();
+            this.Amount = amount;
+            this.Date = date;
+            this.Description = description;
+            this.Source = source;
         }
 
         public Guid TransactionID { get; init; }
