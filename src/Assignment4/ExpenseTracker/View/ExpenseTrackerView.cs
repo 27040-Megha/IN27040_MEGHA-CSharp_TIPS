@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Reflection;
 using ExpenseTracker.Models;
 using ExpenseTracker.Service;
 using ExpenseTracker.Validation;
@@ -67,10 +65,10 @@ namespace ExpenseTracker.View
                 switch (menuChoice)
                 {
                     case MenuOption.AddIncome:
-                        this.AddIncome();
+                        this.AddIncomeRecord();
                         break;
                     case MenuOption.AddExpense:
-                        this.AddExpense();
+                        this.AddExpenseRecord();
                         break;
                     case MenuOption.ViewAllRecord:
                         this.ViewAllRecords();
@@ -134,7 +132,7 @@ namespace ExpenseTracker.View
         private (decimal amount, DateOnly date, string description, string source)? GetIncomeInput()
         {
             var inputDetails = this.GetUserInput();
-            if (inputDetails == null)
+            if (inputDetails is null)
             {
                 return null;
             }
@@ -152,7 +150,7 @@ namespace ExpenseTracker.View
         private (decimal amount, DateOnly date, string description, string category)? GetExpenseInput()
         {
             var inputDetails = this.GetUserInput();
-            if (inputDetails == null)
+            if (inputDetails is null)
             {
                 return null;
             }
@@ -167,27 +165,27 @@ namespace ExpenseTracker.View
             return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, category);
         }
 
-        private void AddIncome()
+        private void AddIncomeRecord()
         {
             var incomeInputDetails = this.GetIncomeInput();
-            if (incomeInputDetails == null)
+            if (incomeInputDetails is null)
             {
                 return;
             }
 
-            this._service.AddIncome(incomeInputDetails.Value.amount, incomeInputDetails.Value.date, incomeInputDetails.Value.description, incomeInputDetails.Value.source);
+            this._service.SaveIncome(incomeInputDetails.Value.amount, incomeInputDetails.Value.date, incomeInputDetails.Value.description, incomeInputDetails.Value.source);
             WriteGreenLine(InputResource.IncomeAddedSuccess);
         }
 
-        private void AddExpense()
+        private void AddExpenseRecord()
         {
             var expenseInputDetails = this.GetExpenseInput();
-            if (expenseInputDetails == null)
+            if (expenseInputDetails is null)
             {
                 return;
             }
 
-            this._service.AddExpense(expenseInputDetails.Value.amount, expenseInputDetails.Value.date, expenseInputDetails.Value.description, expenseInputDetails.Value.category);
+            this._service.SaveExpense(expenseInputDetails.Value.amount, expenseInputDetails.Value.date, expenseInputDetails.Value.description, expenseInputDetails.Value.category);
             WriteGreenLine(InputResource.ExpenseAddedSuccess);
         }
 
@@ -195,12 +193,20 @@ namespace ExpenseTracker.View
         {
             WriteBlueLine(InputResource.IncomeRecordsHeader);
             this.ViewIncomeRecords();
+            WriteBlueLine(string.Format(InputResource.TotalIncome, BalanceTracker.TotalIncome));
             WriteBlueLine(InputResource.ExpenseRecordsHeader);
             this.ViewExpenseRecords();
+            WriteBlueLine(string.Format(InputResource.TotalExpense, BalanceTracker.TotalExpense));
         }
 
         private void ViewIncomeRecords()
         {
+            if (this._service.GetIncomeCount() == 0)
+            {
+                WriteYellowLine(InputResource.NoRecordFound);
+                return;
+            }
+
             var income = this._service.GetAllIncome();
             for (int i = 0; i < income.Count; i++)
             {
@@ -210,6 +216,12 @@ namespace ExpenseTracker.View
 
         private void ViewExpenseRecords()
         {
+            if (this._service.GetExpenseCount() == 0)
+            {
+                WriteYellowLine(InputResource.NoRecordFound);
+                return;
+            }
+
             var expense = this._service.GetAllExpense();
             for (int i = 0; i < expense.Count; i++)
             {
@@ -219,7 +231,7 @@ namespace ExpenseTracker.View
 
         private void DeleteIncomeRecord(int index)
         {
-            var deleteResult = this._service.DeleteIncomeRecord(index);
+            var deleteResult = this._service.RemoveIncome(index);
             if (!deleteResult.IsSuccess)
             {
                 WriteRedLine(string.Format(InputResource.ResultMessage, deleteResult.Message));
@@ -232,7 +244,7 @@ namespace ExpenseTracker.View
 
         private void DeleteExpenseRecord(int index)
         {
-            var deleteResult = this._service.DeleteExpenseRecord(index);
+            var deleteResult = this._service.RemoveExpense(index);
             if (!deleteResult.IsSuccess)
             {
                 WriteRedLine(string.Format(InputResource.ResultMessage, deleteResult.Message));
@@ -246,17 +258,6 @@ namespace ExpenseTracker.View
         private void DeleteRecord()
         {
             int transactionType = this.GetFinanceType();
-            if (transactionType == -1)
-            {
-                return;
-            }
-
-            int index = this.GetValidIndex();
-            if (index == -1)
-            {
-                return;
-            }
-
             if (transactionType == 1)
             {
                 if (this._service.GetIncomeCount() == 0)
@@ -265,13 +266,25 @@ namespace ExpenseTracker.View
                     return;
                 }
 
+                int index = this.GetValidIndex();
+                if (index == -1)
+                {
+                    return;
+                }
+
                 this.DeleteIncomeRecord(index);
             }
-            else
+            else if (transactionType == 2)
             {
                 if (this._service.GetExpenseCount() == 0)
                 {
                     WriteYellowLine(InputResource.NoRecordFound);
+                    return;
+                }
+
+                int index = this.GetValidIndex();
+                if (index == -1)
+                {
                     return;
                 }
 
@@ -296,17 +309,6 @@ namespace ExpenseTracker.View
         private void EditRecord()
         {
             int transactionType = this.GetFinanceType();
-            if (transactionType == -1)
-            {
-                return;
-            }
-
-            int index = this.GetValidIndex();
-            if (index == -1)
-            {
-                return;
-            }
-
             Console.WriteLine(InputResource.EditPrompt);
             if (transactionType == 1)
             {
@@ -316,9 +318,15 @@ namespace ExpenseTracker.View
                     return;
                 }
 
-                this.EditIncome(index);
+                int index = this.GetValidIndex();
+                if (index == -1)
+                {
+                    return;
+                }
+
+                this.EditIncomeRecord(index);
             }
-            else
+            else if (transactionType == 2)
             {
                 if (this._service.GetExpenseCount() == 0)
                 {
@@ -326,14 +334,25 @@ namespace ExpenseTracker.View
                     return;
                 }
 
-                this.EditExpense(index);
+                int index = this.GetValidIndex();
+                if (index == -1)
+                {
+                    return;
+                }
+
+                this.EditExpenseRecord(index);
             }
         }
 
-        private void EditIncome(int index)
+        private void EditIncomeRecord(int index)
         {
             var newIncome = this.GetIncomeInput();
-            var isEditedResult = this._service.UpdateIncome(index, newIncome.Value.amount, newIncome.Value.date, newIncome.Value.description, newIncome.Value.source);
+            if (newIncome is null)
+            {
+                return;
+            }
+
+            var isEditedResult = this._service.ModifyIncome(index, newIncome.Value.amount, newIncome.Value.date, newIncome.Value.description, newIncome.Value.source);
             if (!isEditedResult.IsSuccess)
             {
                 WriteRedLine(string.Format(InputResource.ResultMessage, isEditedResult.Message));
@@ -344,10 +363,15 @@ namespace ExpenseTracker.View
             }
         }
 
-        private void EditExpense(int index)
+        private void EditExpenseRecord(int index)
         {
             var newExpense = this.GetExpenseInput();
-            var isEditedResult = this._service.UpdateExpense(index, newExpense.Value.amount, newExpense.Value.date, newExpense.Value.description, newExpense.Value.category);
+            if (newExpense is null)
+            {
+                return;
+            }
+
+            var isEditedResult = this._service.ModifyExpense(index, newExpense.Value.amount, newExpense.Value.date, newExpense.Value.description, newExpense.Value.category);
             if (!isEditedResult.IsSuccess)
             {
                 WriteRedLine(string.Format(InputResource.ResultMessage, isEditedResult.Message));
@@ -385,7 +409,7 @@ namespace ExpenseTracker.View
                 WriteYellowLine(string.Format(InputResource.MaximumAttempts, amountResult.Message, i, MaxAttempts));
             }
 
-            return new Result(false, "Max attempts reached for Amount entry.");
+            return new Result(false, "Max attempts reached for Amount entry");
         }
 
         private Result GetValidDate()
@@ -402,7 +426,7 @@ namespace ExpenseTracker.View
                 WriteYellowLine(string.Format(InputResource.MaximumAttempts, dateResult.Message, i, MaxAttempts));
             }
 
-            return new Result(false, "Max attempts reached for Date entry.");
+            return new Result(false, "Max attempts reached for Date entry");
         }
 
         private Result GetValidString(string fieldName)
@@ -419,7 +443,7 @@ namespace ExpenseTracker.View
                 WriteYellowLine(string.Format(InputResource.MaximumAttempts, stringResult.Message, i, MaxAttempts));
             }
 
-            return new Result(false, $"Max attempts reached for {fieldName} entry.");
+            return new Result(false, $"Max attempts reached for {fieldName} entry");
         }
     }
 }
