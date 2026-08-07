@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using ExpenseTracker.Models;
 using ExpenseTracker.Repository;
 
@@ -15,21 +14,21 @@ namespace ExpenseTracker.Service
             this._repository = repository;
         }
 
-        public void AddIncome(decimal amount, DateOnly date, string description, string source)
+        public void SaveIncome(decimal amount, DateOnly date, string description, string source)
         {
             var income = new Income(amount, date, description, source);
             this._repository.AddIncome(income);
             this.NotifyAdd(income);
         }
 
-        public void AddExpense(decimal amount, DateOnly date, string description, string category)
+        public void SaveExpense(decimal amount, DateOnly date, string description, string category)
         {
             var expense = new Expense(amount, date, description, category);
             this._repository.AddExpense(expense);
             this.NotifyAdd(expense);
         }
 
-        public Result UpdateIncome(int index, decimal amount, DateOnly date, string description, string source)
+        public Result ModifyIncome(int index, decimal amount, DateOnly date, string description, string source)
         {
             var indexResult = this.CheckValidIndexForIncome(index);
             if (!indexResult.IsSuccess)
@@ -41,12 +40,12 @@ namespace ExpenseTracker.Service
             var existingRecord = this.GetIncomeById(incomeRepo[index].TransactionID);
             decimal existingAmount = existingRecord.Amount;
             var updatedIncome = new Income(amount, date, description, source);
-            this._repository.UpdateIncomeInRepo(existingRecord, updatedIncome);
-            this.NotifyUpdate(existingRecord, existingAmount);
+            this._repository.UpdateIncome(existingRecord, updatedIncome);
+            this.NotifyUpdate(updatedIncome, existingAmount);
             return new Result(true, "Successfully Updated the Income Record");
         }
 
-        public Result UpdateExpense(int index, decimal amount, DateOnly date, string description, string category)
+        public Result ModifyExpense(int index, decimal amount, DateOnly date, string description, string category)
         {
             var indexResult = this.CheckValidIndexForExpense(index);
             if (!indexResult.IsSuccess)
@@ -58,12 +57,12 @@ namespace ExpenseTracker.Service
             var existingRecord = this.GetExpenseById(expenseRepo[index].TransactionID);
             decimal existingAmount = existingRecord.Amount;
             var updatedExpense = new Expense(amount, date, description, category);
-            this._repository.UpdateExpenseInRepo(existingRecord, updatedExpense);
-            this.NotifyUpdate(existingRecord, existingAmount);
+            this._repository.UpdateExpense(existingRecord, updatedExpense);
+            this.NotifyUpdate(updatedExpense, existingAmount);
             return new Result(true, "Successfully Updated the Expense Record");
         }
 
-        public Result DeleteIncomeRecord(int index)
+        public Result RemoveIncome(int index)
         {
             var indexResult = this.CheckValidIndexForIncome(index);
             if (!indexResult.IsSuccess)
@@ -72,13 +71,13 @@ namespace ExpenseTracker.Service
             }
 
             var incomeRepo = this.GetAllIncome();
-            var record = this._repository.GetIncomeById(incomeRepo[index].TransactionID);
-            this._repository.DeleteIncomeInRepo(record);
+            var record = this._repository.FindIncome(incomeRepo[index].TransactionID);
+            this._repository.DeleteIncome(record);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Income Record");
         }
 
-        public Result DeleteExpenseRecord(int index)
+        public Result RemoveExpense(int index)
         {
             var indexResult = this.CheckValidIndexForExpense(index);
             if (!indexResult.IsSuccess)
@@ -87,27 +86,27 @@ namespace ExpenseTracker.Service
             }
 
             var expenseRepo = this.GetAllExpense();
-            var record = this._repository.GetExpenseById(expenseRepo[index].TransactionID);
-            this._repository.DeleteExpenseInRepo(record);
+            var record = this._repository.FindExpense(expenseRepo[index].TransactionID);
+            this._repository.DeleteExpense(record);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Expense Record");
         }
 
-        public Income GetIncomeById(Guid id) => _repository.GetIncomeById(id);
+        public Income GetIncomeById(Guid id) => this._repository.FindIncome(id);
 
-        public Expense GetExpenseById(Guid id) => _repository.GetExpenseById(id);
+        public Expense GetExpenseById(Guid id) => this._repository.FindExpense(id);
 
-        public IReadOnlyList<Income> GetAllIncome() => _repository.GetAllIncome();
+        public IReadOnlyList<Income> GetAllIncome() => this._repository.ReturnAllIncome();
 
-        public IReadOnlyList<Expense> GetAllExpense() => _repository.GetAllExpense();
+        public IReadOnlyList<Expense> GetAllExpense() => this._repository.ReturnAllExpense();
 
-        public int GetIncomeCount() => this._repository.GetAllIncome().Count;
+        public int GetIncomeCount() => this._repository.ReturnAllIncome().Count;
 
-        public int GetExpenseCount() => this._repository.GetAllExpense().Count;
+        public int GetExpenseCount() => this._repository.ReturnAllExpense().Count;
 
         private Result CheckValidIndexForExpense(int index)
         {
-            if (index >= this._repository.GetAllExpense().Count)
+            if (index >= this._repository.ReturnAllExpense().Count)
             {
                 return new Result(false, "Index Out Of Range");
             }
@@ -117,7 +116,7 @@ namespace ExpenseTracker.Service
 
         private Result CheckValidIndexForIncome(int index)
         {
-            if (index >= this._repository.GetAllIncome().Count)
+            if (index >= this._repository.ReturnAllIncome().Count)
             {
                 return new Result(false, "Index Out Of Range");
             }

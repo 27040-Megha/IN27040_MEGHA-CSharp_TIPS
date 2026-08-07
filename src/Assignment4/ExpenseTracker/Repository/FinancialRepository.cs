@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Repository
@@ -28,7 +26,7 @@ namespace ExpenseTracker.Repository
             this._expenseRepo.Add(record);
         }
 
-        public void UpdateIncomeInRepo(Income oldRecord, Income newRecord)
+        public void UpdateIncome(Income oldRecord, Income newRecord)
         {
             oldRecord.Amount = newRecord.Amount;
             oldRecord.Date = newRecord.Date;
@@ -36,7 +34,7 @@ namespace ExpenseTracker.Repository
             oldRecord.Source = newRecord.Source;
         }
 
-        public void UpdateExpenseInRepo(Expense oldRecord, Expense newRecord)
+        public void UpdateExpense(Expense oldRecord, Expense newRecord)
         {
             oldRecord.Amount = newRecord.Amount;
             oldRecord.Date = newRecord.Date;
@@ -44,28 +42,28 @@ namespace ExpenseTracker.Repository
             oldRecord.Category = newRecord.Category;
         }
 
-        public void DeleteIncomeInRepo(Income record)
+        public void DeleteIncome(Income record)
         {
             this._incomeRepo.Remove(record);
         }
 
-        public void DeleteExpenseInRepo(Expense record)
+        public void DeleteExpense(Expense record)
         {
             this._expenseRepo.Remove(record);
         }
 
-        public Income? GetIncomeById(Guid id)
+        public Income? FindIncome(Guid id)
         {
             return this._incomeRepo.FirstOrDefault(x => x.TransactionID == id);
         }
 
-        public Expense? GetExpenseById(Guid id)
+        public Expense? FindExpense(Guid id)
         {
             return this._expenseRepo.FirstOrDefault(x => x.TransactionID == id);
         }
 
-        public IReadOnlyList<Expense> GetAllExpense() => this._expenseRepo;
+        public IReadOnlyList<Expense> ReturnAllExpense() => this._expenseRepo;
 
-        public IReadOnlyList<Income> GetAllIncome() => this._incomeRepo;
+        public IReadOnlyList<Income> ReturnAllIncome() => this._incomeRepo;
     }
 }

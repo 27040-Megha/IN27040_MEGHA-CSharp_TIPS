@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using ExpenseTracker.Models;
-using ExpenseTracker.Repository;
-using Microsoft.VisualBasic;
+﻿using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Service
 {
@@ -62,7 +54,7 @@ namespace ExpenseTracker.Service
 
                 case TransactionAction.Updated:
                     BalanceAmount = BalanceAmount + oldAmount - currentRecord.Amount;
-                    TotalIncome = TotalIncome - oldAmount + currentRecord.Amount;
+                    TotalExpense = TotalExpense - oldAmount + currentRecord.Amount;
                     break;
 
                 case TransactionAction.Deleted:
