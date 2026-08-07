@@ -2,15 +2,41 @@
 
 namespace ExpenseTracker.Service
 {
+    /// <summary>
+    /// Manage the global balance, total income and total expense accurately
+    /// </summary>
     public static class BalanceTracker
     {
+        /// <summary>
+        /// Gets the Balance Amount
+        /// </summary>
+        /// <value>
+        /// Balance Amount
+        /// </value>
         public static decimal BalanceAmount { get; private set; }
 
+        /// <summary>
+        /// Gets the Total Income
+        /// </summary>
+        /// <value>
+        /// Total Income
+        /// </value>
         public static decimal TotalIncome { get; private set; }
 
+        /// <summary>
+        /// Gets the Total Expense
+        /// </summary>
+        /// <value>
+        /// Total Expense
+        /// </value>
         public static decimal TotalExpense { get; private set; }
 
-        public static void HandleFinancialRecordChange(object? sender, FinancialEventArgs e)
+        /// <summary>
+        /// EventHandler method matching EventArgs(Built-in Delegate) that handles which Transaction(Income/Expense) has to be executed based on the record
+        /// </summary>
+        /// <param name="sender">Sender Object</param>
+        /// <param name="e">FinancialEventArgs object</param>
+        public static void HandleFinancialRecordChange(object sender, FinancialEventArgs e)
         {
             if (e.CurrentRecord is Income)
             {
