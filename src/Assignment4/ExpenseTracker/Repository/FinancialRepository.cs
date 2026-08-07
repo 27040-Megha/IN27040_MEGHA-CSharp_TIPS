@@ -20,12 +20,12 @@ namespace ExpenseTracker.Repository
 
         public void AddIncome(Income record)
         {
-            _incomeRepo.Add(record);
+            this._incomeRepo.Add(record);
         }
 
         public void AddExpense(Expense record)
         {
-            _expenseRepo.Add(record);
+            this._expenseRepo.Add(record);
         }
 
         public void UpdateIncomeInRepo(Income oldRecord, Income newRecord)
@@ -46,12 +46,12 @@ namespace ExpenseTracker.Repository
 
         public void DeleteIncomeInRepo(Income record)
         {
-            _incomeRepo.Remove(record);
+            this._incomeRepo.Remove(record);
         }
 
         public void DeleteExpenseInRepo(Expense record)
         {
-            _expenseRepo.Remove(record);
+            this._expenseRepo.Remove(record);
         }
 
         public Income? GetIncomeById(Guid id)

@@ -1,5 +1,5 @@
 ﻿using System;
-using ExpenseTracker.Common;
+using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Validation
 {
@@ -36,15 +36,6 @@ namespace ExpenseTracker.Validation
                 return new Result(false, $"{fieldName} cannot be empty or whitespace.");
             }
             return new Result(true, $"{fieldName} validated successfully.", input);
-        }
-
-        public static Result ValidateGuid(string input)
-        {
-            if (!Guid.TryParse(input, out Guid id))
-            {
-                return new Result(false, "ID entry is not a valid 32-digit GUID.");
-            }
-            return new Result(true, "GUID validated successfully.", id);
         }
     }
 }
