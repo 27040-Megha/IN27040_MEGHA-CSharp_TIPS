@@ -43,10 +43,11 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Updates the existing income record in repo
         /// </summary>
-        /// <param name="oldRecord">Old Record to be updated</param>
+        /// <param name="transactionIDToUpdate">Guid of the object to be edited</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateIncome(Income oldRecord, Income newRecord)
+        public void UpdateIncome(Guid transactionIDToUpdate, Income newRecord)
         {
+            var oldRecord = this._incomeRepo.FirstOrDefault(x => x.TransactionID == transactionIDToUpdate);
             oldRecord.Amount = newRecord.Amount;
             oldRecord.Date = newRecord.Date;
             oldRecord.Description = newRecord.Description;
@@ -56,10 +57,11 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Updates the existing expense record in repo
         /// </summary>
-        /// <param name="oldRecord">Old Record to be updated</param>
+        /// <param name="transactionIDToUpdate">Guid of the object to be edited</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateExpense(Expense oldRecord, Expense newRecord)
+        public void UpdateExpense(Guid transactionIDToUpdate, Expense newRecord)
         {
+            var oldRecord = this._expenseRepo.FirstOrDefault(x => x.TransactionID == transactionIDToUpdate);
             oldRecord.Amount = newRecord.Amount;
             oldRecord.Date = newRecord.Date;
             oldRecord.Description = newRecord.Description;
@@ -69,19 +71,31 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Deletes Income record from income repo
         /// </summary>
-        /// <param name="record">Income record</param>
-        public void DeleteIncome(Income record)
+        /// <param name="id">TransactionID of Income record to be deleted</param>
+        public void DeleteIncome(Guid id)
         {
-            this._incomeRepo.Remove(record);
+            foreach (var incomeRecord in this._incomeRepo)
+            {
+                if (incomeRecord.TransactionID == id)
+                {
+                    this._incomeRepo.Remove(incomeRecord);
+                }
+            }
         }
 
         /// <summary>
         /// Deletes Expense record from income repo
         /// </summary>
-        /// <param name="record">Expense record</param>
-        public void DeleteExpense(Expense record)
+        /// <param name="id">TransactionID of Expense record to be deleted</param>
+        public void DeleteExpense(Guid id)
         {
-            this._expenseRepo.Remove(record);
+            foreach (var expenseRecord in this._expenseRepo)
+            {
+                if (expenseRecord.TransactionID == id)
+                {
+                    this._expenseRepo.Remove(expenseRecord);
+                }
+            }
         }
 
         /// <summary>
@@ -91,7 +105,15 @@ namespace ExpenseTracker.Repository
         /// <returns>Income record found</returns>
         public Income FindIncome(Guid id)
         {
-            return this._incomeRepo.FirstOrDefault(x => x.TransactionID == id);
+            foreach (var incomeRecord in this._incomeRepo)
+            {
+                if (incomeRecord.TransactionID == id)
+                {
+                    return new Income(incomeRecord.TransactionID, incomeRecord.Amount, incomeRecord.Date, incomeRecord.Description, incomeRecord.Source);
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -101,19 +123,33 @@ namespace ExpenseTracker.Repository
         /// <returns>Expense record found</returns>
         public Expense FindExpense(Guid id)
         {
-            return this._expenseRepo.FirstOrDefault(x => x.TransactionID == id);
+            foreach (var expenseRecord in this._expenseRepo)
+            {
+                if (expenseRecord.TransactionID == id)
+                {
+                    return new Expense(expenseRecord.TransactionID, expenseRecord.Amount, expenseRecord.Date, expenseRecord.Description, expenseRecord.Category);
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
         /// Returns Expense repo
         /// </summary>
         /// <returns>List of Expense repo</returns>
-        public IReadOnlyList<Expense> ReturnAllExpense() => this._expenseRepo;
+        public IReadOnlyList<Expense> ReturnAllExpense()
+        {
+            return new List<Expense>(this._expenseRepo);
+        }
 
         /// <summary>
         /// Returns Income repo
         /// </summary>
         /// <returns>List of Income repo</returns>
-        public IReadOnlyList<Income> ReturnAllIncome() => this._incomeRepo;
+        public IReadOnlyList<Income> ReturnAllIncome()
+        {
+            return new List<Income>(this._incomeRepo);
+        }
     }
 }

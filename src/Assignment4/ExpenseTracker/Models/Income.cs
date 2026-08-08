@@ -15,13 +15,14 @@ namespace ExpenseTracker.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="Income"/> class.
         /// </summary>
+        /// <param name="transactionID">Transaction ID</param>
         /// <param name="amount">Income amount</param>
         /// <param name="date">Date</param>
         /// <param name="description">Note or Description of Income</param>
         /// <param name="source">Source of Income</param>
-        public Income(decimal amount, DateOnly date, string description, string source)
+        public Income(Guid transactionID, decimal amount, DateOnly date, string description, string source)
         {
-            this.TransactionID = Guid.NewGuid();
+            this.TransactionID = transactionID;
             this.Amount = amount;
             this.Date = date;
             this.Description = description;
