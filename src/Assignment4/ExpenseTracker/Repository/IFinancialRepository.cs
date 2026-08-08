@@ -24,42 +24,42 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Updates the existing income record in repo
         /// </summary>
-        /// <param name="oldRecord">Old Record to be updated</param>
+        /// <param name="transactionId">TransactionID of the object to be modified</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateIncome(Income oldRecord, Income newRecord);
+        public void UpdateIncome(Guid transactionId, Income newRecord);
 
         /// <summary>
         /// Updates the existing expense record in repo
         /// </summary>
-        /// <param name="oldRecord">Old Record to be updated</param>
+        /// <param name="transactionId">TransactionID of the object to be modified</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateExpense(Expense oldRecord, Expense newRecord);
+        public void UpdateExpense(Guid transactionId, Expense newRecord);
 
         /// <summary>
         /// Deletes Income record from income repo
         /// </summary>
-        /// <param name="record">Income record</param>
-        public void DeleteIncome(Income record);
+        /// <param name="transactionID">Transaction ID of income record to be deleted</param>
+        public void DeleteIncome(Guid transactionID);
 
         /// <summary>
         /// Deletes Expense record from income repo
         /// </summary>
-        /// <param name="record">Expense record</param>
-        public void DeleteExpense(Expense record);
+        /// <param name="transactionID">Transaction ID of expense record to be deleted</param>
+        public void DeleteExpense(Guid transactionID);
 
         /// <summary>
         /// Finds and returns an income record
         /// </summary>
-        /// <param name="id">Unique id of record to be found</param>
+        /// <param name="transactionID">Unique id of record to be found</param>
         /// <returns>Income record found</returns>
-        public Income FindIncome(Guid id);
+        public Income FindIncome(Guid transactionID);
 
         /// <summary>
         /// Finds and returns an expense record
         /// </summary>
-        /// <param name="id">Unique id of record to be found</param>
+        /// <param name="transactionID">Unique id of record to be found</param>
         /// <returns>Expense record found</returns>
-        public Expense FindExpense(Guid id);
+        public Expense FindExpense(Guid transactionID);
 
         /// <summary>
         /// Returns Expense repo

@@ -30,7 +30,7 @@ namespace ExpenseTracker.Service
         /// <param name="source">Source of Income</param>
         public void SaveIncome(decimal amount, DateOnly date, string description, string source)
         {
-            var income = new Income(amount, date, description, source);
+            var income = new Income(Guid.NewGuid(), amount, date, description, source);
             this._repository.AddIncome(income);
             this.NotifyAdd(income);
         }
@@ -44,7 +44,7 @@ namespace ExpenseTracker.Service
         /// <param name="category">Category of Expense</param>
         public void SaveExpense(decimal amount, DateOnly date, string description, string category)
         {
-            var expense = new Expense(amount, date, description, category);
+            var expense = new Expense(Guid.NewGuid(), amount, date, description, category);
             this._repository.AddExpense(expense);
             this.NotifyAdd(expense);
         }
@@ -69,8 +69,8 @@ namespace ExpenseTracker.Service
             var incomeRepo = this.GetAllIncome();
             var existingRecord = this.GetIncomeById(incomeRepo[index].TransactionID);
             decimal existingAmount = existingRecord.Amount;
-            var updatedIncome = new Income(amount, date, description, source);
-            this._repository.UpdateIncome(existingRecord, updatedIncome);
+            var updatedIncome = new Income(existingRecord.TransactionID, amount, date, description, source);
+            this._repository.UpdateIncome(existingRecord.TransactionID, updatedIncome);
             this.NotifyUpdate(updatedIncome, existingAmount);
             return new Result(true, "Successfully Updated the Income Record");
         }
@@ -95,8 +95,8 @@ namespace ExpenseTracker.Service
             var expenseRepo = this.GetAllExpense();
             var existingRecord = this.GetExpenseById(expenseRepo[index].TransactionID);
             decimal existingAmount = existingRecord.Amount;
-            var updatedExpense = new Expense(amount, date, description, category);
-            this._repository.UpdateExpense(existingRecord, updatedExpense);
+            var updatedExpense = new Expense(existingRecord.TransactionID, amount, date, description, category);
+            this._repository.UpdateExpense(existingRecord.TransactionID, updatedExpense);
             this.NotifyUpdate(updatedExpense, existingAmount);
             return new Result(true, "Successfully Updated the Expense Record");
         }
@@ -116,7 +116,7 @@ namespace ExpenseTracker.Service
 
             var incomeRepo = this.GetAllIncome();
             var record = this._repository.FindIncome(incomeRepo[index].TransactionID);
-            this._repository.DeleteIncome(record);
+            this._repository.DeleteIncome(record.TransactionID);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Income Record");
         }
@@ -136,7 +136,7 @@ namespace ExpenseTracker.Service
 
             var expenseRepo = this.GetAllExpense();
             var record = this._repository.FindExpense(expenseRepo[index].TransactionID);
-            this._repository.DeleteExpense(record);
+            this._repository.DeleteExpense(record.TransactionID);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Expense Record");
         }
