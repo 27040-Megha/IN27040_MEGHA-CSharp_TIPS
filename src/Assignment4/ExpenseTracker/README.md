@@ -33,7 +33,7 @@ ExpenseTracker
 │   ├── InputResource.resx
 │   └── InputValidator.cs
 │
-├── Program.cs
+|── Program.cs
 ```
 
 ---
@@ -42,7 +42,7 @@ Folder Structure
  
 Models
 
-Outside Interface, Declare delegate 
+Outside Interface (IFinancialRecord), Declare enum for Transaction Action
 - public enum TransactionAction { Added, Updated, Deleted }
  
 IFinancialRecord.cs
@@ -84,19 +84,23 @@ Repository
  
 IRepository.cs
  
-Interface defining CRUD operations for financial records `(IRepository<T>)`
+Interface defining CRUD operations for financial records 
  
-- `event FinancialRecordHandler RecordHandler;`  (Whenever transaction is updated, the event is invoked by the BalanceTracker class which has subscribed to this event, and the methods to update the global balance(expense and income), total income and total expense will be executed according to transaction (Income/Expense) and the balance will be updated)
-- Add(T record)
-- Update(Guid id, T updatedRecord)
-- Delete(Guid id)
-- GetById(Guid id)
-- GetAll()
+- AddIncome(Income record)
+- AddExpense(Expense record)
+- UpdateIncome(Income oldRecord, Income newRecord)
+- UpdateExpense(Expense oldRecord, Expense newRecord)
+- DeleteIncome(Income record)
+- DeleteExpense(Expense record)
+- Income FindIncome(Guid id)
+- Expense FindExpense(Guid id)
+- IReadOnlyList&lt;Expense&gt; ReturnAllExpense()
+- IReadOnlyList&lt;Income&gt; ReturnAllIncome()
 ---
 
-FinancialRepository.cs  `(FinancialRepository<T>)`
+FinancialRepository.cs  
  
-Generic repository implementation that stores records and raises events after successful operations.
+Repository implementation for all the methods in the interface
  
 ---
  
@@ -106,33 +110,40 @@ IFinancialRecordService.cs
  
 Defines business operations for income and expense management.
  
-- AddIncome()
-- UpdateIncome()
-- DeleteIncome()
-- GetIncomeById()
-- GetAllIncome()
-- AddExpense()
-- UpdateExpense()
-- DeleteExpense()
+- SaveIncome(decimal amount, DateOnly date, string description, string source)
+- SaveExpense(decimal amount, DateOnly date, string description, string category)
+- ModifyIncome(int index, decimal amount, DateOnly date, string description, string source)
+- ModifyExpense(int index, decimal amount, DateOnly date, string description, string category)
+- RemoveIncome(int index)
+- RemoveExpense(int index)
+- GetIncomeCount()
+- GetExpenseCount()
 - GetExpenseById()
-- GetAllExpenses()
-- GetSummary()
+- IReadOnlyList&lt;Expense&gt; GetAllExpense()
+- IReadOnlyList&lt;Income&gt; GetAllIncome()
 
 ---
 
 FinancialRecordService.cs
  
-Implements financial operations by interacting with the repositories.
+Implements financial service operations by interacting with the repositories.
  
+---
+FinancialEventPublisher.cs
+ 
+ Event Publisher Class - Notifies the Subscribers when Income or Expense is Added/Updated/Deleted (Like a BroadCaster)
+
+- Notify(object sender, FinancialEventArgs args)
+
 ---
 BalanceTracking.cs
  
-Subscribes to both Income and Expense Repository to manage the global balance, total income and total expense accurately
+Manage the global balance, total income and total expense accurately
 
-- Property (Summary Details): decimal CurrentBalance, decimal TotalIncome, decimal TotalExpense 
-- BalanceTracking(IRepository<Income> incomeRepo, IRepository<Expense> expenseRepo) - Subscribe to the events 
-- void HandleIncomeChanged(TransactionAction action, IFinancialRecord current, IFinancialRecord? old) - Update Summary on Add, Edit or Delete Income
-- void HandleExpenseChanged(TransactionAction action, IFinancialRecord current, IFinancialRecord? old) - Update Summary on Add, Edit or Delete Expense
+- Properties : BalanceAmount, TotalIncome, TotalExpense
+- HandleFinancialRecordChange(object sender, FinancialEventArgs e)  - Subscribes to the FinancialEventPublisher and calls the HandleIncomeTransaction() or HandleExpenseTransaction() based on the object (income or expense) to update Summary details
+- HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
+- HandleExpenseTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
 
 ---
  
@@ -157,17 +168,15 @@ Methods
 - ViewAllRecords()
 - DisplayBalance()
  
-InputHelper.cs
+InputValidator.cs
  
 Provides helper methods for reading and validating user input.
  
 Methods
  
-- ReadPositiveDecimal()
-- ReadDate()
-- ReadRequiredString()
-- ReadGuid()
-- ReadMenuChoice()
+- ValidateAmount(string input)
+- ValidateDate(string input)
+- ValidateString(string input, string fieldName)
  
 ---
  
@@ -176,4 +185,6 @@ Program
 Program.cs
  
 - Creates object for Repository, Service and View  and inject their dependencies.
+- Subscriber subscribes to publisher's Event 
+- (FinancialEventPublisher.FinancialRecordChangeHandler += BalanceTracker.HandleFinancialRecordChange)
  
