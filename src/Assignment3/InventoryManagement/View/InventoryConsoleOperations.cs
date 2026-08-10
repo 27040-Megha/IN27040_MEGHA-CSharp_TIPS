@@ -95,7 +95,7 @@ namespace InventoryManagement.View
             TextColor.WriteGreenLine(InventoryResource.AddSuccess);
         }
 
-        private IProduct GetProductDetailsInput(string productID)
+        private Product GetProductDetailsInput(string productID)
         {
             Console.WriteLine(InventoryResource.PromptProductName);
             string productName = Console.ReadLine();
@@ -235,7 +235,7 @@ namespace InventoryManagement.View
                 return;
             }
 
-            List<IProduct> productList = this._service.GetProductsByName(productName);
+            List<Product> productList = this._service.GetProductsByName(productName);
             if (productList.Count == 0)
             {
                 TextColor.WriteRedLine(InventoryResource.SearchNameNotFoundError);
@@ -261,7 +261,7 @@ namespace InventoryManagement.View
                 return;
             }
 
-            IProduct product = this._service.FindProductById(productID);
+            Product product = this._service.FindProductById(productID);
             if (product == null)
             {
                 TextColor.WriteRedLine(InventoryResource.SearchIDNotFoundError);
@@ -278,7 +278,7 @@ namespace InventoryManagement.View
                 return;
             }
 
-            List<IProduct> productsList = this._service.GetAllProductDetails();
+            List<Product> productsList = this._service.GetAllProductDetails();
 
             Console.WriteLine(new string('-', 95));
             Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-10} | {4,-10} | {5,-12} |", "ID", "Name", "Category", "Price", "Stock", "Total Price");
@@ -288,7 +288,7 @@ namespace InventoryManagement.View
             }
         }
 
-        private void DisplayProduct(IProduct product)
+        private void DisplayProduct(Product product)
         {
             Console.WriteLine(new string('-', 95));
             Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-10:N2} | {4,-10} | {5,-12:N2} |",

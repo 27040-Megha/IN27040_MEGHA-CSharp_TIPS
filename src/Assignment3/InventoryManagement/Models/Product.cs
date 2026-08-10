@@ -3,7 +3,7 @@
     /// <summary>
     /// Concrete class that implements IProduct interface
     /// </summary>
-    public class Product : IProduct
+    public class Product
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class with specified identity

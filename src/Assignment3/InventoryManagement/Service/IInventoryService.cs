@@ -12,20 +12,20 @@ namespace InventoryManagement.Service
         /// Adds Project Object to the Repo
         /// </summary>
         /// <param name="product">Product Object to be added</param>
-        public void AddProductDetails(IProduct product);
+        public void AddProductDetails(Product product);
 
         /// <summary>
         /// Returns all Products in Inventory Repo
         /// </summary>
         /// <returns>List of Product Items</returns>
-        public List<IProduct> GetAllProductDetails();
+        public List<Product> GetAllProductDetails();
 
         /// <summary>
         /// Edits Product Object in the repo
         /// </summary>
         /// <param name="existingProduct">Existing Product Object that needs to be edited</param>
         /// <param name="updatedProduct">Product object that has the updated Details</param>
-        public void EditProductDetails(IProduct existingProduct, IProduct updatedProduct);
+        public void EditProductDetails(Product existingProduct, Product updatedProduct);
 
         /// <summary>
         /// Deletes Product Object from the repo
@@ -39,14 +39,14 @@ namespace InventoryManagement.Service
         /// </summary>
         /// <param name="productID">Product ID to be searched</param>
         /// <returns>Product Object if found otherwise null</returns>
-        public IProduct FindProductById(string productID);
+        public Product FindProductById(string productID);
 
         /// <summary>
         /// Returns List Of Products that is found with the same name matching the given product name
         /// </summary>
         /// <param name="productName">Product Name</param>
         /// <returns>List of Products matching the given product name</returns>
-        public List<IProduct> GetProductsByName(string productName);
+        public List<Product> GetProductsByName(string productName);
 
         /// <summary>
         /// Returns total number of products in the Inventory

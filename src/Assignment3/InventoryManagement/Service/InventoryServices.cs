@@ -26,7 +26,7 @@ namespace InventoryManagement.Service
         /// Adds Project Object to the Repo
         /// </summary>
         /// <param name="product">Product object to be added</param>
-        public void AddProductDetails(IProduct product)
+        public void AddProductDetails(Product product)
         {
             this._repository.SaveProduct(product);
         }
@@ -35,7 +35,7 @@ namespace InventoryManagement.Service
         /// Returns all Products in Inventory Repo
         /// </summary>
         /// <returns>List of Product Items</returns>
-        public List<IProduct> GetAllProductDetails()
+        public List<Product> GetAllProductDetails()
         {
             return this._repository.FetchAllProducts();
         }
@@ -45,7 +45,7 @@ namespace InventoryManagement.Service
         /// </summary>
         /// <param name="existingProduct">Existing Product Object that needs to be edited</param>
         /// <param name="updatedProduct">Product object that has the updated Details</param>
-        public void EditProductDetails(IProduct existingProduct, IProduct updatedProduct)
+        public void EditProductDetails(Product existingProduct, Product updatedProduct)
         {
             this._repository.UpdateProduct(existingProduct, updatedProduct);
         }
@@ -72,7 +72,7 @@ namespace InventoryManagement.Service
         /// </summary>
         /// <param name="productID">Product ID to be searched</param>
         /// <returns>Product Object if found otherwise null</returns>
-        public IProduct FindProductById(string productID)
+        public Product FindProductById(string productID)
         {
             var productFound = this._repository.GetById(productID);
             return productFound;
@@ -83,7 +83,7 @@ namespace InventoryManagement.Service
         /// </summary>
         /// <param name="productName">Product Name</param>
         /// <returns>List of Products matching the given product name</returns>
-        public List<IProduct> GetProductsByName(string productName)
+        public List<Product> GetProductsByName(string productName)
         {
             var productList = this.GetAllProductDetails();
             return productList.Where(p => p.ProductName.Equals(productName, StringComparison.OrdinalIgnoreCase)).ToList();

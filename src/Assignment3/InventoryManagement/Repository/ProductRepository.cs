@@ -8,21 +8,21 @@ namespace InventoryManagement.Repository
     /// </summary>
     public class ProductRepository : IProductRepository
     {
-        private readonly List<IProduct> _productsRepo;
+        private readonly List<Product> _productsRepo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductRepository"/> class.
         /// </summary>
         public ProductRepository()
         {
-             this._productsRepo = new List<IProduct>();
+             this._productsRepo = new List<Product>();
         }
 
         /// <summary>
         /// Adds product to Inventory Repo
         /// </summary>
         /// <param name="product">Product Instance to be stored</param>
-        public void SaveProduct(IProduct product)
+        public void SaveProduct(Product product)
         {
             this._productsRepo.Add(product);
         }
@@ -31,7 +31,7 @@ namespace InventoryManagement.Repository
         /// Returns all Products in Inventory Repo
         /// </summary>
         /// <returns>List of Product in Repo</returns>
-        public List<IProduct> FetchAllProducts()
+        public List<Product> FetchAllProducts()
         {
             return this._productsRepo;
         }
@@ -41,7 +41,7 @@ namespace InventoryManagement.Repository
         /// </summary>
         /// <param name="existingProduct">existing Product Instance that needs to be updated</param>
         /// <param name="updatedProduct">Product Instance to be Updated</param>
-        public void UpdateProduct(IProduct existingProduct, IProduct updatedProduct)
+        public void UpdateProduct(Product existingProduct, Product updatedProduct)
         {
             existingProduct.ProductName = updatedProduct.ProductName;
             existingProduct.Category = updatedProduct.Category;
@@ -53,7 +53,7 @@ namespace InventoryManagement.Repository
         /// Deletes product from Inventory Repo
         /// </summary>
         /// <param name="product">Product Object to be deleted</param>
-        public void RemoveProduct(IProduct product)
+        public void RemoveProduct(Product product)
         {
             this._productsRepo.Remove(product);
         }
@@ -63,7 +63,7 @@ namespace InventoryManagement.Repository
         /// </summary>
         /// <param name="productID">Product ID of the product that needs to be searched</param>
         /// <returns>Product Details of the specified product</returns>
-        public IProduct GetById(string productID)
+        public Product GetById(string productID)
         {
             foreach (var product in this._productsRepo)
             {
