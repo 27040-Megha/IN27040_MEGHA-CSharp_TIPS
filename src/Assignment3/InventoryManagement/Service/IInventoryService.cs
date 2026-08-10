@@ -9,14 +9,10 @@ namespace InventoryManagement.Service
     public interface IInventoryService
     {
         /// <summary>
-        /// Creates Product Object and adds it to the Repo
+        /// Adds Project Object to the Repo
         /// </summary>
-        /// <param name="productID">Product ID of the product</param>
-        /// <param name="productName">Nameof the product</param>
-        /// <param name="productCategory">Category of the product</param>
-        /// <param name="unitPrice">Unit Price of the product</param>
-        /// <param name="stockQuantity">Stock Quantity of the product</param>
-        public void AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity);
+        /// <param name="product">Product Object to be added</param>
+        public void AddProductDetails(IProduct product);
 
         /// <summary>
         /// Returns all Products in Inventory Repo
@@ -27,13 +23,9 @@ namespace InventoryManagement.Service
         /// <summary>
         /// Edits Product Object in the repo
         /// </summary>
-        /// <param name="productID">Product ID of the product</param>
-        /// <param name="productName">Nameof the product</param>
-        /// <param name="productCategory">Category of the product</param>
-        /// <param name="unitPrice">Unit Price of the product</param>
-        /// <param name="stockQuantity">Stock Quantity of the product</param>
-        /// <param name="existingProduct">Product Instance that needs to be updated</param>
-        public void EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity, IProduct existingProduct);
+        /// <param name="existingProduct">Existing Product Object that needs to be edited</param>
+        /// <param name="updatedProduct">Product object that has the updated Details</param>
+        public void EditProductDetails(IProduct existingProduct, IProduct updatedProduct);
 
         /// <summary>
         /// Deletes Product Object from the repo

@@ -15,7 +15,7 @@ namespace InventoryManagement.Repository
         /// </summary>
         public ProductRepository()
         {
-             _productsRepo = new List<IProduct>();
+             this._productsRepo = new List<IProduct>();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace InventoryManagement.Repository
         }
 
         /// <summary>
-        /// Update product ib Inventory Repo
+        /// Update product details in Inventory Repo
         /// </summary>
         /// <param name="existingProduct">existing Product Instance that needs to be updated</param>
         /// <param name="updatedProduct">Product Instance to be Updated</param>
@@ -47,7 +47,6 @@ namespace InventoryManagement.Repository
             existingProduct.Category = updatedProduct.Category;
             existingProduct.Price = updatedProduct.Price;
             existingProduct.StockQuantity = updatedProduct.StockQuantity;
-            existingProduct.TotalPrice = updatedProduct.Price * updatedProduct.StockQuantity;
         }
 
         /// <summary>
@@ -57,6 +56,24 @@ namespace InventoryManagement.Repository
         public void RemoveProduct(IProduct product)
         {
             this._productsRepo.Remove(product);
+        }
+
+        /// <summary>
+        /// Finds Product By ID
+        /// </summary>
+        /// <param name="productID">Product ID of the product that needs to be searched</param>
+        /// <returns>Product Details of the specified product</returns>
+        public IProduct GetById(string productID)
+        {
+            foreach (var product in this._productsRepo)
+            {
+                if (product.ProductId.Equals(productID))
+                {
+                    return product;
+                }
+            }
+
+            return null;
         }
     }
 }

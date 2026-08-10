@@ -147,6 +147,15 @@ namespace InventoryManagement.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Exits.
+        /// </summary>
+        internal static string ExitMessage {
+            get {
+                return ResourceManager.GetString("ExitMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Product Category Format.
         /// </summary>
         internal static string InvalidCategoryError {

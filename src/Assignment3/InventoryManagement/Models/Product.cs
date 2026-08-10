@@ -1,7 +1,7 @@
 ﻿namespace InventoryManagement.Models
 {
     /// <summary>
-    /// Concrete class that impletes IProduct interface
+    /// Concrete class that implements IProduct interface
     /// </summary>
     public class Product : IProduct
     {
@@ -20,7 +20,6 @@
             this.Category = category;
             this.Price = price;
             this.StockQuantity = stockQuantity;
-            this.TotalPrice = this.Price * this.StockQuantity;
         }
 
         /// <summary>
@@ -64,11 +63,11 @@
         public int StockQuantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the Total Worth of the product in inventory.
+        /// Gets the Total Worth of the product in inventory.
         /// </summary>
         /// <value>
         /// Product Total Worth in Inventory
         /// </value>
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice => this.Price * this.StockQuantity;
     }
 }

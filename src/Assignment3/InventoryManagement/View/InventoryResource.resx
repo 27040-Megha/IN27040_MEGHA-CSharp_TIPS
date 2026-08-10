@@ -149,6 +149,9 @@ Total Price: {5}</value>
   <data name="EditSuccess" xml:space="preserve">
     <value>Product Updated Successfully.</value>
   </data>
+  <data name="ExitMessage" xml:space="preserve">
+    <value>Application Exits</value>
+  </data>
   <data name="InvalidCategoryError" xml:space="preserve">
     <value>Invalid Product Category Format</value>
   </data>

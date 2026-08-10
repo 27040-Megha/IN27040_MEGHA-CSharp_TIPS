@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
-namespace InventoryManagement.View
+namespace InventoryManagement.Helper
 {
     /// <summary>
     /// Class contains methods that validates fields
@@ -15,33 +16,17 @@ namespace InventoryManagement.View
         /// <returns>true if given productID is valid, otherwise false</returns>
         public static bool ValidateProductID(string productID)
         {
-            try
+            if (string.IsNullOrEmpty(productID) || productID.Length != 8)
             {
-                if (productID.Length != 8)
-                {
-                    return false;
-                }
-
-                if (!productID.Substring(0, 4).Equals("PROD"))
-                {
-                    return false;
-                }
-
-                string suffix = productID.Substring(4, 4);
-                foreach (char ch in suffix)
-                {
-                    if (!char.IsDigit(ch))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
+                return false;
             }
-            catch (NullReferenceException ex)
+
+            if (!productID.StartsWith("PROD", StringComparison.Ordinal))
             {
-                throw;
+                return false;
             }
+
+            return Regex.IsMatch(productID.Substring(4), @"^\d{4}$");
         }
 
         /// <summary>
@@ -53,7 +38,6 @@ namespace InventoryManagement.View
         {
             if (string.IsNullOrEmpty(inputString) || !inputString.All(char.IsLetter))
             {
-                InventoryConsoleOperations.WriteRedLine(InventoryResource.InvalidStringFormat);
                 return false;
             }
 

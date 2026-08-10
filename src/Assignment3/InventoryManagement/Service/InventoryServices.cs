@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using InventoryManagement.Models;
 using InventoryManagement.Repository;
 
@@ -21,17 +23,11 @@ namespace InventoryManagement.Service
         }
 
         /// <summary>
-        /// Creates Product Object and adds it to the Repo
+        /// Adds Project Object to the Repo
         /// </summary>
-        /// <param name="productID">Product ID of the product</param>
-        /// <param name="productName">Nameof the product</param>
-        /// <param name="productCategory">Category of the product</param>
-        /// <param name="unitPrice">Unit Price of the product</param>
-        /// <param name="stockQuantity">Stock Quantity of the product</param>
-        public void AddProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity)
+        /// <param name="product">Product object to be added</param>
+        public void AddProductDetails(IProduct product)
         {
-            var product = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
-
             this._repository.SaveProduct(product);
         }
 
@@ -47,15 +43,10 @@ namespace InventoryManagement.Service
         /// <summary>
         /// Edits Product Object in the repo
         /// </summary>
-        /// <param name="productID">Product ID of the product</param>
-        /// <param name="productName">Nameof the product</param>
-        /// <param name="productCategory">Category of the product</param>
-        /// <param name="unitPrice">Unit Price of the product</param>
-        /// <param name="stockQuantity">Stock Quantity of the product</param>
-        /// <param name="existingProduct">Product Instance that needs to be updated</param>
-        public void EditProductDetails(string productID, string productName, string productCategory, decimal unitPrice, int stockQuantity, IProduct existingProduct)
+        /// <param name="existingProduct">Existing Product Object that needs to be edited</param>
+        /// <param name="updatedProduct">Product object that has the updated Details</param>
+        public void EditProductDetails(IProduct existingProduct, IProduct updatedProduct)
         {
-            var updatedProduct = new Product(productID, productName, productCategory, unitPrice, stockQuantity);
             this._repository.UpdateProduct(existingProduct, updatedProduct);
         }
 
@@ -72,6 +63,7 @@ namespace InventoryManagement.Service
                 this._repository.RemoveProduct(product);
                 return true;
             }
+
             return false;
         }
 
@@ -82,15 +74,8 @@ namespace InventoryManagement.Service
         /// <returns>Product Object if found otherwise null</returns>
         public IProduct FindProductById(string productID)
         {
-            var productList = this.GetAllProductDetails();
-            for(int i=0;i<productList.Count;i++)
-            {
-                if (productList[i].ProductId.Equals(productID))
-                {
-                    return productList[i];
-                }
-            }
-            return null;
+            var productFound = this._repository.GetById(productID);
+            return productFound;
         }
 
         /// <summary>
@@ -101,15 +86,7 @@ namespace InventoryManagement.Service
         public List<IProduct> GetProductsByName(string productName)
         {
             var productList = this.GetAllProductDetails();
-            var matchingProductList = new List<IProduct>();
-            for(int i=0;i<productList.Count;i++)
-            {
-                if (productList[i].ProductName.Equals(productName))
-                {
-                    matchingProductList.Add(productList[i]);
-                }
-            }
-            return matchingProductList;
+            return productList.Where(p => p.ProductName.Equals(productName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         /// <summary>

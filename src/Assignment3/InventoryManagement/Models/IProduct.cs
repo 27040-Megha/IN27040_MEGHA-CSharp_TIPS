@@ -46,11 +46,11 @@
         public int StockQuantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the Total Worth of the product in inventory.
+        /// Gets the Total Worth of the product in inventory.
         /// </summary>
         /// <value>
         /// Product Total Worth in Inventory
         /// </value>
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; }
     }
 }
