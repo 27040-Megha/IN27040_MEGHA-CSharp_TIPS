@@ -7,30 +7,9 @@ using System.Threading.Tasks;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Transaction Action
-    /// </summary>
-    public enum TransactionAction
-    {
-        /// <summary>
-        /// Added Income/Expense Record
-        /// </summary>
-        Added,
-
-        /// <summary>
-        /// Updated Income/Expense Record
-        /// </summary>
-        Updated,
-
-        /// <summary>
-        /// Deleted Income/Expense Record
-        /// </summary>
-        Deleted,
-    }
-
-    /// <summary>
     /// Interface for Financial Record
     /// </summary>
-    public interface IFinancialRecord
+    public abstract class FinancialRecord
     {
         /// <summary>
         /// Gets the unique TransactionID of the record.
