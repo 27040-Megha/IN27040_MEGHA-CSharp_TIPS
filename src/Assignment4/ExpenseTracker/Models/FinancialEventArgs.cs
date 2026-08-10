@@ -1,4 +1,5 @@
 ﻿using System;
+using ExpenseTracker.Models.Enums;
 
 namespace ExpenseTracker.Models
 {
@@ -12,7 +13,7 @@ namespace ExpenseTracker.Models
         /// </summary>
         /// <param name="action">Transaction Action(Added, Deleted)</param>
         /// <param name="currentRecord">Record that was Added/Deleted</param>
-        public FinancialEventArgs(TransactionAction action, IFinancialRecord currentRecord)
+        public FinancialEventArgs(TransactionAction action, FinancialRecord currentRecord)
         {
             this.Action = action;
             this.CurrentRecord = currentRecord;
@@ -24,7 +25,7 @@ namespace ExpenseTracker.Models
         /// <param name="action">Transaction Action(Updated)</param>
         /// <param name="currentRecord">New Updated Record</param>
         /// <param name="oldAmount">Old amount that has to be subtracted from the net balance</param>
-        public FinancialEventArgs(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount = 0)
+        public FinancialEventArgs(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount = 0)
         {
             this.Action = action;
             this.CurrentRecord = currentRecord;
@@ -45,7 +46,7 @@ namespace ExpenseTracker.Models
         /// <value>
         /// IFinancialRecord record
         /// </value>
-        public IFinancialRecord CurrentRecord { get; }
+        public FinancialRecord CurrentRecord { get; }
 
         /// <summary>
         /// Gets the Old Record Amount

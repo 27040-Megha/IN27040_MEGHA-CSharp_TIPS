@@ -10,7 +10,7 @@ namespace ExpenseTracker.Models
     /// <summary>
     /// Implements "IFinancialRecord" and defines string source property additionally
     /// </summary>
-    public class Income : IFinancialRecord
+    public class Income : FinancialRecord
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Income"/> class.
