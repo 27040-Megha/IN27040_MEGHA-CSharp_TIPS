@@ -1,7 +1,8 @@
 ﻿using System;
+using ExpenseTracker.Helper;
 using ExpenseTracker.Models;
+using ExpenseTracker.Models.Enums;
 using ExpenseTracker.Service;
-using ExpenseTracker.Validation;
 
 namespace ExpenseTracker.View
 {
@@ -107,6 +108,8 @@ namespace ExpenseTracker.View
                         break;
                     case MenuOption.ViewSummary:
                         this.ViewSummary();
+                        break;
+                    case MenuOption.Exit:
                         break;
                     default:
                         WriteRedLine(InputResource.InvalidChoice);
