@@ -28,7 +28,7 @@ namespace ExpenseTracker.Service
         /// <param name="date">Date of transaction</param>
         /// <param name="description">Description of transaction</param>
         /// <param name="source">Source of Income</param>
-        public void SaveIncome(decimal amount, DateOnly date, string description, string source)
+        public void SaveIncome(decimal amount, DateTime date, string description, string source)
         {
             var income = new Income(Guid.NewGuid(), amount, date, description, source);
             this._repository.AddIncome(income);
@@ -42,7 +42,7 @@ namespace ExpenseTracker.Service
         /// <param name="date">Date of transaction</param>
         /// <param name="description">Description of transaction</param>
         /// <param name="category">Category of Expense</param>
-        public void SaveExpense(decimal amount, DateOnly date, string description, string category)
+        public void SaveExpense(decimal amount, DateTime date, string description, string category)
         {
             var expense = new Expense(Guid.NewGuid(), amount, date, description, category);
             this._repository.AddExpense(expense);
@@ -58,7 +58,7 @@ namespace ExpenseTracker.Service
         /// <param name="description">Description of transaction</param>
         /// <param name="source">Source of Income</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyIncome(int index, decimal amount, DateOnly date, string description, string source)
+        public Result ModifyIncome(int index, decimal amount, DateTime date, string description, string source)
         {
             var indexResult = this.CheckValidIndexForIncome(index);
             if (!indexResult.IsSuccess)
@@ -84,7 +84,7 @@ namespace ExpenseTracker.Service
         /// <param name="description">Description of transaction</param>
         /// <param name="category">Category of Expense</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyExpense(int index, decimal amount, DateOnly date, string description, string category)
+        public Result ModifyExpense(int index, decimal amount, DateTime date, string description, string category)
         {
             var indexResult = this.CheckValidIndexForExpense(index);
             if (!indexResult.IsSuccess)

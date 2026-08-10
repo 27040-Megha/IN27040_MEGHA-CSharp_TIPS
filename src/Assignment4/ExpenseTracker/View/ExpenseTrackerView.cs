@@ -129,7 +129,7 @@ namespace ExpenseTracker.View
             WriteBlueLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount));
         }
 
-        private (decimal amount, DateOnly date, string description)? GetUserInput()
+        private (decimal amount, DateTime date, string description)? GetUserInput()
         {
             var amountResult = this.GetValidAmount();
             if (!amountResult.IsSuccess)
@@ -146,7 +146,7 @@ namespace ExpenseTracker.View
                 return null;
             }
 
-            DateOnly date = dateResult.DateData;
+            DateTime date = dateResult.DateData;
             var descriptionResult = this.GetValidString("Description");
             if (!descriptionResult.IsSuccess)
             {
@@ -158,7 +158,7 @@ namespace ExpenseTracker.View
             return (amount, date, description);
         }
 
-        private (decimal amount, DateOnly date, string description, string source)? GetIncomeInput()
+        private (decimal amount, DateTime date, string description, string source)? GetIncomeInput()
         {
             var inputDetails = this.GetUserInput();
             if (inputDetails is null)
@@ -176,7 +176,7 @@ namespace ExpenseTracker.View
             return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
         }
 
-        private (decimal amount, DateOnly date, string description, string category)? GetExpenseInput()
+        private (decimal amount, DateTime date, string description, string category)? GetExpenseInput()
         {
             var inputDetails = this.GetUserInput();
             if (inputDetails is null)

@@ -19,7 +19,7 @@ namespace ExpenseTracker.Service
         /// <param name="date">Date of transaction</param>
         /// <param name="description">Description of transaction</param>
         /// <param name="source">Source of Income</param>
-        public void SaveIncome(decimal amount, DateOnly date, string description, string source);
+        public void SaveIncome(decimal amount, DateTime date, string description, string source);
 
         /// <summary>
         /// Business Logic to Save Expense to Repo
@@ -28,7 +28,7 @@ namespace ExpenseTracker.Service
         /// <param name="date">Date of transaction</param>
         /// <param name="description">Description of transaction</param>
         /// <param name="category">Category of Expense</param>
-        public void SaveExpense(decimal amount, DateOnly date, string description, string category);
+        public void SaveExpense(decimal amount, DateTime date, string description, string category);
 
         /// <summary>
         /// Business Logic to Modify Income in Repo
@@ -39,7 +39,7 @@ namespace ExpenseTracker.Service
         /// <param name="description">Description of transaction</param>
         /// <param name="source">Source of Income</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyIncome(int index, decimal amount, DateOnly date, string description, string source);
+        public Result ModifyIncome(int index, decimal amount, DateTime date, string description, string source);
 
         /// <summary>
         /// Business Logic to Modify Expense in Repo
@@ -50,7 +50,7 @@ namespace ExpenseTracker.Service
         /// <param name="description">Description of transaction</param>
         /// <param name="category">Category of Expense</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyExpense(int index, decimal amount, DateOnly date, string description, string category);
+        public Result ModifyExpense(int index, decimal amount, DateTime date, string description, string category);
 
         /// <summary>
         /// Delete Income Record from repo

@@ -39,7 +39,7 @@ namespace ExpenseTracker.Models
         /// <param name="isSuccess">true - Operation Sucess, false - Operation fail</param>
         /// <param name="message">Success/Failure Message</param>
         /// <param name="dateData">Date of transaction entered by user</param>
-        public Result(bool isSuccess, string message, DateOnly dateData)
+        public Result(bool isSuccess, string message, DateTime dateData)
             : this(isSuccess, message)
         {
             this.DateData = dateData;
@@ -87,7 +87,7 @@ namespace ExpenseTracker.Models
         /// <value>
         /// Date of transaction
         /// </value>
-        public DateOnly DateData { get; init; }
+        public DateTime DateData { get; init; }
 
         /// <summary>
         /// Gets the string data

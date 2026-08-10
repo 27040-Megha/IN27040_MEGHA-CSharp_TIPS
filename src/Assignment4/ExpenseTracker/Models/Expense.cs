@@ -20,7 +20,7 @@ namespace ExpenseTracker.Models
         /// <param name="date">Date</param>
         /// <param name="description">Note or Description of expense</param>
         /// <param name="category">Category of Expense</param>
-        public Expense(Guid transactionID, decimal amount, DateOnly date, string description, string category)
+        public Expense(Guid transactionID, decimal amount, DateTime date, string description, string category)
         {
             this.TransactionID = transactionID;
             this.Amount = amount;
@@ -51,7 +51,7 @@ namespace ExpenseTracker.Models
         /// <value>
         /// Date
         /// </value>
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the Expense

@@ -20,7 +20,7 @@ namespace ExpenseTracker.Models
         /// <param name="date">Date</param>
         /// <param name="description">Note or Description of Income</param>
         /// <param name="source">Source of Income</param>
-        public Income(Guid transactionID, decimal amount, DateOnly date, string description, string source)
+        public Income(Guid transactionID, decimal amount, DateTime date, string description, string source)
         {
             this.TransactionID = transactionID;
             this.Amount = amount;
@@ -51,7 +51,7 @@ namespace ExpenseTracker.Models
         /// <value>
         /// Date
         /// </value>
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the Income
