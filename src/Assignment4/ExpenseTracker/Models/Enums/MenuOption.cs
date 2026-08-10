@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.Models
+﻿namespace ExpenseTracker.Models.Enums
 {
     /// <summary>
     /// Menu Option to use in Switch Case
