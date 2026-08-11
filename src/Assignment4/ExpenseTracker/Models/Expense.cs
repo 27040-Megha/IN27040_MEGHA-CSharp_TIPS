@@ -20,46 +20,11 @@ namespace ExpenseTracker.Models
         /// <param name="date">Date</param>
         /// <param name="description">Note or Description of expense</param>
         /// <param name="category">Category of Expense</param>
-        public Expense(Guid transactionID, decimal amount, DateOnly date, string description, string category)
+        public Expense(Guid transactionID, decimal amount, DateTime date, string description, string category)
+            : base(transactionID, amount, date, description)
         {
-            this.TransactionID = transactionID;
-            this.Amount = amount;
-            this.Date = date;
-            this.Description = description;
             this.Category = category;
         }
-
-        /// <summary>
-        /// Gets the unique TransactionID of the Expense.
-        /// </summary>
-        /// <value>
-        /// TransactionID
-        /// </value>
-        public Guid TransactionID { get; init; }
-
-        /// <summary>
-        /// Gets or sets the Expense Amount
-        /// </summary>
-        /// <value>
-        /// Expense Amount
-        /// </value>
-        public decimal Amount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Date of Transaction
-        /// </summary>
-        /// <value>
-        /// Date
-        /// </value>
-        public DateOnly Date { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description of the Expense
-        /// </summary>
-        /// <value>
-        /// Description
-        /// </value>
-        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the Category of Expense
