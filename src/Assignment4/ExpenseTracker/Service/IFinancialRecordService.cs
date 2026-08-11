@@ -15,42 +15,30 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// Business Logic to Save Income to Repo
         /// </summary>
-        /// <param name="amount">Income Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="source">Source of Income</param>
-        public void SaveIncome(decimal amount, DateTime date, string description, string source);
+        /// <param name="incomeRecord">Income Record to be added to repo</param>
+        public void SaveIncome(Income incomeRecord);
 
         /// <summary>
         /// Business Logic to Save Expense to Repo
         /// </summary>
-        /// <param name="amount">Expense Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="category">Category of Expense</param>
-        public void SaveExpense(decimal amount, DateTime date, string description, string category);
+        /// <param name="expenseRecord">Expense Record to be added to repo</param>
+        public void SaveExpense(Expense expenseRecord);
 
         /// <summary>
         /// Business Logic to Modify Income in Repo
         /// </summary>
         /// <param name="index">Index of record to be updated</param>
-        /// <param name="amount">Income Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="source">Source of Income</param>
+        /// <param name="updatedIncome">New income record that has the updated details</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyIncome(int index, decimal amount, DateTime date, string description, string source);
+        public Result ModifyIncome(int index, Income updatedIncome);
 
         /// <summary>
         /// Business Logic to Modify Expense in Repo
         /// </summary>
         /// <param name="index">Index of record to be updated</param>
-        /// <param name="amount">Expense Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="category">Category of Expense</param>
+        /// <param name="updatedExpense">New income record that has the updated details</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyExpense(int index, decimal amount, DateTime date, string description, string category);
+        public Result ModifyExpense(int index, Expense updatedExpense);
 
         /// <summary>
         /// Delete Income Record from repo

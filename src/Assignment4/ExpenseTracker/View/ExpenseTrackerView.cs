@@ -126,7 +126,7 @@ namespace ExpenseTracker.View
             return (amount, date, description);
         }
 
-        private (decimal amount, DateTime date, string description, string source)? GetIncomeInput()
+        private Income? GetIncomeInput()
         {
             var inputDetails = this.GetTransactionDetails();
             if (inputDetails is null)
@@ -141,10 +141,10 @@ namespace ExpenseTracker.View
             }
 
             string source = sourceResult.StringData;
-            return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
+            return new Income(Guid.NewGuid(), inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
         }
 
-        private (decimal amount, DateTime date, string description, string category)? GetExpenseInput()
+        private Expense? GetExpenseInput()
         {
             var inputDetails = this.GetTransactionDetails();
             if (inputDetails is null)
@@ -159,30 +159,30 @@ namespace ExpenseTracker.View
             }
 
             string category = categoryResult.StringData;
-            return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, category);
+            return new Expense(Guid.NewGuid(), inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, category);
         }
 
         private void AddIncomeRecord()
         {
-            var incomeInputDetails = this.GetIncomeInput();
-            if (incomeInputDetails is null)
+            var incomeRecord = this.GetIncomeInput();
+            if (incomeRecord is null)
             {
                 return;
             }
 
-            this._service.SaveIncome(incomeInputDetails.Value.amount, incomeInputDetails.Value.date, incomeInputDetails.Value.description, incomeInputDetails.Value.source);
+            this._service.SaveIncome(incomeRecord);
             WriteColorLine(InputResource.IncomeAddedSuccess, ConsoleColor.Green);
         }
 
         private void AddExpenseRecord()
         {
-            var expenseInputDetails = this.GetExpenseInput();
-            if (expenseInputDetails is null)
+            var expenseRecord = this.GetExpenseInput();
+            if (expenseRecord is null)
             {
                 return;
             }
 
-            this._service.SaveExpense(expenseInputDetails.Value.amount, expenseInputDetails.Value.date, expenseInputDetails.Value.description, expenseInputDetails.Value.category);
+            this._service.SaveExpense(expenseRecord);
             WriteColorLine(InputResource.ExpenseAddedSuccess, ConsoleColor.Green);
         }
 
@@ -349,7 +349,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            var editedResult = this._service.ModifyIncome(index, newIncome.Value.amount, newIncome.Value.date, newIncome.Value.description, newIncome.Value.source);
+            var editedResult = this._service.ModifyIncome(index, newIncome);
             if (!editedResult.IsSuccess)
             {
                 WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Red);
@@ -368,7 +368,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            var editedResult = this._service.ModifyExpense(index, newExpense.Value.amount, newExpense.Value.date, newExpense.Value.description, newExpense.Value.category);
+            var editedResult = this._service.ModifyExpense(index, newExpense);
             if (!editedResult.IsSuccess)
             {
                 WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Red);
