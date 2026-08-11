@@ -8,7 +8,7 @@ using System.Transactions;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Implements "IFinancialRecord" and defines string source property additionally
+    /// Inherits FinancialRecord and has additional Source property
     /// </summary>
     public class Income : FinancialRecord
     {
