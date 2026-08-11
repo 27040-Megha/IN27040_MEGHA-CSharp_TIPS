@@ -12,6 +12,21 @@ namespace ExpenseTracker.Models
     public abstract class FinancialRecord
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FinancialRecord"/> class.
+        /// </summary>
+        /// <param name="transactionID">Transaction ID</param>
+        /// <param name="amount">Expense amount</param>
+        /// <param name="date">Date</param>
+        /// <param name="description">Note or Description of expense</param>
+        protected FinancialRecord(Guid transactionID, decimal amount, DateTime date, string description)
+        {
+            this.TransactionID = transactionID;
+            this.Amount = amount;
+            this.Date = date;
+            this.Description = description;
+        }
+
+        /// <summary>
         /// Gets the unique TransactionID of the record.
         /// </summary>
         /// <value>
@@ -33,7 +48,7 @@ namespace ExpenseTracker.Models
         /// <value>
         /// Date
         /// </value>
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the transaction.

@@ -129,7 +129,7 @@ namespace ExpenseTracker.View
             WriteBlueLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount));
         }
 
-        private (decimal amount, DateOnly date, string description)? GetUserInput()
+        private (decimal amount, DateTime date, string description)? GetUserInput()
         {
             var amountResult = this.GetValidAmount();
             if (!amountResult.IsSuccess)
@@ -146,7 +146,7 @@ namespace ExpenseTracker.View
                 return null;
             }
 
-            DateOnly date = dateResult.DateData;
+            DateTime date = dateResult.DateData;
             var descriptionResult = this.GetValidString("Description");
             if (!descriptionResult.IsSuccess)
             {
@@ -158,7 +158,7 @@ namespace ExpenseTracker.View
             return (amount, date, description);
         }
 
-        private (decimal amount, DateOnly date, string description, string source)? GetIncomeInput()
+        private (decimal amount, DateTime date, string description, string source)? GetIncomeInput()
         {
             var inputDetails = this.GetUserInput();
             if (inputDetails is null)
@@ -176,7 +176,7 @@ namespace ExpenseTracker.View
             return (inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
         }
 
-        private (decimal amount, DateOnly date, string description, string category)? GetExpenseInput()
+        private (decimal amount, DateTime date, string description, string category)? GetExpenseInput()
         {
             var inputDetails = this.GetUserInput();
             if (inputDetails is null)
@@ -239,7 +239,7 @@ namespace ExpenseTracker.View
             var income = this._service.GetAllIncome();
             for (int i = 0; i < income.Count; i++)
             {
-                Console.WriteLine(string.Format(InputResource.IncomeRecordFormat, i + 1, income[i].Amount, income[i].Date, income[i].Description, income[i].Source));
+                Console.WriteLine(string.Format(InputResource.IncomeRecordFormat, i + 1, income[i].Amount, income[i].Date.Date.ToString("d"), income[i].Description, income[i].Source));
             }
         }
 
@@ -254,7 +254,7 @@ namespace ExpenseTracker.View
             var expense = this._service.GetAllExpense();
             for (int i = 0; i < expense.Count; i++)
             {
-               Console.WriteLine(string.Format(InputResource.ExpenseRecordFormat, i + 1, expense[i].Amount, expense[i].Date, expense[i].Description, expense[i].Category));
+               Console.WriteLine(string.Format(InputResource.ExpenseRecordFormat, i + 1, expense[i].Amount, expense[i].Date.Date.ToString("d"), expense[i].Description, expense[i].Category));
             }
         }
 
