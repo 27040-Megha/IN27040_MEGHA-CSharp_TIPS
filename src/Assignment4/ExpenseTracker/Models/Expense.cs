@@ -8,7 +8,7 @@ using System.Transactions;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Inherits FinancialRecord and has additional property Category
+    /// Inherits FinancialRecord and has additional Category property
     /// </summary>
     public class Expense : FinancialRecord
     {
