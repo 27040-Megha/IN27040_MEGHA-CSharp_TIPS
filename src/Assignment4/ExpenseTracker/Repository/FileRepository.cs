@@ -132,7 +132,7 @@ namespace ExpenseTracker.Repository
         }
 
         private T FindById<T>(List<T> financialRecordList, Guid transactionId)
-            where T : IFinancialRecord
+            where T : FinancialRecord
         {
             return financialRecordList.FirstOrDefault(e => e.TransactionID == transactionId);
         }
