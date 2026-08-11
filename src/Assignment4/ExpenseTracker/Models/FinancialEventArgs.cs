@@ -44,7 +44,7 @@ namespace ExpenseTracker.Models
         /// Gets the Financial Record
         /// </summary>
         /// <value>
-        /// IFinancialRecord record
+        /// FinancialRecord record
         /// </value>
         public FinancialRecord CurrentRecord { get; }
 
