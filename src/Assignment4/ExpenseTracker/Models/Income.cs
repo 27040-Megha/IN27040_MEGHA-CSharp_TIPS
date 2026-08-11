@@ -8,9 +8,9 @@ using System.Transactions;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Implements "IFinancialRecord" and defines string source property additionally
+    ///  Inherits FinancialRecord and has additional property Source
     /// </summary>
-    public class Income : IFinancialRecord
+    public class Income : FinancialRecord
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Income"/> class.
@@ -21,45 +21,10 @@ namespace ExpenseTracker.Models
         /// <param name="description">Note or Description of Income</param>
         /// <param name="source">Source of Income</param>
         public Income(Guid transactionID, decimal amount, DateTime date, string description, string source)
+            : base(transactionID, amount, date, description)
         {
-            this.TransactionID = transactionID;
-            this.Amount = amount;
-            this.Date = date;
-            this.Description = description;
             this.Source = source;
         }
-
-        /// <summary>
-        /// Gets the unique TransactionID of the Income.
-        /// </summary>
-        /// <value>
-        /// TransactionID
-        /// </value>
-        public Guid TransactionID { get; init; }
-
-        /// <summary>
-        /// Gets or sets the Income Amount
-        /// </summary>
-        /// <value>
-        /// Income Amount
-        /// </value>
-        public decimal Amount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Date of Transaction
-        /// </summary>
-        /// <value>
-        /// Date
-        /// </value>
-        public DateTime Date { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description of the Income
-        /// </summary>
-        /// <value>
-        /// Description
-        /// </value>
-        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the Source of Income

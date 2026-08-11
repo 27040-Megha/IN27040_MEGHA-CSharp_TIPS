@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExpenseTracker.Models;
+using ExpenseTracker.Models.Enums;
 using ExpenseTracker.Repository;
 
 namespace ExpenseTracker.Service
@@ -189,17 +190,17 @@ namespace ExpenseTracker.Service
             return new Result(true, "Valid Index");
         }
 
-        private void NotifyAdd(IFinancialRecord record)
+        private void NotifyAdd(FinancialRecord record)
         {
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Added, record));
         }
 
-        private void NotifyUpdate(IFinancialRecord existingRecord, decimal existingAmount)
+        private void NotifyUpdate(FinancialRecord existingRecord, decimal existingAmount)
         {
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Updated, existingRecord, existingAmount));
         }
 
-        private void NotifyDelete(IFinancialRecord record)
+        private void NotifyDelete(FinancialRecord record)
         {
             FinancialEventPublisher.Notify(this, new FinancialEventArgs(TransactionAction.Deleted, record));
         }

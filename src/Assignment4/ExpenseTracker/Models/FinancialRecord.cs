@@ -7,31 +7,25 @@ using System.Threading.Tasks;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Transaction Action
-    /// </summary>
-    public enum TransactionAction
-    {
-        /// <summary>
-        /// Added Income/Expense Record
-        /// </summary>
-        Added,
-
-        /// <summary>
-        /// Updated Income/Expense Record
-        /// </summary>
-        Updated,
-
-        /// <summary>
-        /// Deleted Income/Expense Record
-        /// </summary>
-        Deleted,
-    }
-
-    /// <summary>
     /// Interface for Financial Record
     /// </summary>
-    public interface IFinancialRecord
+    public abstract class FinancialRecord
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FinancialRecord"/> class.
+        /// </summary>
+        /// <param name="transactionID">Transaction ID</param>
+        /// <param name="amount">Expense amount</param>
+        /// <param name="date">Date</param>
+        /// <param name="description">Note or Description of expense</param>
+        protected FinancialRecord(Guid transactionID, decimal amount, DateTime date, string description)
+        {
+            this.TransactionID = transactionID;
+            this.Amount = amount;
+            this.Date = date;
+            this.Description = description;
+        }
+
         /// <summary>
         /// Gets the unique TransactionID of the record.
         /// </summary>

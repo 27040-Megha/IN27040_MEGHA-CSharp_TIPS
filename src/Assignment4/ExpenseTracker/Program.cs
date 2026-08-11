@@ -19,7 +19,8 @@ namespace Assignments
             try
             {
                 FinancialEventPublisher.FinancialRecordChangeHandler += BalanceTracker.HandleFinancialRecordChange;
-                var financialRepository = new FileRepository();
+
+                var financialRepository = new FinancialRepository();
 
                 var financialService = new FinancialRecordService(financialRepository);
 

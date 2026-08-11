@@ -1,4 +1,5 @@
 ﻿using ExpenseTracker.Models;
+using ExpenseTracker.Models.Enums;
 
 namespace ExpenseTracker.Service
 {
@@ -48,7 +49,7 @@ namespace ExpenseTracker.Service
             }
         }
 
-        private static void HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
+        private static void HandleIncomeTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
         {
             switch (action)
             {
@@ -69,7 +70,7 @@ namespace ExpenseTracker.Service
             }
         }
 
-        private static void HandleExpenseTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
+        private static void HandleExpenseTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
         {
             switch (action)
             {

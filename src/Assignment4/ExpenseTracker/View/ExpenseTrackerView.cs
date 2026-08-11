@@ -239,7 +239,7 @@ namespace ExpenseTracker.View
             var income = this._service.GetAllIncome();
             for (int i = 0; i < income.Count; i++)
             {
-                Console.WriteLine(string.Format(InputResource.IncomeRecordFormat, i + 1, income[i].Amount, income[i].Date, income[i].Description, income[i].Source));
+                Console.WriteLine(string.Format(InputResource.IncomeRecordFormat, i + 1, income[i].Amount, income[i].Date.Date.ToString("d"), income[i].Description, income[i].Source));
             }
         }
 
@@ -254,7 +254,7 @@ namespace ExpenseTracker.View
             var expense = this._service.GetAllExpense();
             for (int i = 0; i < expense.Count; i++)
             {
-               Console.WriteLine(string.Format(InputResource.ExpenseRecordFormat, i + 1, expense[i].Amount, expense[i].Date, expense[i].Description, expense[i].Category));
+               Console.WriteLine(string.Format(InputResource.ExpenseRecordFormat, i + 1, expense[i].Amount, expense[i].Date.Date.ToString("d"), expense[i].Description, expense[i].Category));
             }
         }
 
