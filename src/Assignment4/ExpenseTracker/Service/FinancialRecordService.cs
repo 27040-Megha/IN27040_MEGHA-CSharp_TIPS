@@ -68,7 +68,7 @@ namespace ExpenseTracker.Service
             }
 
             var incomeRepo = this.GetAllIncome();
-            var existingRecord = this.GetIncomeById(incomeRepo[index].TransactionID);
+            var existingRecord = incomeRepo[index];
             decimal existingAmount = existingRecord.Amount;
             var updatedIncome = new Income(existingRecord.TransactionID, amount, date, description, source);
             this._repository.UpdateIncome(existingRecord.TransactionID, updatedIncome);
@@ -94,7 +94,7 @@ namespace ExpenseTracker.Service
             }
 
             var expenseRepo = this.GetAllExpense();
-            var existingRecord = this.GetExpenseById(expenseRepo[index].TransactionID);
+            var existingRecord = expenseRepo[index];
             decimal existingAmount = existingRecord.Amount;
             var updatedExpense = new Expense(existingRecord.TransactionID, amount, date, description, category);
             this._repository.UpdateExpense(existingRecord.TransactionID, updatedExpense);
@@ -116,7 +116,7 @@ namespace ExpenseTracker.Service
             }
 
             var incomeRepo = this.GetAllIncome();
-            var record = this._repository.FindIncome(incomeRepo[index].TransactionID);
+            var record = incomeRepo[index];
             this._repository.DeleteIncome(record.TransactionID);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Income Record");
@@ -136,7 +136,7 @@ namespace ExpenseTracker.Service
             }
 
             var expenseRepo = this.GetAllExpense();
-            var record = this._repository.FindExpense(expenseRepo[index].TransactionID);
+            var record = expenseRepo[index];
             this._repository.DeleteExpense(record.TransactionID);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Expense Record");
@@ -165,10 +165,6 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <returns>Count of records in expenseRepo</returns>
         public int GetExpenseCount() => this._repository.ReturnAllExpense().Count;
-
-        private Income GetIncomeById(Guid id) => this._repository.FindIncome(id);
-
-        private Expense GetExpenseById(Guid id) => this._repository.FindExpense(id);
 
         private Result CheckValidIndexForExpense(int index)
         {
