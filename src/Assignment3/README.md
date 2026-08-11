@@ -22,8 +22,10 @@ Features
 ```text
 InventoryManagement
 │
+├── Helper
+│   └── FieldValidation.cs
+|
 ├── Models
-│   ├── IProduct.cs
 │   └── Product.cs
 │
 ├── Repository
@@ -36,7 +38,6 @@ InventoryManagement
 │
 ├── View
 │   ├── InventoryConsoleOperations.cs
-│   └── FieldValidation.cs
 |   └── InventoryResource.resx
 │
 └── Program.cs
@@ -48,8 +49,7 @@ Folder Structure
  
 Models
  
-IProduct.cs
- 
+Product.cs
 - Defines the product properties:
   - ProductId
   - Name
@@ -57,10 +57,6 @@ IProduct.cs
   - Price
   - StockQuantity
   - TotalPrice
- 
-Product.cs
- 
-- Implements "IProduct"
 - Assigns product values using the constructor
  
 ---
@@ -91,10 +87,11 @@ Methods
 ---
  
 Services
- 
+
 InventoryService.cs
- 
-Contains the business logic and communicates with the repository through IProductRepository.
+
+- Implements IInventoryService and provides definition for all its methods 
+- Contains the business logic and communicates with the repository through IProductRepository.
  
 Methods
  
@@ -111,7 +108,7 @@ View
  
 InventoryView.cs
  
-Handles all console interactions with the user. Fetches text to display from respurce file InventoreResource.resx
+- Handles all console interactions with the user. Fetches text to display from respurce file InventoreResource.resx
  
 Methods
  
