@@ -126,7 +126,7 @@ namespace ExpenseTracker.View
             return (amount, date, description);
         }
 
-        private Income? GetIncomeInput()
+        private Income GetIncomeInput()
         {
             var inputDetails = this.GetTransactionDetails();
             if (inputDetails is null)
@@ -144,7 +144,7 @@ namespace ExpenseTracker.View
             return new Income(Guid.NewGuid(), inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
         }
 
-        private Expense? GetExpenseInput()
+        private Expense GetExpenseInput()
         {
             var inputDetails = this.GetTransactionDetails();
             if (inputDetails is null)
