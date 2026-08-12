@@ -29,7 +29,7 @@ namespace ExpenseTracker.View
         /// </summary>
         /// <param name="text">Input string</param>
         /// <param name="colorChoice">Specific color of text to be displayed</param>
-        public static void WriteColorLine(string text, ConsoleColor colorChoice)
+        public void WriteColorLine(string text, ConsoleColor colorChoice)
         {
             Console.ForegroundColor = colorChoice;
             Console.WriteLine(text);
