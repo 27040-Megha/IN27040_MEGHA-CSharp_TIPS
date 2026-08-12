@@ -25,41 +25,30 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// Business Logic to Save Income to Repo
         /// </summary>
-        /// <param name="amount">Income Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="source">Source of Income</param>
-        public void SaveIncome(decimal amount, DateTime date, string description, string source)
+        /// <param name="incomeRecord">Income Record to be added to repo</param>
+        public void SaveIncome(Income incomeRecord)
         {
-            var income = new Income(Guid.NewGuid(), amount, date, description, source);
-            this._repository.AddIncome(income);
-            this.NotifyAdd(income);
+            this._repository.AddIncome(incomeRecord);
+            this.NotifyAdd(incomeRecord);
         }
 
         /// <summary>
         /// Business Logic to Save Expense to Repo
         /// </summary>
-        /// <param name="amount">Expense Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="category">Category of Expense</param>
-        public void SaveExpense(decimal amount, DateTime date, string description, string category)
+        /// <param name="expenseRecord">Expense Record to be added to repo</param>
+        public void SaveExpense(Expense expenseRecord)
         {
-            var expense = new Expense(Guid.NewGuid(), amount, date, description, category);
-            this._repository.AddExpense(expense);
-            this.NotifyAdd(expense);
+            this._repository.AddExpense(expenseRecord);
+            this.NotifyAdd(expenseRecord);
         }
 
         /// <summary>
         /// Business Logic to Modify Income in Repo
         /// </summary>
         /// <param name="index">Index of record to be updated</param>
-        /// <param name="amount">Income Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="source">Source of Income</param>
+        /// <param name="updatedIncome">New income record that has the updated details</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyIncome(int index, decimal amount, DateTime date, string description, string source)
+        public Result ModifyIncome(int index, Income updatedIncome)
         {
             var indexResult = this.CheckValidIndexForIncome(index);
             if (!indexResult.IsSuccess)
@@ -68,9 +57,8 @@ namespace ExpenseTracker.Service
             }
 
             var incomeRepo = this.GetAllIncome();
-            var existingRecord = this.GetIncomeById(incomeRepo[index].TransactionID);
+            var existingRecord = incomeRepo[index];
             decimal existingAmount = existingRecord.Amount;
-            var updatedIncome = new Income(existingRecord.TransactionID, amount, date, description, source);
             this._repository.UpdateIncome(existingRecord.TransactionID, updatedIncome);
             this.NotifyUpdate(updatedIncome, existingAmount);
             return new Result(true, "Successfully Updated the Income Record");
@@ -80,12 +68,9 @@ namespace ExpenseTracker.Service
         /// Business Logic to Modify Expense in Repo
         /// </summary>
         /// <param name="index">Index of record to be updated</param>
-        /// <param name="amount">Expense Amount</param>
-        /// <param name="date">Date of transaction</param>
-        /// <param name="description">Description of transaction</param>
-        /// <param name="category">Category of Expense</param>
+        /// <param name="updatedExpense">New income record that has the updated details</param>
         /// <returns>Result Object that has Success/Failure Message</returns>
-        public Result ModifyExpense(int index, decimal amount, DateTime date, string description, string category)
+        public Result ModifyExpense(int index, Expense updatedExpense)
         {
             var indexResult = this.CheckValidIndexForExpense(index);
             if (!indexResult.IsSuccess)
@@ -94,9 +79,8 @@ namespace ExpenseTracker.Service
             }
 
             var expenseRepo = this.GetAllExpense();
-            var existingRecord = this.GetExpenseById(expenseRepo[index].TransactionID);
+            var existingRecord = expenseRepo[index];
             decimal existingAmount = existingRecord.Amount;
-            var updatedExpense = new Expense(existingRecord.TransactionID, amount, date, description, category);
             this._repository.UpdateExpense(existingRecord.TransactionID, updatedExpense);
             this.NotifyUpdate(updatedExpense, existingAmount);
             return new Result(true, "Successfully Updated the Expense Record");
@@ -116,7 +100,7 @@ namespace ExpenseTracker.Service
             }
 
             var incomeRepo = this.GetAllIncome();
-            var record = this._repository.FindIncome(incomeRepo[index].TransactionID);
+            var record = incomeRepo[index];
             this._repository.DeleteIncome(record.TransactionID);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Income Record");
@@ -136,7 +120,7 @@ namespace ExpenseTracker.Service
             }
 
             var expenseRepo = this.GetAllExpense();
-            var record = this._repository.FindExpense(expenseRepo[index].TransactionID);
+            var record = expenseRepo[index];
             this._repository.DeleteExpense(record.TransactionID);
             this.NotifyDelete(record);
             return new Result(true, "Successfully Deleted the Expense Record");
@@ -165,10 +149,6 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <returns>Count of records in expenseRepo</returns>
         public int GetExpenseCount() => this._repository.ReturnAllExpense().Count;
-
-        private Income GetIncomeById(Guid id) => this._repository.FindIncome(id);
-
-        private Expense GetExpenseById(Guid id) => this._repository.FindExpense(id);
 
         private Result CheckValidIndexForExpense(int index)
         {

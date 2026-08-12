@@ -74,11 +74,11 @@ namespace ExpenseTracker.Repository
         /// <param name="id">TransactionID of Income record to be deleted</param>
         public void DeleteIncome(Guid id)
         {
-            foreach (var incomeRecord in this._incomeRepo)
+            for (int i = 0; i < this._incomeRepo.Count; i++)
             {
-                if (incomeRecord.TransactionID == id)
+                if (this._incomeRepo[i].TransactionID == id)
                 {
-                    this._incomeRepo.Remove(incomeRecord);
+                    this._incomeRepo.Remove(this._incomeRepo[i]);
                 }
             }
         }
@@ -89,11 +89,11 @@ namespace ExpenseTracker.Repository
         /// <param name="id">TransactionID of Expense record to be deleted</param>
         public void DeleteExpense(Guid id)
         {
-            foreach (var expenseRecord in this._expenseRepo)
+            for (int i = 0; i < this._expenseRepo.Count; i++)
             {
-                if (expenseRecord.TransactionID == id)
+                if (this._expenseRepo[i].TransactionID == id)
                 {
-                    this._expenseRepo.Remove(expenseRecord);
+                    this._expenseRepo.Remove(this._expenseRepo[i]);
                 }
             }
         }
