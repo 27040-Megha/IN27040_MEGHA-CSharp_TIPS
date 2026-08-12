@@ -77,5 +77,16 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <returns>List of expense records</returns>
         public IReadOnlyList<Expense> GetAllExpense();
+
+        /// <summary>
+        /// Returns summary details
+        /// </summary>
+        /// <returns>BalanceTracker object</returns>
+        public BalanceTracker ReturnSummaryDetails();
+
+        /// <summary>
+        /// Calls repo method to write to file before closing the Application
+        /// </summary>
+        public void CloseProgram();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExpenseTracker.Models;
+using ExpenseTracker.Service;
 
 namespace ExpenseTracker.Repository
 {
@@ -12,6 +13,7 @@ namespace ExpenseTracker.Repository
     {
         private readonly List<Income> _incomeRepo;
         private readonly List<Expense> _expenseRepo;
+        private BalanceTracker _balanceTracker;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FinancialRepository"/> class.
@@ -150,6 +152,24 @@ namespace ExpenseTracker.Repository
         public IReadOnlyList<Income> ReturnAllIncome()
         {
             return new List<Income>(this._incomeRepo);
+        }
+
+        /// <summary>
+        /// return summary details from the summary file
+        /// </summary>
+        /// <returns>BalanceTracker object</returns>
+        public BalanceTracker GetSummaryDetails()
+        {
+            return this._balanceTracker;
+        }
+
+        /// <summary>
+        /// Updates the BalanceTracker summary details
+        /// </summary>
+        /// <param name="balanceTracker">BalanceTracker object</param>
+        public void UpdateSummary(BalanceTracker balanceTracker)
+        {
+            this._balanceTracker = balanceTracker;
         }
     }
 }

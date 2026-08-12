@@ -78,6 +78,7 @@ namespace ExpenseTracker.View
                         this.ViewSummary();
                         break;
                     case MenuOption.Exit:
+                        this.ExitApplication();
                         break;
                     default:
                         this.WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
@@ -94,7 +95,8 @@ namespace ExpenseTracker.View
 
         private void ViewSummary()
         {
-            this.WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount), ConsoleColor.Blue);
+            var balanceTracker = this._service.ReturnSummaryDetails();
+            this.WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, balanceTracker.TotalIncome, balanceTracker.TotalExpense, balanceTracker.BalanceAmount), ConsoleColor.Blue);
         }
 
         private (decimal amount, DateTime date, string description)? GetTransactionDetails()
@@ -190,10 +192,8 @@ namespace ExpenseTracker.View
         {
             this.WriteColorLine(InputResource.IncomeRecordsHeader, ConsoleColor.Blue);
             this.ViewIncomeRecords();
-            this.WriteColorLine(string.Format(InputResource.TotalIncome, BalanceTracker.TotalIncome), ConsoleColor.Blue);
             this.WriteColorLine(InputResource.ExpenseRecordsHeader, ConsoleColor.Blue);
             this.ViewExpenseRecords();
-            this.WriteColorLine(string.Format(InputResource.TotalExpense, BalanceTracker.TotalExpense), ConsoleColor.Blue);
         }
 
         private void ViewIncomeRecords()
@@ -441,6 +441,11 @@ namespace ExpenseTracker.View
             }
 
             return new Result(false, $"Max attempts reached for {fieldName} entry");
+        }
+
+        private void ExitApplication()
+        {
+            this._service.CloseProgram();
         }
     }
 }

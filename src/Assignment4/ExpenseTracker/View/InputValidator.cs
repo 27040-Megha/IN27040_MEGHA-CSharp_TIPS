@@ -36,7 +36,7 @@ namespace ExpenseTracker.Validation
         /// <returns>Result Object - Success/Failure Message, Valid Date</returns>
         public static Result ValidateDate(string input)
         {
-            if (!DateOnly.TryParse(input, out DateOnly date))
+            if (!DateTime.TryParse(input, out DateTime date))
             {
                 return new Result(false, "Date format invalid. Eg. YYYY/MM/DD/.");
             }

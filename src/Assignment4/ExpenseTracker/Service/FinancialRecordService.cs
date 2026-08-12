@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
 using ExpenseTracker.Repository;
@@ -13,6 +14,8 @@ namespace ExpenseTracker.Service
     {
         private readonly IFinancialRepository _repository;
 
+        private readonly BalanceTracker _balanceTracker;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FinancialRecordService"/> class.
         /// </summary>
@@ -20,6 +23,7 @@ namespace ExpenseTracker.Service
         public FinancialRecordService(IFinancialRepository repository)
         {
             this._repository = repository;
+            this._balanceTracker = new BalanceTracker();
         }
 
         /// <summary>
@@ -149,6 +153,90 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <returns>Count of records in expenseRepo</returns>
         public int GetExpenseCount() => this._repository.ReturnAllExpense().Count;
+
+        /// <summary>
+        /// Writes the in-memory list to the file and closes the application
+        /// </summary>
+        public void CloseProgram()
+        {
+            if (this._repository is FileRepository fileRepository)
+            {
+                fileRepository.WriteFileAndClose(this._balanceTracker);
+            }
+        }
+
+        /// <summary>
+        /// Returns Summary Detaisl (TotalIncome, TotalExpense, BalanceAmount)
+        /// </summary>
+        /// <returns>BalanceTracker Object</returns>
+        public BalanceTracker ReturnSummaryDetails()
+        {
+            if (this._repository is FileRepository fileRepository)
+            {
+                return fileRepository.GetSummaryDetails();
+            }
+            else if (this._repository is FinancialRepository financialRepository)
+            {
+                return financialRepository.GetSummaryDetails();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// EventHandler method matching EventArgs(Built-in Delegate) that handles which Transaction(Income/Expense) has to be executed based on the record
+        /// </summary>
+        /// <param name="sender">Sender Object</param>
+        /// <param name="e">FinancialEventArgs object</param>
+        public void HandleFinancialRecordChange(object sender, FinancialEventArgs e)
+        {
+            if (e.CurrentRecord is Income)
+            {
+                this.HandleIncomeTransaction(e.Action, e.CurrentRecord, e.OldAmount);
+            }
+            else if (e.CurrentRecord is Expense)
+            {
+                this.HandleExpenseTransaction(e.Action, e.CurrentRecord, e.OldAmount);
+            }
+
+            this._repository.UpdateSummary(this._balanceTracker);
+        }
+
+        private void HandleIncomeTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
+        {
+            switch (action)
+            {
+                case TransactionAction.Added:
+                    this._balanceTracker.TotalIncome += currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Updated:
+                    this._balanceTracker.TotalIncome = this._balanceTracker.TotalIncome - oldAmount + currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Deleted:
+                    this._balanceTracker.TotalIncome -= currentRecord.Amount;
+                    break;
+            }
+        }
+
+        private void HandleExpenseTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
+        {
+            switch (action)
+            {
+                case TransactionAction.Added:
+                    this._balanceTracker.TotalExpense += currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Updated:
+                    this._balanceTracker.TotalExpense = this._balanceTracker.TotalExpense - oldAmount + currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Deleted:
+                    this._balanceTracker.TotalExpense -= currentRecord.Amount;
+                    break;
+            }
+        }
 
         private Result CheckValidIndexForExpense(int index)
         {

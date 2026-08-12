@@ -8,11 +8,7 @@ using System.Transactions;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-<<<<<<< HEAD
     ///  Inherits FinancialRecord and has additional property Source
-=======
-    /// Inherits FinancialRecord and has additional Source property
->>>>>>> feature-user-27040-Megha-Assignments-Assignment4-ExpenseTracker
     /// </summary>
     public class Income : FinancialRecord
     {
