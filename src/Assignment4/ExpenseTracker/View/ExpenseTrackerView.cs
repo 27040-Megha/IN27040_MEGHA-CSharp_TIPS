@@ -41,7 +41,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public void Run()
         {
-            WriteColorLine(InputResource.WelcomeUser, ConsoleColor.Blue);
+            this.WriteColorLine(InputResource.WelcomeUser, ConsoleColor.Blue);
             byte userChoice;
             MenuOption menuChoice;
             do
@@ -80,7 +80,7 @@ namespace ExpenseTracker.View
                     case MenuOption.Exit:
                         break;
                     default:
-                        WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
+                        this.WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
                         break;
                 }
             }
@@ -94,7 +94,7 @@ namespace ExpenseTracker.View
 
         private void ViewSummary()
         {
-            WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount), ConsoleColor.Blue);
+            this.WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount), ConsoleColor.Blue);
         }
 
         private (decimal amount, DateTime date, string description)? GetTransactionDetails()
@@ -102,7 +102,7 @@ namespace ExpenseTracker.View
             var amountResult = this.GetValidAmount();
             if (!amountResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, amountResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, amountResult.Message), ConsoleColor.Red);
                 return null;
             }
 
@@ -110,7 +110,7 @@ namespace ExpenseTracker.View
             var dateResult = this.GetValidDate();
             if (!dateResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, dateResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, dateResult.Message), ConsoleColor.Red);
                 return null;
             }
 
@@ -118,7 +118,7 @@ namespace ExpenseTracker.View
             var descriptionResult = this.GetValidString("Description");
             if (!descriptionResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, descriptionResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, descriptionResult.Message), ConsoleColor.Red);
                 return null;
             }
 
@@ -171,7 +171,7 @@ namespace ExpenseTracker.View
             }
 
             this._service.SaveIncome(incomeRecord);
-            WriteColorLine(InputResource.IncomeAddedSuccess, ConsoleColor.Green);
+            this.WriteColorLine(InputResource.IncomeAddedSuccess, ConsoleColor.Green);
         }
 
         private void AddExpenseRecord()
@@ -183,24 +183,24 @@ namespace ExpenseTracker.View
             }
 
             this._service.SaveExpense(expenseRecord);
-            WriteColorLine(InputResource.ExpenseAddedSuccess, ConsoleColor.Green);
+            this.WriteColorLine(InputResource.ExpenseAddedSuccess, ConsoleColor.Green);
         }
 
         private void ViewAllRecords()
         {
-            WriteColorLine(InputResource.IncomeRecordsHeader, ConsoleColor.Blue);
+            this.WriteColorLine(InputResource.IncomeRecordsHeader, ConsoleColor.Blue);
             this.ViewIncomeRecords();
-            WriteColorLine(string.Format(InputResource.TotalIncome, BalanceTracker.TotalIncome), ConsoleColor.Blue);
-            WriteColorLine(InputResource.ExpenseRecordsHeader, ConsoleColor.Blue);
+            this.WriteColorLine(string.Format(InputResource.TotalIncome, BalanceTracker.TotalIncome), ConsoleColor.Blue);
+            this.WriteColorLine(InputResource.ExpenseRecordsHeader, ConsoleColor.Blue);
             this.ViewExpenseRecords();
-            WriteColorLine(string.Format(InputResource.TotalExpense, BalanceTracker.TotalExpense), ConsoleColor.Blue);
+            this.WriteColorLine(string.Format(InputResource.TotalExpense, BalanceTracker.TotalExpense), ConsoleColor.Blue);
         }
 
         private void ViewIncomeRecords()
         {
             if (this._service.GetIncomeCount() == 0)
             {
-                WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
+                this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;
             }
 
@@ -215,7 +215,7 @@ namespace ExpenseTracker.View
         {
             if (this._service.GetExpenseCount() == 0)
             {
-                WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
+                this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;
             }
 
@@ -231,11 +231,11 @@ namespace ExpenseTracker.View
             var deleteResult = this._service.RemoveIncome(index);
             if (!deleteResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Red);
             }
             else
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Green);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Green);
             }
         }
 
@@ -244,11 +244,11 @@ namespace ExpenseTracker.View
             var deleteResult = this._service.RemoveExpense(index);
             if (!deleteResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Red);
             }
             else
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Green);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, deleteResult.Message), ConsoleColor.Green);
             }
         }
 
@@ -259,7 +259,7 @@ namespace ExpenseTracker.View
             {
                 if (this._service.GetIncomeCount() == 0)
                 {
-                    WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
+                    this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
                 }
 
@@ -275,7 +275,7 @@ namespace ExpenseTracker.View
             {
                 if (this._service.GetExpenseCount() == 0)
                 {
-                    WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
+                    this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
                 }
 
@@ -298,7 +298,7 @@ namespace ExpenseTracker.View
             }
             else
             {
-                WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
+                this.WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
                 return -1;
             }
         }
@@ -311,7 +311,7 @@ namespace ExpenseTracker.View
             {
                 if (this._service.GetIncomeCount() == 0)
                 {
-                    WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
+                    this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
                 }
 
@@ -327,7 +327,7 @@ namespace ExpenseTracker.View
             {
                 if (this._service.GetExpenseCount() == 0)
                 {
-                    WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
+                    this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
                 }
 
@@ -352,11 +352,11 @@ namespace ExpenseTracker.View
             var editedResult = this._service.ModifyIncome(index, newIncome);
             if (!editedResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Red);
             }
             else
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
             }
         }
 
@@ -371,11 +371,11 @@ namespace ExpenseTracker.View
             var editedResult = this._service.ModifyExpense(index, newExpense);
             if (!editedResult.IsSuccess)
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Red);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Red);
             }
             else
             {
-                WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
+                this.WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
             }
         }
 
@@ -385,7 +385,7 @@ namespace ExpenseTracker.View
             bool isValidIndex = int.TryParse(Console.ReadLine(), out int index);
             if (!isValidIndex || index < 1)
             {
-                WriteColorLine(InputResource.InvalidIndex, ConsoleColor.Red);
+                this.WriteColorLine(InputResource.InvalidIndex, ConsoleColor.Red);
                 return -1;
             }
 
@@ -403,7 +403,7 @@ namespace ExpenseTracker.View
                     return amountResult;
                 }
 
-                WriteColorLine(string.Format(InputResource.MaximumAttempts, amountResult.Message, i, MaxAttempts), ConsoleColor.Yellow);
+                this.WriteColorLine(string.Format(InputResource.MaximumAttempts, amountResult.Message, i, MaxAttempts), ConsoleColor.Yellow);
             }
 
             return new Result(false, "Max attempts reached for Amount entry");
@@ -420,7 +420,7 @@ namespace ExpenseTracker.View
                     return dateResult;
                 }
 
-                WriteColorLine(string.Format(InputResource.MaximumAttempts, dateResult.Message, i, MaxAttempts), ConsoleColor.Yellow);
+                this.WriteColorLine(string.Format(InputResource.MaximumAttempts, dateResult.Message, i, MaxAttempts), ConsoleColor.Yellow);
             }
 
             return new Result(false, "Max attempts reached for Date entry");
@@ -437,7 +437,7 @@ namespace ExpenseTracker.View
                     return stringResult;
                 }
 
-                WriteColorLine(string.Format(InputResource.MaximumAttempts, stringResult.Message, i, MaxAttempts), ConsoleColor.Yellow);
+                this.WriteColorLine(string.Format(InputResource.MaximumAttempts, stringResult.Message, i, MaxAttempts), ConsoleColor.Yellow);
             }
 
             return new Result(false, $"Max attempts reached for {fieldName} entry");
