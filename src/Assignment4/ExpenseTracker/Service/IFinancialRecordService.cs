@@ -88,5 +88,17 @@ namespace ExpenseTracker.Service
         /// Calls repo method to write to file before closing the Application
         /// </summary>
         public void CloseProgram();
+
+        /// <summary>
+        /// Returns the income Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped income Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseIncomeReport();
+
+        /// <summary>
+        /// Returns the expense Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped expense Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseExpenseReport();
     }
 }

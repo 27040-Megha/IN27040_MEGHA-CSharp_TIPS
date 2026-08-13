@@ -136,6 +136,10 @@
     <value>
 Expense Records</value>
   </data>
+  <data name="ExpenseReport" xml:space="preserve">
+    <value>
+Month Wise Expense Report</value>
+  </data>
   <data name="FinanceType" xml:space="preserve">
     <value>1.Income
 2.Expense
@@ -150,6 +154,9 @@ Enter Your Choice (1/2)</value>
   <data name="IncomeRecordsHeader" xml:space="preserve">
     <value>
 Income Records</value>
+  </data>
+  <data name="IncomeReport" xml:space="preserve">
+    <value>Month Wise Income Report</value>
   </data>
   <data name="InvalidChoice" xml:space="preserve">
     <value>Invalid Choice, Enter a valid choice</value>
@@ -167,7 +174,8 @@ Income Records</value>
 4. Delete Financial Record
 5. Edit Financial Record
 6. View Summary Report
-7. Exit
+7. View Month-Wise Report
+8. Exit
 Enter Choice:</value>
   </data>
   <data name="NoRecordFound" xml:space="preserve">

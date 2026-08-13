@@ -116,6 +116,16 @@ namespace ExpenseTracker.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Month Wise Expense Report.
+        /// </summary>
+        internal static string ExpenseReport {
+            get {
+                return ResourceManager.GetString("ExpenseReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1.Income
         ///2.Expense
         ///Enter Your Choice (1/2).
@@ -155,6 +165,15 @@ namespace ExpenseTracker.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Month Wise Income Report.
+        /// </summary>
+        internal static string IncomeReport {
+            get {
+                return ResourceManager.GetString("IncomeReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Choice, Enter a valid choice.
         /// </summary>
         internal static string InvalidChoice {
@@ -188,7 +207,8 @@ namespace ExpenseTracker.View {
         ///4. Delete Financial Record
         ///5. Edit Financial Record
         ///6. View Summary Report
-        ///7. Exit
+        ///7. View Month-Wise Report
+        ///8. Exit
         ///Enter Choice:.
         /// </summary>
         internal static string Menu {

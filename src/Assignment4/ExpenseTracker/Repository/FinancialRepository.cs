@@ -169,7 +169,13 @@ namespace ExpenseTracker.Repository
         /// <param name="balanceTracker">BalanceTracker object</param>
         public void UpdateSummary(BalanceTracker balanceTracker)
         {
-            this._balanceTracker = balanceTracker;
+            if (balanceTracker == null)
+            {
+                return;
+            }
+
+            this._balanceTracker.TotalIncome = balanceTracker.TotalIncome;
+            this._balanceTracker.TotalExpense = balanceTracker.TotalExpense;
         }
     }
 }

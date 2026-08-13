@@ -41,6 +41,11 @@
         ViewSummary,
 
         /// <summary>
+        /// Displays Financial Records month wise
+        /// </summary>
+        MonthWiseReport,
+
+        /// <summary>
         /// Exit the Application
         /// </summary>
         Exit,

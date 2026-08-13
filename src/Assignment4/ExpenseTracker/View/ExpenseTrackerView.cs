@@ -77,6 +77,9 @@ namespace ExpenseTracker.View
                     case MenuOption.ViewSummary:
                         this.ViewSummary();
                         break;
+                    case MenuOption.MonthWiseReport:
+                        this.ViewMonthWiseReport();
+                        break;
                     case MenuOption.Exit:
                         this.ExitApplication();
                         break;
@@ -376,6 +379,40 @@ namespace ExpenseTracker.View
             else
             {
                 this.WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
+            }
+        }
+
+        private void ViewMonthWiseReport()
+        {
+            Console.WriteLine(InputResource.IncomeReport);
+            this.ViewMonthWiseIncomeReport();
+            Console.WriteLine(InputResource.ExpenseReport);
+            this.ViewMonthWiseExpenseReport();
+        }
+
+        private void ViewMonthWiseIncomeReport()
+        {
+            var monthWiseIncomeReport = this._service.ReturnMonthWiseIncomeReport();
+            foreach (var group in monthWiseIncomeReport)
+            {
+                Console.WriteLine($"Year : {group.Year}, Month : {group.Month}");
+                foreach (var record in group.MonthWiseIncomeReport)
+                {
+                    Console.WriteLine($"{record.Date.Date.ToString("d")} - {record.Amount} - {record.Source}");
+                }
+            }
+        }
+
+        private void ViewMonthWiseExpenseReport()
+        {
+            var monthWiseExpenseReport = this._service.ReturnMonthWiseExpenseReport();
+            foreach (var group in monthWiseExpenseReport)
+            {
+                Console.WriteLine($"Year : {group.Year}, Month : {group.Month}");
+                foreach (var record in group.MonthWiseExpenseReport)
+                {
+                    Console.WriteLine($"{record.Date.Date.ToString("d")} - {record.Amount} - {record.Category}");
+                }
             }
         }
 

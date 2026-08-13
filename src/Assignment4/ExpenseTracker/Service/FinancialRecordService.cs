@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
@@ -23,7 +24,7 @@ namespace ExpenseTracker.Service
         public FinancialRecordService(IFinancialRepository repository)
         {
             this._repository = repository;
-            this._balanceTracker = new BalanceTracker();
+            this._balanceTracker = this._repository.GetSummaryDetails();
         }
 
         /// <summary>
@@ -181,6 +182,40 @@ namespace ExpenseTracker.Service
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Returns the income Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped income Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseIncomeReport()
+        {
+            var incomerecords = this.GetAllIncome();
+            return incomerecords.GroupBy(date => new { date.Date.Year, date.Date.Month }).Select(groupedRes => new MonthlyFinancialReport
+            {
+                Year = groupedRes.Key.Year,
+                Month = groupedRes.Key.Month,
+                TotalAmount = groupedRes.Sum(records => records.Amount),
+                MonthWiseIncomeReport = groupedRes.OrderBy(records => records.Date).ToList(),
+            })
+            .OrderByDescending(r => r.Year).ThenBy(r => r.Month);
+        }
+
+        /// <summary>
+        /// Returns the expense Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped expense Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseExpenseReport()
+        {
+            var expenserecords = this.GetAllExpense();
+            return expenserecords.GroupBy(date => new { date.Date.Year, date.Date.Month }).Select(groupedRes => new MonthlyFinancialReport
+            {
+                Year = groupedRes.Key.Year,
+                Month = groupedRes.Key.Month,
+                TotalAmount = groupedRes.Sum(records => records.Amount),
+                MonthWiseExpenseReport = groupedRes.OrderBy(records => records.Date).ToList(),
+            })
+            .OrderByDescending(r => r.Year).ThenBy(r => r.Month);
         }
 
         /// <summary>
