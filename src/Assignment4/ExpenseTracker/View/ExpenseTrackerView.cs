@@ -201,7 +201,7 @@ namespace ExpenseTracker.View
 
         private void ViewIncomeRecords()
         {
-            if (this._service.GetIncomeCount() == 0)
+            if (this.HasIncomeRecord())
             {
                 this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;
@@ -216,7 +216,7 @@ namespace ExpenseTracker.View
 
         private void ViewExpenseRecords()
         {
-            if (this._service.GetExpenseCount() == 0)
+            if (!this.HasExpenseRecord())
             {
                 this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;
@@ -260,7 +260,7 @@ namespace ExpenseTracker.View
             int transactionType = this.GetFinanceType();
             if (transactionType == 1)
             {
-                if (this._service.GetIncomeCount() == 0)
+                if (!this.HasIncomeRecord())
                 {
                     this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
@@ -276,7 +276,7 @@ namespace ExpenseTracker.View
             }
             else if (transactionType == 2)
             {
-                if (this._service.GetExpenseCount() == 0)
+                if (!this.HasExpenseRecord())
                 {
                     this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
@@ -290,6 +290,26 @@ namespace ExpenseTracker.View
 
                 this.DeleteExpenseRecord(index);
             }
+        }
+
+        private bool HasIncomeRecord()
+        {
+            if (this._service.GetIncomeCount() == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool HasExpenseRecord()
+        {
+            if (this._service.GetExpenseCount() == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private int GetFinanceType()
@@ -312,7 +332,7 @@ namespace ExpenseTracker.View
             Console.WriteLine(InputResource.EditPrompt);
             if (transactionType == 1)
             {
-                if (this._service.GetIncomeCount() == 0)
+                if (!this.HasIncomeRecord())
                 {
                     this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
@@ -328,7 +348,7 @@ namespace ExpenseTracker.View
             }
             else if (transactionType == 2)
             {
-                if (this._service.GetExpenseCount() == 0)
+                if (!this.HasExpenseRecord())
                 {
                     this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                     return;
