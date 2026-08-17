@@ -163,7 +163,7 @@ namespace ExpenseTracker.Repository
         /// Write the in-memory list back to file before closing the application
         /// </summary>
         /// <param name="balanceTracker">BalanceTracker object</param>
-        public void WriteFileAndClose(BalanceTracker balanceTracker)
+        public void SaveInMemory(BalanceTracker balanceTracker)
         {
             FileRepoService.WriteFile(this._incomeRepo, FilePath.IncomeFilePath);
             FileRepoService.WriteFile(this._expenseRepo, FilePath.ExpenseFilePath);

@@ -201,7 +201,7 @@ namespace ExpenseTracker.View
 
         private void ViewIncomeRecords()
         {
-            if (this.HasIncomeRecord())
+            if (!this.HasIncomeRecord())
             {
                 this.WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;

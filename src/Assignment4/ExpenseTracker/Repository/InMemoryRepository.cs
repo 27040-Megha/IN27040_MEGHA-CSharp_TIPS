@@ -9,16 +9,16 @@ namespace ExpenseTracker.Repository
     /// <summary>
     /// Repository implementation that stores records
     /// </summary>
-    public class FinancialRepository : IFinancialRepository
+    public class InMemoryRepository : IFinancialRepository
     {
         private readonly List<Income> _incomeRepo;
         private readonly List<Expense> _expenseRepo;
         private BalanceTracker _balanceTracker;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FinancialRepository"/> class.
+        /// Initializes a new instance of the <see cref="InMemoryRepository"/> class.
         /// </summary>
-        public FinancialRepository()
+        public InMemoryRepository()
         {
             this._expenseRepo = new List<Expense>();
             this._incomeRepo = new List<Income>();
@@ -161,6 +161,15 @@ namespace ExpenseTracker.Repository
         public BalanceTracker GetSummaryDetails()
         {
             return this._balanceTracker;
+        }
+
+        /// <summary>
+        /// Write the in-memory list back to file before closing the application (In-Memory Repo, so no need to write-back to file)
+        /// </summary>
+        /// <param name="balanceTracker">BalanceTracker object</param>
+        public void SaveInMemory(BalanceTracker balanceTracker)
+        {
+            return;
         }
 
         /// <summary>

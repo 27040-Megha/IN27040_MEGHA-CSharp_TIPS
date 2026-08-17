@@ -85,5 +85,11 @@ namespace ExpenseTracker.Repository
         /// </summary>
         /// <param name="balanceTracker">BalanceTracker object</param>
         public void UpdateSummary(BalanceTracker balanceTracker);
+
+        /// <summary>
+        /// Write the in-memory list back to file before closing the application
+        /// </summary>
+        /// <param name="balanceTracker">BalanceTracker object</param>
+        public void SaveInMemory(BalanceTracker balanceTracker);
     }
 }

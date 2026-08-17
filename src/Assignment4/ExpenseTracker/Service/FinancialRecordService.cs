@@ -158,10 +158,7 @@ namespace ExpenseTracker.Service
         /// </summary>
         public void CloseProgram()
         {
-            if (this._repository is FileRepository fileRepository)
-            {
-                fileRepository.WriteFileAndClose(this._balanceTracker);
-            }
+            this._repository.SaveInMemory(this._balanceTracker);
         }
 
         /// <summary>
@@ -174,7 +171,7 @@ namespace ExpenseTracker.Service
             {
                 return fileRepository.GetSummaryDetails();
             }
-            else if (this._repository is FinancialRepository financialRepository)
+            else if (this._repository is InMemoryRepository financialRepository)
             {
                 return financialRepository.GetSummaryDetails();
             }
