@@ -42,6 +42,10 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             {
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                Console.WriteLine("Finally Block of Division Operation");
+            }
         }
 
         private void GetArrayElements()
@@ -60,10 +64,6 @@ namespace ErrorHandlingTasks.PresentationLayer.View
 
                 int fifthElementOfArray = this._service.GetFifthElementFromArray(array);
                 Console.WriteLine($"Fifth element of the Array: {fifthElementOfArray}");
-            }
-            catch (InvalidUserInputException ex)
-            {
-                Console.WriteLine(ex.Message);
             }
             catch (InvalidOperationException ex)
             {

@@ -44,7 +44,8 @@ ErrorHandlingTasks
 │   └── InvalidUserInputException.cs
 │
 ├── ApplicationLayer
-│   └── ErrorHandlingService.cs
+│   |── Service
+│      └── ErrorHandlingService.cs
 │
 ├── PresentationLayer
 │   ├── Helper
@@ -71,6 +72,8 @@ InvalidUserInputException.cs
 ---
  
 ApplicationLayer
+
+Service
  
 ErrorHandlingService.cs
  
@@ -107,10 +110,6 @@ ConsoleOperations.cs
 3. catch(InvalidOperationException ex) - Service will catch IndexOutOfRangeException and throws InvalidOperationException which will be caught here
 - Finally block will print the default message at last
 
-Method
-
-- UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e) - Prints exception message and Stack trace
-
 ---
 
 Helper
@@ -127,5 +126,12 @@ Program.cs
  
 - Creates object for ApplicationLayer and PresentationLayer and inject their dependencies
 - Subscribe UnhandledExceptionHandler to AppDomain.UnhandledException event - This is invoked automatically when an unhandled exception is thrown
-- Contains a global try-catch block to catch global unhandled exceptions
+
+
+Method
+
+- UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e) - Prints exception message and Stack trace
+
+---
+
  

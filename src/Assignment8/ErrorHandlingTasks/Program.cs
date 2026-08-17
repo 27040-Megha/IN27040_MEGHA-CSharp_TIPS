@@ -8,21 +8,18 @@ namespace Assignments
     {
         public static void Main(string[] args)
         {
-            try
-            {
-                var applicationService = new ErrorHandlingService();
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
+            var applicationService = new ErrorHandlingService();
+            var consoleOperator = new ConsoleOperations(applicationService);
+            consoleOperator.Run();
+        }
 
-                var consoleOperator = new ConsoleOperations(applicationService);
-
-                consoleOperator.Run();
-            }
-            catch (Exception ex)
+        public static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception ex)
             {
-                Console.WriteLine("Exception Caught: " + ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Application Execution Completed - from Finally block");
+                Console.WriteLine($"Exception Message: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             }
         }
     }
