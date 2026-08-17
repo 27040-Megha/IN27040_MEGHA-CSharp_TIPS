@@ -137,6 +137,15 @@ namespace ExpenseTracker.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Year : {0}, Month : {1}.
+        /// </summary>
+        internal static string HeaderTemplate {
+            get {
+                return ResourceManager.GetString("HeaderTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Income Record added successfully!.
         /// </summary>
         internal static string IncomeAddedSuccess {
@@ -259,6 +268,15 @@ namespace ExpenseTracker.View {
         internal static string PromptString {
             get {
                 return ResourceManager.GetString("PromptString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:d} - {1} - {2}.
+        /// </summary>
+        internal static string RecordTemplate {
+            get {
+                return ResourceManager.GetString("RecordTemplate", resourceCulture);
             }
         }
         

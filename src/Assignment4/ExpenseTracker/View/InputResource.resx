@@ -145,6 +145,9 @@ Month Wise Expense Report</value>
 2.Expense
 Enter Your Choice (1/2)</value>
   </data>
+  <data name="HeaderTemplate" xml:space="preserve">
+    <value>Year : {0}, Month : {1}</value>
+  </data>
   <data name="IncomeAddedSuccess" xml:space="preserve">
     <value>Income Record added successfully!</value>
   </data>
@@ -192,6 +195,9 @@ Enter Choice:</value>
   </data>
   <data name="PromptString" xml:space="preserve">
     <value>Enter {0}: </value>
+  </data>
+  <data name="RecordTemplate" xml:space="preserve">
+    <value>{0:d} - {1} - {2}</value>
   </data>
   <data name="ResultMessage" xml:space="preserve">
     <value>{0}</value>

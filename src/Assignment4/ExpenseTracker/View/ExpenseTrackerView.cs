@@ -395,10 +395,10 @@ namespace ExpenseTracker.View
             var monthWiseIncomeReport = this._service.ReturnMonthWiseIncomeReport();
             foreach (var group in monthWiseIncomeReport)
             {
-                Console.WriteLine($"Year : {group.Year}, Month : {group.Month}");
+                this.WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
                 foreach (var record in group.MonthWiseIncomeReport)
                 {
-                    Console.WriteLine($"{record.Date.Date.ToString("d")} - {record.Amount} - {record.Source}");
+                    Console.WriteLine(string.Format(InputResource.RecordTemplate, record.Date, record.Amount, record.Source));
                 }
             }
         }
@@ -408,10 +408,10 @@ namespace ExpenseTracker.View
             var monthWiseExpenseReport = this._service.ReturnMonthWiseExpenseReport();
             foreach (var group in monthWiseExpenseReport)
             {
-                Console.WriteLine($"Year : {group.Year}, Month : {group.Month}");
+                this.WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
                 foreach (var record in group.MonthWiseExpenseReport)
                 {
-                    Console.WriteLine($"{record.Date.Date.ToString("d")} - {record.Amount} - {record.Category}");
+                    Console.WriteLine(string.Format(InputResource.RecordTemplate, record.Date, record.Amount, record.Category));
                 }
             }
         }
