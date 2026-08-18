@@ -142,7 +142,7 @@ namespace ExpenseTracker.Repository
         /// <returns>List of Expense repo</returns>
         public IReadOnlyList<Expense> ReturnAllExpense()
         {
-            return new List<Expense>(this._expenseRepo);
+            return this._expenseRepo.Select(expenseRecord => new Expense(expenseRecord.TransactionID, expenseRecord.Amount, expenseRecord.Date, expenseRecord.Description, expenseRecord.Category)).ToList();
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace ExpenseTracker.Repository
         /// <returns>List of Income repo</returns>
         public IReadOnlyList<Income> ReturnAllIncome()
         {
-            return new List<Income>(this._incomeRepo);
+            return this._incomeRepo.Select(incomeRecord => new Income(incomeRecord.TransactionID, incomeRecord.Amount, incomeRecord.Date, incomeRecord.Description, incomeRecord.Source)).ToList();
         }
 
         /// <summary>
