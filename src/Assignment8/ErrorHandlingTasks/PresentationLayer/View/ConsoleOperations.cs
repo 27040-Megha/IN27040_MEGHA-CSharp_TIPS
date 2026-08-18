@@ -42,7 +42,7 @@ namespace ErrorHandlingTasks.PresentationLayer.View
                 string number2 = Console.ReadLine();
                 int divisor = InputValidator.ValidateNumber(number2);
                 int divisionResult = this._service.Divide(dividend, divisor);
-                Console.WriteLine(string.Format(DisplayResource.DivisionResult,divisionResult));
+                Console.WriteLine(string.Format(DisplayResource.DivisionResult, divisionResult));
             }
             catch (InvalidUserInputException ex)
             {
