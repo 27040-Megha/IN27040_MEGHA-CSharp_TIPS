@@ -35,14 +35,14 @@ namespace ErrorHandlingTasks.PresentationLayer.View
         {
             try
             {
-                Console.WriteLine("Enter Dividend: ");
+                Console.WriteLine(DisplayResource.PromptDividend);
                 string number1 = Console.ReadLine();
                 int dividend = InputValidator.ValidateNumber(number1);
-                Console.WriteLine("Enter Divisor: ");
+                Console.WriteLine(DisplayResource.PromptDivisor);
                 string number2 = Console.ReadLine();
                 int divisor = InputValidator.ValidateNumber(number2);
                 int divisionResult = this._service.Divide(dividend, divisor);
-                Console.WriteLine($"Division: {divisionResult}");
+                Console.WriteLine(string.Format(DisplayResource.DivisionResult,divisionResult));
             }
             catch (InvalidUserInputException ex)
             {
@@ -54,7 +54,7 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             }
             finally
             {
-                Console.WriteLine("Finally Block of Division Operation");
+                Console.WriteLine(DisplayResource.FinallyBlockStatement);
             }
         }
 
@@ -62,10 +62,10 @@ namespace ErrorHandlingTasks.PresentationLayer.View
         {
             try
             {
-                Console.WriteLine("Enter Array Size: ");
+                Console.WriteLine(DisplayResource.PromptArraySize);
                 int arraySize = InputValidator.ValidateNumber(Console.ReadLine());
                 var array = new int[arraySize];
-                Console.WriteLine("Enter Array Elements: ");
+                Console.WriteLine(DisplayResource.PromptArrayElements);
 
                 for (int i = 0; i < arraySize; i++)
                 {
@@ -73,7 +73,7 @@ namespace ErrorHandlingTasks.PresentationLayer.View
                 }
 
                 int fifthElementOfArray = this._service.GetFifthElementFromArray(array);
-                Console.WriteLine($"Fifth element of the Array: {fifthElementOfArray}");
+                Console.WriteLine(string.Format(DisplayResource.FifthElementOfArray, fifthElementOfArray));
             }
             catch (InvalidOperationException ex)
             {
