@@ -54,7 +54,7 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             {
                 Console.WriteLine("Enter Array Size: ");
                 int arraySize = InputValidator.ValidateNumber(Console.ReadLine());
-                int[] array = new int[arraySize];
+                var array = new int[arraySize];
                 Console.WriteLine("Enter Array Elements: ");
 
                 for (int i = 0; i < arraySize; i++)
