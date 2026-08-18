@@ -5,15 +5,25 @@ using ErrorHandlingTasks.PresentationLayer.Helper;
 
 namespace ErrorHandlingTasks.PresentationLayer.View
 {
+    /// <summary>
+    /// Contains all methods that involves Console Operations
+    /// </summary>
     public class ConsoleOperations
     {
         private readonly ErrorHandlingService _service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="service">Service Object to access service in Application Layer</param>
         public ConsoleOperations(ErrorHandlingService service)
         {
             this._service = service;
         }
 
+        /// <summary>
+        /// Initiates the ConsoleOperations Execution
+        /// </summary>
         public void Run()
         {
             this.CalculateDivision();
