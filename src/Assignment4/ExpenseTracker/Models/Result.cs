@@ -58,6 +58,19 @@ namespace ExpenseTracker.Models
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Result"/> class.
+        /// </summary>
+        /// <param name="amount">Amount of Financial Record entered by user</param>
+        /// <param name="dateData">Date of transaction entered by user</param>
+        /// <param name="stringData">String (Description/Category of expense/Source of Income) entered by User</param>
+        public Result(decimal amount, DateTime dateData, string stringData)
+        {
+            this.AmountData = amount;
+            this.DateData = dateData;
+            this.StringData = stringData;
+        }
+
+        /// <summary>
         /// Gets a value indicating whether operation is success
         /// </summary>
         /// <value>

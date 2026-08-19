@@ -36,9 +36,15 @@ namespace ExpenseTracker.Helper
         /// <returns>Result Object - Success/Failure Message, Valid Date</returns>
         public static Result ValidateDate(string input)
         {
-            if (!DateTime.TryParse(input, out DateTime date))
+            DateTime date;
+            if (!DateTime.TryParse(input, out date))
             {
                 return new Result(false, "Date format invalid. Eg. YYYY/MM/DD/.");
+            }
+
+            if (date > DateTime.Now)
+            {
+                return new Result(false, "Date Should not be ahead of curent Date");
             }
 
             return new Result(true, "Date validated successfully.", date);

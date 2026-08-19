@@ -102,7 +102,7 @@ namespace ExpenseTracker.View
             this.WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, balanceTracker.TotalIncome, balanceTracker.TotalExpense, balanceTracker.BalanceAmount), ConsoleColor.Blue);
         }
 
-        private (decimal amount, DateTime date, string description)? GetTransactionDetails()
+        private Result? GetTransactionDetails()
         {
             var amountResult = this.GetValidAmount();
             if (!amountResult.IsSuccess)
@@ -128,7 +128,7 @@ namespace ExpenseTracker.View
             }
 
             string description = descriptionResult.StringData;
-            return (amount, date, description);
+            return new Result(amount, date, description);
         }
 
         private Income GetIncomeInput()
@@ -146,7 +146,7 @@ namespace ExpenseTracker.View
             }
 
             string source = sourceResult.StringData;
-            return new Income(Guid.NewGuid(), inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, source);
+            return new Income(Guid.NewGuid(), inputDetails.AmountData, inputDetails.DateData, inputDetails.StringData, source);
         }
 
         private Expense GetExpenseInput()
@@ -164,7 +164,7 @@ namespace ExpenseTracker.View
             }
 
             string category = categoryResult.StringData;
-            return new Expense(Guid.NewGuid(), inputDetails.Value.amount, inputDetails.Value.date, inputDetails.Value.description, category);
+            return new Expense(Guid.NewGuid(), inputDetails.AmountData, inputDetails.DateData, inputDetails.StringData, category);
         }
 
         private void AddIncomeRecord()
@@ -257,8 +257,14 @@ namespace ExpenseTracker.View
 
         private void DeleteRecord()
         {
-            int transactionType = this.GetFinanceType();
-            if (transactionType == 1)
+            FinanceType transactionType = this.GetFinanceType();
+
+            if (transactionType == FinanceType.Unknown)
+            {
+                return;
+            }
+
+            if (transactionType == FinanceType.Income)
             {
                 if (!this.HasIncomeRecord())
                 {
@@ -274,7 +280,7 @@ namespace ExpenseTracker.View
 
                 this.DeleteIncomeRecord(index);
             }
-            else if (transactionType == 2)
+            else if (transactionType == FinanceType.Expense)
             {
                 if (!this.HasExpenseRecord())
                 {
@@ -294,43 +300,40 @@ namespace ExpenseTracker.View
 
         private bool HasIncomeRecord()
         {
-            if (this._service.GetIncomeCount() == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return this._service.GetIncomeCount() != 0;
         }
 
         private bool HasExpenseRecord()
         {
-            if (this._service.GetExpenseCount() == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return this._service.GetExpenseCount() != 0;
         }
 
-        private int GetFinanceType()
+        private FinanceType GetFinanceType()
         {
             Console.Write(InputResource.FinanceType);
             if (int.TryParse(Console.ReadLine(), out int type) && (type == 1 || type == 2))
             {
-                return type;
+                return (FinanceType)type;
             }
             else
             {
                 this.WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
-                return -1;
+                return FinanceType.Unknown;
             }
         }
 
         private void EditRecord()
         {
-            int transactionType = this.GetFinanceType();
+            FinanceType transactionType = this.GetFinanceType();
+
+            if (transactionType == FinanceType.Unknown)
+            {
+                return;
+            }
+
             Console.WriteLine(InputResource.EditPrompt);
-            if (transactionType == 1)
+
+            if (transactionType == FinanceType.Income)
             {
                 if (!this.HasIncomeRecord())
                 {
@@ -346,7 +349,7 @@ namespace ExpenseTracker.View
 
                 this.EditIncomeRecord(index);
             }
-            else if (transactionType == 2)
+            else if (transactionType == FinanceType.Expense)
             {
                 if (!this.HasExpenseRecord())
                 {
