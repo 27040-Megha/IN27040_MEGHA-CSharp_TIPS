@@ -102,7 +102,11 @@ namespace ExpenseTracker.View
             this.WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, balanceTracker.TotalIncome, balanceTracker.TotalExpense, balanceTracker.BalanceAmount), ConsoleColor.Blue);
         }
 
+<<<<<<< HEAD
         private Result? GetTransactionDetails()
+=======
+        private Result GetTransactionDetails()
+>>>>>>> feature-user-27040-Megha-Assignments-Assignment4-ExpenseTracker
         {
             var amountResult = this.GetValidAmount();
             if (!amountResult.IsSuccess)

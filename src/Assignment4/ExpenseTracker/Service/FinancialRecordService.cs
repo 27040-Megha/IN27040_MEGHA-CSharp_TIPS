@@ -167,16 +167,7 @@ namespace ExpenseTracker.Service
         /// <returns>BalanceTracker Object</returns>
         public BalanceTracker ReturnSummaryDetails()
         {
-            if (this._repository is FileRepository fileRepository)
-            {
-                return fileRepository.GetSummaryDetails();
-            }
-            else if (this._repository is InMemoryRepository financialRepository)
-            {
-                return financialRepository.GetSummaryDetails();
-            }
-
-            return null;
+            return this._repository.GetSummaryDetails();
         }
 
         /// <summary>
