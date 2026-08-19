@@ -162,7 +162,6 @@ namespace ExpenseTracker.View
             return new Expense(Guid.NewGuid(), inputDetails.AmountData, inputDetails.DateData, inputDetails.StringData, category);
         }
 
-
         private void AddIncomeRecord()
         {
             var incomeRecord = this.GetIncomeInput();
