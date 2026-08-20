@@ -22,6 +22,18 @@ namespace ErrorHandlingTasks.PresentationLayer.View
         }
 
         /// <summary>
+        /// Prints the text in Specific Color
+        /// </summary>
+        /// <param name="text">Input string</param>
+        /// <param name="colorChoice">Specific color of text to be displayed</param>
+        public void WriteColorLine(string text, ConsoleColor colorChoice)
+        {
+            Console.ForegroundColor = colorChoice;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
+        /// <summary>
         /// Initiates the ConsoleOperations Execution
         /// </summary>
         public void Run()
@@ -46,15 +58,15 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             }
             catch (InvalidUserInputException ex)
             {
-                Console.WriteLine(ex.Message);
+                this.WriteColorLine(ex.Message, ConsoleColor.Red);
             }
             catch (DivideByZeroException ex)
             {
-                Console.WriteLine(ex.Message);
+                this.WriteColorLine(ex.Message, ConsoleColor.Red);
             }
             finally
             {
-                Console.WriteLine(DisplayResource.FinallyBlockStatement);
+                this.WriteColorLine(DisplayResource.FinallyBlockStatement, ConsoleColor.Cyan);
             }
         }
 
@@ -77,7 +89,7 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine(ex.Message);
+                this.WriteColorLine(ex.Message, ConsoleColor.Red);
             }
         }
     }
