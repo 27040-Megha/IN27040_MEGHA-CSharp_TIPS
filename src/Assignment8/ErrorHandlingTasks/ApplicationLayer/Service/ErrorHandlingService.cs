@@ -19,7 +19,7 @@ namespace ErrorHandlingTasks.ApplicationLayer.Service
             {
                 return dividend / divisor;
             }
-            catch (DivideByZeroException ex)
+            catch (DivideByZeroException)
             {
                 throw;
             }

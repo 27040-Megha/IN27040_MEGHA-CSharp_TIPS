@@ -22,18 +22,6 @@ namespace ErrorHandlingTasks.PresentationLayer.View
         }
 
         /// <summary>
-        /// Prints the text in Specific Color
-        /// </summary>
-        /// <param name="text">Input string</param>
-        /// <param name="colorChoice">Specific color of text to be displayed</param>
-        public void WriteColorLine(string text, ConsoleColor colorChoice)
-        {
-            Console.ForegroundColor = colorChoice;
-            Console.WriteLine(text);
-            Console.ResetColor();
-        }
-
-        /// <summary>
         /// Initiates the ConsoleOperations Execution
         /// </summary>
         public void Run()
@@ -41,6 +29,18 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             this.CalculateDivision();
             this.GetArrayElements();
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Prints the text in Specific Color
+        /// </summary>
+        /// <param name="text">Input string</param>
+        /// <param name="colorChoice">Specific color of text to be displayed</param>
+        private void WriteColorLine(string text, ConsoleColor colorChoice)
+        {
+            Console.ForegroundColor = colorChoice;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
 
         private void CalculateDivision()
@@ -78,7 +78,6 @@ namespace ErrorHandlingTasks.PresentationLayer.View
                 int arraySize = InputValidator.ValidateNumber(Console.ReadLine());
                 var array = new int[arraySize];
                 Console.WriteLine(DisplayResource.PromptArrayElements);
-
                 for (int i = 0; i < arraySize; i++)
                 {
                     array[i] = InputValidator.ValidateNumber(Console.ReadLine());
