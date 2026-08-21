@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
@@ -221,6 +222,16 @@ namespace ExpenseTracker.Service
             }
 
             this._repository.UpdateSummary(this._balanceTracker);
+        }
+
+        /// <summary>
+        /// Subscribed to AppDomain.CurrentDomain.ProcessExit - Runs when app is terminated without proper exit and closed using [X]
+        /// </summary>
+        /// <param name="sender">Sender Object - Source of event</param>
+        /// <param name="e">EventArgs object</param>
+        public void OnProcessExit(object sender, EventArgs e)
+        {
+            this.CloseProgram();
         }
 
         private void HandleIncomeTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)

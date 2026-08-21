@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ExpenseFilePath" xml:space="preserve">
-    <value>C:\Users\megha.easwaramoorthy\IN27040_MEGHA-CSharp_TIPS\src\Assignment4\ExpenseTracker\Repository\DataStorage\expense.json</value>
+    <value>expense.json</value>
   </data>
   <data name="IncomeFilePath" xml:space="preserve">
-    <value>C:\Users\megha.easwaramoorthy\IN27040_MEGHA-CSharp_TIPS\src\Assignment4\ExpenseTracker\Repository\DataStorage\income.json</value>
+    <value>income.json</value>
   </data>
   <data name="SummaryFilePath" xml:space="preserve">
-    <value>C:\Users\megha.easwaramoorthy\IN27040_MEGHA-CSharp_TIPS\src\Assignment4\ExpenseTracker\Repository\DataStorage\summary.json</value>
+    <value>summary.json</value>
   </data>
 </root>

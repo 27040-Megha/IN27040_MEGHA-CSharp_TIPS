@@ -61,7 +61,7 @@ namespace ExpenseTracker.Repository {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\megha.easwaramoorthy\IN27040_MEGHA-CSharp_TIPS\src\Assignment4\ExpenseTracker\Repository\DataStorage\expense.json.
+        ///   Looks up a localized string similar to expense.json.
         /// </summary>
         internal static string ExpenseFilePath {
             get {
@@ -70,7 +70,7 @@ namespace ExpenseTracker.Repository {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\megha.easwaramoorthy\IN27040_MEGHA-CSharp_TIPS\src\Assignment4\ExpenseTracker\Repository\DataStorage\income.json.
+        ///   Looks up a localized string similar to income.json.
         /// </summary>
         internal static string IncomeFilePath {
             get {
@@ -79,7 +79,7 @@ namespace ExpenseTracker.Repository {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\megha.easwaramoorthy\IN27040_MEGHA-CSharp_TIPS\src\Assignment4\ExpenseTracker\Repository\DataStorage\summary.json.
+        ///   Looks up a localized string similar to summary.json.
         /// </summary>
         internal static string SummaryFilePath {
             get {

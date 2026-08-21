@@ -25,6 +25,8 @@ namespace Assignments
 
                 FinancialEventPublisher.FinancialRecordChangeHandler += financialService.HandleFinancialRecordChange;
 
+                AppDomain.CurrentDomain.ProcessExit += financialService.OnProcessExit;
+
                 var view = new ExpenseTrackerView(financialService);
                 view.Run();
             }
