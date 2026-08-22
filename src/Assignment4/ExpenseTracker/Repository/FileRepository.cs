@@ -11,7 +11,7 @@ namespace ExpenseTracker.Repository
     /// <summary>
     /// File Repository class that reads file data and then performs all CRUD operations in an in-memory list and writes back the in-memory list to file
     /// </summary>
-    public class FileRepository : IFinancialRepository
+    public class FileRepository : ITransactionRepository
     {
         private readonly List<Income> _incomeRepo;
 

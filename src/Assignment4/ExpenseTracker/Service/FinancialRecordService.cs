@@ -13,7 +13,7 @@ namespace ExpenseTracker.Service
     /// </summary>
     public class FinancialRecordService : IFinancialRecordService
     {
-        private readonly IFinancialRepository _repository;
+        private readonly ITransactionRepository _repository;
 
         private readonly BalanceTracker _balanceTracker;
 
@@ -21,7 +21,7 @@ namespace ExpenseTracker.Service
         /// Initializes a new instance of the <see cref="FinancialRecordService"/> class.
         /// </summary>
         /// <param name="repository">Initializes Repo Object</param>
-        public FinancialRecordService(IFinancialRepository repository)
+        public FinancialRecordService(ITransactionRepository repository)
         {
             this._repository = repository;
             this._balanceTracker = this._repository.GetSummaryDetails();

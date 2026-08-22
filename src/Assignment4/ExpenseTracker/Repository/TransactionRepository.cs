@@ -9,16 +9,16 @@ namespace ExpenseTracker.Repository
     /// <summary>
     /// Repository implementation that stores records
     /// </summary>
-    public class InMemoryRepository : IFinancialRepository
+    public class TransactionRepository : ITransactionRepository
     {
         private readonly List<Income> _incomeRepo;
         private readonly List<Expense> _expenseRepo;
         private BalanceTracker _balanceTracker;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InMemoryRepository"/> class.
+        /// Initializes a new instance of the <see cref="TransactionRepository"/> class.
         /// </summary>
-        public InMemoryRepository()
+        public TransactionRepository()
         {
             this._expenseRepo = new List<Expense>();
             this._incomeRepo = new List<Income>();
