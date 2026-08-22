@@ -179,7 +179,7 @@ namespace ExpenseTracker.View {
         internal static string IncomeReport {
             get {
                 return ResourceManager.GetString("IncomeReport", resourceCulture);
-            }
+        }
         }
         
         /// <summary>

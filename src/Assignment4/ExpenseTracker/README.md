@@ -32,6 +32,7 @@ ExpenseTracker
 │   └── IFinancialRepository.cs
 │
 ├── Service
+│   ├── BalanceTracker.cs
 │   ├── FinancialEventPublisher.cs
 │   ├── FinancialRecordService.cs
 │   └── IFinancialRecordService.cs
@@ -66,17 +67,17 @@ Properties:
   - TotalIncome
   - TotalExpense
 ---
-
+ 
 FinancialRecord.cs
-
+ 
  Abstract Base class for Financial Record that has a constructor to assign the common properties
 
  Properties:
  
- - TransactionID
- - Amount
- - Date
- - Description
+  - TransactionID 
+  - Amount
+  - Date
+  - Description
 ---
  
 Income.cs
@@ -188,6 +189,16 @@ FinancialEventPublisher.cs
 - Notify(object sender, FinancialEventArgs args)
 
 ---
+BalanceTracking.cs
+ 
+Manage the global balance, total income and total expense accurately
+
+- Properties : BalanceAmount, TotalIncome, TotalExpense
+- HandleFinancialRecordChange(object sender, FinancialEventArgs e)  - Subscribes to the FinancialEventPublisher and calls the HandleIncomeTransaction() or HandleExpenseTransaction() based on the object (income or expense) to update Summary details
+- HandleIncomeTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
+- HandleExpenseTransaction(TransactionAction action, IFinancialRecord currentRecord, decimal oldAmount)
+
+---
  
 View
  
@@ -210,6 +221,16 @@ Methods
 - ViewAllRecords()
 - ViewMonthWiseSummaryReport()
 - DisplayBalance()
+ 
+InputValidator.cs
+ 
+Provides helper methods for reading and validating user input.
+ 
+Methods
+ 
+- ValidateAmount(string input)
+- ValidateDate(string input)
+- ValidateString(string input, string fieldName)
  
 ---
  
