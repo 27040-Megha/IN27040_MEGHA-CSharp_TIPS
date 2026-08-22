@@ -55,16 +55,16 @@ namespace ExpenseTracker.Service
         public Result RemoveExpense(int index);
 
         /// <summary>
-        /// Return Count of records in incomeRepo
+        /// Checks if incomeRepo has any active income records
         /// </summary>
-        /// <returns>Count of records in incomeRepo</returns>
-        public int GetIncomeCount();
+        /// <returns>true if incomeRepo has income records, otherwise false</returns>
+        public bool HasActiveIncome();
 
         /// <summary>
-        /// Return Count of records in expenseRepo
+        /// Checks if expenseRepo has any active expense records
         /// </summary>
-        /// <returns>Count of records in expenseRepo</returns>
-        public int GetExpenseCount();
+        /// <returns>true if expenseRepo has expense records, otherwise false</returns>
+        public bool HasActiveExpense();
 
         /// <summary>
         /// Returns all income records from repo

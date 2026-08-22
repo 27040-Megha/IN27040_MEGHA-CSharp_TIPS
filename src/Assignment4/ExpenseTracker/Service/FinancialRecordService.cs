@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
@@ -143,16 +144,16 @@ namespace ExpenseTracker.Service
         public IReadOnlyList<Expense> GetAllExpense() => this._repository.ReturnAllExpense();
 
         /// <summary>
-        /// Return Count of records in incomeRepo
+        /// Checks if incomeRepo has any active income records
         /// </summary>
-        /// <returns>Count of records in incomeRepo</returns>
-        public int GetIncomeCount() => this._repository.ReturnAllIncome().Count;
+        /// <returns>true if incomeRepo has income records, otherwise false</returns>
+        public bool HasActiveIncome() => this._repository.ReturnAllIncome().Any();
 
         /// <summary>
-        /// Return Count of records in expenseRepo
+        /// Checks if expenseRepo has any active expense records
         /// </summary>
-        /// <returns>Count of records in expenseRepo</returns>
-        public int GetExpenseCount() => this._repository.ReturnAllExpense().Count;
+        /// <returns>true if expenseRepo has expense records, otherwise false</returns>
+        public bool HasActiveExpense() => this._repository.ReturnAllExpense().Any();
 
         /// <summary>
         /// Writes the in-memory list to the file and closes the application
