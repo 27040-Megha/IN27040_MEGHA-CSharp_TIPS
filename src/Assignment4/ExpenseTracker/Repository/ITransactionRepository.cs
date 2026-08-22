@@ -24,16 +24,16 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Updates the existing income record in repo
         /// </summary>
-        /// <param name="transactionId">TransactionID of the object to be modified</param>
+        /// <param name="indexToUpdate">Index of the object to be modified</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateIncome(Guid transactionId, Income newRecord);
+        public void UpdateIncome(int indexToUpdate, Income newRecord);
 
         /// <summary>
         /// Updates the existing expense record in repo
         /// </summary>
-        /// <param name="transactionId">TransactionID of the object to be modified</param>
+        /// <param name="indexToUpdate">Index of the object to be modified</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateExpense(Guid transactionId, Expense newRecord);
+        public void UpdateExpense(int indexToUpdate, Expense newRecord);
 
         /// <summary>
         /// Deletes Income record from income repo

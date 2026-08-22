@@ -43,29 +43,21 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Updates the existing income record in repo
         /// </summary>
-        /// <param name="transactionIDToUpdate">Guid of the object to be edited</param>
+        /// <param name="indexToUpdate">Index of the object to be edited</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateIncome(Guid transactionIDToUpdate, Income newRecord)
+        public void UpdateIncome(int indexToUpdate, Income newRecord)
         {
-            var oldRecord = this._incomeRepo.FirstOrDefault(x => x.TransactionID == transactionIDToUpdate);
-            oldRecord.Amount = newRecord.Amount;
-            oldRecord.Date = newRecord.Date;
-            oldRecord.Description = newRecord.Description;
-            oldRecord.Source = newRecord.Source;
+            this._incomeRepo[indexToUpdate] = newRecord;
         }
 
         /// <summary>
         /// Updates the existing expense record in repo
         /// </summary>
-        /// <param name="transactionIDToUpdate">Guid of the object to be edited</param>
+        /// <param name="indexToUpdate">Index of the object to be edited</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateExpense(Guid transactionIDToUpdate, Expense newRecord)
+        public void UpdateExpense(int indexToUpdate, Expense newRecord)
         {
-            var oldRecord = this._expenseRepo.FirstOrDefault(x => x.TransactionID == transactionIDToUpdate);
-            oldRecord.Amount = newRecord.Amount;
-            oldRecord.Date = newRecord.Date;
-            oldRecord.Description = newRecord.Description;
-            oldRecord.Category = newRecord.Category;
+            this._expenseRepo[indexToUpdate] = newRecord;
         }
 
         /// <summary>
