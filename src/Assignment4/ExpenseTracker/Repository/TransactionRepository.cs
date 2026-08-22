@@ -8,15 +8,15 @@ namespace ExpenseTracker.Repository
     /// <summary>
     /// Repository implementation that stores records
     /// </summary>
-    public class FinancialRepository : IFinancialRepository
+    public class TransactionRepository : ITransactionRepository
     {
         private readonly List<Income> _incomeRepo;
         private readonly List<Expense> _expenseRepo;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FinancialRepository"/> class.
+        /// Initializes a new instance of the <see cref="TransactionRepository"/> class.
         /// </summary>
-        public FinancialRepository()
+        public TransactionRepository()
         {
             this._expenseRepo = new List<Expense>();
             this._incomeRepo = new List<Income>();
@@ -74,13 +74,8 @@ namespace ExpenseTracker.Repository
         /// <param name="id">TransactionID of Income record to be deleted</param>
         public void DeleteIncome(Guid id)
         {
-            for (int i = 0; i < this._incomeRepo.Count; i++)
-            {
-                if (this._incomeRepo[i].TransactionID == id)
-                {
-                    this._incomeRepo.Remove(this._incomeRepo[i]);
-                }
-            }
+            var incomeToDelete = this._incomeRepo.FirstOrDefault(income => income.TransactionID == id);
+            this._incomeRepo.Remove(incomeToDelete);
         }
 
         /// <summary>
@@ -89,13 +84,8 @@ namespace ExpenseTracker.Repository
         /// <param name="id">TransactionID of Expense record to be deleted</param>
         public void DeleteExpense(Guid id)
         {
-            for (int i = 0; i < this._expenseRepo.Count; i++)
-            {
-                if (this._expenseRepo[i].TransactionID == id)
-                {
-                    this._expenseRepo.Remove(this._expenseRepo[i]);
-                }
-            }
+            var expenseToDelete = this._expenseRepo.FirstOrDefault(expense => expense.TransactionID == id);
+            this._expenseRepo.Remove(expenseToDelete);
         }
 
         /// <summary>
@@ -105,15 +95,8 @@ namespace ExpenseTracker.Repository
         /// <returns>Income record found</returns>
         public Income FindIncome(Guid id)
         {
-            foreach (var incomeRecord in this._incomeRepo)
-            {
-                if (incomeRecord.TransactionID == id)
-                {
-                    return new Income(incomeRecord.TransactionID, incomeRecord.Amount, incomeRecord.Date, incomeRecord.Description, incomeRecord.Source);
-                }
-            }
-
-            return null;
+            var incomeRecord = this._incomeRepo.FirstOrDefault(income => income.TransactionID == id);
+            return new Income(incomeRecord.TransactionID, incomeRecord.Amount, incomeRecord.Date, incomeRecord.Description, incomeRecord.Source);
         }
 
         /// <summary>
@@ -123,15 +106,8 @@ namespace ExpenseTracker.Repository
         /// <returns>Expense record found</returns>
         public Expense FindExpense(Guid id)
         {
-            foreach (var expenseRecord in this._expenseRepo)
-            {
-                if (expenseRecord.TransactionID == id)
-                {
-                    return new Expense(expenseRecord.TransactionID, expenseRecord.Amount, expenseRecord.Date, expenseRecord.Description, expenseRecord.Category);
-                }
-            }
-
-            return null;
+            var expenseRecord = this._expenseRepo.FirstOrDefault(expense => expense.TransactionID == id);
+            return new Expense(expenseRecord.TransactionID, expenseRecord.Amount, expenseRecord.Date, expenseRecord.Description, expenseRecord.Category);
         }
 
         /// <summary>

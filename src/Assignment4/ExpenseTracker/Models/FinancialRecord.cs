@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Interface for Financial Record
+    /// Abstract class for Financial Record
     /// </summary>
     public abstract class FinancialRecord
     {

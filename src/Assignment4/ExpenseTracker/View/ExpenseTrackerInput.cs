@@ -23,7 +23,7 @@ namespace ExpenseTracker.View
         public static int GetValidIndex()
         {
             Console.WriteLine(InputResource.PromptIndex);
-            bool isValidIndex = int.TryParse(Console.ReadLine(), out int index);
+            var isValidIndex = int.TryParse(Console.ReadLine(), out int index);
             if (!isValidIndex || index < 1)
             {
                 ExpenseTrackerView.WriteColorLine(InputResource.InvalidIndex, ConsoleColor.Red);

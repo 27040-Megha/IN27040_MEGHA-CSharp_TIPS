@@ -7,7 +7,7 @@ namespace ExpenseTracker.Repository
     /// <summary>
     /// Interface defining CRUD operations for financial records
     /// </summary>
-    public interface IFinancialRepository
+    public interface ITransactionRepository
     {
         /// <summary>
         /// Adds Income record to income repo

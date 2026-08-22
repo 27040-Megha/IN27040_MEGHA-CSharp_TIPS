@@ -44,7 +44,7 @@ namespace ExpenseTracker.View
             do
             {
                 this.DisplayMenu();
-                bool isValidChoice = byte.TryParse(Console.ReadLine(), out userChoice);
+                var isValidChoice = byte.TryParse(Console.ReadLine(), out userChoice);
                 if (!isValidChoice)
                 {
                     menuChoice = MenuOption.Invalid;
