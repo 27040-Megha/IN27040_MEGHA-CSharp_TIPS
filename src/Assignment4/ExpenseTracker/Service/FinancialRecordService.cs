@@ -64,7 +64,11 @@ namespace ExpenseTracker.Service
             var incomeRepo = this.GetAllIncome();
             var existingRecord = incomeRepo[index];
             decimal existingAmount = existingRecord.Amount;
-            this._repository.UpdateIncome(existingRecord.TransactionID, updatedIncome);
+            existingRecord.Amount = updatedIncome.Amount;
+            existingRecord.Date = updatedIncome.Date;
+            existingRecord.Description = updatedIncome.Description;
+            existingRecord.Source = updatedIncome.Source;
+            this._repository.UpdateIncome(index, existingRecord);
             this.NotifyUpdate(updatedIncome, existingAmount);
             return new Result(true, "Successfully Updated the Income Record");
         }
@@ -86,7 +90,11 @@ namespace ExpenseTracker.Service
             var expenseRepo = this.GetAllExpense();
             var existingRecord = expenseRepo[index];
             decimal existingAmount = existingRecord.Amount;
-            this._repository.UpdateExpense(existingRecord.TransactionID, updatedExpense);
+            existingRecord.Amount = updatedExpense.Amount;
+            existingRecord.Date = updatedExpense.Date;
+            existingRecord.Description = updatedExpense.Description;
+            existingRecord.Category = updatedExpense.Category;
+            this._repository.UpdateExpense(index, existingRecord);
             this.NotifyUpdate(updatedExpense, existingAmount);
             return new Result(true, "Successfully Updated the Expense Record");
         }

@@ -21,7 +21,7 @@ namespace Assignments
             {
                 var financialRepository = new FileRepository();
 
-                var financialService = new FinancialRecordService(financialRepository);
+                var financialService = new FinancialRecordService(transactionRepository);
 
                 FinancialEventPublisher.FinancialRecordChangeHandler += financialService.HandleFinancialRecordChange;
 
