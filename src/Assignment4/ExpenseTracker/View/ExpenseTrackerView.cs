@@ -130,7 +130,7 @@ namespace ExpenseTracker.View
 
         private void ViewIncomeRecords()
         {
-            if (this._service.GetIncomeCount() == 0)
+            if (!this.HasIncomeRecord())
             {
                 WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;
@@ -145,7 +145,7 @@ namespace ExpenseTracker.View
 
         private void ViewExpenseRecords()
         {
-            if (this._service.GetExpenseCount() == 0)
+            if (!this.HasExpenseRecord())
             {
                 WriteColorLine(InputResource.NoRecordFound, ConsoleColor.Yellow);
                 return;
@@ -229,12 +229,12 @@ namespace ExpenseTracker.View
 
         private bool HasIncomeRecord()
         {
-            return this._service.GetIncomeCount() != 0;
+            return this._service.HasActiveIncome();
         }
 
         private bool HasExpenseRecord()
         {
-            return this._service.GetExpenseCount() != 0;
+            return this._service.HasActiveExpense();
         }
 
         private void EditRecord()
