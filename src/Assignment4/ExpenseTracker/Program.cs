@@ -19,7 +19,7 @@ namespace Assignments
         {
             try
             {
-                var financialRepository = new FileRepository();
+                var transactionRepository = new FileRepository();
 
                 var financialService = new FinancialRecordService(transactionRepository);
 

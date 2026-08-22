@@ -50,29 +50,21 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// Updates the existing income record in repo
         /// </summary>
-        /// <param name="transactionIDToUpdate">Guid of the object to be edited</param>
+        /// <param name="indexToUpdate">Index of the object to be edited</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateIncome(Guid transactionIDToUpdate, Income newRecord)
+        public void UpdateIncome(int indexToUpdate, Income newRecord)
         {
-            var oldRecord = this._incomeRepo.FirstOrDefault(x => x.TransactionID == transactionIDToUpdate);
-            oldRecord.Amount = newRecord.Amount;
-            oldRecord.Date = newRecord.Date;
-            oldRecord.Description = newRecord.Description;
-            oldRecord.Source = newRecord.Source;
+            this._incomeRepo[indexToUpdate] = newRecord;
         }
 
         /// <summary>
         /// Updates the existing expense record in repo
         /// </summary>
-        /// <param name="transactionIDToUpdate">Guid of the object to be edited</param>
+        /// <param name="indexToUpdate">Index of the object to be edited</param>
         /// <param name="newRecord">New record</param>
-        public void UpdateExpense(Guid transactionIDToUpdate, Expense newRecord)
+        public void UpdateExpense(int indexToUpdate, Expense newRecord)
         {
-            var oldRecord = this._expenseRepo.FirstOrDefault(x => x.TransactionID == transactionIDToUpdate);
-            oldRecord.Amount = newRecord.Amount;
-            oldRecord.Date = newRecord.Date;
-            oldRecord.Description = newRecord.Description;
-            oldRecord.Category = newRecord.Category;
+            this._expenseRepo[indexToUpdate] = newRecord;
         }
 
         /// <summary>
@@ -81,13 +73,8 @@ namespace ExpenseTracker.Repository
         /// <param name="id">TransactionID of Income record to be deleted</param>
         public void DeleteIncome(Guid id)
         {
-            for (int i = 0; i < this._incomeRepo.Count; i++)
-            {
-                if (this._incomeRepo[i].TransactionID == id)
-                {
-                    this._incomeRepo.Remove(this._incomeRepo[i]);
-                }
-            }
+            var incomeToDelete = this._incomeRepo.FirstOrDefault(income => income.TransactionID == id);
+            this._incomeRepo.Remove(incomeToDelete);
         }
 
         /// <summary>
@@ -96,13 +83,8 @@ namespace ExpenseTracker.Repository
         /// <param name="id">TransactionID of Expense record to be deleted</param>
         public void DeleteExpense(Guid id)
         {
-            for (int i = 0; i < this._expenseRepo.Count; i++)
-            {
-                if (this._expenseRepo[i].TransactionID == id)
-                {
-                    this._expenseRepo.Remove(this._expenseRepo[i]);
-                }
-            }
+            var expenseToDelete = this._expenseRepo.FirstOrDefault(expense => expense.TransactionID == id);
+            this._expenseRepo.Remove(expenseToDelete);
         }
 
         /// <summary>
@@ -112,15 +94,8 @@ namespace ExpenseTracker.Repository
         /// <returns>Income record found</returns>
         public Income FindIncome(Guid id)
         {
-            foreach (var incomeRecord in this._incomeRepo)
-            {
-                if (incomeRecord.TransactionID == id)
-                {
-                    return new Income(incomeRecord.TransactionID, incomeRecord.Amount, incomeRecord.Date, incomeRecord.Description, incomeRecord.Source);
-                }
-            }
-
-            return null;
+            var incomeRecord = this._incomeRepo.FirstOrDefault(income => income.TransactionID == id);
+            return new Income(incomeRecord.TransactionID, incomeRecord.Amount, incomeRecord.Date, incomeRecord.Description, incomeRecord.Source);
         }
 
         /// <summary>
@@ -130,15 +105,8 @@ namespace ExpenseTracker.Repository
         /// <returns>Expense record found</returns>
         public Expense FindExpense(Guid id)
         {
-            foreach (var expenseRecord in this._expenseRepo)
-            {
-                if (expenseRecord.TransactionID == id)
-                {
-                    return new Expense(expenseRecord.TransactionID, expenseRecord.Amount, expenseRecord.Date, expenseRecord.Description, expenseRecord.Category);
-                }
-            }
-
-            return null;
+            var expenseRecord = this._expenseRepo.FirstOrDefault(expense => expense.TransactionID == id);
+            return new Expense(expenseRecord.TransactionID, expenseRecord.Amount, expenseRecord.Date, expenseRecord.Description, expenseRecord.Category);
         }
 
         /// <summary>
