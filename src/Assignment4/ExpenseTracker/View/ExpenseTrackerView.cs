@@ -127,10 +127,8 @@ namespace ExpenseTracker.View
         {
             WriteColorLine(InputResource.IncomeRecordsHeader, ConsoleColor.Blue);
             this.ViewIncomeRecords();
-            WriteColorLine(string.Format(InputResource.TotalIncome, BalanceTracker.TotalIncome), ConsoleColor.Blue);
             WriteColorLine(InputResource.ExpenseRecordsHeader, ConsoleColor.Blue);
             this.ViewExpenseRecords();
-            WriteColorLine(string.Format(InputResource.TotalExpense, BalanceTracker.TotalExpense), ConsoleColor.Blue);
         }
 
         private void ViewIncomeRecords()
