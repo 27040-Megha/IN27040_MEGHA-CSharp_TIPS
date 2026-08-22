@@ -1,5 +1,4 @@
 ﻿using System;
-using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
 using ExpenseTracker.Service;
 
@@ -319,7 +318,7 @@ namespace ExpenseTracker.View
             }
             else
             {
-                this.WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
+                WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
             }
         }
 
@@ -336,7 +335,7 @@ namespace ExpenseTracker.View
             var monthWiseIncomeReport = this._service.ReturnMonthWiseIncomeReport();
             foreach (var group in monthWiseIncomeReport)
             {
-                this.WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
+                WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
                 foreach (var record in group.MonthWiseIncomeReport)
                 {
                     Console.WriteLine(string.Format(InputResource.RecordTemplate, record.Date, record.Amount, record.Source));
@@ -349,15 +348,12 @@ namespace ExpenseTracker.View
             var monthWiseExpenseReport = this._service.ReturnMonthWiseExpenseReport();
             foreach (var group in monthWiseExpenseReport)
             {
-                this.WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
+                WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
                 foreach (var record in group.MonthWiseExpenseReport)
                 {
                     Console.WriteLine(string.Format(InputResource.RecordTemplate, record.Date, record.Amount, record.Category));
                 }
             }
-        }
-
-       
         }
 
         private void ExitApplication()
