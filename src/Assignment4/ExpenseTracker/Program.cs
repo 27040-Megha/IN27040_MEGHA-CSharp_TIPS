@@ -1,5 +1,4 @@
 ﻿using System;
-using ExpenseTracker.Models;
 using ExpenseTracker.Repository;
 using ExpenseTracker.Service;
 using ExpenseTracker.View;

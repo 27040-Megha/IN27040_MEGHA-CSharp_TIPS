@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExpenseTracker.Models;
-using ExpenseTracker.Service;
 
 namespace ExpenseTracker.Repository
 {

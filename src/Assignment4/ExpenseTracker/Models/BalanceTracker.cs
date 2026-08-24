@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Models
+﻿namespace ExpenseTracker.Models
 {
     /// <summary>
     /// Manage the global balance, total income and total expense accurately

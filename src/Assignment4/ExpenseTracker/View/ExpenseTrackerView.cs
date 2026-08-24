@@ -1,5 +1,4 @@
 ﻿using System;
-using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
 using ExpenseTracker.Service;
 
