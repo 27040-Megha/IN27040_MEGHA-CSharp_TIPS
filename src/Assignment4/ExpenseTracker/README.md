@@ -1,8 +1,8 @@
-﻿Expense Tracker Application
+﻿**Expense Tracker Application-II**
  
 Overview
  
-A C# Expense Tracker Application that includes the functionality of tracking both expenses and income. This application aims to provide a user-friendly environment for individuals to manage their finances by monitoring their earnings and expenditures.
+Enhanced Expense Tracker Application that includes the functionality of tracking both expenses and income alone with File storage. This application aims to provide a user-friendly environment for individuals to manage their finances by monitoring their earnings and expenditures.
  
 ---
 
@@ -10,15 +10,24 @@ A C# Expense Tracker Application that includes the functionality of tracking bot
 ```text
 ExpenseTracker
 │
+├── Helper
+│   └── InputValidator.cs
+│
 ├── Models
+│   ├── Enums
+│   ├── BalanceTracker.cs
 │   ├── Expense.cs
 │   ├── FinancialEventArgs.cs
-│   ├── IFinancialRecord.cs
+│   ├── FinancialRecord.cs
 │   ├── Income.cs
-│   ├── MenuOption.cs
+│   ├── MonthlyFinancialReport.cs
 │   └── Result.cs
 │
 ├── Repository
+│   ├── DataStorage
+│   ├── FilePath.resx
+│   ├── FileRepoService.cs
+│   ├── FileRepository.cs
 │   ├── FinancialRepository.cs
 │   └── IFinancialRepository.cs
 │
@@ -33,54 +42,83 @@ ExpenseTracker
 │   ├── InputResource.resx
 │   └── InputValidator.cs
 │
-|── Program.cs
+└── Program.cs
+
 ```
 
 ---
 
 Folder Structure
  
-Models
+**Models**
 
-Outside Interface (IFinancialRecord), Declare enum for Transaction Action
-- public enum TransactionAction { Added, Updated, Deleted }
+Enums
+
+- MenuOption.cs - Contains menu Options 
+- TransactionAction - Contains Transaction Action such as Added, Updated and Deleted
+---
+
+BalanceTracker.cs
+
+Manage the global balance, total income and total expenses.
+
+Properties:
+  - BalanceAmount
+  - TotalIncome
+  - TotalExpense
+---
  
-IFinancialRecord.cs
+FinancialRecord.cs
  
+ Abstract Base class for Financial Record that has a constructor to assign the common properties
+
  Properties:
+ 
   - TransactionID 
   - Amount
   - Date
   - Description
+---
  
 Income.cs
  
-- Implements "IFinancialRecord" and defines string source property additionally
-- Income(decimal amount, DateTime date, string description, string source) - Assigns values using Constructor
-- Generates a unique "Guid" Transaction ID
-
+- Inherits "FinancialRecord" and defines string source property additionally
+- Income(decimal amount, DateTime date, string description, string source) : base(transactionID, amount, date, description) - Assigns values using Constructor
+---
 Expense.cs
  
-- Implements "IFinancialRecord" and defines string category property additionally
-- Expense(decimal amount, DateTime date, string description, string category) - Assigns values using Constructor
-- Generates a unique "Guid" Transaction ID
-
+- Inherits "FinancialRecord" and defines string category property additionally
+- Expense(decimal amount, DateTime date, string description, string category) : base(transactionID, amount, date, description) - Assigns values using Constructor
+---
 FinancialEventArgs.cs
 
 - Data Class that holds Transaction Action(Add, Update, Delete) and IFinancial Records
 - FinancialEventArgs class objects are used to invoke events
 
-MenuOption.cs
+Properties
 
-- Enum for Menu Options to give in switch case
+- TransactionAction (Action such as Added, Deleted and Updated)
+- CurrentRecord (Record that was added, deleted or Updated)
+- OldAmount (Old record amount if the action was delete or Update)
+---
+MonthlyFinancialRecord.cs
 
+-  Defines the monthly report for FinancialRecords - Used as DTO (Data Transfer Object) for the View Month-wise summary report
+
+Properties
+
+- Date
+- Month
+- Year
+- TotalAmount
+---
 Result.cs
 
 - Result Object to return Success/Failure Outcome 
 - Properties: isSuccess, Message, AmountData, DateData, StringData
 ---
  
-Repository
+**Repository**
  
 IRepository.cs
  
@@ -100,7 +138,22 @@ Interface defining CRUD operations for financial records
 
 FinancialRepository.cs  
  
-Repository implementation for all the methods in the interface
+Repository implementation for all the methods in the interface using in-memory List
+ 
+---
+FileRepoService.cs  
+ 
+- Helper method for file repository - Contains methods for Serialize and Deserialize and return List
+- ReadFile&lt;T&gt;(string filePath)
+- WriteFile&lt;T&gt;(List&lt;T&gt; financialRecords, string filePath)
+- WriteSummaryFile(BalanceTracker balanceTracker, string filePath)
+
+---
+FileRepository.cs  
+ 
+- Reads from File using FileRepoService and stores in the in-memory list objects and BalanceTracker object in the constructor.
+- Repository implementation for all the methods in the interface using in-memory List.
+- Writes Back to the file while Exit.
  
 ---
  
@@ -110,10 +163,10 @@ IFinancialRecordService.cs
  
 Defines business operations for income and expense management.
  
-- SaveIncome(decimal amount, DateOnly date, string description, string source)
-- SaveExpense(decimal amount, DateOnly date, string description, string category)
-- ModifyIncome(int index, decimal amount, DateOnly date, string description, string source)
-- ModifyExpense(int index, decimal amount, DateOnly date, string description, string category)
+- SaveIncome(Income income)
+- SaveExpense(Expense expense)
+- ModifyIncome(int index, Income income)
+- ModifyExpense(int index, Expense expense)
 - RemoveIncome(int index)
 - RemoveExpense(int index)
 - GetIncomeCount()
@@ -166,6 +219,7 @@ Methods
 - ViewTotalIncome()
 - ViewTotalExpense()
 - ViewAllRecords()
+- ViewMonthWiseSummaryReport()
 - DisplayBalance()
  
 InputValidator.cs

@@ -18,10 +18,20 @@ namespace Assignments
         {
             try
             {
-                FinancialEventPublisher.FinancialRecordChangeHandler += BalanceTracker.HandleFinancialRecordChange;
-                var transactionRepository = new TransactionRepository();
+                var transactionRepository = new FileRepository();
 
                 var financialService = new FinancialRecordService(transactionRepository);
+
+                FinancialEventPublisher.FinancialRecordChangeHandler += financialService.HandleFinancialRecordChange;
+
+                AppDomain.CurrentDomain.ProcessExit += financialService.OnProcessExit;
+
+                Console.CancelKeyPress += (sender, e) =>
+                {
+                    e.Cancel = true;
+                    financialService.OnProcessExit(sender, e);
+                    Environment.Exit(0);
+                };
 
                 var view = new ExpenseTrackerView(financialService);
                 view.Run();

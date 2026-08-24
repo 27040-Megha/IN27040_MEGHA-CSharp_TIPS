@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Service
@@ -77,5 +74,28 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <returns>List of expense records</returns>
         public IReadOnlyList<Expense> GetAllExpense();
+
+        /// <summary>
+        /// Returns summary details
+        /// </summary>
+        /// <returns>BalanceTracker object</returns>
+        public BalanceTracker ReturnSummaryDetails();
+
+        /// <summary>
+        /// Calls repo method to write to file before closing the Application
+        /// </summary>
+        public void CloseProgram();
+
+        /// <summary>
+        /// Returns the income Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped income Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseIncomeReport();
+
+        /// <summary>
+        /// Returns the expense Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped expense Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseExpenseReport();
     }
 }

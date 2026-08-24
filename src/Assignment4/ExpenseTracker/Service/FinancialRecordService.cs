@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
@@ -15,6 +14,8 @@ namespace ExpenseTracker.Service
     {
         private readonly ITransactionRepository _repository;
 
+        private readonly BalanceTracker _balanceTracker;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FinancialRecordService"/> class.
         /// </summary>
@@ -22,6 +23,7 @@ namespace ExpenseTracker.Service
         public FinancialRecordService(ITransactionRepository repository)
         {
             this._repository = repository;
+            this._balanceTracker = this._repository.GetSummaryDetails();
         }
 
         /// <summary>
@@ -159,6 +161,122 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <returns>true if expenseRepo has expense records, otherwise false</returns>
         public bool HasActiveExpense() => this._repository.ReturnAllExpense().Any();
+
+        /// <summary>
+        /// Writes the in-memory list to the file and closes the application
+        /// </summary>
+        public void CloseProgram()
+        {
+            this._repository.SaveInMemory(this._balanceTracker);
+        }
+
+        /// <summary>
+        /// Returns Summary Detaisl (TotalIncome, TotalExpense, BalanceAmount)
+        /// </summary>
+        /// <returns>BalanceTracker Object</returns>
+        public BalanceTracker ReturnSummaryDetails()
+        {
+            return this._repository.GetSummaryDetails();
+        }
+
+        /// <summary>
+        /// Returns the income Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped income Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseIncomeReport()
+        {
+            var incomerecords = this.GetAllIncome();
+            return incomerecords.GroupBy(date => new { date.Date.Year, date.Date.Month }).Select(groupedRes => new MonthlyFinancialReport
+            {
+                Year = groupedRes.Key.Year,
+                Month = groupedRes.Key.Month,
+                TotalAmount = groupedRes.Sum(records => records.Amount),
+                MonthWiseIncomeReport = groupedRes.OrderBy(records => records.Date).ToList(),
+            })
+            .OrderByDescending(r => r.Year).ThenBy(r => r.Month);
+        }
+
+        /// <summary>
+        /// Returns the expense Financial Records Grouped by Year-wise and then Month-wise
+        /// </summary>
+        /// <returns>List of grouped expense Financial Records</returns>
+        public IEnumerable<MonthlyFinancialReport> ReturnMonthWiseExpenseReport()
+        {
+            var expenserecords = this.GetAllExpense();
+            return expenserecords.GroupBy(date => new { date.Date.Year, date.Date.Month }).Select(groupedRes => new MonthlyFinancialReport
+            {
+                Year = groupedRes.Key.Year,
+                Month = groupedRes.Key.Month,
+                TotalAmount = groupedRes.Sum(records => records.Amount),
+                MonthWiseExpenseReport = groupedRes.OrderBy(records => records.Date).ToList(),
+            })
+            .OrderByDescending(r => r.Year).ThenBy(r => r.Month);
+        }
+
+        /// <summary>
+        /// EventHandler method matching EventArgs(Built-in Delegate) that handles which Transaction(Income/Expense) has to be executed based on the record
+        /// </summary>
+        /// <param name="sender">Sender Object</param>
+        /// <param name="e">FinancialEventArgs object</param>
+        public void HandleFinancialRecordChange(object sender, FinancialEventArgs e)
+        {
+            if (e.CurrentRecord is Income)
+            {
+                this.HandleIncomeTransaction(e.Action, e.CurrentRecord, e.OldAmount);
+            }
+            else if (e.CurrentRecord is Expense)
+            {
+                this.HandleExpenseTransaction(e.Action, e.CurrentRecord, e.OldAmount);
+            }
+
+            this._repository.UpdateSummary(this._balanceTracker);
+        }
+
+        /// <summary>
+        /// Subscribed to AppDomain.CurrentDomain.ProcessExit - Runs when app is terminated without proper exit and closed using [X]
+        /// </summary>
+        /// <param name="sender">Sender Object - Source of event</param>
+        /// <param name="e">EventArgs object</param>
+        public void OnProcessExit(object sender, EventArgs e)
+        {
+            this.CloseProgram();
+        }
+
+        private void HandleIncomeTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
+        {
+            switch (action)
+            {
+                case TransactionAction.Added:
+                    this._balanceTracker.TotalIncome += currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Updated:
+                    this._balanceTracker.TotalIncome = this._balanceTracker.TotalIncome - oldAmount + currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Deleted:
+                    this._balanceTracker.TotalIncome -= currentRecord.Amount;
+                    break;
+            }
+        }
+
+        private void HandleExpenseTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
+        {
+            switch (action)
+            {
+                case TransactionAction.Added:
+                    this._balanceTracker.TotalExpense += currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Updated:
+                    this._balanceTracker.TotalExpense = this._balanceTracker.TotalExpense - oldAmount + currentRecord.Amount;
+                    break;
+
+                case TransactionAction.Deleted:
+                    this._balanceTracker.TotalExpense -= currentRecord.Amount;
+                    break;
+            }
+        }
 
         private Result CheckValidIndexForExpense(int index)
         {

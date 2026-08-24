@@ -117,107 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CategoryPrompt" xml:space="preserve">
-    <value>Category</value>
+  <data name="ExpenseFilePath" xml:space="preserve">
+    <value>expense.json</value>
   </data>
-  <data name="DescriptionPrompt" xml:space="preserve">
-    <value>Description</value>
+  <data name="IncomeFilePath" xml:space="preserve">
+    <value>income.json</value>
   </data>
-  <data name="EditPrompt" xml:space="preserve">
-    <value>Enter new Details to be edited: </value>
-  </data>
-  <data name="ExpenseAddedSuccess" xml:space="preserve">
-    <value>Expense Record added successfully!</value>
-  </data>
-  <data name="ExpenseRecordFormat" xml:space="preserve">
-    <value>Index: {0} | Amt: {1} | Date: {2} | Description: {3} | Category: {4}</value>
-  </data>
-  <data name="ExpenseRecordsHeader" xml:space="preserve">
-    <value>
-Expense Records</value>
-  </data>
-  <data name="ExpenseReport" xml:space="preserve">
-    <value>
-Month Wise Expense Report</value>
-  </data>
-  <data name="FinanceType" xml:space="preserve">
-    <value>1.Income
-2.Expense
-Enter Your Choice (1/2)</value>
-  </data>
-  <data name="HeaderTemplate" xml:space="preserve">
-    <value>Year : {0}, Month : {1}</value>
-  </data>
-  <data name="IncomeAddedSuccess" xml:space="preserve">
-    <value>Income Record added successfully!</value>
-  </data>
-  <data name="IncomeRecordFormat" xml:space="preserve">
-    <value>Index: {0} | Amt: {1} | Date: {2} | Description: {3} | Source: {4}</value>
-  </data>
-  <data name="IncomeRecordsHeader" xml:space="preserve">
-    <value>
-Income Records</value>
-  </data>
-  <data name="IncomeReport" xml:space="preserve">
-    <value>Month Wise Income Report</value>
-  </data>
-  <data name="InvalidChoice" xml:space="preserve">
-    <value>Invalid Choice, Enter a valid choice</value>
-  </data>
-  <data name="InvalidIndex" xml:space="preserve">
-    <value>Invalid Index Entered</value>
-  </data>
-  <data name="MaximumAttempts" xml:space="preserve">
-    <value>{0}, Attempt [{1}/{2}]</value>
-  </data>
-  <data name="Menu" xml:space="preserve">
-    <value>1. Add Income
-2. Add Expense
-3. View all Financial Records
-4. Delete Financial Record
-5. Edit Financial Record
-6. View Summary Report
-7. View Month-Wise Report
-8. Exit
-Enter Choice:</value>
-  </data>
-  <data name="NoRecordFound" xml:space="preserve">
-    <value>No Financial Records in the Expense Tracker Application</value>
-  </data>
-  <data name="PromptAmount" xml:space="preserve">
-    <value>Enter Amount:</value>
-  </data>
-  <data name="PromptDate" xml:space="preserve">
-    <value>Enter Date : </value>
-  </data>
-  <data name="PromptIndex" xml:space="preserve">
-    <value>Enter index of Record: </value>
-  </data>
-  <data name="PromptString" xml:space="preserve">
-    <value>Enter {0}: </value>
-  </data>
-  <data name="RecordTemplate" xml:space="preserve">
-    <value>{0:d} - {1} - {2}</value>
-  </data>
-  <data name="ResultMessage" xml:space="preserve">
-    <value>{0}</value>
-  </data>
-  <data name="SourcePrompt" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="SummaryDetailsBlock" xml:space="preserve">
-    <value>Summary Details
-Total Income  : {0}
-Total Expense : {1}
-Net Balance    : {2}</value>
-  </data>
-  <data name="TotalExpense" xml:space="preserve">
-    <value>Total Expense: {0}</value>
-  </data>
-  <data name="TotalIncome" xml:space="preserve">
-    <value>Total Income: {0}</value>
-  </data>
-  <data name="WelcomeUser" xml:space="preserve">
-    <value>Welcome to your Expense Tracker !</value>
+  <data name="SummaryFilePath" xml:space="preserve">
+    <value>summary.json</value>
   </data>
 </root>

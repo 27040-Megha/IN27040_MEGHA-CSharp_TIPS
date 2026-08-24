@@ -116,6 +116,16 @@ namespace ExpenseTracker.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Month Wise Expense Report.
+        /// </summary>
+        internal static string ExpenseReport {
+            get {
+                return ResourceManager.GetString("ExpenseReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1.Income
         ///2.Expense
         ///Enter Your Choice (1/2).
@@ -123,6 +133,15 @@ namespace ExpenseTracker.View {
         internal static string FinanceType {
             get {
                 return ResourceManager.GetString("FinanceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year : {0}, Month : {1}.
+        /// </summary>
+        internal static string HeaderTemplate {
+            get {
+                return ResourceManager.GetString("HeaderTemplate", resourceCulture);
             }
         }
         
@@ -152,6 +171,15 @@ namespace ExpenseTracker.View {
             get {
                 return ResourceManager.GetString("IncomeRecordsHeader", resourceCulture);
             }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Month Wise Income Report.
+        /// </summary>
+        internal static string IncomeReport {
+            get {
+                return ResourceManager.GetString("IncomeReport", resourceCulture);
+        }
         }
         
         /// <summary>
@@ -188,7 +216,8 @@ namespace ExpenseTracker.View {
         ///4. Delete Financial Record
         ///5. Edit Financial Record
         ///6. View Summary Report
-        ///7. Exit
+        ///7. View Month-Wise Report
+        ///8. Exit
         ///Enter Choice:.
         /// </summary>
         internal static string Menu {
@@ -239,6 +268,15 @@ namespace ExpenseTracker.View {
         internal static string PromptString {
             get {
                 return ResourceManager.GetString("PromptString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:d} - {1} - {2}.
+        /// </summary>
+        internal static string RecordTemplate {
+            get {
+                return ResourceManager.GetString("RecordTemplate", resourceCulture);
             }
         }
         

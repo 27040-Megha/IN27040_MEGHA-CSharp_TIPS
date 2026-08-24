@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace ExpenseTracker.Models
 {
     /// <summary>
-    /// Inherits FinancialRecord and has additional Source property
+    ///  Inherits FinancialRecord and has additional property Source
     /// </summary>
     public class Income : FinancialRecord
     {

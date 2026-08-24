@@ -72,5 +72,23 @@ namespace ExpenseTracker.Repository
         /// </summary>
         /// <returns>List of Income repo</returns>
         public IReadOnlyList<Income> ReturnAllIncome();
+
+        /// <summary>
+        /// return summary details from the summary file
+        /// </summary>
+        /// <returns>BalanceTracker object</returns>
+        public BalanceTracker GetSummaryDetails();
+
+        /// <summary>
+        /// Updates the BalanceTracker summary details
+        /// </summary>
+        /// <param name="balanceTracker">BalanceTracker object</param>
+        public void UpdateSummary(BalanceTracker balanceTracker);
+
+        /// <summary>
+        /// Write the in-memory list back to file before closing the application
+        /// </summary>
+        /// <param name="balanceTracker">BalanceTracker object</param>
+        public void SaveInMemory(BalanceTracker balanceTracker);
     }
 }
