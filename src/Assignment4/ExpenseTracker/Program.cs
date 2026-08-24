@@ -27,6 +27,13 @@ namespace Assignments
 
                 AppDomain.CurrentDomain.ProcessExit += financialService.OnProcessExit;
 
+                Console.CancelKeyPress += (sender, e) =>
+                {
+                    e.Cancel = true;
+                    financialService.OnProcessExit(sender, e);
+                    Environment.Exit(0);
+                };
+
                 var view = new ExpenseTrackerView(financialService);
                 view.Run();
             }
