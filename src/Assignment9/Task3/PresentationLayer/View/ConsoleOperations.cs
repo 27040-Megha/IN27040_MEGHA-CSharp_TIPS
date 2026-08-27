@@ -4,15 +4,25 @@ using Task3.PresentationLayer.Helper;
 
 namespace Task3.PresentationLayer.View
 {
+    /// <summary>
+    /// Interacts with the user
+    /// </summary>
     public class ConsoleOperations
     {
         private readonly ArrayService _arrayService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="arrayService">ArraysService object</param>
         public ConsoleOperations(ArrayService arrayService)
         {
             this._arrayService = arrayService;
         }
 
+        /// <summary>
+        /// Initial method 
+        /// </summary>
         public void Run()
         {
             Console.WriteLine("Enter Array Size: ");

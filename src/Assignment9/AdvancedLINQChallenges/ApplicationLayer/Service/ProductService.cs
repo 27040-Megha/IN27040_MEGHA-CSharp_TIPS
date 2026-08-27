@@ -10,18 +10,31 @@ using AdvancedLINQChallenges.InfrastructureLayer;
 
 namespace AdvancedLINQChallenges.ApplicationLayer.Service
 {
+    /// <summary>
+    /// Business Logic for Product Service
+    /// </summary>
     public class ProductService
     {
         private readonly ProductRepo _productRepo;
 
         private readonly SupplierService _supplierService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductService"/> class.
+        /// </summary>
+        /// <param name="productRepo">Product Repo</param>
+        /// <param name="supplierService">Supplier Service</param>
         public ProductService(ProductRepo productRepo, SupplierService supplierService)
         {
             this._productRepo = productRepo;
             this._supplierService = supplierService;
         }
 
+        /// <summary>
+        /// Add product to repo
+        /// </summary>
+        /// <param name="product">Product Object</param>
+        /// <returns>true if successfully added, false otherwise</returns>
         public bool AddProduct(Product product)
         {
             if (this._productRepo.ReturnAllProducts().Any(p => p.ProductId.Equals(product.ProductId)))
@@ -33,26 +46,42 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
             return true;
         }
 
+        /// <summary>
+        /// Fetches all products from product Repo
+        /// </summary>
+        /// <returns>List of products</returns>
         public IEnumerable<Product> FetchAllProducts()
         {
             return this._productRepo.ReturnAllProducts();
         }
 
-        public List<FilteredProduct> FilterProducts()
+        /// <summary>
+        /// Filter products under the category "Electronics" with a price greater than $500 select only ProductName and Price, sort the product in descending order of price.
+        /// </summary>
+        /// <returns>Filtered Result</returns>
+        public IEnumerable<FilteredProduct> FilterProducts()
         {
             return this.FetchAllProducts()
                 .Where(product => string.Equals(product.Category, "Electronics", StringComparison.OrdinalIgnoreCase) && (product.Price > 500))
                 .Select(product => new FilteredProduct(product.ProductName, product.Price))
-                .OrderByDescending(product => product.Price)
-                .ToList();
+                .OrderByDescending(product => product.Price);
         }
 
-        public decimal FindAveragePrice(List<FilteredProduct> filteredProducts)
+        /// <summary>
+        /// Calculates average price of the list of products
+        /// </summary>
+        /// <param name="filteredProducts">List of products</param>
+        /// <returns>Average price</returns>
+        public decimal FindAveragePrice(IEnumerable<FilteredProduct> filteredProducts)
         {
             return filteredProducts.Average(p => p.Price);
         }
 
-        public List<ProductSupplierDTO> MapProductsWithSuppliers()
+        /// <summary>
+        /// Map products with Suppliers
+        /// </summary>
+        /// <returns>List of mapped products with suppliers</returns>
+        public IEnumerable<ProductSupplierDTO> MapProductsWithSuppliers()
         {
             var productList = this.FetchAllProducts();
             var supplierList = this._supplierService.FetchAllSuppliers();
@@ -68,13 +97,16 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
                     Price = p.Price,
                     SupplierId = s.SupplierId,
                     SupplierName = s.SupplierName,
-                })
-                .ToList();
+                });
         }
 
-        public List<CategorizedProducts> GroupProductsByCategory()
+        /// <summary>
+        /// Groups Products by category
+        /// </summary>
+        /// <returns>List of result objects</returns>
+        public IEnumerable<CategorizedProducts> GroupProductsByCategory()
         {
-            var productList = this.MapProductsWithSuppliers();
+            var productList = this.FetchAllProducts();
             return productList
                 .GroupBy(products => products.Category)
                 .Select(category => new CategorizedProducts
@@ -82,16 +114,18 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
                     Category = category.Key,
                     ProductCount = category.Count(),
                     ExpensiveProduct = category.MaxBy(p => p.Price),
-                })
-                .ToList();
+                });
         }
 
-        public List<Product> SortProductsByPrice()
+        /// <summary>
+        /// Sort Products by price
+        /// </summary>
+        /// <returns>List of products sorted by price</returns>
+        public IEnumerable<Product> SortProductsByPrice()
         {
             return this.FetchAllProducts()
                 .Where(product => string.Equals(product.Category, "Books", StringComparison.OrdinalIgnoreCase))
-                .OrderByDescending(product => product.Price)
-                .ToList();
+                .OrderByDescending(product => product.Price);
         }
     }
 }

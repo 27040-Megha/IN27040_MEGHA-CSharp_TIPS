@@ -3,14 +3,28 @@ using System.Linq;
 
 namespace Task3.ApplicationLayer.Service
 {
+    /// <summary>
+    /// Businness logic to perform Array Operations
+    /// </summary>
     public class ArrayService
     {
+        /// <summary>
+        /// Returns Second Highest Number
+        /// </summary>
+        /// <param name="arrayOfIntegers">Array of integers</param>
+        /// <returns>Second Highest Number</returns>
         public int FindSecondHighestNumber(int[] arrayOfIntegers)
         {
             var sortedArray = arrayOfIntegers.OrderByDescending(number => number).ToArray();
             return sortedArray[1];
         }
 
+        /// <summary>
+        /// Returns All unique pairs of numbers in the array that add up to a specified target.
+        /// </summary>
+        /// <param name="arrayOfIntegers">Array of integers</param>
+        /// <param name="targetSum">Target Sum</param>
+        /// <returns>All unique pairs of numbers in the array that add up to a specified target</returns>
         public List<(int, int)> FindTargetSum(int[] arrayOfIntegers, int targetSum)
         {
             return arrayOfIntegers

@@ -3,18 +3,29 @@ using AdvancedLINQChallenges.Domain;
 
 namespace AdvancedLINQChallenges.PresentationLayer.View
 {
+    /// <summary>
+    /// Interacts witho User
+    /// </summary>
     public class ConsoleOperations
     {
         private readonly ProductService _productService;
 
         private readonly SupplierService _supplierService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="productService">Product Service</param>
+        /// <param name="supplierService">Supplier Service</param>
         public ConsoleOperations(ProductService productService, SupplierService supplierService)
         {
             this._productService = productService;
             this._supplierService = supplierService;
         }
 
+        /// <summary>
+        /// initial method 
+        /// </summary>
         public void Run()
         {
             this.LoadProducts();
@@ -22,6 +33,7 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
             this.DisplayTask1();
             this.DisplayTask2();
             this.DisplayTask4();
+            this.DisplayTask5();
         }
 
         private void LoadSuppliers()
@@ -106,6 +118,21 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
             foreach (var product in sortedBooks)
             {
                 Console.WriteLine($"Book Name : {product.ProductName} | Price : {product.Price}");
+            }
+        }
+
+        private void DisplayTask5()
+        {
+            var queryBuilder = new QueryBuilder<Product>(this._productService.FetchAllProducts());
+            var result = queryBuilder
+                .Filter(p => p.Price > 100)
+                .SortBy(p => p.Price)
+                .Execute();
+
+            Console.WriteLine("\nTASK5: ");
+            foreach (var product in result)
+            {
+                Console.WriteLine($"Product ID : {product.ProductId}  | Product Name : {product.ProductName} | Price : {product.Price} | Product Category : {product.Category}");
             }
         }
     }
