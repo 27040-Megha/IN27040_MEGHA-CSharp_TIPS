@@ -63,7 +63,18 @@ namespace Task3.PresentationLayer.View
             }
 
             int targetSum = numberResult.Number;
-            // var uniquePairs = this._arrayService.FindTargetSum(targetSum);
+            var uniquePairs = this._arrayService.FindTargetSum(arrayOfIntegers, targetSum);
+            if (uniquePairs.Count == 0)
+            {
+                Console.WriteLine("No pairs found that adds upto the specified target");
+                return;
+            }
+
+            Console.WriteLine("Target Sum Pairs: ");
+            foreach (var pair in uniquePairs)
+            {
+                Console.WriteLine($"({pair.Item1}, {pair.Item2})");
+            }
         }
 
         private int[] GetArrayInput(int arraySize)

@@ -15,6 +15,8 @@ namespace Assignments
                 var consoleOperator = new ConsoleOperations(arrayService);
 
                 consoleOperator.Run();
+
+                Console.ReadKey();
             }
             catch (Exception ex)
             {
