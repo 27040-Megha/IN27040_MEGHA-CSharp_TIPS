@@ -13,5 +13,10 @@ namespace Task3.ApplicationLayer.Service
             var sortedArray = arrayOfIntegers.OrderByDescending(number => number).ToArray();
             return sortedArray[1];
         }
+
+        //public List<(int, int)> FindTargetSum(int targetSum)
+        //{
+
+        //}
     }
 }

@@ -36,19 +36,34 @@ namespace Task3.PresentationLayer.View
                 return;
             }
 
-            this.DisplaySecondHighestValue(arrayOfIntegers, arraySize);
-        }
-
-        private void DisplaySecondHighestValue(int[] arrayOfIntegers, int arraySize)
-        {
             if (arraySize < 2)
             {
                 Console.WriteLine("There must be atleast two elements to display the Second Highest Value!");
                 return;
             }
 
+            this.DisplaySecondHighestValue(arrayOfIntegers);
+            this.FindTargetSum(arrayOfIntegers);
+        }
+
+        private void DisplaySecondHighestValue(int[] arrayOfIntegers)
+        {
             int secondHighestNumber = this._arrayService.FindSecondHighestNumber(arrayOfIntegers);
             Console.WriteLine($"The Second Highest Value in the Array: {secondHighestNumber}");
+        }
+
+        private void FindTargetSum(int[] arrayOfIntegers)
+        {
+            Console.WriteLine("Enter the target Sum: ");
+            var numberResult = InputValidation.ValidateInteger(Console.ReadLine());
+            if (!numberResult.IsSuccess)
+            {
+                Console.WriteLine("Invalid Integer format!");
+                return;
+            }
+
+            int targetSum = numberResult.Number;
+            // var uniquePairs = this._arrayService.FindTargetSum(targetSum);
         }
 
         private int[] GetArrayInput(int arraySize)
