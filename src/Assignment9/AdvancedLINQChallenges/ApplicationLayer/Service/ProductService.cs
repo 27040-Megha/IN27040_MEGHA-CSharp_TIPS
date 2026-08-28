@@ -127,5 +127,29 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
                 .Where(product => string.Equals(product.Category, "Books", StringComparison.OrdinalIgnoreCase))
                 .OrderByDescending(product => product.Price);
         }
+
+        public IEnumerable<ProductSupplierDTO> FetchProductsWithSuppliers()
+        {
+            var supplierList = this._supplierService.FetchAllSuppliers();
+            var queryBuilder = new QueryBuilder<Product>(this.FetchAllProducts());
+            var result = queryBuilder
+                .Filter(p => p.Price > 100)
+                .SortBy(p => p.Price)
+                .Joins(
+                supplierList,
+                p => p.ProductId,
+                s => s.ProductId,
+                (p, s) => new ProductSupplierDTO
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Price = p.Price,
+                    Category = p.Category,
+                    SupplierId = s.SupplierId,
+                    SupplierName = s.SupplierName
+                })
+                .Execute();
+            return result;
+        }
     }
 }

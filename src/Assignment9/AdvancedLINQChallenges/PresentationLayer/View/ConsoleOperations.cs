@@ -1,5 +1,6 @@
 ﻿using AdvancedLINQChallenges.ApplicationLayer.Service;
 using AdvancedLINQChallenges.Domain;
+using AdvancedLINQChallenges.Domain.DTO;
 
 namespace AdvancedLINQChallenges.PresentationLayer.View
 {
@@ -24,7 +25,7 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
         }
 
         /// <summary>
-        /// initial method 
+        /// Initial method
         /// </summary>
         public void Run()
         {
@@ -123,16 +124,13 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
 
         private void DisplayTask5()
         {
-            var queryBuilder = new QueryBuilder<Product>(this._productService.FetchAllProducts());
-            var result = queryBuilder
-                .Filter(p => p.Price > 100)
-                .SortBy(p => p.Price)
-                .Execute();
+            var filteredResult = this._productService.FetchProductsWithSuppliers();
 
             Console.WriteLine("\nTASK5: ");
-            foreach (var product in result)
+            Console.WriteLine("Filter products above 100 and Sort them by price and map them with their suppliers: ");
+            foreach (var product in filteredResult)
             {
-                Console.WriteLine($"Product ID : {product.ProductId}  | Product Name : {product.ProductName} | Price : {product.Price} | Product Category : {product.Category}");
+                Console.WriteLine($"Product ID : {product.ProductId}  | Product Name : {product.ProductName} | Price : {product.Price} | Product Category : {product.Category} | Supplier ID : {product.SupplierId} | Supplier Name : {product.SupplierName}");
             }
         }
     }

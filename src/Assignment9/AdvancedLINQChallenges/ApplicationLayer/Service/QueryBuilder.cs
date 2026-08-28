@@ -19,14 +19,6 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// <summary>
         /// Initializes a new instance of the <see cref="QueryBuilder{TResult}"/> class.
         /// </summary>
-        public QueryBuilder()
-        {
-            this._queryResult = new List<TResult>();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QueryBuilder{TResult}"/> class.
-        /// </summary>
         /// <param name="newList">List of generic type objects</param>
         public QueryBuilder(IEnumerable<TResult> newList)
         {
@@ -56,13 +48,27 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
             return this;
         }
 
-        //public QueryBuilder<TResult> Join<TResult, Tkey1, Tkey2>(IEnumerable<Tkey1> listToMap, Func<TResult, T> outerKeySelector, Func<TResult, Tkey1> innerKeySelector, Func<TResult, Tkey2, bool> condition)
-        //{
-        //    this._queryResult = this._queryResult.Join(listToMap, outerKeySelector, innerKeySelector, condition);
-        //    var resultObject = new QueryBuilder<TResult>();
-        //    resultObject._queryResult = this._queryResult;
-        //    return resultObject;
-        //}
+
+        /// <summary>
+        /// Joins two collections with matching key and transforms the stream to a new DTO type
+        /// </summary>
+        /// <typeparam name="TInner">The type of elements in the inner collection.</typeparam>
+        /// <typeparam name="TKey">The type of the key used to match elements.</typeparam>
+        /// <typeparam name="TNewResult">The type of the resultant joined Collection DTO</typeparam>
+        /// <param name="listToMap">The inner collection to join with.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element in the current collection.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element in the inner collection.</param>
+        /// <param name="resultSelector">A function to create a combined object from two matching elements.</param>
+        /// <returns>A new QueryBuilder instance containing the joined results.</returns>
+        public QueryBuilder<TNewResult> Joins<TInner, TKey, TNewResult>(
+            IEnumerable<TInner> listToMap,
+            Func<TResult, TKey> outerKeySelector,
+            Func<TInner, TKey> innerKeySelector,
+            Func<TResult, TInner, TNewResult> resultSelector)
+        {
+            var joinedCollection = this._queryResult.Join(listToMap, outerKeySelector, innerKeySelector, resultSelector);
+            return new QueryBuilder<TNewResult>(joinedCollection); 
+        }
 
         /// <summary>
         /// Returns the query result
