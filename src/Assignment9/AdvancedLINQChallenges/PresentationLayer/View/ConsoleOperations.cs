@@ -1,6 +1,6 @@
 ﻿using AdvancedLINQChallenges.ApplicationLayer.Service;
 using AdvancedLINQChallenges.Domain;
-using AdvancedLINQChallenges.Domain.DTO;
+using ConsoleTables;
 
 namespace AdvancedLINQChallenges.PresentationLayer.View
 {
@@ -35,6 +35,18 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
             this.DisplayTask2();
             this.DisplayTask4();
             this.DisplayTask5();
+        }
+
+        /// <summary>
+        /// Prints the text in Specific Color
+        /// </summary>
+        /// <param name="text">Input string</param>
+        /// <param name="colorChoice">Specific color of text to be displayed</param>
+        private static void WriteColorLine(string text, ConsoleColor colorChoice)
+        {
+            Console.ForegroundColor = colorChoice;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
 
         private void LoadSuppliers()
@@ -73,65 +85,71 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
 
                 if (!isAdded)
                 {
-                    Console.WriteLine($"Duplicate Product with ID : {product.ProductId} found, Could not Add Product");
+                    Console.WriteLine(DisplayResource.DuplicateProductError);
                 }
             }
         }
 
         private void DisplayTask1()
         {
-            Console.WriteLine("\nTASK1: ");
-            Console.WriteLine("Electronic Products with price greater than $500 Sorted By Descending order: ");
+            WriteColorLine(DisplayResource.Task1Title, ConsoleColor.Yellow);
             var sortedProducts = this._productService.FilterProducts();
+            var table = new ConsoleTable("Product Name", "Price");
             foreach (var product in sortedProducts)
             {
-                Console.WriteLine($"Product Name : {product.ProductName} | Price : {product.Price}");
+                table.AddRow(product.ProductName, product.Price);
             }
 
-            Console.WriteLine("Average price of all the electronic products above $500: " + Math.Round(this._productService.FindAveragePrice(sortedProducts), 2));
+            table.Write();
+            WriteColorLine(string.Format(DisplayResource.Task1AveragePrice, Math.Round(this._productService.FindAveragePrice(sortedProducts), 2)), ConsoleColor.Cyan);
         }
 
         private void DisplayTask2()
         {
-            Console.WriteLine("\nTASK2: ");
-            Console.WriteLine("Mapping Suppliers with Products: ");
+            WriteColorLine(DisplayResource.Task2Title, ConsoleColor.Yellow);
             var mappedProducts = this._productService.MapProductsWithSuppliers();
+            var table = new ConsoleTable("Product ID", "Product Name", "Price", "Category", "Supplier ID", "Supplier Name");
             foreach (var product in mappedProducts)
             {
-                Console.WriteLine($"Product ID: {product.ProductId} | Product Name : {product.ProductName} | Price : {product.Price} | Category : {product.Category} | Supplier ID: {product.SupplierId} | Supplier Name: {product.SupplierName}");
+                table.AddRow(product.ProductId, product.ProductName, product.Price, product.Category, product.SupplierId, product.SupplierName);
             }
 
-            Console.WriteLine("\nCategorized Products: ");
+            table.Write();
+
+            WriteColorLine(DisplayResource.Task2CategorizedHeader, ConsoleColor.Yellow);
             var categorizedProducts = this._productService.GroupProductsByCategory();
             foreach (var category in categorizedProducts)
             {
-                Console.WriteLine($"Category : {category.Category}");
-                Console.WriteLine($"Count of products : {category.ProductCount} ");
-                Console.WriteLine($"Most Expensive Product ID: {category.ExpensiveProduct.ProductId}, | Product Name : {category.ExpensiveProduct.ProductName} | Product Price : {category.ExpensiveProduct.Price}");
+                WriteColorLine(string.Format(DisplayResource.Task2CategoryLabel, category.Category), ConsoleColor.Cyan);
+                Console.WriteLine(string.Format(DisplayResource.Task2ProductCountLabel, category.ProductCount));
+                Console.WriteLine(string.Format(DisplayResource.Task2ExpensiveProductLabel, category.ExpensiveProduct.ProductId, category.ExpensiveProduct.ProductName, category.ExpensiveProduct.Price));
             }
         }
 
         private void DisplayTask4()
         {
             var sortedBooks = this._productService.SortProductsByPrice();
-            Console.WriteLine("\nTASK4: ");
-            Console.WriteLine("Books sorted from Highest to lowest");
+            WriteColorLine(DisplayResource.Task4Title, ConsoleColor.Yellow);
+            var table = new ConsoleTable("Book Name", "Price");
             foreach (var product in sortedBooks)
             {
-                Console.WriteLine($"Book Name : {product.ProductName} | Price : {product.Price}");
+                table.AddRow(product.ProductName, product.Price);
             }
+
+            table.Write();
         }
 
         private void DisplayTask5()
         {
             var filteredResult = this._productService.FetchProductsWithSuppliers();
-
-            Console.WriteLine("\nTASK5: ");
-            Console.WriteLine("Filter products above 100 and Sort them by price and map them with their suppliers: ");
+            WriteColorLine(DisplayResource.Task5Title, ConsoleColor.Yellow);
+            var table = new ConsoleTable("Product ID", "Product Name", "Price", "Product Category", "Supplier ID", "Supplier Name");
             foreach (var product in filteredResult)
             {
-                Console.WriteLine($"Product ID : {product.ProductId}  | Product Name : {product.ProductName} | Price : {product.Price} | Product Category : {product.Category} | Supplier ID : {product.SupplierId} | Supplier Name : {product.SupplierName}");
+                table.AddRow(product.ProductId, product.ProductName, product.Price, product.Category, product.SupplierId, product.SupplierName);
             }
+
+            table.Write();
         }
     }
 }

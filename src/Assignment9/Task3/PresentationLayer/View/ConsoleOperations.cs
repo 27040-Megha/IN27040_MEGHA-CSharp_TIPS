@@ -31,7 +31,7 @@ namespace Task3.PresentationLayer.View
             int arraySize;
             if (!arraySizeResult.IsSuccess || !(arraySizeResult.Number > 0))
             {
-                Console.WriteLine("Invalid Array Size! Array size must be a positive integer");
+                WriteColorLine(DisplayResource.ErrorInvalidArraySize, ConsoleColor.Red);
                 return;
             }
 
@@ -44,7 +44,7 @@ namespace Task3.PresentationLayer.View
 
             if (arraySize < 2)
             {
-                Console.WriteLine("There must be atleast two elements to display the Second Highest Value!");
+                WriteColorLine(DisplayResource.ErrorMinimumElements, ConsoleColor.Red);
                 return;
             }
 
@@ -52,19 +52,31 @@ namespace Task3.PresentationLayer.View
             this.FindTargetSum(arrayOfIntegers);
         }
 
+        /// <summary>
+        /// Prints the text in Specific Color
+        /// </summary>
+        /// <param name="text">Input string</param>
+        /// <param name="colorChoice">Specific color of text to be displayed</param>
+        private static void WriteColorLine(string text, ConsoleColor colorChoice)
+        {
+            Console.ForegroundColor = colorChoice;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
         private void DisplaySecondHighestValue(int[] arrayOfIntegers)
         {
             int secondHighestNumber = this._arrayService.FindSecondHighestNumber(arrayOfIntegers);
-            Console.WriteLine($"The Second Highest Value in the Array: {secondHighestNumber}");
+            WriteColorLine(string.Format(DisplayResource.LabelSecondHighest, secondHighestNumber), ConsoleColor.Cyan);
         }
 
         private void FindTargetSum(int[] arrayOfIntegers)
         {
-            Console.WriteLine("Enter the target Sum: ");
+            Console.WriteLine(DisplayResource.PromptTargetSum);
             var numberResult = InputValidation.ValidateInteger(Console.ReadLine());
             if (!numberResult.IsSuccess)
             {
-                Console.WriteLine("Invalid Integer format!");
+                WriteColorLine(DisplayResource.ErrorInvalidInteger, ConsoleColor.Red);
                 return;
             }
 
@@ -72,27 +84,27 @@ namespace Task3.PresentationLayer.View
             var uniquePairs = this._arrayService.FindTargetSum(arrayOfIntegers, targetSum);
             if (uniquePairs.Count == 0)
             {
-                Console.WriteLine("No pairs found that adds upto the specified target");
+                WriteColorLine(DisplayResource.ErrorNoPairsFound, ConsoleColor.Yellow);
                 return;
             }
 
-            Console.WriteLine("Target Sum Pairs: ");
+            Console.WriteLine(DisplayResource.LabelTargetSumPairs);
             foreach (var pair in uniquePairs)
             {
-                Console.WriteLine($"({pair.Item1}, {pair.Item2})");
+                Console.WriteLine(string.Format(DisplayResource.PairFormat, pair.Item1, pair.Item2));
             }
         }
 
         private int[] GetArrayInput(int arraySize)
         {
             var array = new int[arraySize];
-            Console.WriteLine("Enter Array Elements: ");
+            Console.WriteLine(DisplayResource.PromptArrayElements);
             for (int i = 0; i < arraySize; i++)
             {
                 var numberResult = InputValidation.ValidateInteger(Console.ReadLine());
                 if (!numberResult.IsSuccess)
                 {
-                    Console.WriteLine("Invalid Integer format!");
+                    WriteColorLine(DisplayResource.ErrorInvalidInteger, ConsoleColor.Red);
                     return null;
                 }
 

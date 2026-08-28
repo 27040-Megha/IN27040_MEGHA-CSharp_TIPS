@@ -66,7 +66,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
             Func<TResult, TInner, TNewResult> resultSelector)
         {
             var joinedCollection = this._queryResult.Join(listToMap, outerKeySelector, innerKeySelector, resultSelector);
-            return new QueryBuilder<TNewResult>(joinedCollection); 
+            return new QueryBuilder<TNewResult>(joinedCollection);
         }
 
         /// <summary>
