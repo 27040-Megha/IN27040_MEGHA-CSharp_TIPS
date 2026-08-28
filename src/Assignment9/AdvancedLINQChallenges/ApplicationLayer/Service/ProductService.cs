@@ -49,7 +49,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// <summary>
         /// Fetches all products from product Repo
         /// </summary>
-        /// <returns>List of products</returns>
+        /// <returns>IEnumerable List of products</returns>
         public IEnumerable<Product> FetchAllProducts()
         {
             return this._productRepo.ReturnAllProducts();
@@ -80,7 +80,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// <summary>
         /// Map products with Suppliers
         /// </summary>
-        /// <returns>List of mapped products with suppliers</returns>
+        /// <returns>IEnumerable List of mapped products with suppliers</returns>
         public IEnumerable<ProductSupplierDTO> MapProductsWithSuppliers()
         {
             var productList = this.FetchAllProducts();
@@ -103,7 +103,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// <summary>
         /// Groups Products by category
         /// </summary>
-        /// <returns>List of result objects</returns>
+        /// <returns>IEnumerable List of result objects</returns>
         public IEnumerable<CategorizedProducts> GroupProductsByCategory()
         {
             var productList = this.FetchAllProducts();
@@ -120,7 +120,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// <summary>
         /// Sort Products by price
         /// </summary>
-        /// <returns>List of products sorted by price</returns>
+        /// <returns>IEnumerable List of products sorted by price</returns>
         public IEnumerable<Product> SortProductsByPrice()
         {
             return this.FetchAllProducts()
@@ -128,6 +128,10 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
                 .OrderByDescending(product => product.Price);
         }
 
+        /// <summary>
+        /// Filter products above 100 and Sort them by price and map them with their suppliers:
+        /// </summary>
+        /// <returns>IEnumerable List of result</returns>
         public IEnumerable<ProductSupplierDTO> FetchProductsWithSuppliers()
         {
             var supplierList = this._supplierService.FetchAllSuppliers();
