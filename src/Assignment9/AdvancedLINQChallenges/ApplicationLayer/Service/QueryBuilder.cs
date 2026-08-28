@@ -48,7 +48,6 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
             return this;
         }
 
-
         /// <summary>
         /// Joins two collections with matching key and transforms the stream to a new DTO type
         /// </summary>
