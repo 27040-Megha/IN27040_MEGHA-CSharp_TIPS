@@ -137,7 +137,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
             var supplierList = this._supplierService.FetchAllSuppliers();
             var queryBuilder = new QueryBuilder<Product>(this.FetchAllProducts());
             var result = queryBuilder
-                .Filter(p => p.Price > 100)
+                .Filter(p => this.GreaterThanOrEqual(p.Price))
                 .SortBy(p => p.Price)
                 .Joins(
                 supplierList,
@@ -154,6 +154,11 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
                 })
                 .Execute();
             return result;
+        }
+
+        private bool GreaterThanOrEqual(decimal price)
+        {
+            return price > 500;
         }
     }
 }
