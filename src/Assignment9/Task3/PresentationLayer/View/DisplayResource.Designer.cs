@@ -97,6 +97,15 @@ namespace Task3.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter Array Element {0} :.
+        /// </summary>
+        internal static string GetArrayElement {
+            get {
+                return ResourceManager.GetString("GetArrayElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Second Highest Value in the Array: {0}.
         /// </summary>
         internal static string LabelSecondHighest {

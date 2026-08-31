@@ -101,6 +101,7 @@ namespace Task3.PresentationLayer.View
             Console.WriteLine(DisplayResource.PromptArrayElements);
             for (int i = 0; i < arraySize; i++)
             {
+                Console.WriteLine(string.Format(DisplayResource.GetArrayElement, (i + 1)));
                 var numberResult = InputValidation.ValidateInteger(Console.ReadLine());
                 if (!numberResult.IsSuccess)
                 {

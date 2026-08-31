@@ -129,6 +129,9 @@
   <data name="ErrorNoPairsFound" xml:space="preserve">
     <value>No pairs found that adds upto the specified target</value>
   </data>
+  <data name="GetArrayElement" xml:space="preserve">
+    <value>Enter Array Element {0} :</value>
+  </data>
   <data name="LabelSecondHighest" xml:space="preserve">
     <value>The Second Highest Value in the Array: {0}</value>
   </data>
