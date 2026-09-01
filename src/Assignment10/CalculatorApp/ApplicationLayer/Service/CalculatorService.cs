@@ -9,11 +9,28 @@ using CalculatorApp.Domain;
 
 namespace CalculatorApp.ApplicationLayer.Service
 {
+    /// <summary>
+    /// Contains all Business logic to perform Calculator Operations.
+    /// </summary>
     public class CalculatorService
     {
+        /// <summary>
+        /// Evaluates expression using BODMAS rule (First solves Division & Multiplication, the Addition & Subtraction
+        /// </summary>
+        /// <param name="inputExpression">Input Mathematical Expression</param>
+        /// <returns>Result of the Expression, or invalid format error message</returns>
         public Result EvaluateExpression(string inputExpression)
         {
             var expression = this.SplitExpression(inputExpression);
+            if (expression.Count == 1 && expression[0].All(char.IsDigit))
+            {
+                return new Result(true, "Result of Expression: ", int.Parse(expression[0]));
+            }
+
+            if (expression.Count < 3)
+            {
+                return new Result(false, "Invalid expression format! Must include numbers and operators (e.g., 12 + 4).");
+            }
 
             var multiplicationAndDivisionResult = this.HandleDivisionAndMultiplication(expression);
             if (!multiplicationAndDivisionResult.IsSuccess)

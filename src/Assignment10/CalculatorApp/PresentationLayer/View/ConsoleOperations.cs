@@ -4,6 +4,9 @@ using CalculatorApp.PresentationLayer.Helper;
 
 namespace CalculatorApp.PresentationLayer.View
 {
+    /// <summary>
+    /// Handles All interaction with the user
+    /// </summary>
     public class ConsoleOperations
     {
         private readonly CalculatorService _calculatorService;
@@ -17,9 +20,12 @@ namespace CalculatorApp.PresentationLayer.View
             this._calculatorService = calculatorService;
         }
 
+        /// <summary>
+        /// Entry point of PresentationLayer (called from Main())
+        /// </summary>
         public void Run()
         {
-            Console.WriteLine("CALCULATOR APP");
+            Console.WriteLine(DisplayResource.CalculatorApp);
             var expression = this.GetExpression();
             if (expression == null)
             {
@@ -31,11 +37,11 @@ namespace CalculatorApp.PresentationLayer.View
 
         private string GetExpression()
         {
-            Console.WriteLine("Enter mathematical Expression (12+4*7/10): ");
+            Console.WriteLine(DisplayResource.PromptExpression);
             string expression = Console.ReadLine();
             if (!InputValidation.ValidateString(expression))
             {
-                TextColor.WriteColoredLine("Expression should not be empty or null", ConsoleColor.Red);
+                TextColor.WriteColoredLine(DisplayResource.InvalidExpression, ConsoleColor.Red);
                 return null;
             }
 

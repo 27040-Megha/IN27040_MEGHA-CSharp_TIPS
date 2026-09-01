@@ -4,8 +4,15 @@ using CalculatorApp.PresentationLayer.View;
 
 namespace Assignments
 {
+    /// <summary>
+    /// Entry point of Application
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args">Arguments</param>
         public static void Main(string[] args)
         {
             try
