@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using CalculatorApp.ApplicationLayer.Service;
 using CalculatorApp.Domain;
 
 namespace CalculatorApp.ApplicationLayer.Service
@@ -49,7 +45,7 @@ namespace CalculatorApp.ApplicationLayer.Service
 
         private List<string> SplitExpression(string inputExpression)
         {
-            string spacedExpression = "";
+            string spacedExpression = string.Empty;
             char[] op = { '+', '-', '*', '/' };
             foreach (char ch in inputExpression)
             {
