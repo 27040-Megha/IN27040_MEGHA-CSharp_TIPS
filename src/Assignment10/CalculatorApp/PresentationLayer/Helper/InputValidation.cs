@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CalculatorApp.PresentationLayer.Helper
+﻿namespace CalculatorApp.PresentationLayer.Helper
 {
-    public class InputValidation
+    public static class InputValidation
     {
+        public static bool ValidateInteger(string input, out int validNumber)
+        {
+            if (int.TryParse(input, out int number))
+            {
+                validNumber = number;
+                return true;
+            }
+
+            validNumber = -1;
+            return false;
+        }
     }
 }
