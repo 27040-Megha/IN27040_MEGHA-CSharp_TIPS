@@ -1,5 +1,6 @@
 ﻿using System;
 using CalculatorApp.ApplicationLayer.Service;
+using CalculatorApp.PresentationLayer.Helper;
 
 namespace CalculatorApp.PresentationLayer.View
 {
@@ -19,15 +20,38 @@ namespace CalculatorApp.PresentationLayer.View
         public void Run()
         {
             Console.WriteLine("CALCULATOR APP");
-            var expression = Console.ReadLine();
-            var expressionResult = this._calculatorService.Evaluate(expression);
+            var expression = this.GetExpression();
+            if (expression == null)
+            {
+                return;
+            }
+
+            this.DisplayCalculatedResult(expression);
+        }
+
+        private string GetExpression()
+        {
+            Console.WriteLine("Enter mathematical Expression (12+4*7/10): ");
+            string expression = Console.ReadLine();
+            if (!InputValidation.ValidateString(expression))
+            {
+                TextColor.WriteColoredLine("Expression should not be empty or null", ConsoleColor.Red);
+                return null;
+            }
+
+            return expression;
+        }
+
+        private void DisplayCalculatedResult(string expression)
+        {
+            var expressionResult = this._calculatorService.EvaluateExpression(expression);
             if (expressionResult.IsSuccess)
             {
-                Console.WriteLine(expressionResult.ResultData);
+                TextColor.WriteColoredLine($"{expressionResult.ResultData}", ConsoleColor.Cyan);
             }
             else
             {
-                Console.WriteLine(expressionResult.Message);
+                TextColor.WriteColoredLine(expressionResult.Message, ConsoleColor.Red);
             }
         }
     }
