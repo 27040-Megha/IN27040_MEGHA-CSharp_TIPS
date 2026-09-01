@@ -66,7 +66,7 @@ namespace CalculatorApp.PresentationLayer.View
 
         private MathematicalExpression GetInput()
         {
-            Console.WriteLine("Enter Mathematical Expression (12 + 3): ");
+            TextColor.WriteColoredLine("Enter Mathematical Expression (12 + 3): ", ConsoleColor.Gray);
             string inputExpression = Console.ReadLine();
             char[] operators = { '+', '-', '*', '/' };
             int operatorIndex = inputExpression.IndexOfAny(operators);
@@ -83,7 +83,7 @@ namespace CalculatorApp.PresentationLayer.View
                     bool isValidNumber2 = int.TryParse(inputNumber2, out int number2);
                     if (!isValidNumber1 || !isValidNumber2)
                     {
-                        Console.WriteLine("Invalid Expression format!, Valid format : 12 + 3");
+                        TextColor.WriteColoredLine("Invalid Expression format!, Valid format : 12 + 3", ConsoleColor.Red);
                         return null;
                     }
 
