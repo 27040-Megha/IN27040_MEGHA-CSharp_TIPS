@@ -1,4 +1,5 @@
 ﻿using System;
+using CalculatorApp.ApplicationLayer.Service;
 using CalculatorApp.PresentationLayer.View;
 
 namespace Assignments
@@ -9,7 +10,8 @@ namespace Assignments
         {
             try
             {
-                var consoleOperator = new ConsoleOperations();
+                var calculatorService = new CalculatorService();
+                var consoleOperator = new ConsoleOperations(calculatorService);
                 consoleOperator.Run();
             }
             catch (Exception ex)

@@ -1,4 +1,6 @@
-﻿namespace CalculatorApp.ApplicationLayer.Service
+﻿using CalculatorApp.Domain;
+
+namespace CalculatorApp.ApplicationLayer.Service
 {
     public static class MathUtility
     {
@@ -17,16 +19,14 @@
             return number1 * number2;
         }
 
-        public static bool Divide(int dividend, int divisor, out int quotient)
+        public static Result Divide(int dividend, int divisor)
         {
             if (divisor == 0)
             {
-                quotient = -1;
-                return false;
+                return new Result(false, "Divisor should not be 0!");
             }
 
-            quotient = dividend / divisor;
-            return true;
+            return new Result(true, "Division successful", dividend / divisor);
         }
     }
 }
