@@ -85,7 +85,7 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
 
                 if (!isAdded)
                 {
-                    Console.WriteLine(DisplayResource.DuplicateProductError);
+                    Console.WriteLine(string.Format(DisplayResource.DuplicateProductError, product.ProductId));
                 }
             }
         }
