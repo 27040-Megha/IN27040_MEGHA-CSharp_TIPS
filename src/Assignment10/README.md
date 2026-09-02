@@ -12,6 +12,7 @@ CalculatorApp
 |
 ├── ApplicationLayer
 │   └── Service
+│      └── CalculatorService.cs
 │      └── MathUtility.cs
 │
 ├── PresentationLayer
@@ -30,10 +31,22 @@ CalculatorApp
 # ApplicationLayer
 
 # Service
+
+## CalculatrService
+
+- Contains all business logic to solve a complex expression using BODMAS rule.
+
+Methods
+
+- EvaluateExpression()
+- EvaluateDivide()
+- EvaluateMultiply()
+- EvaluateAdd()
+- EvaluateSubtract()
  
 ## MathUtility.cs
 
-- Contains all Business logic to perform Calculator Operations.
+- Static class and contains all Business logic to perform Calculator Operations.
  
 Methods
 
@@ -55,11 +68,8 @@ Methods
 Methods
 
 - void Run()
-- int GetNumbers()
-- void DisplayAddition()
-- void DisplaySubtraction()
-- void DisplayMultiplication()
-- void DisplayDivision()
+- string GetExpression()
+- void DisplayResult()
 
 ## Helper
 ## InputValidation.cs
@@ -68,7 +78,7 @@ Methods
 
 Methods
 
-- bool ValidateInteger(out int number) - Checks if given input is a valid integer.
+- bool ValidateString(string input) - Checks if string is not null or empty
 
 ---
 
