@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdvancedLINQChallenges.Domain;
-using AdvancedLINQChallenges.Domain.DTO;
-
-namespace AdvancedLINQChallenges.ApplicationLayer.Service
+﻿namespace AdvancedLINQChallenges.ApplicationLayer.Service
 {
     /// <summary>
     /// QueryBuilder class

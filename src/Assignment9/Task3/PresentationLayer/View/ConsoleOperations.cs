@@ -29,7 +29,7 @@ namespace Task3.PresentationLayer.View
             string arrSize = Console.ReadLine();
             var arraySizeResult = InputValidation.ValidateInteger(arrSize);
             int arraySize;
-            if (!arraySizeResult.IsSuccess || !(arraySizeResult.Number > 0))
+            if (!arraySizeResult.IsSuccess || arraySizeResult.Number <= 0)
             {
                 WriteColorLine(DisplayResource.ErrorInvalidArraySize, ConsoleColor.Red);
                 return;
