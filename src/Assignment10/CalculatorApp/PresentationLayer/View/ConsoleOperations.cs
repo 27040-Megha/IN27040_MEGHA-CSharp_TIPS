@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using CalculatorApp.ApplicationLayer.Service;
 using CalculatorApp.PresentationLayer.Helper;
 
@@ -37,15 +38,30 @@ namespace CalculatorApp.PresentationLayer.View
 
         private string GetExpression()
         {
-            Console.WriteLine(DisplayResource.PromptExpression);
-            string expression = Console.ReadLine();
-            if (!InputValidation.ValidateString(expression))
+            Console.WriteLine(DisplayResource.DisplayCalculatorDesign);
+            Console.SetCursorPosition(2, 3);
+            StringBuilder expression = new StringBuilder();
+            while (true)
             {
-                TextColor.WriteColoredLine(DisplayResource.InvalidExpression, ConsoleColor.Red);
-                return null;
+                ConsoleKeyInfo input = Console.ReadKey(true);
+                char inputCharacter = input.KeyChar;
+                if (input.Key == ConsoleKey.Enter || inputCharacter == '=')
+                {
+                    break;
+                }
+
+                if (!InputValidation.IsValidInput(inputCharacter))
+                {
+                    Console.SetCursorPosition(0, 9);
+                    TextColor.WriteColoredLine(DisplayResource.InvalidExpression, ConsoleColor.Red);
+                    return null;
+                }
+
+                Console.Write(inputCharacter);
+                expression.Append(inputCharacter);
             }
 
-            return expression;
+            return expression.ToString();
         }
 
         private void DisplayCalculatedResult(string expression)
@@ -53,10 +69,13 @@ namespace CalculatorApp.PresentationLayer.View
             var expressionResult = this._calculatorService.EvaluateExpression(expression);
             if (expressionResult.IsSuccess)
             {
+                Console.SetCursorPosition(39, 4);
                 TextColor.WriteColoredLine($"{expressionResult.ResultData}", ConsoleColor.Cyan);
+                Console.SetCursorPosition(0, 16);
             }
             else
             {
+                Console.SetCursorPosition(0, 12);
                 TextColor.WriteColoredLine(expressionResult.Message, ConsoleColor.Red);
             }
         }

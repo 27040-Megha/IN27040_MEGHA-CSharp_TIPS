@@ -120,8 +120,21 @@
   <data name="CalculatorApp" xml:space="preserve">
     <value>CALCULATOR APP</value>
   </data>
+  <data name="DisplayCalculatorDesign" xml:space="preserve">
+    <value> _________________________________________________
+|                                                 |
+|                                                 |
+|                                                 |
+|_________________________________________________|
+    [ 1 ]   [ 2 ]   [ 3 ]       [ + ]
+    [ 4 ]   [ 5 ]   [ 6 ]       [ - ]
+    [ 7 ]   [ 8 ]   [ 9 ]       [ * ]
+         [ = (Enter) ]          [ / ]
+</value>
+  </data>
   <data name="InvalidExpression" xml:space="preserve">
-    <value>Expression should not be empty or null</value>
+    <value>
+Expression should contain only +, -, *, /, = or numbers and should have atleast one operator and 2 operands</value>
   </data>
   <data name="PromptExpression" xml:space="preserve">
     <value>Enter mathematical Expression (12+4*7/10): </value>

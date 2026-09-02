@@ -6,18 +6,13 @@
     public static class InputValidation
     {
         /// <summary>
-        /// Validates String
+        /// Checks if only user enters numbers and operators +,-,/,*
         /// </summary>
-        /// <param name="input">Input String to be validated</param>
-        /// <returns>false if string is null or empty, otherwise true</returns>
-        public static bool ValidateString(string input)
+        /// <param name="input">Input Character user enters</param>
+        /// <returns>true if valid input, otherwise false</returns>
+        public static bool IsValidInput(char input)
         {
-            if (string.IsNullOrEmpty(input))
-            {
-                return false;
-            }
-
-            return true;
+            return (input >= '0' && input <= '9') || input == '+' || input == '-' || input == '/' || input == '*';
         }
     }
 }

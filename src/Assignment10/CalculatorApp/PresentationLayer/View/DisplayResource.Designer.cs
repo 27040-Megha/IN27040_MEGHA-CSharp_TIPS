@@ -70,7 +70,26 @@ namespace CalculatorApp.PresentationLayer.View {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expression should not be empty or null.
+        ///   Looks up a localized string similar to  _________________________________________________
+        ///|                                                 |
+        ///|                                                 |
+        ///|                                                 |
+        ///|_________________________________________________|
+        ///    [ 1 ]   [ 2 ]   [ 3 ]       [ + ]
+        ///    [ 4 ]   [ 5 ]   [ 6 ]       [ - ]
+        ///    [ 7 ]   [ 8 ]   [ 9 ]       [ * ]
+        ///         [ = (Enter) ]          [ / ]
+        ///.
+        /// </summary>
+        internal static string DisplayCalculatorDesign {
+            get {
+                return ResourceManager.GetString("DisplayCalculatorDesign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Expression should contain only +, -, *, /, = or numbers and should have atleast one operator and 2 operands.
         /// </summary>
         internal static string InvalidExpression {
             get {
