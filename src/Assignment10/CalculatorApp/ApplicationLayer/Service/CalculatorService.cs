@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CalculatorApp.Domain;
 
 namespace CalculatorApp.ApplicationLayer.Service
@@ -45,21 +46,21 @@ namespace CalculatorApp.ApplicationLayer.Service
 
         private List<string> SplitExpression(string inputExpression)
         {
-            string spacedExpression = string.Empty;
+            StringBuilder spacedExpression = new StringBuilder();
             char[] op = { '+', '-', '*', '/' };
             foreach (char ch in inputExpression)
             {
                 if (op.Contains(ch))
                 {
-                    spacedExpression += $" {ch} ";
+                    spacedExpression.Append($" {ch} ");
                 }
                 else
                 {
-                    spacedExpression += ch;
+                    spacedExpression.Append(ch);
                 }
             }
 
-            var expression = spacedExpression.Split(" ").ToList();
+            var expression = spacedExpression.ToString().Split(" ").ToList();
             return expression;
         }
 
