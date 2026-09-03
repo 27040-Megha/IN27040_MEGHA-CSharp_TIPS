@@ -1,6 +1,6 @@
 ﻿using CalculatorApp.Domain;
 
-namespace CalculatorApp.ApplicationLayer.Service
+namespace CalculatorApp.ApplicationLayer.Utility
 {
     /// <summary>
     /// Contains Add, Subtract, Multiply and Divide methods
