@@ -13,7 +13,8 @@ namespace CalculatorApp.ApplicationLayer.Service
     public class CalculatorService
     {
         /// <summary>
-        /// Evaluates expression using BODMAS rule (First solves Division & Multiplication, the Addition & Subtraction
+        /// Solves expression using BODMAS rule (First solves Division & Multiplication, then Addition & Subtraction)
+        /// Calls MathUtility methods to perform Arithmetic Operations
         /// </summary>
         /// <param name="inputExpression">Input Mathematical Expression</param>
         /// <returns>Result of the Expression, or invalid format error message</returns>
@@ -177,7 +178,7 @@ namespace CalculatorApp.ApplicationLayer.Service
 
             this.UpdateExpressionList(expression, indexOfDivide, divisionResult.ResultData.ToString());
             return new Result(true, "Division Successful!");
-        }
+        }   
 
         private void UpdateExpressionList(List<string> expression, int operatorIndex, string calculatedResult)
         {
@@ -198,7 +199,6 @@ namespace CalculatorApp.ApplicationLayer.Service
 
             string inputNumber1 = expression[operatorIndex - 1].Trim();
             string inputNumber2 = expression[operatorIndex + 1].Trim();
-
             bool isValidNumber1 = int.TryParse(inputNumber1, out number1);
             bool isValidNumber2 = int.TryParse(inputNumber2, out number2);
             return isValidNumber1 && isValidNumber2;

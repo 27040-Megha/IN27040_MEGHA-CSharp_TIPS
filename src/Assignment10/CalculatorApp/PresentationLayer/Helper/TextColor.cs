@@ -8,7 +8,7 @@ namespace CalculatorApp.PresentationLayer.Helper
     public static class TextColor
     {
         /// <summary>
-        /// Prints the text in Red Color
+        /// Prints the text in Desired Color
         /// </summary>
         /// <param name="text">Input string</param>
         /// <param name="color">Color of the string</param>
