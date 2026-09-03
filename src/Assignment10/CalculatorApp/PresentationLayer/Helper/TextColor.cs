@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CalculatorApp.PresentationLayer.View
+namespace CalculatorApp.PresentationLayer.Helper
 {
     /// <summary>
     /// Provides method to display text in different colors
