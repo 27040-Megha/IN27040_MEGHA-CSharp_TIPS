@@ -31,7 +31,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// <returns>true if successfully added, false otherwise</returns>
         public bool AddProduct(Product product)
         {
-            if (this._productRepo.ReturnAllProducts().Any(p => p.ProductId.Equals(product.ProductId)))
+            if (this.FetchAllProducts().Any(p => p.ProductId.Equals(product.ProductId)))
             {
                 return false;
             }
