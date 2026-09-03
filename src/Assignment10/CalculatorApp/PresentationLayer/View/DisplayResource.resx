@@ -139,4 +139,10 @@ Expression should contain only +, -, *, /, = or numbers and should have atleast 
   <data name="PromptExpression" xml:space="preserve">
     <value>Enter mathematical Expression (12+4*7/10): </value>
   </data>
+  <data name="PromptForContinue" xml:space="preserve">
+    <value>Press any character to continue</value>
+  </data>
+  <data name="PromptForEscape" xml:space="preserve">
+    <value>Press any character to continue, ESC to escape</value>
+  </data>
 </root>

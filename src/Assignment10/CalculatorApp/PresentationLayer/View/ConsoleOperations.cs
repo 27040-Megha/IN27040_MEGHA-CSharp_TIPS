@@ -26,14 +26,22 @@ namespace CalculatorApp.PresentationLayer.View
         /// </summary>
         public void Run()
         {
-            Console.WriteLine(DisplayResource.CalculatorApp);
-            var expression = this.GetExpression();
-            if (expression == null)
+            ConsoleKey key = ConsoleKey.A;
+            do
             {
-                return;
-            }
+                Console.Clear();
+                Console.WriteLine(DisplayResource.CalculatorApp);
+                var expression = this.GetExpression();
+                if (expression == null)
+                {
+                    continue;
+                }
 
-            this.DisplayCalculatedResult(expression);
+                this.DisplayCalculatedResult(expression);
+                TextColor.WriteColoredLine(DisplayResource.PromptForEscape, ConsoleColor.Cyan);
+                key = Console.ReadKey().Key;
+            }
+            while (key != ConsoleKey.Escape);
         }
 
         private string GetExpression()
@@ -54,6 +62,8 @@ namespace CalculatorApp.PresentationLayer.View
                 {
                     Console.SetCursorPosition(0, 9);
                     TextColor.WriteColoredLine(DisplayResource.InvalidExpression, ConsoleColor.Red);
+                    TextColor.WriteColoredLine(DisplayResource.PromptForContinue, ConsoleColor.Cyan);
+                    Console.ReadKey();
                     return null;
                 }
 

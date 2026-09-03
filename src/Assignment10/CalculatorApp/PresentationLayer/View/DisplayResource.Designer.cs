@@ -105,5 +105,23 @@ namespace CalculatorApp.PresentationLayer.View {
                 return ResourceManager.GetString("PromptExpression", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press any character to continue.
+        /// </summary>
+        internal static string PromptForContinue {
+            get {
+                return ResourceManager.GetString("PromptForContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press any character to continue, ESC to escape.
+        /// </summary>
+        internal static string PromptForEscape {
+            get {
+                return ResourceManager.GetString("PromptForEscape", resourceCulture);
+            }
+        }
     }
 }

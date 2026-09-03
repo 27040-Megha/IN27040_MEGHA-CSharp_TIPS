@@ -21,9 +21,9 @@ namespace CalculatorApp.ApplicationLayer.Service
         public Result EvaluateExpression(string inputExpression)
         {
             var expression = this.SplitExpression(inputExpression);
-            if (expression.Count == 1 && expression[0].All(char.IsDigit))
+            if (expression.Count == 1 && expression[0].All(char.IsDigit) && int.TryParse(expression[0], out int expressionResult))
             {
-                return new Result(true, "Result of Expression: ", int.Parse(expression[0]));
+                return new Result(true, "Result of Expression: ", expressionResult);
             }
 
             if (expression.Count < 3)
@@ -43,7 +43,13 @@ namespace CalculatorApp.ApplicationLayer.Service
                 return additionAndSubtractionResult;
             }
 
-            return new Result(true, "Result of Expression: ", int.Parse(expression[0]));
+            var isValidResult = int.TryParse(expression[0], out int evaluatedResult);
+            if (!isValidResult)
+            {
+                return new Result(false, "Only Integer is supported, Doesn't support Long values");
+            }
+
+            return new Result(true, "Result of Expression: ", evaluatedResult);
         }
 
         private List<string> SplitExpression(string inputExpression)
