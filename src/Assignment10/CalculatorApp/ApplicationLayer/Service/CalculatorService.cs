@@ -21,12 +21,17 @@ namespace CalculatorApp.ApplicationLayer.Service
         public Result EvaluateExpression(string inputExpression)
         {
             var expression = this.SplitExpression(inputExpression);
-            if (expression.Count == 1 && expression[0].All(char.IsDigit) && int.TryParse(expression[0], out int expressionResult))
+            if (expression.Count == 1)
             {
-                return new Result(true, "Result of Expression: ", expressionResult);
+                if (int.TryParse(expression[0], out int expressionResult))
+                {
+                    return new Result(true, "Result of Expression: ", expressionResult);
+                }
+
+                return new Result(false, "Only integer values Supported!");
             }
 
-            if (expression.Count < 3)
+            if (expression.Count % 2 == 0 || expression.Count < 3)
             {
                 return new Result(false, "Invalid expression format! Must include numbers and operators (e.g., 12 + 4).");
             }
@@ -56,11 +61,19 @@ namespace CalculatorApp.ApplicationLayer.Service
         {
             StringBuilder spacedExpression = new StringBuilder();
             char[] op = { '+', '-', '*', '/' };
-            foreach (char ch in inputExpression)
+            for (int i = 0; i < inputExpression.Length; i++)
             {
+                char ch = inputExpression[i];
                 if (op.Contains(ch))
                 {
-                    spacedExpression.Append($" {ch} ");
+                    if (ch == '-' && (i == 0 || op.Contains(inputExpression[i - 1])))
+                    {
+                        spacedExpression.Append(ch);
+                    }
+                    else
+                    {
+                        spacedExpression.Append($" {ch} ");
+                    }
                 }
                 else
                 {
@@ -91,7 +104,7 @@ namespace CalculatorApp.ApplicationLayer.Service
                         return divisionResult;
                     }
                 }
-                else if (indexOfMultiply != -1)
+                else
                 {
                     var multiplicationResult = this.EvaluateMultiply(expression, indexOfMultiply);
                     if (!multiplicationResult.IsSuccess)
@@ -123,7 +136,7 @@ namespace CalculatorApp.ApplicationLayer.Service
                         return additionResult;
                     }
                 }
-                else if (indexOfSubtract != -1)
+                else
                 {
                     var subtractionResult = this.EvaluateSubtract(expression, indexOfSubtract);
                     if (!subtractionResult.IsSuccess)
@@ -184,7 +197,7 @@ namespace CalculatorApp.ApplicationLayer.Service
 
             this.UpdateExpressionList(expression, indexOfDivide, divisionResult.ResultData.ToString());
             return new Result(true, "Division Successful!");
-        }   
+        } 
 
         private void UpdateExpressionList(List<string> expression, int operatorIndex, string calculatedResult)
         {
@@ -198,7 +211,7 @@ namespace CalculatorApp.ApplicationLayer.Service
         {
             number1 = 0;
             number2 = 0;
-            if (operatorIndex < 0 || operatorIndex >= expression.Count - 1)
+            if (operatorIndex - 1 < 0 || operatorIndex >= expression.Count - 1)
             {
                 return false;
             }
