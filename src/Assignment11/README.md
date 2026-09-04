@@ -162,7 +162,8 @@ Properties
 IDisposableDemo
 |
 ├── InfrastructureLayer
-│   └── FileRepository.cs
+│   └── FileReader.cs
+│   └── FileWriter.cs
 │
 └── Program.cs
 ```
@@ -171,17 +172,28 @@ IDisposableDemo
 
 # Folder Structure
 
-## FileRepository.cs
+## FileReader.cs
 
 - Implement IDisposable
+- Assign filepath to streamReader inside constructor.
 
 Methods
 
 - void ReadFile()
+- void Dispose() 
+
+## FileWriter.cs
+
+- Implement IDisposable
+- Assign filepath to streamWriter inside constructor.
+
+Methods
+
 - void WriteFile()
-- void Dispose() - Close the file properly
+- void Dispose() 
+
 
 ## Program.cs
 
-- Create an instance of FileRepository class in a 'using' block. Write some text to the file. 
-- Open the same file for reading.
+- Inside Using write file using streamWriter.
+- And then read from file and write to console with the help of Usings.

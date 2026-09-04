@@ -3,6 +3,9 @@ using GarbageCollection.Domain.Model;
 
 namespace Assignments
 {
+    /// <summary>
+    /// Entry Point of Application
+    /// </summary>
     public class Program
     {
         private static void Main(string[] args)

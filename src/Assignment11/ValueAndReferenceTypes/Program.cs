@@ -4,9 +4,12 @@ using ValueAndReferenceTypes.PresentationLayer.View;
 
 namespace Assignments
 {
+    /// <summary>
+    /// Entry point of Application
+    /// </summary>
     public class Program
     {
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
             var updateService = new UpdateService();
@@ -14,7 +17,7 @@ namespace Assignments
             consoleOperator.Run();
         }
 
-        public static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is Exception ex)
             {

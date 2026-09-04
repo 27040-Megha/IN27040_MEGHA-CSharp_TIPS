@@ -5,15 +5,25 @@ using ValueAndReferenceTypes.Domain.Strcuts;
 
 namespace ValueAndReferenceTypes.PresentationLayer.View
 {
+    /// <summary>
+    /// Displays Output to User
+    /// </summary>
     public class ConsoleOperations
     {
         private readonly UpdateService _updateService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="updateService">UpdateService object</param>
         public ConsoleOperations(UpdateService updateService)
         {
             this._updateService = updateService;
         }
 
+        /// <summary>
+        /// Executes Task1 and Task2
+        /// </summary>
         public void Run()
         {
             this.ExecuteTask1();

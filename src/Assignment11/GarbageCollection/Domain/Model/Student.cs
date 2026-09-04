@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace GarbageCollection.Domain.Model
+﻿namespace GarbageCollection.Domain.Model
 {
     /// <summary>
     /// Model for Student class
