@@ -8,28 +8,13 @@ namespace GarbageCollection.Domain.Model
     /// </summary>
     public class Student
     {
-        private static int _count = 0;
-
-        public Student()
-        {
-            _count++;
-        }
-
-        /// <summary>
-        /// Finalizes an instance of the <see cref="Student"/> class.
-        /// </summary>
-        ~Student()
-        {
-            Console.WriteLine(_count);
-        }
-
         /// <summary>
         /// Gets or Sets the value of Student Roll Number
         /// </summary>
         /// <value>
         /// Student Roll Number
         /// </value>
-        public string RollNumber { get; set; }
+        public int RollNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets the value of Student Name
