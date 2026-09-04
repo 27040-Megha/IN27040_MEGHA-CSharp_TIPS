@@ -1,18 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using GarbageCollection.Domain.Model;
 
 namespace Assignments
 {
     public class Program
     {
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            GC.Collect();
+            Console.WriteLine("WITH GC");
+            DisplayHeapMemoryUsage();
             ExecuteTask4WithGC();
+            DisplayHeapMemoryUsage();
+            Console.WriteLine("WITHOUT GC");
+            DisplayHeapMemoryUsage();
             ExecuteTask4WithOutGC();
+            DisplayHeapMemoryUsage();
         }
 
-        public static void ExecuteTask4WithOutGC()
+        private static void DisplayHeapMemoryUsage()
+        {
+            long currentHeapMemory = GC.GetTotalMemory(false);
+            Console.WriteLine($"Current Memory: {currentHeapMemory}");
+        }
+
+        private static void ExecuteTask4WithOutGC()
         {
             for (int i = 0; i < 100; i++)
             {
@@ -20,7 +32,7 @@ namespace Assignments
             }
         }
 
-        public static void ExecuteTask4WithGC()
+        private static void ExecuteTask4WithGC()
         {
             for (int i = 0; i < 100; i++)
             {
