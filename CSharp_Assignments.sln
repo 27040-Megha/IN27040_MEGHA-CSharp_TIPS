@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment11", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueAndReferenceTypes", "src\Assignment11\ValueAndReferenceTypes\ValueAndReferenceTypes.csproj", "{7FAA20D9-13A7-4AB3-9285-873F5041F9FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarbageCollection", "src\Assignment11\GarbageCollection\GarbageCollection.csproj", "{0C378A67-85D0-4D0E-8C79-C57AC3424F2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{7FAA20D9-13A7-4AB3-9285-873F5041F9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FAA20D9-13A7-4AB3-9285-873F5041F9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FAA20D9-13A7-4AB3-9285-873F5041F9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C378A67-85D0-4D0E-8C79-C57AC3424F2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C378A67-85D0-4D0E-8C79-C57AC3424F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C378A67-85D0-4D0E-8C79-C57AC3424F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C378A67-85D0-4D0E-8C79-C57AC3424F2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{7AAF79E8-7ADC-4B3C-9823-DA9CC1607DE3} = {33954C6A-CC2D-4B17-97DE-06E3B7C82DA6}
 		{A79BBF79-A493-4EDA-9D9C-95934773DFE6} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{7FAA20D9-13A7-4AB3-9285-873F5041F9FF} = {A79BBF79-A493-4EDA-9D9C-95934773DFE6}
+		{0C378A67-85D0-4D0E-8C79-C57AC3424F2D} = {A79BBF79-A493-4EDA-9D9C-95934773DFE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}

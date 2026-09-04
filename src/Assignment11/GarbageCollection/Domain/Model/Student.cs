@@ -1,10 +1,28 @@
-﻿namespace ValueAndReferenceTypes.Domain.Model
+﻿using System;
+using System.Threading;
+
+namespace GarbageCollection.Domain.Model
 {
     /// <summary>
     /// Model for Student class
     /// </summary>
     public class Student
     {
+        private static int _count = 0;
+
+        public Student()
+        {
+            _count++;
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Student"/> class.
+        /// </summary>
+        ~Student()
+        {
+            Console.WriteLine(_count);
+        }
+
         /// <summary>
         /// Gets or Sets the value of Student Roll Number
         /// </summary>
