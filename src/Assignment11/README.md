@@ -6,6 +6,10 @@ Understand C# memory management - ValueType, ReferenceType, Stack, Heap, Garbage
 
 ---
 
+## Exploration Documentation
+
+- Documentation link : https://solitontech-my.sharepoint.com/:w:/p/megha_easwaramoorthy/IQCQqTiaGlAdQ66aAO6b-MspARl7cB7RO1HZ2BZX7wB_cEg?e=dfCno6
+
 ## Task 1
 
 - Understanding and Using Value Types and Reference Types in C#.
