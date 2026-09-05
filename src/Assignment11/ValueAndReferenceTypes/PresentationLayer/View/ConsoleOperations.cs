@@ -109,7 +109,7 @@ namespace ValueAndReferenceTypes.PresentationLayer.View
         private void CreateArray()
         {
             var integerArray = new int[100000];
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < integerArray.Length; i++)
             {
                 integerArray[i] = i;
             }
