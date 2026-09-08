@@ -13,9 +13,13 @@
         /// <param name="maxValue">Max Number of Loop Iterations</param>
         public void Allocate(int maxValue)
         {
-            int i = 1;
-            while (i++ <= maxValue)
+            while (true)
             {
+                if (this._memAlloc.Count > maxValue)
+                {
+                    return;
+                }
+
                 this._memAlloc.Add(new int[1000]);
                 Thread.Sleep(10);
             }
