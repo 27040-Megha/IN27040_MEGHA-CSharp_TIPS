@@ -31,11 +31,6 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             Console.ReadKey();
         }
 
-        /// <summary>
-        /// Prints the text in Specific Color
-        /// </summary>
-        /// <param name="text">Input string</param>
-        /// <param name="colorChoice">Specific color of text to be displayed</param>
         private void WriteColorLine(string text, ConsoleColor colorChoice)
         {
             Console.ForegroundColor = colorChoice;

@@ -3,7 +3,9 @@
 namespace ErrorHandlingTasks.Domain
 {
     /// <summary>
-    /// Custom Exception- InvalidUserInputException that inherits from Exception class
+    /// Custom Exception- InvalidUserInputException that inherits from Exception class.
+    /// The Exception will be used in InputValidator class, that checks whether user enters a valid integer input.
+    /// If User enters an invalid input, FormatException will be caught which will throw the new InvalidUserInputException with a custom message
     /// </summary>
     public class InvalidUserInputException : Exception
     {

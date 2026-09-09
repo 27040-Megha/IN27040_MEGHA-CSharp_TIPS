@@ -8,25 +8,18 @@ namespace ErrorHandlingTasks.ApplicationLayer.Service
     public class ErrorHandlingService
     {
         /// <summary>
-        /// Inside try block returns Division result, if divisor is 0, DivideByZeroException will be catched and the same exception will be rethrown.
+        /// Returns the division result, if divisor is zero, DivideByZeroException will be thrown that will be catched in the Presentation layer.
         /// </summary>
         /// <param name="dividend">Dividened</param>
         /// <param name="divisor">Divisor</param>
         /// <returns>Division result</returns>
         public int Divide(int dividend, int divisor)
         {
-            try
-            {
-                return dividend / divisor;
-            }
-            catch (DivideByZeroException)
-            {
-                throw;
-            }
+            return dividend / divisor;
         }
 
         /// <summary>
-        /// Inside try block returns the fifth element of the array, IndexOutOfRangeException will be catched and different exception InvalidOperationException is thrown.
+        /// The try block attempts to return the fifth element of the array. If an IndexOutOfRangeException occurs, it is caught, and an InvalidOperationException with custom message will be thrown.
         /// </summary>
         /// <param name="array">Integer array</param>
         /// <returns>Fifth element of Array</returns>
@@ -37,9 +30,9 @@ namespace ErrorHandlingTasks.ApplicationLayer.Service
             {
                 return array[4];
             }
-            catch (IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException)
             {
-                throw new InvalidOperationException(ex.Message);
+                throw new InvalidOperationException("Invalid Operation Exception");
             }
         }
     }
