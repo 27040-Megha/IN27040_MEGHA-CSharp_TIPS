@@ -8,7 +8,7 @@
         private List<int[]> _memAlloc = new List<int[]>();
 
         /// <summary>
-        /// Method that allocates memory in an infinite loop, also ensures that OutOfMemoryException doesn't occurs
+        /// Method that allocates memory for Array Instances and adds the instance to the list for a threshold(maxValue) passed as an input by the user.
         /// </summary>
         /// <param name="maxValue">Max Number of Loop Iterations</param>
         public void Allocate(int maxValue)
