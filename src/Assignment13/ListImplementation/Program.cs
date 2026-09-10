@@ -5,6 +5,9 @@ using ListImplementation.PresentationLayer.View;
 
 namespace Assignments
 {
+    /// <summary>
+    /// Main class
+    /// </summary>
     public class Program
     {
         private static void Main(string[] args)

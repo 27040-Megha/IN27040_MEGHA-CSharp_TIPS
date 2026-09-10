@@ -1,22 +1,33 @@
 ﻿using System;
 using System.Linq;
+using ConsoleUtilities;
 using InputValidator;
 using ListImplementation.ApplicationLayer.Service;
 
 namespace ListImplementation.PresentationLayer.View
 {
+    /// <summary>
+    /// Contains all methods that interacts with the user by getting input and displaying expected outcome
+    /// </summary>
     public class ConsoleOperations
     {
         private BookService<string> _bookService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="bookService">BookService object</param>
         public ConsoleOperations(BookService<string> bookService)
         {
             this._bookService = bookService;
         }
 
+        /// <summary>
+        /// Initial method that is called from Program.cs
+        /// </summary>
         public void Run()
         {
-            Console.WriteLine("\nAdd 5 Book Titles to Repo:");
+            ConsoleLogger.WriteColorLine(DisplayResource.AddBookTitle, ConsoleColor.Cyan);
             this.AddBookTitle();
             this.DisplayBookTitle();
             this.RemoveBookTitle();
@@ -26,11 +37,11 @@ namespace ListImplementation.PresentationLayer.View
 
         private string GetBookTitle()
         {
-            Console.WriteLine("Enter Book Title: ");
+            Console.Write(DisplayResource.PromptBookTitle);
             string bookTitle = Console.ReadLine();
             if (!StringValidator.ValidateString(bookTitle))
             {
-                Console.WriteLine("Book Title should not be null or empty, and should contain only characters");
+                ConsoleLogger.WriteColorLine(DisplayResource.InputStringError, ConsoleColor.Red);
                 return null;
             }
 
@@ -49,7 +60,7 @@ namespace ListImplementation.PresentationLayer.View
 
                 if (!this._bookService.CreateBook(bookTitle))
                 {
-                    Console.WriteLine("Duplicate Book Title found, Cannot add book to Repo");
+                    ConsoleLogger.WriteColorLine(DisplayResource.DuplicateBookError, ConsoleColor.Red);
                     return;
                 }
             }
@@ -57,7 +68,7 @@ namespace ListImplementation.PresentationLayer.View
 
         private void RemoveBookTitle()
         {
-            Console.WriteLine("\nRemove Book Title: ");
+            ConsoleLogger.WriteColorLine(DisplayResource.RemoveBookTitle, ConsoleColor.Cyan);
             string bookTitleToRemove = this.GetBookTitle();
             if (bookTitleToRemove == null)
             {
@@ -66,16 +77,16 @@ namespace ListImplementation.PresentationLayer.View
 
             if (!this._bookService.DeleteBook(bookTitleToRemove))
             {
-                Console.WriteLine("Cannot delete, No Book with this book title found");
+                ConsoleLogger.WriteColorLine(DisplayResource.BookNotFoundError, ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("Successfully Deleted!");
+            ConsoleLogger.WriteColorLine(DisplayResource.SuccessfulDeletion, ConsoleColor.Green);
         }
 
         private void SearchBookTitle()
         {
-            Console.WriteLine("\nSearch for Book");
+            ConsoleLogger.WriteColorLine(DisplayResource.SearchBookTitle, ConsoleColor.Cyan);
             string bookTitleToSearch = this.GetBookTitle();
             if (bookTitleToSearch == null)
             {
@@ -84,11 +95,11 @@ namespace ListImplementation.PresentationLayer.View
 
             if (!this._bookService.FindBook(bookTitleToSearch))
             {
-                Console.WriteLine("No Book found with the title");
+                ConsoleLogger.WriteColorLine(DisplayResource.BookNotFound, ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("Book Title Found!");
+            ConsoleLogger.WriteColorLine(DisplayResource.BookTitleFound, ConsoleColor.Green);
         }
 
         private void DisplayBookTitle()
@@ -96,11 +107,11 @@ namespace ListImplementation.PresentationLayer.View
             var bookList = this._bookService.GetBookList();
             if (!bookList.Any())
             {
-                Console.WriteLine("No Books found!");
+                ConsoleLogger.WriteColorLine(DisplayResource.NoBookFound, ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("\nBooks in the Book List");
+            ConsoleLogger.WriteColorLine(DisplayResource.BookListHeading, ConsoleColor.Cyan);
             foreach (var bookTitle in bookList)
             {
                 Console.WriteLine($"{bookTitle}");
