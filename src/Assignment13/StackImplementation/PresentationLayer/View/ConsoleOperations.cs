@@ -4,15 +4,25 @@ using StackImplementation.ApplicationLayer.Service;
 
 namespace StackImplementation.PresentationLayer.View
 {
+    /// <summary>
+    /// Contains all methods that interacts with the user by getting input and displaying expected outcome
+    /// </summary>
     public class ConsoleOperations
     {
         private StringReversalService _stringReversalService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="stringReversalService">Service Object</param>
         public ConsoleOperations(StringReversalService stringReversalService)
         {
             this._stringReversalService = stringReversalService;
         }
 
+        /// <summary>
+        /// Initial method that is called from Program.cs
+        /// </summary>
         public void Run()
         {
             string word = this.GetWord();

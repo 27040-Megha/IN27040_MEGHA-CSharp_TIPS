@@ -4,10 +4,18 @@ using System.Text;
 
 namespace StackImplementation.ApplicationLayer.Service
 {
+    /// <summary>
+    /// Contains business logic that reverses a string using Stack
+    /// </summary>
     public class StringReversalService
     {
         private Stack<char> _letterStack = new Stack<char>();
 
+        /// <summary>
+        /// Reverse String
+        /// </summary>
+        /// <param name="word">string to be reversed</param>
+        /// <returns>Reversed String</returns>
         public string ReverseString(string word)
         {
             this.PushToStack(word);

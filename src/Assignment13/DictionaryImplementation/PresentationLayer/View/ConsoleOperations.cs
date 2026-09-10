@@ -5,15 +5,25 @@ using InputValidator;
 
 namespace DictionaryImplementation.PresentationLayer.View
 {
+    /// <summary>
+    /// Contains all methods that interacts with the user by getting input and displaying expected outcome
+    /// </summary>
     public class ConsoleOperations
     {
         private StudentService<string, int> _studentService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="studentService">Service object</param>
         public ConsoleOperations(StudentService<string, int> studentService)
         {
             this._studentService = studentService;
         }
 
+        /// <summary>
+        /// Initial method that is called from Program.cs
+        /// </summary>
         public void Run()
         {
             this.AddStudentGrade();

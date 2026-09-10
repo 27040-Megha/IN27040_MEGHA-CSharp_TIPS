@@ -1,12 +1,24 @@
 ﻿namespace ReadOnlyCollections.ApplicationLayer.Service
 {
+    /// <summary>
+    /// Contains business logic that performs operations using ReadOnly collection
+    /// </summary>
     public class CollectionService
     {
+        /// <summary>
+        /// Calculates the sum of elements in the collection
+        /// </summary>
+        /// <param name="collection">IEnumerable collection</param>
+        /// <returns>Sum of elements of collection</returns>
         public int SumOfElements(IEnumerable<int> collection)
         {
             return collection.Sum();
         }
 
+        /// <summary>
+        /// Creates a dictionary and returns the dictionary
+        /// </summary>
+        /// <returns>Dictionary as readonly</returns>
         public IReadOnlyDictionary<string, int> GenerateDictionary()
         {
             var studentResult = new Dictionary<string, int>

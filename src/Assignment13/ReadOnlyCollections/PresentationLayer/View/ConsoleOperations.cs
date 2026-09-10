@@ -2,15 +2,25 @@
 
 namespace ReadOnlyCollections.PresentationLayer.View
 {
+    /// <summary>
+    /// Contains all methods that interacts with the user by getting input and displaying expected outcome
+    /// </summary>
     public class ConsoleOperations
     {
         private CollectionService _collectionService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="collectionService">Service object</param>
         public ConsoleOperations(CollectionService collectionService)
         {
             this._collectionService = collectionService;
         }
 
+        /// <summary>
+        /// Initial method that is called from Program.cs
+        /// </summary>
         public void Run()
         {
             this.SumOfArrayElements();

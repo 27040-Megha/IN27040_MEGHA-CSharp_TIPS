@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Linq;
+using ConsoleUtilities;
 using InputValidator;
 using QueueImplementation.ApplicationLayer.Service;
 
 namespace QueueImplementation.PresentationLayer.View
 {
+    /// <summary>
+    /// Contains all methods that interacts with the user by getting input and displaying expected outcome
+    /// </summary>
     public class ConsoleOperations
     {
         private QueueService<string> _queueService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
+        /// </summary>
+        /// <param name="queueService">Queue Service object</param>
         public ConsoleOperations(QueueService<string> queueService)
         {
             this._queueService = queueService;
         }
 
+        /// <summary>
+        /// Initial method that is called from Program.cs
+        /// </summary>
         public void Run()
         {
             this.AddPerson();
@@ -24,11 +35,11 @@ namespace QueueImplementation.PresentationLayer.View
 
         private string GetPersonName()
         {
-            Console.WriteLine("Enter Person Name: ");
+            Console.WriteLine(DisplayResource.PromptPersonName);
             string personName = Console.ReadLine();
             if (!StringValidator.ValidateString(personName))
             {
-                Console.WriteLine("Person Name should not be null or empty, and should contain only characters");
+                ConsoleLogger.WriteColorLine(DisplayResource.NameFormatError, ConsoleColor.Red);
                 return null;
             }
 
@@ -37,7 +48,7 @@ namespace QueueImplementation.PresentationLayer.View
 
         private void AddPerson()
         {
-            Console.WriteLine("Add Five Persons to Queue");
+            ConsoleLogger.WriteColorLine(DisplayResource.AddPersonsHeading, ConsoleColor.Cyan);
             for (int i = 0; i < 5; i++)
             {
                 string personName = this.GetPersonName();
@@ -48,7 +59,7 @@ namespace QueueImplementation.PresentationLayer.View
 
                 if (!this._queueService.EnqueuePeople(personName))
                 {
-                    Console.WriteLine("Person Already added to Queue, Can't Add again!");
+                    ConsoleLogger.WriteColorLine(DisplayResource.DuplicateUser, ConsoleColor.Red);
                     return;
                 }
             }
@@ -56,14 +67,14 @@ namespace QueueImplementation.PresentationLayer.View
 
         private void RemovePerson()
         {
-            Console.WriteLine("\nRemove people from Queue");
+            ConsoleLogger.WriteColorLine(DisplayResource.RemoveHeading, ConsoleColor.Cyan);
             if (!this._queueService.DequeuePeople())
             {
-                Console.WriteLine("No people waiting in the Queue to delete!");
+                ConsoleLogger.WriteColorLine(DisplayResource.UnsuccessfulDelete, ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("Removed a person from Waiting Queue Successfully!");
+            ConsoleLogger.WriteColorLine(DisplayResource.SuccessfulDelete, ConsoleColor.Green);
         }
 
         private void DisplayWaitingQueue()
@@ -71,11 +82,11 @@ namespace QueueImplementation.PresentationLayer.View
             var waitingQueue = this._queueService.GetWaitingQueue();
             if (!waitingQueue.Any())
             {
-                Console.WriteLine("\nNo people in the waiting queue!");
+                ConsoleLogger.WriteColorLine(DisplayResource.NoPeopleInQueue, ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("\nPeople waiting in Waiting Queue!");
+            ConsoleLogger.WriteColorLine(DisplayResource.PeopleInQueue, ConsoleColor.Cyan);
             foreach (var person in waitingQueue)
             {
                 Console.WriteLine(person);
