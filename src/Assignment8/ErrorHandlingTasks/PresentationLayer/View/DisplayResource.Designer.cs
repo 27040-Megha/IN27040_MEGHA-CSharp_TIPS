@@ -61,6 +61,15 @@ namespace ErrorHandlingTasks.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot Divide, Divisor Can&apos;t be zero.
+        /// </summary>
+        internal static string DivisionError {
+            get {
+                return ResourceManager.GetString("DivisionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Result of Division : {0}.
         /// </summary>
         internal static string DivisionResult {

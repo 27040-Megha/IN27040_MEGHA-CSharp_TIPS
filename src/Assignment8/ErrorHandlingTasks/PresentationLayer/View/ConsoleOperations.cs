@@ -55,9 +55,9 @@ namespace ErrorHandlingTasks.PresentationLayer.View
             {
                 this.WriteColorLine(ex.Message, ConsoleColor.Red);
             }
-            catch (DivideByZeroException ex)
+            catch (DivideByZeroException)
             {
-                this.WriteColorLine(ex.Message, ConsoleColor.Red);
+                this.WriteColorLine(DisplayResource.DivisionError, ConsoleColor.Red);
             }
             finally
             {

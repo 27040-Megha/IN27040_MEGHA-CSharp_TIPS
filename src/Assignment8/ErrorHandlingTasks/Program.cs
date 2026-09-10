@@ -24,8 +24,8 @@ namespace Assignments
         /// <summary>
         /// Method that will subscribe to the AppDomain.CurrentDomain.UnhandledException that will catch Unhandled global exceptions
         /// </summary>
-        /// <param name="sender">Object that invoked the unhandled exception event/param>
-        /// <param name="e">Contains Event data and details about Exception</param>
+        /// <param name="sender">Object that invoked the unhandled exception event</param>
+        /// <param name="e"> UnhandledExceptionEventArgs Object</param>
         public static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is Exception ex)

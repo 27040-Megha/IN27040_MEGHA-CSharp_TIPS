@@ -138,4 +138,7 @@
   <data name="PromptArraySize" xml:space="preserve">
     <value>Enter Array Size: </value>
   </data>
+  <data name="DivisionError" xml:space="preserve">
+    <value>Cannot Divide, Divisor Can't be zero</value>
+  </data>
 </root>
