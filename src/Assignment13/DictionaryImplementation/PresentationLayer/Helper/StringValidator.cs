@@ -1,4 +1,7 @@
-﻿namespace InputValidator
+﻿using System;
+using System.Linq;
+
+namespace InputValidator
 {
     /// <summary>
     /// Class contains methods to validate strings

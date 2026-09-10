@@ -15,11 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleUtilities\ConsoleUtilities.csproj" />
-    <ProjectReference Include="..\InputValidator\InputValidator.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="PresentationLayer\View\DisplayResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
