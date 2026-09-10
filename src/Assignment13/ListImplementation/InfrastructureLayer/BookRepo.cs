@@ -4,7 +4,12 @@ namespace ListImplementation.InfrastructureLayer
 {
     public class BookRepo<T>
     {
-        private List<T> _bookList = new List<T>();
+        private List<T> _bookList;
+
+        public BookRepo()
+        {
+            this._bookList = new List<T>();
+        }
 
         public void AddBook(T bookTitle)
         {
