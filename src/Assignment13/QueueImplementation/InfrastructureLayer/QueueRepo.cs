@@ -25,5 +25,10 @@ namespace QueueImplementation.InfrastructureLayer
         {
             return this._waitingQueue;
         }
+
+        public bool FindPerson(T person)
+        {
+            return this._waitingQueue.Contains(person);
+        }
     }
 }
