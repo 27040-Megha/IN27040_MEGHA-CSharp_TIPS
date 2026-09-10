@@ -311,9 +311,9 @@ Field
 
 Methods
 
-- void AddStudentResult(Tkey studentName, TResult grade ) - Adds the Student Name and grade as a key-value pair to the dictionary.
+- void AddStudentResult(Tkey studentName, TValue grade ) - Adds the Student Name and grade as a key-value pair to the dictionary.
 - void RemoveStudent(TKey studentName) - Removes the student result based on the key (studentName).
-- List &lt;T&gt; ReturnStudentResult - Returns the StudentResult dictionary.
+- Dictionary &lt;Tkey, TValue&gt; ReturnStudentResult - Returns the StudentResult dictionary.
 ---
 
 # ApplicationLayer
