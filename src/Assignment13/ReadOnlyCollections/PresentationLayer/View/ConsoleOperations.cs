@@ -1,4 +1,5 @@
-﻿using ReadOnlyCollections.ApplicationLayer.Service;
+﻿using ConsoleUtilities;
+using ReadOnlyCollections.ApplicationLayer.Service;
 
 namespace ReadOnlyCollections.PresentationLayer.View
 {
@@ -33,18 +34,13 @@ namespace ReadOnlyCollections.PresentationLayer.View
         private void SumOfArrayElements()
         {
             int[] intArray = { 1, 2, 3, 4, 5 };
-            Console.WriteLine($"Sum of Array Elements: {this._collectionService.SumOfElements(intArray)}");
+            ConsoleLogger.WriteColorLine(string.Format(DisplayResource.ArraySum, this._collectionService.SumOfElements(intArray)), ConsoleColor.Cyan);
         }
 
         private void SumOfListElements()
         {
-            var listOfElements = new List<int>();
-            listOfElements.Add(1);
-            listOfElements.Add(2);
-            listOfElements.Add(3);
-            listOfElements.Add(4);
-            listOfElements.Add(5);
-            Console.WriteLine($"Sum of List Elements: {this._collectionService.SumOfElements(listOfElements)}");
+            var listOfElements = new List<int> { 1, 2, 3, 4, 5 };
+            ConsoleLogger.WriteColorLine(string.Format(DisplayResource.ListSum, this._collectionService.SumOfElements(listOfElements)), ConsoleColor.Cyan);
         }
 
         private void SumOfQueueElements()
@@ -55,12 +51,12 @@ namespace ReadOnlyCollections.PresentationLayer.View
             queueOfElements.Enqueue(3);
             queueOfElements.Enqueue(4);
             queueOfElements.Enqueue(5);
-            Console.WriteLine($"Sum of Queue Elements: {this._collectionService.SumOfElements(queueOfElements)}");
+            ConsoleLogger.WriteColorLine(string.Format(DisplayResource.QueueSum, this._collectionService.SumOfElements(queueOfElements)), ConsoleColor.Cyan);
         }
 
         private void PrintDictionary(IReadOnlyDictionary<string, int> dictionaryOfElements)
         {
-            Console.WriteLine("\nDictionary Elements");
+            ConsoleLogger.WriteColorLine(DisplayResource.DictionaryElementsHeading, ConsoleColor.Yellow);
             foreach (var element in dictionaryOfElements)
             {
                 Console.WriteLine($"{element.Key} - {element.Value}");
