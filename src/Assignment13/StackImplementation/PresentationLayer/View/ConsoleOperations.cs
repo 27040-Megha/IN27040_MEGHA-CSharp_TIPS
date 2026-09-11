@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleUtilities;
 using InputValidator;
 using StackImplementation.ApplicationLayer.Service;
 
@@ -31,20 +32,20 @@ namespace StackImplementation.PresentationLayer.View
                 return;
             }
 
-            Console.WriteLine("Before reversing: ");
+            ConsoleLogger.WriteColorLine(DisplayResource.BeforeReversingTitle, ConsoleColor.Cyan);
             this.DisplayWord(word);
             var reversedWord = this.ReverseWord(word);
-            Console.WriteLine("After reversing: ");
+            ConsoleLogger.WriteColorLine(DisplayResource.AfterReversingTitle, ConsoleColor.Cyan);
             this.DisplayWord(reversedWord);
         }
 
         private string GetWord()
         {
-            Console.WriteLine("Enter Word: ");
+            ConsoleLogger.WriteColorLine(DisplayResource.PromptWord, ConsoleColor.Cyan);
             string word = Console.ReadLine();
             if (!StringValidator.ValidateString(word))
             {
-                Console.WriteLine("Word should not be null or empty, and should contain only characters");
+                ConsoleLogger.WriteColorLine(DisplayResource.InvalidWordFormat, ConsoleColor.Red);
                 return null;
             }
 
@@ -53,7 +54,7 @@ namespace StackImplementation.PresentationLayer.View
 
         private void DisplayWord(string word)
         {
-            Console.WriteLine($"Word : {word}");
+            Console.WriteLine(word);
         }
 
         private string ReverseWord(string word)
