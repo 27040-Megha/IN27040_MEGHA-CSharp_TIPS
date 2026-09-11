@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ConsoleUtilities;
 using DictionaryImplementation.ApplicationLayer.Service;
 using InputValidator;
 
@@ -34,11 +35,11 @@ namespace DictionaryImplementation.PresentationLayer.View
 
         private string GetStudentName()
         {
-            Console.WriteLine("Enter Student Name: ");
+            Console.WriteLine(DisplayResource.PromptStudentName);
             string studentName = Console.ReadLine();
             if (!StringValidator.ValidateString(studentName))
             {
-                Console.WriteLine("Student Name should not be null or empty, and should contain only characters");
+                ConsoleLogger.WriteColorLine(DisplayResource.InvalidStudentNameError, ConsoleColor.Red);
                 return null;
             }
 
@@ -47,11 +48,11 @@ namespace DictionaryImplementation.PresentationLayer.View
 
         private int GetGrade()
         {
-            Console.WriteLine("Enter Grade (1 to 10): ");
+            Console.WriteLine(DisplayResource.PromptGrade);
             var isValidGrade = IntegerValidator.ValidateInteger(Console.ReadLine(), out int grade);
             if (!isValidGrade || !(grade >= 1 && grade <= 10))
             {
-                Console.WriteLine("Enter a valid grade between 1 to 10!");
+                ConsoleLogger.WriteColorLine(DisplayResource.InvalidGradeError, ConsoleColor.Red);
                 return -1;
             }
 
@@ -76,7 +77,7 @@ namespace DictionaryImplementation.PresentationLayer.View
 
                 if (!this._studentService.CreateStudentResult(studentName, grade))
                 {
-                    Console.WriteLine("Duplicate Student found, Cannot add Student to Repo");
+                    ConsoleLogger.WriteColorLine(DisplayResource.DuplicateStudentError, ConsoleColor.Red);
                     return;
                 }
             }
@@ -84,7 +85,7 @@ namespace DictionaryImplementation.PresentationLayer.View
 
         private void RemoveStudentGrade()
         {
-            Console.WriteLine("\nRemove Student Details!");
+            ConsoleLogger.WriteColorLine(DisplayResource.RemoveStudentHeading, ConsoleColor.Cyan);
             string studentToRemove = this.GetStudentName();
             if (studentToRemove == null)
             {
@@ -93,20 +94,20 @@ namespace DictionaryImplementation.PresentationLayer.View
 
             if (!this._studentService.DeleteStudent(studentToRemove))
             {
-                Console.WriteLine("Student Name not found to delete!");
+                ConsoleLogger.WriteColorLine(DisplayResource.NameNotFoundToDelete, ConsoleColor.Red);
                 return;
             }
 
-            Console.WriteLine("Student result deleted Successfully!");
+            ConsoleLogger.WriteColorLine(DisplayResource.SuccessfullyDeleted, ConsoleColor.Green);
         }
 
         private void DisplayStudentGrade()
         {
-            Console.WriteLine("\nStudent Details");
+            ConsoleLogger.WriteColorLine(DisplayResource.StudentDetailsHeading, ConsoleColor.Cyan);
             var studentResult = this._studentService.GetStudentResult();
             if (!studentResult.Any())
             {
-                Console.WriteLine("No Student Result Found!");
+                ConsoleLogger.WriteColorLine(DisplayResource.StudentNotFound, ConsoleColor.Red);
             }
 
             foreach (var student in studentResult)
