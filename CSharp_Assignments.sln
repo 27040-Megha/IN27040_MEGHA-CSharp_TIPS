@@ -28,11 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem", "src\Assignment2\BankingSystem\BankingSystem.csproj", "{7AAF79E8-7ADC-4B3C-9823-DA9CC1607DE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment13", "Assignment13", "{B6E092B8-BED2-408A-9F1D-3A9F23FBED50}"
-	ProjectSection(SolutionItems) = preProject
-		ConsoleLogger.cs = ConsoleLogger.cs
-		IntegerValidator.cs = IntegerValidator.cs
-		StringValidator.cs = StringValidator.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListImplementation", "src\Assignment13\ListImplementation\ListImplementation.csproj", "{76F54277-7986-4B4B-940E-082D824C192F}"
 EndProject
