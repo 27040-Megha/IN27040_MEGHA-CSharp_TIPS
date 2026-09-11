@@ -7,9 +7,18 @@ namespace StackImplementation.ApplicationLayer.Service
     /// <summary>
     /// Contains business logic that reverses a string using Stack
     /// </summary>
-    public class StringReversalService
+    /// <typeparam name="T">Generic type</typeparam>
+    public class StringReversalService<T>
     {
-        private Stack<char> _letterStack = new Stack<char>();
+        private Stack<T> _letterStack;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringReversalService{T}"/> class.
+        /// </summary>
+        public StringReversalService()
+        {
+            this._letterStack = new Stack<T>();
+        }
 
         /// <summary>
         /// Reverse String
@@ -24,9 +33,12 @@ namespace StackImplementation.ApplicationLayer.Service
 
         private void PushToStack(string word)
         {
-            foreach (char character in word)
+            if (this._letterStack is Stack<char> charStack)
             {
-                this._letterStack.Push(character);
+                foreach (var character in word)
+                {
+                    charStack.Push(character);
+                }
             }
         }
 

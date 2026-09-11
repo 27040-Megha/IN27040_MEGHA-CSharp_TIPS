@@ -10,13 +10,13 @@ namespace StackImplementation.PresentationLayer.View
     /// </summary>
     public class ConsoleOperations
     {
-        private StringReversalService _stringReversalService;
+        private StringReversalService<char> _stringReversalService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleOperations"/> class.
         /// </summary>
         /// <param name="stringReversalService">Service Object</param>
-        public ConsoleOperations(StringReversalService stringReversalService)
+        public ConsoleOperations(StringReversalService<char> stringReversalService)
         {
             this._stringReversalService = stringReversalService;
         }

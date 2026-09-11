@@ -12,7 +12,7 @@ namespace Assignments
         private static void Main(string[] args)
         {
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
-            var stringReversalService = new StringReversalService();
+            var stringReversalService = new StringReversalService<char>();
             var consoleOperator = new ConsoleOperations(stringReversalService);
             consoleOperator.Run();
         }
