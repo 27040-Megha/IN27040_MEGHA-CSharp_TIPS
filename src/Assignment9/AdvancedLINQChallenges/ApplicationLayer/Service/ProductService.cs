@@ -1,4 +1,7 @@
-﻿using AdvancedLINQChallenges.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AdvancedLINQChallenges.Domain;
 using AdvancedLINQChallenges.Domain.DTO;
 using AdvancedLINQChallenges.InfrastructureLayer;
 
@@ -53,7 +56,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
         /// Filter products under the category "Electronics" with a price greater than $500 select only ProductName and Price, sort the product in descending order of price.
         /// </summary>
         /// <returns>Filtered Result</returns>
-        public IEnumerable<FilteredProduct> FilterProducts()
+        public IEnumerable<FilteredProduct> FilterElectronicProducts()
         {
             return this.FetchAllProducts()
                 .Where(product => string.Equals(product.Category, "Electronics", StringComparison.OrdinalIgnoreCase) && (product.Price > 500))
@@ -144,7 +147,7 @@ namespace AdvancedLINQChallenges.ApplicationLayer.Service
                     Price = p.Price,
                     Category = p.Category,
                     SupplierId = s.SupplierId,
-                    SupplierName = s.SupplierName
+                    SupplierName = s.SupplierName,
                 })
                 .Execute();
             return result;

@@ -1,4 +1,5 @@
-﻿using AdvancedLINQChallenges.ApplicationLayer.Service;
+﻿using System;
+using AdvancedLINQChallenges.ApplicationLayer.Service;
 using AdvancedLINQChallenges.InfrastructureLayer;
 using AdvancedLINQChallenges.PresentationLayer.View;
 

@@ -1,11 +1,14 @@
-﻿using AdvancedLINQChallenges.ApplicationLayer.Service;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AdvancedLINQChallenges.ApplicationLayer.Service;
 using AdvancedLINQChallenges.Domain;
 using ConsoleTables;
 
 namespace AdvancedLINQChallenges.PresentationLayer.View
 {
     /// <summary>
-    /// Interacts witho User
+    /// Interacts with User
     /// </summary>
     public class ConsoleOperations
     {
@@ -37,12 +40,7 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
             this.DisplayTask5();
         }
 
-        /// <summary>
-        /// Prints the text in Specific Color
-        /// </summary>
-        /// <param name="text">Input string</param>
-        /// <param name="colorChoice">Specific color of text to be displayed</param>
-        private static void WriteColorLine(string text, ConsoleColor colorChoice)
+        private void WriteColorLine(string text, ConsoleColor colorChoice)
         {
             Console.ForegroundColor = colorChoice;
             Console.WriteLine(text);
@@ -72,7 +70,6 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
                 new Product(1, "Laptop", 48000m, "Electronics"),
                 new Product(2, "Mouse", 1200m, "Electronics"),
                 new Product(3, "Keyboard", 3500m, "Electronics"),
-                new Product(3, "Airpods", 3500m, "Electronics"),
                 new Product(4, "Headphones", 450m, "Electronics"),
                 new Product(5, "C# in Depth", 2500m, "Books"),
                 new Product(6, "Clean Code", 1800m, "Books"),
@@ -81,46 +78,39 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
 
             foreach (var product in products)
             {
-                bool isAdded = this._productService.AddProduct(product);
-
-                if (!isAdded)
-                {
-                    Console.WriteLine(string.Format(DisplayResource.DuplicateProductError, product.ProductId));
-                }
+                this._productService.AddProduct(product);
             }
         }
 
         private void DisplayTask1()
         {
-            WriteColorLine(DisplayResource.Task1Title, ConsoleColor.Yellow);
-            var sortedProducts = this._productService.FilterProducts();
-            var table = new ConsoleTable("Product Name", "Price");
-            foreach (var product in sortedProducts)
-            {
-                table.AddRow(product.ProductName, product.Price);
-            }
-
-            table.Write();
-            WriteColorLine(string.Format(DisplayResource.Task1AveragePrice, Math.Round(this._productService.FindAveragePrice(sortedProducts), 2)), ConsoleColor.Cyan);
+            this.WriteColorLine(DisplayResource.Task1Title, ConsoleColor.Yellow);
+            var sortedElectronicProducts = this._productService.FilterElectronicProducts();
+            this.DisplayConsoleTable(sortedElectronicProducts);
+            decimal averagePrice = Math.Round(this._productService.FindAveragePrice(sortedElectronicProducts), 2);
+            this.WriteColorLine(string.Format(DisplayResource.Task1AveragePrice, averagePrice), ConsoleColor.Cyan);
         }
 
         private void DisplayTask2()
         {
-            WriteColorLine(DisplayResource.Task2Title, ConsoleColor.Yellow);
+            this.WriteColorLine(DisplayResource.Task2Title, ConsoleColor.Yellow);
+            this.DisplayProductsMappedWithSuppliers();
+            this.DisplayProductsCategoryWise();
+        }
+
+        private void DisplayProductsMappedWithSuppliers()
+        {
             var mappedProducts = this._productService.MapProductsWithSuppliers();
-            var table = new ConsoleTable("Product ID", "Product Name", "Price", "Category", "Supplier ID", "Supplier Name");
-            foreach (var product in mappedProducts)
-            {
-                table.AddRow(product.ProductId, product.ProductName, product.Price, product.Category, product.SupplierId, product.SupplierName);
-            }
+            this.DisplayConsoleTable(mappedProducts);
+        }
 
-            table.Write();
-
-            WriteColorLine(DisplayResource.Task2CategorizedHeader, ConsoleColor.Yellow);
+        private void DisplayProductsCategoryWise()
+        {
+            this.WriteColorLine(DisplayResource.Task2CategorizedHeader, ConsoleColor.Yellow);
             var categorizedProducts = this._productService.GroupProductsByCategory();
             foreach (var category in categorizedProducts)
             {
-                WriteColorLine(string.Format(DisplayResource.Task2CategoryLabel, category.Category), ConsoleColor.Cyan);
+                this.WriteColorLine(string.Format(DisplayResource.Task2CategoryLabel, category.Category), ConsoleColor.Cyan);
                 Console.WriteLine(string.Format(DisplayResource.Task2ProductCountLabel, category.ProductCount));
                 Console.WriteLine(string.Format(DisplayResource.Task2ExpensiveProductLabel, category.ExpensiveProduct.ProductId, category.ExpensiveProduct.ProductName, category.ExpensiveProduct.Price));
             }
@@ -129,24 +119,26 @@ namespace AdvancedLINQChallenges.PresentationLayer.View
         private void DisplayTask4()
         {
             var sortedBooks = this._productService.SortProductsByPrice();
-            WriteColorLine(DisplayResource.Task4Title, ConsoleColor.Yellow);
-            var table = new ConsoleTable("Book Name", "Price");
-            foreach (var product in sortedBooks)
-            {
-                table.AddRow(product.ProductName, product.Price);
-            }
-
-            table.Write();
+            this.WriteColorLine(DisplayResource.Task4Title, ConsoleColor.Yellow);
+            this.DisplayConsoleTable(sortedBooks);
         }
 
         private void DisplayTask5()
         {
             var filteredResult = this._productService.FetchProductsWithSuppliers();
-            WriteColorLine(DisplayResource.Task5Title, ConsoleColor.Yellow);
-            var table = new ConsoleTable("Product ID", "Product Name", "Price", "Product Category", "Supplier ID", "Supplier Name");
-            foreach (var product in filteredResult)
+            this.WriteColorLine(DisplayResource.Task5Title, ConsoleColor.Yellow);
+            this.DisplayConsoleTable(filteredResult);
+        }
+
+        private void DisplayConsoleTable<T>(IEnumerable<T> data)
+        {
+            var properties = typeof(T).GetProperties();
+            var columnNames = properties.Select(p => p.Name).ToArray();
+            var table = new ConsoleTable(columnNames);
+            foreach (var item in data)
             {
-                table.AddRow(product.ProductId, product.ProductName, product.Price, product.Category, product.SupplierId, product.SupplierName);
+                var row = properties.Select(p => p.GetValue(item)).ToArray();
+                table.AddRow(row);
             }
 
             table.Write();

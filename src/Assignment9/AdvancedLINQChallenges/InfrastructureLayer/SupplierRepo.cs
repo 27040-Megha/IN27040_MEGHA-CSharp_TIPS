@@ -1,4 +1,5 @@
-﻿using AdvancedLINQChallenges.Domain;
+﻿using System.Collections.Generic;
+using AdvancedLINQChallenges.Domain;
 
 namespace AdvancedLINQChallenges.InfrastructureLayer
 {

@@ -1,4 +1,8 @@
-﻿namespace AdvancedLINQChallenges.ApplicationLayer.Service
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AdvancedLINQChallenges.ApplicationLayer.Service
 {
     /// <summary>
     /// QueryBuilder class

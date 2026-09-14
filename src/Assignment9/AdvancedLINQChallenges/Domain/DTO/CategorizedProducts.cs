@@ -1,9 +1,9 @@
 ﻿namespace AdvancedLINQChallenges.Domain.DTO
 {
     /// <summary>
-    /// DTO for objects grouped by category 
+    /// DTO for objects grouped by category
     /// </summary>
-    public struct CategorizedProducts
+    public record CategorizedProducts
     {
         /// <summary>
         /// Gets or sets the value of category
