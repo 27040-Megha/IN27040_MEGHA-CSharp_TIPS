@@ -3,7 +3,7 @@
     /// <summary>
     /// DTO for Products mapped with Suppliers
     /// </summary>
-    public record ProductSupplierDTO
+    public struct ProductSupplierDTO
     {
         /// <summary>
         /// Gets or sets the Product ID

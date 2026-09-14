@@ -3,7 +3,7 @@
     /// <summary>
     /// DTO for objects grouped by category
     /// </summary>
-    public record CategorizedProducts
+    public struct CategorizedProducts
     {
         /// <summary>
         /// Gets or sets the value of category

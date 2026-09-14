@@ -3,10 +3,10 @@
     /// <summary>
     /// DTO for Filtered Products
     /// </summary>
-    public record FilteredProduct
+    public struct FilteredProduct
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FilteredProduct"/> class.
+        /// Initializes a new instance of the <see cref="FilteredProduct"/> structs.
         /// </summary>
         /// <param name="productName">Product Name</param>
         /// <param name="price">Product Price</param>
