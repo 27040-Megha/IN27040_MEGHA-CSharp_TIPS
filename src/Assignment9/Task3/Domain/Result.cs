@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task3.PresentationLayer
+namespace Task3.Domain
 {
     /// <summary>
     /// Result Object
@@ -18,8 +18,8 @@ namespace Task3.PresentationLayer
         /// <param name="number">Valid Integer</param>
         public Result(bool isSuccess, int number)
         {
-            this.IsSuccess = isSuccess;
-            this.Number = number;
+            IsSuccess = isSuccess;
+            Number = number;
         }
 
         /// <summary>

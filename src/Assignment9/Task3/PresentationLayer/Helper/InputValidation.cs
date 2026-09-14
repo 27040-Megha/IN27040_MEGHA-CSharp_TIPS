@@ -1,4 +1,6 @@
-﻿namespace Task3.PresentationLayer.Helper
+﻿using Task3.Domain;
+
+namespace Task3.PresentationLayer.Helper
 {
     /// <summary>
     /// Class to validate inputs
@@ -12,13 +14,9 @@
         /// <returns>Result object</returns>
         public static Result ValidateInteger(string input)
         {
-            int number;
-            if (!int.TryParse(input, out number))
-            {
-                return new Result(false, -1);
-            }
-
-            return new Result(true, number);
+            return int.TryParse(input, out int number)
+                ? new Result(true, number)
+                : new Result(false, -1);
         }
     }
 }

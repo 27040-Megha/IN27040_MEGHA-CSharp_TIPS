@@ -21,21 +21,20 @@ namespace Task3.PresentationLayer.View
         }
 
         /// <summary>
-        /// Initial method 
+        /// Initial method
         /// </summary>
         public void Run()
         {
             Console.WriteLine("Enter Array Size: ");
             string arrSize = Console.ReadLine();
             var arraySizeResult = InputValidation.ValidateInteger(arrSize);
-            int arraySize;
             if (!arraySizeResult.IsSuccess || arraySizeResult.Number <= 0)
             {
-                WriteColorLine(DisplayResource.ErrorInvalidArraySize, ConsoleColor.Red);
+                this.WriteColorLine(DisplayResource.ErrorInvalidArraySize, ConsoleColor.Red);
                 return;
             }
 
-            arraySize = arraySizeResult.Number;
+            int arraySize = arraySizeResult.Number;
             var arrayOfIntegers = this.GetArrayInput(arraySize);
             if (arrayOfIntegers == null)
             {
@@ -44,7 +43,7 @@ namespace Task3.PresentationLayer.View
 
             if (arraySize < 2)
             {
-                WriteColorLine(DisplayResource.ErrorMinimumElements, ConsoleColor.Red);
+                this.WriteColorLine(DisplayResource.ErrorMinimumElements, ConsoleColor.Red);
                 return;
             }
 
@@ -52,12 +51,7 @@ namespace Task3.PresentationLayer.View
             this.FindTargetSum(arrayOfIntegers);
         }
 
-        /// <summary>
-        /// Prints the text in Specific Color
-        /// </summary>
-        /// <param name="text">Input string</param>
-        /// <param name="colorChoice">Specific color of text to be displayed</param>
-        private static void WriteColorLine(string text, ConsoleColor colorChoice)
+        private void WriteColorLine(string text, ConsoleColor colorChoice)
         {
             Console.ForegroundColor = colorChoice;
             Console.WriteLine(text);
@@ -67,7 +61,7 @@ namespace Task3.PresentationLayer.View
         private void DisplaySecondHighestValue(int[] arrayOfIntegers)
         {
             int secondHighestNumber = this._arrayService.FindSecondHighestNumber(arrayOfIntegers);
-            WriteColorLine(string.Format(DisplayResource.LabelSecondHighest, secondHighestNumber), ConsoleColor.Cyan);
+            this.WriteColorLine(string.Format(DisplayResource.LabelSecondHighest, secondHighestNumber), ConsoleColor.Cyan);
         }
 
         private void FindTargetSum(int[] arrayOfIntegers)
@@ -76,7 +70,7 @@ namespace Task3.PresentationLayer.View
             var numberResult = InputValidation.ValidateInteger(Console.ReadLine());
             if (!numberResult.IsSuccess)
             {
-                WriteColorLine(DisplayResource.ErrorInvalidInteger, ConsoleColor.Red);
+                this.WriteColorLine(DisplayResource.ErrorInvalidInteger, ConsoleColor.Red);
                 return;
             }
 
@@ -84,7 +78,7 @@ namespace Task3.PresentationLayer.View
             var uniquePairs = this._arrayService.FindTargetSum(arrayOfIntegers, targetSum);
             if (uniquePairs.Count == 0)
             {
-                WriteColorLine(DisplayResource.ErrorNoPairsFound, ConsoleColor.Yellow);
+                this.WriteColorLine(DisplayResource.ErrorNoPairsFound, ConsoleColor.Yellow);
                 return;
             }
 
@@ -105,7 +99,7 @@ namespace Task3.PresentationLayer.View
                 var numberResult = InputValidation.ValidateInteger(Console.ReadLine());
                 if (!numberResult.IsSuccess)
                 {
-                    WriteColorLine(DisplayResource.ErrorInvalidInteger, ConsoleColor.Red);
+                    this.WriteColorLine(DisplayResource.ErrorInvalidInteger, ConsoleColor.Red);
                     return null;
                 }
 
