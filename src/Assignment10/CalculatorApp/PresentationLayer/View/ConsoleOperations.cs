@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using CalculatorApp.ApplicationLayer.Service;
+using CalculatorApp.Domain;
 using CalculatorApp.PresentationLayer.Helper;
 
 namespace CalculatorApp.PresentationLayer.View
@@ -26,11 +27,15 @@ namespace CalculatorApp.PresentationLayer.View
         /// </summary>
         public void Run()
         {
-            ConsoleKey key = ConsoleKey.A;
+            this.ExecuteCalculator();
+        }
+
+        private void ExecuteCalculator()
+        {
+            ConsoleKey exitKey = ConsoleKey.A;
             do
             {
-                Console.Clear();
-                Console.WriteLine(DisplayResource.CalculatorApp);
+                this.DisplayCalculatorApp();
                 var expression = this.GetExpression();
                 if (expression == null)
                 {
@@ -38,32 +43,63 @@ namespace CalculatorApp.PresentationLayer.View
                 }
 
                 this.DisplayCalculatedResult(expression);
-                TextColor.WriteColoredLine(DisplayResource.PromptForEscape, ConsoleColor.Cyan);
-                key = Console.ReadKey().Key;
+                exitKey = this.GetExitChoice();
             }
-            while (key != ConsoleKey.Escape);
+            while (exitKey != ConsoleKey.Escape);
+        }
+
+        private void DisplayCalculatorApp()
+        {
+            Console.Clear();
+            Console.WriteLine(DisplayResource.CalculatorApp);
+        }
+
+        private ConsoleKey GetExitChoice()
+        {
+            TextColor.WriteColoredLine(DisplayResource.PromptForEscape, ConsoleColor.Cyan);
+            return Console.ReadKey().Key;
         }
 
         private string GetExpression()
         {
-            Console.WriteLine(DisplayResource.DisplayCalculatorDesign);
-            Console.SetCursorPosition(2, 3);
+            this.DisplayCalculator();
+            var expression = this.BuildExpression();
+            return expression;
+        }
+
+        private ConsoleKeyInfo ReadUserInput()
+        {
+            return Console.ReadKey(true);
+        }
+
+        private bool ValidateInput(char inputCharacter)
+        {
+            if (!InputValidation.IsValidInput(inputCharacter))
+            {
+                CursorPositions.Error();
+                TextColor.WriteColoredLine(DisplayResource.InvalidExpression, ConsoleColor.Red);
+                TextColor.WriteColoredLine(DisplayResource.PromptForContinue, ConsoleColor.Cyan);
+                Console.ReadKey();
+                return false;
+            }
+
+            return true;
+        }
+
+        private string BuildExpression()
+        {
             StringBuilder expression = new StringBuilder();
             while (true)
             {
-                ConsoleKeyInfo input = Console.ReadKey(true);
+                ConsoleKeyInfo input = this.ReadUserInput();
                 char inputCharacter = input.KeyChar;
                 if (input.Key == ConsoleKey.Enter || inputCharacter == '=')
                 {
                     break;
                 }
 
-                if (!InputValidation.IsValidInput(inputCharacter))
+                if (!this.ValidateInput(inputCharacter))
                 {
-                    Console.SetCursorPosition(0, 9);
-                    TextColor.WriteColoredLine(DisplayResource.InvalidExpression, ConsoleColor.Red);
-                    TextColor.WriteColoredLine(DisplayResource.PromptForContinue, ConsoleColor.Cyan);
-                    Console.ReadKey();
                     return null;
                 }
 
@@ -74,18 +110,29 @@ namespace CalculatorApp.PresentationLayer.View
             return expression.ToString();
         }
 
+        private void DisplayCalculator()
+        {
+            Console.WriteLine(DisplayResource.DisplayCalculatorDesign);
+            CursorPositions.Input();
+        }
+
+        private Result GetCalculatedResult(string expression)
+        {
+            return this._calculatorService.EvaluateExpression(expression);
+        }
+
         private void DisplayCalculatedResult(string expression)
         {
-            var expressionResult = this._calculatorService.EvaluateExpression(expression);
+            var expressionResult = this.GetCalculatedResult(expression);
             if (expressionResult.IsSuccess)
             {
-                Console.SetCursorPosition(39, 4);
+                CursorPositions.Result();
                 TextColor.WriteColoredLine($"{expressionResult.ResultData}", ConsoleColor.Cyan);
-                Console.SetCursorPosition(0, 16);
+                CursorPositions.Default();
             }
             else
             {
-                Console.SetCursorPosition(0, 12);
+                CursorPositions.Error();
                 TextColor.WriteColoredLine(expressionResult.Message, ConsoleColor.Red);
             }
         }

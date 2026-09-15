@@ -9,10 +9,19 @@
         /// Initializes a new instance of the <see cref="Result"/> class.
         /// </summary>
         /// <param name="isSuccess">true if operation success, otherwise false</param>
-        /// <param name="message">Result Message</param>
-        public Result(bool isSuccess, string message)
+        public Result(bool isSuccess)
         {
             this.IsSuccess = isSuccess;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Result"/> class.
+        /// </summary>
+        /// <param name="isSuccess">true if operation success, otherwise false</param>
+        /// <param name="message">Result Message</param>
+        public Result(bool isSuccess, string message)
+            : this(isSuccess)
+        {
             this.Message = message;
         }
 

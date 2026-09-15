@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using CalculatorApp.ApplicationLayer.Utility;
 using CalculatorApp.Domain;
@@ -20,22 +21,24 @@ namespace CalculatorApp.ApplicationLayer.Service
         /// <returns>Result of the Expression, or invalid format error message</returns>
         public Result EvaluateExpression(string inputExpression)
         {
-            var expression = this.SplitExpression(inputExpression);
-            if (expression.Count == 1)
+            var expression = ExpressionParser.SplitExpression(inputExpression);
+            var validationResult = ExpressionValidator.ValidateExpression(expression);
+            if (!validationResult.IsSuccess || validationResult.Message.Contains("Result"))
             {
-                if (int.TryParse(expression[0], out int expressionResult))
-                {
-                    return new Result(true, "Result of Expression: ", expressionResult);
-                }
-
-                return new Result(false, "Only integer values Supported!");
+                return validationResult;
             }
 
-            if (expression.Count % 2 == 0 || expression.Count < 3)
+            var calculatedResult = this.CalculateExpressionUsingBODMAS(expression);
+            if (!calculatedResult.IsSuccess)
             {
-                return new Result(false, "Invalid expression format! Must include numbers and operators (e.g., 12 + 4).");
+                return calculatedResult;
             }
 
+            return this.ValidateFinalResult(expression);
+        }
+
+        private Result CalculateExpressionUsingBODMAS(List<string> expression)
+        {
             var multiplicationAndDivisionResult = this.HandleDivisionAndMultiplication(expression);
             if (!multiplicationAndDivisionResult.IsSuccess)
             {
@@ -48,6 +51,11 @@ namespace CalculatorApp.ApplicationLayer.Service
                 return additionAndSubtractionResult;
             }
 
+            return new Result(true, "All arithmetic operations executed Successfully!");
+        }
+
+        private Result ValidateFinalResult(List<string> expression)
+        {
             var isValidResult = int.TryParse(expression[0], out int evaluatedResult);
             if (!isValidResult)
             {
@@ -57,44 +65,12 @@ namespace CalculatorApp.ApplicationLayer.Service
             return new Result(true, "Result of Expression: ", evaluatedResult);
         }
 
-        private List<string> SplitExpression(string inputExpression)
-        {
-            StringBuilder spacedExpression = new StringBuilder();
-            char[] op = { '+', '-', '*', '/' };
-            for (int i = 0; i < inputExpression.Length; i++)
-            {
-                char ch = inputExpression[i];
-                if (op.Contains(ch))
-                {
-                    if (ch == '-' && (i == 0 || op.Contains(inputExpression[i - 1])))
-                    {
-                        spacedExpression.Append(ch);
-                    }
-                    else
-                    {
-                        spacedExpression.Append($" {ch} ");
-                    }
-                }
-                else
-                {
-                    spacedExpression.Append(ch);
-                }
-            }
-
-            var expression = spacedExpression.ToString().Split(" ").ToList();
-            return expression;
-        }
-
         private Result HandleDivisionAndMultiplication(List<string> expression)
         {
-            while (true)
+            while (expression.Contains(OperatorConstants.Multiplication) || expression.Contains(OperatorConstants.Division))
             {
-                int indexOfDivide = expression.IndexOf("/");
-                int indexOfMultiply = expression.IndexOf("*");
-                if (indexOfDivide == -1 && indexOfMultiply == -1)
-                {
-                    break;
-                }
+                int indexOfDivide = expression.IndexOf(OperatorConstants.Division);
+                int indexOfMultiply = expression.IndexOf(OperatorConstants.Multiplication);
 
                 if (indexOfDivide != -1 && (indexOfMultiply == -1 || indexOfDivide < indexOfMultiply))
                 {
@@ -119,14 +95,10 @@ namespace CalculatorApp.ApplicationLayer.Service
 
         private Result HandleAdditionAndSubtraction(List<string> expression)
         {
-            while (true)
+            while (expression.Contains(OperatorConstants.Addition) || expression.Contains(OperatorConstants.Subtraction))
             {
-                int indexOfAdd = expression.IndexOf("+");
-                int indexOfSubtract = expression.IndexOf("-");
-                if (indexOfAdd == -1 && indexOfSubtract == -1)
-                {
-                    break;
-                }
+                int indexOfAdd = expression.IndexOf(OperatorConstants.Addition);
+                int indexOfSubtract = expression.IndexOf(OperatorConstants.Subtraction);
 
                 if (indexOfAdd != -1 && (indexOfSubtract == -1 || indexOfAdd < indexOfSubtract))
                 {
@@ -149,37 +121,30 @@ namespace CalculatorApp.ApplicationLayer.Service
             return new Result(true, "Complete Addition and Subtraction");
         }
 
-        private Result EvaluateAdd(List<string> expression, int indexOfAdd)
+        private Result ExecuteOperation(List<string> expression, int operatorIndex, Func<int, int, int> mathUtilityMethod)
         {
-            if (!this.TryParseOperands(expression, indexOfAdd, out int number1, out int number2))
+            if (!this.TryParseOperands(expression, operatorIndex, out int number1, out int number2))
             {
                 return new Result(false, "Invalid Expression Format!");
             }
 
-            this.UpdateExpressionList(expression, indexOfAdd, MathUtility.Add(number1, number2).ToString());
-            return new Result(true, "Addition Successful!");
+            this.UpdateExpressionList(expression, operatorIndex, mathUtilityMethod(number1, number2).ToString());
+            return new Result(true);
+        }
+
+        private Result EvaluateAdd(List<string> expression, int indexOfAdd)
+        {
+            return this.ExecuteOperation(expression, indexOfAdd, MathUtility.Add);
         }
 
         private Result EvaluateSubtract(List<string> expression, int indexOfSubtract)
         {
-            if (!this.TryParseOperands(expression, indexOfSubtract, out int number1, out int number2))
-            {
-                return new Result(false, "Invalid Expression Format!");
-            }
-
-            this.UpdateExpressionList(expression, indexOfSubtract, MathUtility.Subtract(number1, number2).ToString());
-            return new Result(true, "Subtraction Successful!");
+            return this.ExecuteOperation(expression, indexOfSubtract, MathUtility.Subtract);
         }
 
         private Result EvaluateMultiply(List<string> expression, int indexOfMultiply)
         {
-            if (!this.TryParseOperands(expression, indexOfMultiply, out int number1, out int number2))
-            {
-                return new Result(false, "Invalid Expression Format!");
-            }
-
-            this.UpdateExpressionList(expression, indexOfMultiply, MathUtility.Multiply(number1, number2).ToString());
-            return new Result(true, "Multiplication Successful!");
+            return this.ExecuteOperation(expression, indexOfMultiply, MathUtility.Multiply);
         }
 
         private Result EvaluateDivide(List<string> expression, int indexOfDivide)
@@ -196,8 +161,8 @@ namespace CalculatorApp.ApplicationLayer.Service
             }
 
             this.UpdateExpressionList(expression, indexOfDivide, divisionResult.ResultData.ToString());
-            return new Result(true, "Division Successful!");
-        } 
+            return new Result(true);
+        }
 
         private void UpdateExpressionList(List<string> expression, int operatorIndex, string calculatedResult)
         {

@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Domain\OperatorConstants.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperatorConstants.resx</DependentUpon>
+    </Compile>
     <Compile Update="PresentationLayer\View\DisplayResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -23,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Domain\OperatorConstants.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OperatorConstants.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="PresentationLayer\View\DisplayResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DisplayResource.Designer.cs</LastGenOutput>
