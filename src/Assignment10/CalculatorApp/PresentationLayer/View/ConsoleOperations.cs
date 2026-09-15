@@ -42,7 +42,8 @@ namespace CalculatorApp.PresentationLayer.View
                     continue;
                 }
 
-                this.DisplayCalculatedResult(expression);
+                var calculatedResult = this.GetCalculatedResult(expression);
+                this.DisplayCalculatedResult(calculatedResult);
                 exitKey = this.GetExitChoice();
             }
             while (exitKey != ConsoleKey.Escape);
@@ -121,9 +122,8 @@ namespace CalculatorApp.PresentationLayer.View
             return this._calculatorService.EvaluateExpression(expression);
         }
 
-        private void DisplayCalculatedResult(string expression)
+        private void DisplayCalculatedResult(Result expressionResult)
         {
-            var expressionResult = this.GetCalculatedResult(expression);
             if (expressionResult.IsSuccess)
             {
                 CursorPositions.Result();
