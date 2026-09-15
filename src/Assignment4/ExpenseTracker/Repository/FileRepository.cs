@@ -6,21 +6,24 @@ using ExpenseTracker.Models;
 namespace ExpenseTracker.Repository
 {
     /// <summary>
-    /// Repository implementation that stores records
+    /// File Repository class that reads file data and then performs all CRUD operations in an in-memory list and writes back the in-memory list to file
     /// </summary>
-    public class TransactionRepository : ITransactionRepository
+    public class FileRepository : ITransactionRepository
     {
         private readonly List<Income> _incomeRepo;
+
         private readonly List<Expense> _expenseRepo;
+
         private BalanceTracker _balanceTracker;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TransactionRepository"/> class.
+        /// Initializes a new instance of the <see cref="FileRepository"/> class.
         /// </summary>
-        public TransactionRepository()
+        public FileRepository()
         {
-            this._expenseRepo = new List<Expense>();
-            this._incomeRepo = new List<Income>();
+            this._incomeRepo = FileRepoService.ReadFile<Income>(FilePath.IncomeFilePath);
+            this._expenseRepo = FileRepoService.ReadFile<Expense>(FilePath.ExpenseFilePath);
+            this._balanceTracker = FileRepoService.ReadSummaryFile(FilePath.SummaryFilePath);
         }
 
         /// <summary>
@@ -122,21 +125,23 @@ namespace ExpenseTracker.Repository
         }
 
         /// <summary>
+        /// Write the in-memory list back to file before closing the application
+        /// </summary>
+        /// <param name="balanceTracker">BalanceTracker object</param>
+        public void SaveInMemory(BalanceTracker balanceTracker)
+        {
+            FileRepoService.WriteFile(this._incomeRepo, FilePath.IncomeFilePath);
+            FileRepoService.WriteFile(this._expenseRepo, FilePath.ExpenseFilePath);
+            FileRepoService.WriteSummaryFile(balanceTracker, FilePath.SummaryFilePath);
+        }
+
+        /// <summary>
         /// return summary details from the summary file
         /// </summary>
         /// <returns>BalanceTracker object</returns>
         public BalanceTracker GetSummaryDetails()
         {
             return this._balanceTracker;
-        }
-
-        /// <summary>
-        /// Write the in-memory list back to file before closing the application (In-Memory Repo, so no need to write-back to file)
-        /// </summary>
-        /// <param name="balanceTracker">BalanceTracker object</param>
-        public void SaveInMemory(BalanceTracker balanceTracker)
-        {
-            return;
         }
 
         /// <summary>

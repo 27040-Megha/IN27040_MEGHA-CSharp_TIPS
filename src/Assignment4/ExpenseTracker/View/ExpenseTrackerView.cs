@@ -1,5 +1,4 @@
 ﻿using System;
-using ExpenseTracker.Models;
 using ExpenseTracker.Models.Enums;
 using ExpenseTracker.Service;
 
@@ -74,7 +73,11 @@ namespace ExpenseTracker.View
                     case MenuOption.ViewSummary:
                         this.ViewSummary();
                         break;
+                    case MenuOption.MonthWiseReport:
+                        this.ViewMonthWiseReport();
+                        break;
                     case MenuOption.Exit:
+                        this.ExitApplication();
                         break;
                     default:
                         WriteColorLine(InputResource.InvalidChoice, ConsoleColor.Red);
@@ -91,7 +94,8 @@ namespace ExpenseTracker.View
 
         private void ViewSummary()
         {
-            WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, BalanceTracker.TotalIncome, BalanceTracker.TotalExpense, BalanceTracker.BalanceAmount), ConsoleColor.Blue);
+            var balanceTracker = this._service.ReturnSummaryDetails();
+            WriteColorLine(string.Format(InputResource.SummaryDetailsBlock, balanceTracker.TotalIncome, balanceTracker.TotalExpense, balanceTracker.BalanceAmount), ConsoleColor.Blue);
         }
 
         private void AddIncomeRecord()
@@ -122,10 +126,8 @@ namespace ExpenseTracker.View
         {
             WriteColorLine(InputResource.IncomeRecordsHeader, ConsoleColor.Blue);
             this.ViewIncomeRecords();
-            WriteColorLine(string.Format(InputResource.TotalIncome, BalanceTracker.TotalIncome), ConsoleColor.Blue);
             WriteColorLine(InputResource.ExpenseRecordsHeader, ConsoleColor.Blue);
             this.ViewExpenseRecords();
-            WriteColorLine(string.Format(InputResource.TotalExpense, BalanceTracker.TotalExpense), ConsoleColor.Blue);
         }
 
         private void ViewIncomeRecords()
@@ -318,6 +320,45 @@ namespace ExpenseTracker.View
             {
                 WriteColorLine(string.Format(InputResource.ResultMessage, editedResult.Message), ConsoleColor.Green);
             }
+        }
+
+        private void ViewMonthWiseReport()
+        {
+            Console.WriteLine(InputResource.IncomeReport);
+            this.ViewMonthWiseIncomeReport();
+            Console.WriteLine(InputResource.ExpenseReport);
+            this.ViewMonthWiseExpenseReport();
+        }
+
+        private void ViewMonthWiseIncomeReport()
+        {
+            var monthWiseIncomeReport = this._service.ReturnMonthWiseIncomeReport();
+            foreach (var group in monthWiseIncomeReport)
+            {
+                WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
+                foreach (var record in group.MonthWiseIncomeReport)
+                {
+                    Console.WriteLine(string.Format(InputResource.RecordTemplate, record.Date, record.Amount, record.Source));
+                }
+            }
+        }
+
+        private void ViewMonthWiseExpenseReport()
+        {
+            var monthWiseExpenseReport = this._service.ReturnMonthWiseExpenseReport();
+            foreach (var group in monthWiseExpenseReport)
+            {
+                WriteColorLine(string.Format(InputResource.HeaderTemplate, group.Year, group.Month), ConsoleColor.Cyan);
+                foreach (var record in group.MonthWiseExpenseReport)
+                {
+                    Console.WriteLine(string.Format(InputResource.RecordTemplate, record.Date, record.Amount, record.Category));
+                }
+            }
+        }
+
+        private void ExitApplication()
+        {
+            this._service.CloseProgram();
         }
     }
 }
