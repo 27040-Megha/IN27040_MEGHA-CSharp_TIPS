@@ -24,5 +24,13 @@
                 Thread.Sleep(10);
             }
         }
+
+        /// <summary>
+        /// This method clears the _memAlloc list, so the array instances allocated in managed heap will now become eligible for cleanup by GC
+        /// </summary>
+        public void CleanUp()
+        {
+            this._memAlloc.Clear();
+        }
     }
 }

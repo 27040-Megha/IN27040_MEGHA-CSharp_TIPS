@@ -14,7 +14,9 @@ namespace Assignments
         public static void Main(string[] args)
         {
             MemoryEater me = new MemoryEater();
-            me.Allocate(100);
+            me.Allocate(1000);
+            me.CleanUp();
+            GC.Collect();
         }
     }
 }
