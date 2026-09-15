@@ -242,6 +242,12 @@ namespace ExpenseTracker.Service
             this.CloseProgram();
         }
 
+        /// <summary>
+        /// Updates Total Income and Net balance Summary Detail
+        /// </summary>
+        /// <param name="action">Transaction action - Add, Update, Delete</param>
+        /// <param name="currentRecord">Current Income record</param>
+        /// <param name="oldAmount">Old record's amount for update</param>
         private void HandleIncomeTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
         {
             switch (action)
@@ -260,6 +266,12 @@ namespace ExpenseTracker.Service
             }
         }
 
+        /// <summary>
+        /// Updates Total Expense and Net balance Summary Detail
+        /// </summary>
+        /// <param name="action">Transaction action - Add, Update, Delete</param>
+        /// <param name="currentRecord">Current Expense record</param>
+        /// <param name="oldAmount">Old record's amount for update</param>
         private void HandleExpenseTransaction(TransactionAction action, FinancialRecord currentRecord, decimal oldAmount)
         {
             switch (action)
