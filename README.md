@@ -1,5 +1,5 @@
-# ?? How to use C# Starter Repo for C# assignments 
- 1. While creating new repo add the �CSharp_Starter_Repo� template repository
+﻿# 🎯 How to use C# Starter Repo for C# assignments 
+ 1. While creating new repo add the “CSharp_Starter_Repo” template repository
 ![Using Template repo](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/assets/Images/HowToUseStarterRepo_Images/HowToUseStarterRepo.jpg) 
  2. Make your account as the owner of the repository and include all the branches.
  3. Add description to your repository if needed.
