@@ -12,6 +12,12 @@ Detect, diagnose, and resolve memory issues in a C# codebase.
 - Issue identified: The code causes OutOfMemoryException.
 - Allocates memory in an infinite loop.
 
+![OutOfMemoryRangeException](Observations/OutOfMemoryRangeException.png)
+
+- With the Infinite allocation of memory in the code snippet given in Task1, the memory usage went beyond 68 MB, until OutOfMemoryException was thrown
+
+![Memory Usage For Infinite Loop](Observations/MemoryUsageForInfiniteLoop.png)
+
 ## Task 2
 
 - Fix the memory issue in the provided code snippet and implement memory management best practices.
@@ -31,6 +37,11 @@ Detect, diagnose, and resolve memory issues in a C# codebase.
 - The above code takes maxValue as threshold limit, when the list count exceeds the limit, the method is exited.
 - When the method is exited, automatically the List instance becomes dead as they become unreachable in the program.
 - This provides efficient memory usage, as now the unused List instance are eligible for cleanup by the GC.
+- When threshold was set to 1000, the memory usage went up to 23MB. 
+![Memory Usage For Finite Loop](Observations/MemoryUsageForFiniteLoop.png)
+- Before cleanup(), the array instances will not be cleared and will be present in the managed heap. 
+- After cleanup() is executed, the memory occupied by array instances will be cleared and all the array instances will become Dead Objects. 
+
 
 ## Task 3
 
