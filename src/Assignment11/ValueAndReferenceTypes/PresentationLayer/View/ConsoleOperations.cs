@@ -26,17 +26,17 @@ namespace ValueAndReferenceTypes.PresentationLayer.View
         /// </summary>
         public void Run()
         {
-            this.ExecuteTask1();
-            this.ExecuteTask2();
+            this.DemonstrateValueAndReferenceType();
+            this.DemonstrateMemoryAllocationTypes();
         }
 
-        private void ExecuteTask2()
+        private void DemonstrateMemoryAllocationTypes()
         {
             this.CreateArray();
             this.CalculateSum();
         }
 
-        private void ExecuteTask1()
+        private void DemonstrateValueAndReferenceType()
         {
             var student = new Student()
             {
@@ -72,38 +72,32 @@ namespace ValueAndReferenceTypes.PresentationLayer.View
 
         private void DisplayValueType(StudentStruct student)
         {
-            Console.WriteLine($"Student RollNumber: {student.RollNumber}");
-            Console.WriteLine($"Student Name: {student.Name}");
-            Console.WriteLine($"Student Department: {student.Department}");
-            Console.WriteLine($"Student Year Of Study: {student.YearOfStudy}\n");
+            Console.WriteLine(string.Format(DisplayResource.StudentDetailsTemplate, student.RollNumber, student.Name, student.Department, student.YearOfStudy));
         }
 
         private void HandleReferenceType(Student student, Student newStudent)
         {
-            Console.WriteLine("Reference Type: ");
-            Console.WriteLine("Before Modifying: ");
+            Console.WriteLine(DisplayResource.ReferenceType);
+            Console.WriteLine(DisplayResource.BeforeModifying);
             this.DisplayReferenceType(student);
             this._updateService.Modify(student, newStudent);
-            Console.WriteLine("After Modifying: ");
+            Console.WriteLine(DisplayResource.AfterModifying);
             this.DisplayReferenceType(student);
-            Console.WriteLine("Value Type: ");
         }
 
         private void HandleValueType(StudentStruct structStudent, StudentStruct newStructStudent)
         {
-            Console.WriteLine("Before Modifying: ");
+            Console.WriteLine(DisplayResource.ValueType);
+            Console.WriteLine(DisplayResource.BeforeModifying);
             this.DisplayValueType(structStudent);
             this._updateService.Modify(structStudent, newStructStudent);
-            Console.WriteLine("After Modifying: ");
+            Console.WriteLine(DisplayResource.AfterModifying);
             this.DisplayValueType(structStudent);
         }
 
         private void DisplayReferenceType(Student student)
         {
-            Console.WriteLine($"Student RollNumber: {student.RollNumber}");
-            Console.WriteLine($"Student Name: {student.Name}");
-            Console.WriteLine($"Student Department: {student.Department}");
-            Console.WriteLine($"Student Year Of Study: {student.YearOfStudy}\n");
+            Console.WriteLine(string.Format(DisplayResource.StudentDetailsTemplate, student.RollNumber, student.Name, student.Department, student.YearOfStudy));
         }
 
         private void CreateArray()

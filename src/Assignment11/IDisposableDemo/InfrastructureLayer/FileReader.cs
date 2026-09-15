@@ -24,7 +24,7 @@ namespace IDisposableDemo.InfrastructureLayer
         /// Reads from file using StreamReader until the end of the stream
         /// </summary>
         /// <returns>List of string - file data</returns>
-        public List<string> ReadFile()
+        public List<string> GetContentFromFile()
         {
             var result = new List<string>();
             while (!this._streamReader.EndOfStream)

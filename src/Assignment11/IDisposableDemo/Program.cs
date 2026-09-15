@@ -20,7 +20,7 @@ namespace Assignments
 
                 using (var reader = new FileReader(Resource.FilePath))
                 {
-                    var fileContent = reader.ReadFile();
+                    var fileContent = reader.GetContentFromFile();
                     foreach (var line in fileContent)
                     {
                         Console.WriteLine(line);

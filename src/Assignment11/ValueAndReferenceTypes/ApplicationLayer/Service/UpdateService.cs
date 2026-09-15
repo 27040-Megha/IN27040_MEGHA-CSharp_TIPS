@@ -18,9 +18,9 @@ namespace ValueAndReferenceTypes.ApplicationLayer.Service
         /// <param name="newItem">Object with updated details</param>
         public void Modify<T>(T item, T newItem)
         {
-            Type objectType = item.GetType();
-            PropertyInfo[] properties = objectType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo property in properties)
+            var objectType = item.GetType();
+            var properties = objectType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
             {
                 var propertyValueToUpdate = property.GetValue(newItem);
                 property.SetValue(item, propertyValueToUpdate);
