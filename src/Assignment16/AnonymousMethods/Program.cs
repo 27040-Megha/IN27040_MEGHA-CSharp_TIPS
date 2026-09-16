@@ -10,27 +10,36 @@ namespace Assignments
         private static void Main(string[] args)
         {
             int[] array = { 12, 3, 56, 14, 7, 82, 18, 2, 31 };
+            SortInAscendingOrder(array);
+            Console.WriteLine(DisplayResource.AscendingOrder);
+            DisplayArray(array);
+            SortInDescendingOrder(array);
+            Console.WriteLine(DisplayResource.DescendingOrder);
+            DisplayArray(array);
+        }
+
+        private static void DisplayArray(int[] array)
+        {
+            foreach (var number in array)
+            {
+                Console.WriteLine(number);
+            }
+        }
+
+        private static void SortInAscendingOrder(int[] array)
+        {
             Array.Sort(array, delegate(int a, int b)
             {
                 return a.CompareTo(b);
             });
+        }
 
-            Console.WriteLine(DisplayResource.AscendingOrder);
-            foreach (var number in array)
-            {
-                Console.WriteLine(number);
-            }
-
+        private static void SortInDescendingOrder(int[] array)
+        {
             Array.Sort(array, delegate(int a, int b)
             {
                 return b.CompareTo(a);
             });
-
-            Console.WriteLine(DisplayResource.DescendingOrder);
-            foreach (var number in array)
-            {
-                Console.WriteLine(number);
-            }
         }
     }
 }
