@@ -61,6 +61,15 @@ namespace AnonymousMethods {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Array Elements sorted in Ascending Order:.
+        /// </summary>
+        internal static string AscendingOrder {
+            get {
+                return ResourceManager.GetString("AscendingOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Array Elements sorted in Descending Order:.
         /// </summary>
         internal static string DescendingOrder {
