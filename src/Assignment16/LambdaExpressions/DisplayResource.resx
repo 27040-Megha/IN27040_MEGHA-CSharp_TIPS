@@ -123,4 +123,7 @@
   <data name="ListOfIntegers" xml:space="preserve">
     <value>List of Integers:</value>
   </data>
+  <data name="Squares" xml:space="preserve">
+    <value>Squares of Filtered Numbers:</value>
+  </data>
 </root>

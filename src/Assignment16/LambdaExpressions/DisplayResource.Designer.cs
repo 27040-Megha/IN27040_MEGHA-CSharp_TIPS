@@ -77,5 +77,14 @@ namespace LambdaExpressions {
                 return ResourceManager.GetString("ListOfIntegers", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Squares of Filtered Numbers:.
+        /// </summary>
+        internal static string Squares {
+            get {
+                return ResourceManager.GetString("Squares", resourceCulture);
+            }
+        }
     }
 }
