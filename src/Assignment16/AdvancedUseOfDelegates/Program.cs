@@ -38,7 +38,7 @@ namespace Assignments
 
         private static void SortAndDisplay(SortDelegate sortDelegate, List<Product> products)
         {
-            products.Sort((firstProduct, secondProduct) => sortDelegate.Invoke(firstProduct, secondProduct));
+            products.Sort((firstProduct, secondProduct) => sortDelegate(firstProduct, secondProduct));
             foreach (var product in products)
             {
                 Console.WriteLine(string.Format(DisplayResource.DisplayProduct, product.ProductName, product.Category, product.Price));
