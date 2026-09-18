@@ -104,6 +104,7 @@ namespace ListImplementation.PresentationLayer.View
 
         private void DisplayBookTitle()
         {
+            ConsoleLogger.WriteColorLine(DisplayResource.BookListHeading, ConsoleColor.Cyan);
             var bookList = this._bookService.GetBookList();
             if (!bookList.Any())
             {
@@ -111,7 +112,6 @@ namespace ListImplementation.PresentationLayer.View
                 return;
             }
 
-            ConsoleLogger.WriteColorLine(DisplayResource.BookListHeading, ConsoleColor.Cyan);
             foreach (var bookTitle in bookList)
             {
                 Console.WriteLine($"{bookTitle}");

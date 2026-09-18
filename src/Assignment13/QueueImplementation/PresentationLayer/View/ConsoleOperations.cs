@@ -36,7 +36,7 @@ namespace QueueImplementation.PresentationLayer.View
         private string GetPersonName()
         {
             Console.WriteLine(DisplayResource.PromptPersonName);
-            string personName = Console.ReadLine();
+            string personName = Console.ReadLine().Trim();
             if (!StringValidator.ValidateString(personName))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.NameFormatError, ConsoleColor.Red);

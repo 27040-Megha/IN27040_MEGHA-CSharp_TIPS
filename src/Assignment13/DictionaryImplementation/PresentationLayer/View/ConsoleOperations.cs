@@ -36,7 +36,7 @@ namespace DictionaryImplementation.PresentationLayer.View
         private string GetStudentName()
         {
             Console.WriteLine(DisplayResource.PromptStudentName);
-            string studentName = Console.ReadLine();
+            string studentName = Console.ReadLine().Trim();
             if (!StringValidator.ValidateString(studentName))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.InvalidStudentNameError, ConsoleColor.Red);
