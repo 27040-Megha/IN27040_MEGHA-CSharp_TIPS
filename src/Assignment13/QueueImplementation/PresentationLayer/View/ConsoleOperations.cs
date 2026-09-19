@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ConsoleUtilities;
-using InputValidator;
+using Helper;
 using QueueImplementation.ApplicationLayer.Service;
 
 namespace QueueImplementation.PresentationLayer.View
@@ -37,7 +37,7 @@ namespace QueueImplementation.PresentationLayer.View
         {
             Console.WriteLine(DisplayResource.PromptPersonName);
             string personName = Console.ReadLine().Trim();
-            if (!StringValidator.ValidateString(personName))
+            if (!InputValidator.ValidateString(personName))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.NameFormatError, ConsoleColor.Red);
                 return null;

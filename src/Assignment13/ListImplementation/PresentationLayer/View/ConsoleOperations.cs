@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ConsoleUtilities;
-using InputValidator;
+using Helper;
 using ListImplementation.ApplicationLayer.Service;
 
 namespace ListImplementation.PresentationLayer.View
@@ -39,7 +39,7 @@ namespace ListImplementation.PresentationLayer.View
         {
             Console.Write(DisplayResource.PromptBookTitle);
             string bookTitle = Console.ReadLine();
-            if (!StringValidator.ValidateString(bookTitle))
+            if (!InputValidator.ValidateString(bookTitle))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.InputStringError, ConsoleColor.Red);
                 return null;

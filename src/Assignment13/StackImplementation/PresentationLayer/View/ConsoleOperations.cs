@@ -1,6 +1,6 @@
 ﻿using System;
 using ConsoleUtilities;
-using InputValidator;
+using Helper;
 using StackImplementation.ApplicationLayer.Service;
 
 namespace StackImplementation.PresentationLayer.View
@@ -43,7 +43,7 @@ namespace StackImplementation.PresentationLayer.View
         {
             ConsoleLogger.WriteColorLine(DisplayResource.PromptWord, ConsoleColor.Cyan);
             string word = Console.ReadLine();
-            if (!StringValidator.ValidateString(word))
+            if (!InputValidator.ValidateString(word))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.InvalidWordFormat, ConsoleColor.Red);
                 return null;

@@ -2,7 +2,7 @@
 using System.Linq;
 using ConsoleUtilities;
 using DictionaryImplementation.ApplicationLayer.Service;
-using InputValidator;
+using Helper;
 
 namespace DictionaryImplementation.PresentationLayer.View
 {
@@ -37,7 +37,7 @@ namespace DictionaryImplementation.PresentationLayer.View
         {
             Console.WriteLine(DisplayResource.PromptStudentName);
             string studentName = Console.ReadLine().Trim();
-            if (!StringValidator.ValidateString(studentName))
+            if (!InputValidator.ValidateString(studentName))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.InvalidStudentNameError, ConsoleColor.Red);
                 return null;
@@ -49,7 +49,7 @@ namespace DictionaryImplementation.PresentationLayer.View
         private int GetGrade()
         {
             Console.WriteLine(DisplayResource.PromptGrade);
-            var isValidGrade = IntegerValidator.ValidateInteger(Console.ReadLine(), out int grade);
+            var isValidGrade = InputValidator.ValidateInteger(Console.ReadLine(), out int grade);
             if (!isValidGrade || !(grade >= 1 && grade <= 10))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.InvalidGradeError, ConsoleColor.Red);

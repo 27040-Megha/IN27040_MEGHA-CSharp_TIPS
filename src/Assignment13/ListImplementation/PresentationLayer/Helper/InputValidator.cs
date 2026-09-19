@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-namespace InputValidator
+namespace Helper
 {
     /// <summary>
     /// Class contains methods to validate strings
     /// </summary>
-    public static class StringValidator
+    public static class InputValidator
     {
         /// <summary>
         /// Checks whether a string is valid - Should not be null or empty, Should not have any special characters or numbers, Can contain only letters
