@@ -154,6 +154,9 @@ Remove Book Title</value>
     <value>
 Search for Book</value>
   </data>
+  <data name="SuccessfulCreation" xml:space="preserve">
+    <value>Book Added Successfully!</value>
+  </data>
   <data name="SuccessfulDeletion" xml:space="preserve">
     <value>Book title deleted Successfully!</value>
   </data>

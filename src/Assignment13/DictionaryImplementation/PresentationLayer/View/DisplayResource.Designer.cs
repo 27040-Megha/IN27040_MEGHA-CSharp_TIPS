@@ -125,6 +125,15 @@ namespace DictionaryImplementation.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Student Result added Successfully!.
+        /// </summary>
+        internal static string StudentAddedSuccessfully {
+            get {
+                return ResourceManager.GetString("StudentAddedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 
         ///Student Result Name and Grade.
         /// </summary>

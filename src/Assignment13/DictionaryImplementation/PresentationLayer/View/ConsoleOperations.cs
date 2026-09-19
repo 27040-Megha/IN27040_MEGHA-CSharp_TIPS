@@ -80,6 +80,8 @@ namespace DictionaryImplementation.PresentationLayer.View
                     ConsoleLogger.WriteColorLine(DisplayResource.DuplicateStudentError, ConsoleColor.Red);
                     return;
                 }
+
+                ConsoleLogger.WriteColorLine(DisplayResource.StudentAddedSuccessfully, ConsoleColor.Green);
             }
         }
 

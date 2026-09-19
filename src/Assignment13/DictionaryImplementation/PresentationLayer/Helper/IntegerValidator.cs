@@ -13,14 +13,7 @@
         /// <returns>true if given string can be parsed to valid integer; otherwise false</returns>
         public static bool ValidateInteger(string input, out int number)
         {
-            number = -1;
-            if (int.TryParse(input, out int value))
-            {
-                number = value;
-                return true;
-            }
-
-            return false;
+            return int.TryParse(input, out number);
         }
     }
 }

@@ -134,6 +134,9 @@ No people in the waiting queue!</value>
     <value>
 People waiting in Waiting Queue!</value>
   </data>
+  <data name="PersonAddedSuccessfully" xml:space="preserve">
+    <value>Person Added Successfully to the waiting Queue</value>
+  </data>
   <data name="PromptPersonName" xml:space="preserve">
     <value>Enter Person Name: </value>
   </data>

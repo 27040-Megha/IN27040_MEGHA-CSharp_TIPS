@@ -62,6 +62,8 @@ namespace QueueImplementation.PresentationLayer.View
                     ConsoleLogger.WriteColorLine(DisplayResource.DuplicateUser, ConsoleColor.Red);
                     return;
                 }
+
+                ConsoleLogger.WriteColorLine(DisplayResource.PersonAddedSuccessfully, ConsoleColor.Green);
             }
         }
 

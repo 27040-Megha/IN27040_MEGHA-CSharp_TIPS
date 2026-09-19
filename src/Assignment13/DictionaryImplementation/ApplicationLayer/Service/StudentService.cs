@@ -29,7 +29,7 @@ namespace DictionaryImplementation.ApplicationLayer.Service
         /// <returns>true if successfully added to repo, otherwise false</returns>
         public bool CreateStudentResult(Tkey studentName, TValue grade)
         {
-            if (this.GetStudentResult().ContainsKey(studentName))
+            if (this.StudentExists(studentName))
             {
                 return false;
             }
@@ -45,7 +45,7 @@ namespace DictionaryImplementation.ApplicationLayer.Service
         /// <returns>true if successfully deleted, otherwise false</returns>
         public bool DeleteStudent(Tkey studentName)
         {
-            if (!this.GetStudentResult().ContainsKey(studentName))
+            if (!this.StudentExists(studentName))
             {
                 return false;
             }
@@ -61,6 +61,11 @@ namespace DictionaryImplementation.ApplicationLayer.Service
         public Dictionary<Tkey, TValue> GetStudentResult()
         {
             return this._studentRepo.ReturnStudentResult();
+        }
+
+        private bool StudentExists(Tkey studentName)
+        {
+            return this.GetStudentResult().ContainsKey(studentName);
         }
     }
 }

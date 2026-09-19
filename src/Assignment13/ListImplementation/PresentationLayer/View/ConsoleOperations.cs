@@ -63,6 +63,8 @@ namespace ListImplementation.PresentationLayer.View
                     ConsoleLogger.WriteColorLine(DisplayResource.DuplicateBookError, ConsoleColor.Red);
                     return;
                 }
+
+                ConsoleLogger.WriteColorLine(DisplayResource.SuccessfulCreation, ConsoleColor.Green);
             }
         }
 

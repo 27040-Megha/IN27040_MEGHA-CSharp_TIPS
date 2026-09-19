@@ -28,7 +28,7 @@ namespace QueueImplementation.ApplicationLayer.Service
         /// <returns>true if successfully added, otherwise false</returns>
         public bool EnqueuePeople(T person)
         {
-            if (this._queueRepo.FindPerson(person))
+            if (this.PersonExists(person))
             {
                 return false;
             }
@@ -38,7 +38,7 @@ namespace QueueImplementation.ApplicationLayer.Service
         }
 
         /// <summary>
-        /// Checks if any perso is there in Queue and then Dequeue's person from Queue
+        /// Checks if any person is there in Queue and then Dequeue's person from Queue
         /// </summary>
         /// <returns>true if successfully removed people from queue, otherwise false</returns>
         public bool DequeuePeople()
@@ -59,6 +59,11 @@ namespace QueueImplementation.ApplicationLayer.Service
         public Queue<T> GetWaitingQueue()
         {
             return this._queueRepo.ReturnWaitingQueue();
+        }
+
+        private bool PersonExists(T person)
+        {
+            return this._queueRepo.FindPerson(person);
         }
     }
 }

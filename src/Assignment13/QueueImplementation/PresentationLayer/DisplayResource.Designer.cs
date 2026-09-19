@@ -108,6 +108,15 @@ namespace QueueImplementation.PresentationLayer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Person Added Successfully to the waiting Queue.
+        /// </summary>
+        internal static string PersonAddedSuccessfully {
+            get {
+                return ResourceManager.GetString("PersonAddedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter Person Name: .
         /// </summary>
         internal static string PromptPersonName {

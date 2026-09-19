@@ -139,6 +139,9 @@
     <value>
 Remove Student Details!</value>
   </data>
+  <data name="StudentAddedSuccessfully" xml:space="preserve">
+    <value>Student Result added Successfully!</value>
+  </data>
   <data name="StudentDetailsHeading" xml:space="preserve">
     <value>
 Student Result Name and Grade</value>

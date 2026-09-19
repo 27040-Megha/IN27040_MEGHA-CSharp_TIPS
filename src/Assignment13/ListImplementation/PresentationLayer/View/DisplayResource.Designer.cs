@@ -164,6 +164,15 @@ namespace ListImplementation.PresentationLayer.View {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Book Added Successfully!.
+        /// </summary>
+        internal static string SuccessfulCreation {
+            get {
+                return ResourceManager.GetString("SuccessfulCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Book title deleted Successfully!.
         /// </summary>
         internal static string SuccessfulDeletion {
