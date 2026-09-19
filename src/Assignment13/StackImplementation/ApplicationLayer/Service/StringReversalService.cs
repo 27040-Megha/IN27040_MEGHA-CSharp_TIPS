@@ -44,7 +44,7 @@ namespace StackImplementation.ApplicationLayer.Service
 
         private string PopFromStack()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             while (this._letterStack.Any())
             {
                 sb.Append(this._letterStack.Pop());

@@ -15,12 +15,7 @@ namespace Helper
         /// <returns>True if input is a valid string; false otherwise</returns>
         public static bool ValidateString(string input)
         {
-            if (String.IsNullOrEmpty(input))
-            {
-                return false;
-            }
-
-            return input.All(ch => char.IsLetter(ch) || char.IsWhiteSpace(ch));
+            return !string.IsNullOrEmpty(input) && input.All(ch => char.IsLetter(ch) || char.IsWhiteSpace(ch));
         }
     }
 }

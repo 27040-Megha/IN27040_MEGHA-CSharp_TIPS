@@ -49,8 +49,8 @@ namespace DictionaryImplementation.PresentationLayer.View
         private int GetGrade()
         {
             Console.WriteLine(DisplayResource.PromptGrade);
-            var isValidGrade = InputValidator.ValidateInteger(Console.ReadLine(), out int grade);
-            if (!isValidGrade || !(grade >= 1 && grade <= 10))
+            var isValidNumber = InputValidator.ValidateInteger(Console.ReadLine(), out int grade);
+            if (!isValidNumber || !(grade >= 1 && grade <= 10))
             {
                 ConsoleLogger.WriteColorLine(DisplayResource.InvalidGradeError, ConsoleColor.Red);
                 return -1;
