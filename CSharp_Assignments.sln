@@ -53,6 +53,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment16", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsAndDelegates", "src\Assignment16\EventsAndDelegates\EventsAndDelegates.csproj", "{7C3E9CB6-407A-42B6-9FC9-9C48B2BA9F8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaExpressions", "src\Assignment16\LambdaExpressions\LambdaExpressions.csproj", "{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{7C3E9CB6-407A-42B6-9FC9-9C48B2BA9F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C3E9CB6-407A-42B6-9FC9-9C48B2BA9F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C3E9CB6-407A-42B6-9FC9-9C48B2BA9F8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +141,7 @@ Global
 		{4FB94D52-2809-47F2-ACF0-4470A389A271} = {1D03EA0E-6D21-499B-9C00-D84B7920FB8A}
 		{E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{7C3E9CB6-407A-42B6-9FC9-9C48B2BA9F8F} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
+		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
