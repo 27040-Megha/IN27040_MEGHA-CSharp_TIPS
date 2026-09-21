@@ -28,17 +28,17 @@ namespace Assignments
 
         private static void SortInAscendingOrder(int[] array)
         {
-            Array.Sort(array, delegate(int a, int b)
+            Array.Sort(array, delegate(int firstNumber, int secondNumber)
             {
-                return a.CompareTo(b);
+                return firstNumber.CompareTo(secondNumber);
             });
         }
 
         private static void SortInDescendingOrder(int[] array)
         {
-            Array.Sort(array, delegate(int a, int b)
+            Array.Sort(array, delegate(int firstNumber, int secondNumber)
             {
-                return b.CompareTo(a);
+                return secondNumber.CompareTo(firstNumber);
             });
         }
     }
