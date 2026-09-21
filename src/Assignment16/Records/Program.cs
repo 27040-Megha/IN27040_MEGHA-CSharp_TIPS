@@ -36,15 +36,16 @@ namespace Assignments
             DisplayValueEquality(firstBook, secondBook, thirdBook);
             UpdateBookTitle(firstBook);
             var newBook = CreateNewBook(firstBook);
-            Console.WriteLine(DisplayResource.NewBook);
+            TextColor.WriteColorLine(DisplayResource.NewBook, ConsoleColor.Cyan);
             DisplayBook(newBook);
+            TextColor.WriteColorLine(DisplayResource.OldBook, ConsoleColor.Cyan);
             DisplayBook(firstBook);
         }
 
         private static void DisplayValueEquality(Book firstBook, Book secondBook, Book thirdBook)
         {
-            Console.WriteLine(string.Format(DisplayResource.CompareBook1With2, CheckValueEquality(firstBook, secondBook)));
-            Console.WriteLine(string.Format(DisplayResource.CompareBook1With3, CheckValueEquality(firstBook, thirdBook)));
+            TextColor.WriteColorLine(string.Format(DisplayResource.CompareBook1With2, CheckValueEquality(firstBook, secondBook)), ConsoleColor.Yellow);
+            TextColor.WriteColorLine(string.Format(DisplayResource.CompareBook1With3, CheckValueEquality(firstBook, thirdBook)), ConsoleColor.Yellow);
         }
 
         private static void DisplayBook(Book book)
@@ -60,11 +61,13 @@ namespace Assignments
 
         private static void UpdateBookTitle(Book book)
         {
+            Console.WriteLine(DisplayResource.UpdateRecord);
             // Records are primarily intended to support immutable data models
             // In Book Record, the properties are defined as init-only property
             // Properties can be set only during object creation and can't be modified later - Throws Compile-Time error when trying to change a property of Book record
             // CS8852: Init-only property or indexer 'property' can only be assigned in an object initializer, or on 'this' or 'base' in an instance constructor or an 'init' accessor.
             // book.Title = "The Jungle Book";
+            TextColor.WriteColorLine(DisplayResource.UpdateRecordResult, ConsoleColor.Red);
         }
 
         private static Book CreateNewBook(Book firstBook)

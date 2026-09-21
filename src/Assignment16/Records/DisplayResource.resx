@@ -130,6 +130,16 @@
 </value>
   </data>
   <data name="NewBook" xml:space="preserve">
-    <value>New Book Created from First Book using with:</value>
+    <value>New Book created using with:</value>
+  </data>
+  <data name="OldBook" xml:space="preserve">
+    <value>Old Book:</value>
+  </data>
+  <data name="UpdateRecord" xml:space="preserve">
+    <value>Change Book Title</value>
+  </data>
+  <data name="UpdateRecordResult" xml:space="preserve">
+    <value>Records are Immutable, Can't be updated once created.
+</value>
   </data>
 </root>

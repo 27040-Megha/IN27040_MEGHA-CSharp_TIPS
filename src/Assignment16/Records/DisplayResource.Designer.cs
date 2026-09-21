@@ -91,11 +91,39 @@ namespace Records {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Book Created from First Book using with:.
+        ///   Looks up a localized string similar to New Book created using with:.
         /// </summary>
         internal static string NewBook {
             get {
                 return ResourceManager.GetString("NewBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Book:.
+        /// </summary>
+        internal static string OldBook {
+            get {
+                return ResourceManager.GetString("OldBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Book Title.
+        /// </summary>
+        internal static string UpdateRecord {
+            get {
+                return ResourceManager.GetString("UpdateRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Records are Immutable, Can&apos;t be updated once created.
+        ///.
+        /// </summary>
+        internal static string UpdateRecordResult {
+            get {
+                return ResourceManager.GetString("UpdateRecordResult", resourceCulture);
             }
         }
     }
