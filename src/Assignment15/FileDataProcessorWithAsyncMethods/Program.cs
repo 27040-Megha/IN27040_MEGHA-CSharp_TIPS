@@ -1,4 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using FileDataProcessorWithAsyncMethods;
 
 namespace Assignments
@@ -8,7 +12,7 @@ namespace Assignments
     /// </summary>
     public class Program
     {
-        private static void Main(string[] args)
+        private async static Task Main(string[] args)
         {
             try
             {
@@ -18,7 +22,7 @@ namespace Assignments
                 stopwatch.Stop();
                 Console.WriteLine($"Time taken to process files Synchronously : {stopwatch.ElapsedMilliseconds}");
                 stopwatch.Restart();
-                RunAsynchronousFileProcessor();
+                await RunAsynchronousFileProcessorAsync();
                 stopwatch.Stop();
                 Console.WriteLine($"Time taken to process files Asynchronously : {stopwatch.ElapsedMilliseconds}");
             }
@@ -30,23 +34,35 @@ namespace Assignments
 
         private static void RunSynchronousFileProcessor()
         {
-            var thread1 = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.FirstSource, FilePath.FirstDestination));
-            var thread2 = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.SecondSource, FilePath.SecondDestination));
-            var thread3 = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.ThirdSource, FilePath.ThirdDestination));
-            thread1.Start();
-            thread2.Start();
-            thread3.Start();
-            thread1.Join();
-            thread2.Join();
-            thread3.Join();
+            var threads = new List<Thread>();
+            for (int i = 1; i <= 10; i++)
+            {
+                string sourceFilePath = FilePath.ResourceManager.GetString($"Source{i}");
+                string destinationFilePath = FilePath.ResourceManager.GetString($"Destination{i}");
+                var thread = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(sourceFilePath, destinationFilePath));
+                threads.Add(thread);
+                thread.Start();
+            }
+
+            foreach (var thread in threads)
+            {
+                thread.Join();
+            }
         }
 
-        private static void RunAsynchronousFileProcessor()
+        private static async Task RunAsynchronousFileProcessorAsync()
         {
-            var task1 = AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.FirstSource, FilePath.FirstDestination);
-            var task2 = AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.SecondSource, FilePath.SecondDestination);
-            var task3 = AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.ThirdSource, FilePath.ThirdDestination);
-            Task.WaitAll(task1, task2, task3);
+            var tasks = new List<Task>();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                string sourceFilePath = FilePath.ResourceManager.GetString($"Source{i}");
+                string destinationFilePath = FilePath.ResourceManager.GetString($"Destination{i}");
+                Task task = AsyncFileProcessor.ProcessAndSaveFileAsync(sourceFilePath, destinationFilePath);
+                tasks.Add(task);
+            }
+
+            await Task.WhenAll(tasks);
         }
     }
 }

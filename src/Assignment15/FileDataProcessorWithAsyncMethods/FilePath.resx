@@ -117,22 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FirstDestination" xml:space="preserve">
+  <data name="Destination1" xml:space="preserve">
     <value>ProcessedData1.txt</value>
   </data>
-  <data name="FirstSource" xml:space="preserve">
+  <data name="Source1" xml:space="preserve">
     <value>FileData1.txt</value>
   </data>
-  <data name="SecondDestination" xml:space="preserve">
+  <data name="Destination2" xml:space="preserve">
     <value>ProcessedData2.txt</value>
   </data>
-  <data name="SecondSource" xml:space="preserve">
+  <data name="Source2" xml:space="preserve">
     <value>FileData2.txt</value>
   </data>
-  <data name="ThirdDestination" xml:space="preserve">
+  <data name="Destination3" xml:space="preserve">
     <value>ProcessedData3.txt</value>
   </data>
-  <data name="ThirdSource" xml:space="preserve">
+  <data name="Source3" xml:space="preserve">
     <value>FileData3.txt</value>
+  </data>
+  <data name="Destination4" xml:space="preserve">
+    <value>ProcessedData4.txt</value>
+  </data>
+  <data name="Source4" xml:space="preserve">
+    <value>FileData4.txt</value>
+  </data>
+  <data name="Destination5" xml:space="preserve">
+    <value>ProcessedData5.txt</value>
+  </data>
+  <data name="Source5" xml:space="preserve">
+    <value>FileData5.txt</value>
+  </data>
+  <data name="Destination6" xml:space="preserve">
+    <value>ProcessedData6.txt</value>
+  </data>
+  <data name="Source6" xml:space="preserve">
+    <value>FileData6.txt</value>
+  </data>
+  <data name="Destination7" xml:space="preserve">
+    <value>ProcessedData7.txt</value>
+  </data>
+  <data name="Source7" xml:space="preserve">
+    <value>FileData7.txt</value>
+  </data>
+  <data name="Destination8" xml:space="preserve">
+    <value>ProcessedData8.txt</value>
+  </data>
+  <data name="Source8" xml:space="preserve">
+    <value>FileData8.txt</value>
+  </data>
+  <data name="Destination9" xml:space="preserve">
+    <value>ProcessedData9.txt</value>
+  </data>
+  <data name="Source9" xml:space="preserve">
+    <value>FileData9.txt</value>
+  </data>
+  <data name="Destination10" xml:space="preserve">
+    <value>ProcessedData10.txt</value>
+  </data>
+  <data name="Source10" xml:space="preserve">
+    <value>FileData10.txt</value>
   </data>
 </root>

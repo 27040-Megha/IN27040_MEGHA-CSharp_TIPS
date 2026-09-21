@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FileDataProcessorWithAsyncMethods
 {
@@ -24,7 +26,7 @@ namespace FileDataProcessorWithAsyncMethods
             var buffer = new byte[chunkSize];
             using (var fileStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, chunkSize, useAsync: true))
             {
-                using (var destinationStream = new FileStream(destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, 4096, useAsync: true))
+                using (var destinationStream = new FileStream(destinationFilePath, FileMode.Create, FileAccess.Write, FileShare.None, chunkSize, useAsync: true))
                 {
                     int bytesRead;
                     while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)

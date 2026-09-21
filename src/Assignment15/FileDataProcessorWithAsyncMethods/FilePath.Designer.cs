@@ -63,54 +63,180 @@ namespace FileDataProcessorWithAsyncMethods {
         /// <summary>
         ///   Looks up a localized string similar to ProcessedData1.txt.
         /// </summary>
-        internal static string FirstDestination {
+        internal static string Destination1 {
             get {
-                return ResourceManager.GetString("FirstDestination", resourceCulture);
+                return ResourceManager.GetString("Destination1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FileData1.txt.
+        ///   Looks up a localized string similar to ProcessedData10.txt.
         /// </summary>
-        internal static string FirstSource {
+        internal static string Destination10 {
             get {
-                return ResourceManager.GetString("FirstSource", resourceCulture);
+                return ResourceManager.GetString("Destination10", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ProcessedData2.txt.
         /// </summary>
-        internal static string SecondDestination {
+        internal static string Destination2 {
             get {
-                return ResourceManager.GetString("SecondDestination", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FileData2.txt.
-        /// </summary>
-        internal static string SecondSource {
-            get {
-                return ResourceManager.GetString("SecondSource", resourceCulture);
+                return ResourceManager.GetString("Destination2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ProcessedData3.txt.
         /// </summary>
-        internal static string ThirdDestination {
+        internal static string Destination3 {
             get {
-                return ResourceManager.GetString("ThirdDestination", resourceCulture);
+                return ResourceManager.GetString("Destination3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessedData4.txt.
+        /// </summary>
+        internal static string Destination4 {
+            get {
+                return ResourceManager.GetString("Destination4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessedData5.txt.
+        /// </summary>
+        internal static string Destination5 {
+            get {
+                return ResourceManager.GetString("Destination5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessedData6.txt.
+        /// </summary>
+        internal static string Destination6 {
+            get {
+                return ResourceManager.GetString("Destination6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessedData7.txt.
+        /// </summary>
+        internal static string Destination7 {
+            get {
+                return ResourceManager.GetString("Destination7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessedData8.txt.
+        /// </summary>
+        internal static string Destination8 {
+            get {
+                return ResourceManager.GetString("Destination8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessedData9.txt.
+        /// </summary>
+        internal static string Destination9 {
+            get {
+                return ResourceManager.GetString("Destination9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData1.txt.
+        /// </summary>
+        internal static string Source1 {
+            get {
+                return ResourceManager.GetString("Source1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData10.txt.
+        /// </summary>
+        internal static string Source10 {
+            get {
+                return ResourceManager.GetString("Source10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData2.txt.
+        /// </summary>
+        internal static string Source2 {
+            get {
+                return ResourceManager.GetString("Source2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to FileData3.txt.
         /// </summary>
-        internal static string ThirdSource {
+        internal static string Source3 {
             get {
-                return ResourceManager.GetString("ThirdSource", resourceCulture);
+                return ResourceManager.GetString("Source3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData4.txt.
+        /// </summary>
+        internal static string Source4 {
+            get {
+                return ResourceManager.GetString("Source4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData5.txt.
+        /// </summary>
+        internal static string Source5 {
+            get {
+                return ResourceManager.GetString("Source5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData6.txt.
+        /// </summary>
+        internal static string Source6 {
+            get {
+                return ResourceManager.GetString("Source6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData7.txt.
+        /// </summary>
+        internal static string Source7 {
+            get {
+                return ResourceManager.GetString("Source7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData8.txt.
+        /// </summary>
+        internal static string Source8 {
+            get {
+                return ResourceManager.GetString("Source8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileData9.txt.
+        /// </summary>
+        internal static string Source9 {
+            get {
+                return ResourceManager.GetString("Source9", resourceCulture);
             }
         }
     }
