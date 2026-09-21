@@ -17,7 +17,7 @@ namespace FileUsageOptimization
         public static void Run()
         {
             string path = "optimizedFile.txt";
-            string data = new string('A', 5 * 1024 * 1024);
+            string data = "This is some test data";
             using (var writer = new StreamWriter(path, false))
             {
                 writer.Write(data);

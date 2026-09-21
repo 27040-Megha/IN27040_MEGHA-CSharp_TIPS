@@ -13,7 +13,7 @@ namespace FileUsageOptimization
         public static void Run()
         {
             string path = "file.txt";
-            string data = new string('A', 5 * 1024 * 1024);
+            string data = "This is some test data";
             using (var memoryStream = new MemoryStream())
             {
                 var buffer = Encoding.ASCII.GetBytes(data);
