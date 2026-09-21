@@ -79,7 +79,7 @@ namespace AdvancedPatternMatching {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rectangle Color: {0}, Length: {1}, Width: {2}, Area: {3}&quot;);.
+        ///   Looks up a localized string similar to Rectangle Color: {0}, Length: {1}, Width: {2}, Area: {3}.
         /// </summary>
         internal static string RectangleDetails {
             get {
@@ -88,7 +88,7 @@ namespace AdvancedPatternMatching {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Triangle Color: {0}, Base: {1}, Height: {2}, Area: {3}&quot;);.
+        ///   Looks up a localized string similar to Triangle Color: {0}, Base: {1}, Height: {2}, Area: {3}.
         /// </summary>
         internal static string TriangleDetails {
             get {

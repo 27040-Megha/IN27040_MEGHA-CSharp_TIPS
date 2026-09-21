@@ -124,10 +124,10 @@
     <value>Shape Object is null</value>
   </data>
   <data name="RectangleDetails" xml:space="preserve">
-    <value>Rectangle Color: {0}, Length: {1}, Width: {2}, Area: {3}");</value>
+    <value>Rectangle Color: {0}, Length: {1}, Width: {2}, Area: {3}</value>
   </data>
   <data name="TriangleDetails" xml:space="preserve">
-    <value>Triangle Color: {0}, Base: {1}, Height: {2}, Area: {3}");</value>
+    <value>Triangle Color: {0}, Base: {1}, Height: {2}, Area: {3}</value>
   </data>
   <data name="TypeMismatch" xml:space="preserve">
     <value>Shape does not match any of the type!</value>
