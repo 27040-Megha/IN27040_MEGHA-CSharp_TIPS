@@ -22,14 +22,12 @@ namespace Assignments
 
                 // The type of dynamic variables is checked at run-time, so changing type of variable is accepted with dynamic keyword
                 dynamic message = "Hi";
-                Console.WriteLine(message);
-                Console.WriteLine($"Message Length: {message.Length}");
+                Console.WriteLine($"{message}\nMessage Length: {message.Length}");
 
                 // Here we have changed the type of message to double from string
                 // Now trying to print the length of message will throw an Unhandled Run-time Exception
                 message = 5.5;
-                Console.WriteLine(message);
-                Console.WriteLine($"Message Length: {message.Length}");
+                Console.WriteLine($"{message}\nMessage Length: {message.Length}");
             }
             catch (Exception ex)
             {
