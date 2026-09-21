@@ -2,8 +2,16 @@
 
 namespace FileDataProcessorWithAsyncMethods
 {
+    /// <summary>
+    /// Contains methods to read, process and write to files synchronously
+    /// </summary>
     public class SyncFileProcessor
     {
+        /// <summary>
+        /// Reads from file, writes to memory and then writes back to destination file
+        /// </summary>
+        /// <param name="sourceFilePath">Source file path to read data</param>
+        /// <param name="destinationFilePath">Destination file path to write data</param>
         public static void ProcessAndSaveFile(string sourceFilePath, string destinationFilePath)
         {
             if (File.Exists(destinationFilePath))
@@ -11,23 +19,20 @@ namespace FileDataProcessorWithAsyncMethods
                 File.Delete(destinationFilePath);
             }
 
-            int chunkSize = 4096;
+            int chunkSize = 1024 * 1024;
             var buffer = new byte[chunkSize];
             using (var fileStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read))
             {
-                using (var bufferedStream = new BufferedStream(fileStream, 1024 * 1024))
+                using (var destinationStream = new FileStream(destinationFilePath, FileMode.Create, FileAccess.Write))
                 {
-                    using (var destinationStream = new FileStream(destinationFilePath, FileMode.Create, FileAccess.Write))
+                    int bytesRead;
+                    while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
                     {
-                        int bytesRead;
-                        while ((bytesRead = bufferedStream.Read(buffer, 0, buffer.Length)) > 0)
+                        using (var memoryStream = new MemoryStream())
                         {
-                            using (var memoryStream = new MemoryStream())
-                            {
-                                SaveFileToMemory(buffer, bytesRead, memoryStream);
-                                ProcessMemoryStreamToUpperCase(memoryStream);
-                                WriteMemoryToFile(memoryStream, destinationStream);
-                            }
+                            SaveFileToMemory(buffer, bytesRead, memoryStream);
+                            ProcessMemoryStreamToUpperCase(memoryStream);
+                            WriteMemoryToFile(memoryStream, destinationStream);
                         }
                     }
                 }

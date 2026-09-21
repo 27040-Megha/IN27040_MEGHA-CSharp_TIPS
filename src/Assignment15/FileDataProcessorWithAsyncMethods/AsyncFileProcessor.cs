@@ -2,8 +2,17 @@
 
 namespace FileDataProcessorWithAsyncMethods
 {
+    /// <summary>
+    /// Contains asynchronous methods to read, process and write to files
+    /// </summary>
     public class AsyncFileProcessor
     {
+        /// <summary>
+        /// Reads from file, writes to memory and then writes back to destination file asynchronously
+        /// </summary>
+        /// <param name="sourceFilePath">Source file path to read data</param>
+        /// <param name="destinationFilePath">Destination file path to write data</param>
+        /// <returns>Asynchronous result object</returns>
         public static async Task ProcessAndSaveFileAsync(string sourceFilePath, string destinationFilePath)
         {
             if (File.Exists(destinationFilePath))
@@ -11,23 +20,20 @@ namespace FileDataProcessorWithAsyncMethods
                 File.Delete(destinationFilePath);
             }
 
-            int chunkSize = 4096;
+            int chunkSize = 1024 * 1024;
             var buffer = new byte[chunkSize];
             using (var fileStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, chunkSize, useAsync: true))
             {
-                using (var bufferedStream = new BufferedStream(fileStream, 1024 * 1024))
+                using (var destinationStream = new FileStream(destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, 4096, useAsync: true))
                 {
-                    using (var destinationStream = new FileStream(destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, 4096, useAsync: true))
+                    int bytesRead;
+                    while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                     {
-                        int bytesRead;
-                        while ((bytesRead = await bufferedStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        using (var memoryStream = new MemoryStream())
                         {
-                            using (var memoryStream = new MemoryStream())
-                            {
-                                await SaveFileToMemoryAsync(buffer, bytesRead, memoryStream);
-                                ProcessMemoryStreamToUpperCase(memoryStream);
-                                await WriteMemoryToFile(memoryStream, destinationStream);
-                            }
+                            await SaveFileToMemoryAsync(buffer, bytesRead, memoryStream);
+                            ProcessMemoryStreamToUpperCase(memoryStream);
+                            await WriteMemoryToFile(memoryStream, destinationStream);
                         }
                     }
                 }

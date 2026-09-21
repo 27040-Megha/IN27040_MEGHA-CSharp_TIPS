@@ -30,20 +30,22 @@ namespace Assignments
 
         private static void RunSynchronousFileProcessor()
         {
-            var task1 = new Task(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.FirstSource, FilePath.FirstDestination));
-            var task2 = new Task(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.SecondSource, FilePath.SecondDestination));
-            var task3 = new Task(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.ThirdSource, FilePath.ThirdDestination));
-            task1.Start();
-            task2.Start();
-            task3.Start();
-            Task.WaitAll(task1, task2, task3);
+            var thread1 = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.FirstSource, FilePath.FirstDestination));
+            var thread2 = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.SecondSource, FilePath.SecondDestination));
+            var thread3 = new Thread(() => SyncFileProcessor.ProcessAndSaveFile(FilePath.ThirdSource, FilePath.ThirdDestination));
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
+            thread1.Join();
+            thread2.Join();
+            thread3.Join();
         }
 
-        private static async void RunAsynchronousFileProcessor()
+        private static void RunAsynchronousFileProcessor()
         {
-            var task1 = Task.Run(async () => await AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.FirstSource, FilePath.FirstDestination));
-            var task2 = Task.Run(async () => await AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.SecondSource, FilePath.SecondDestination));
-            var task3 = Task.Run(async () => await AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.ThirdSource, FilePath.ThirdDestination));
+            var task1 = AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.FirstSource, FilePath.FirstDestination);
+            var task2 = AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.SecondSource, FilePath.SecondDestination);
+            var task3 = AsyncFileProcessor.ProcessAndSaveFileAsync(FilePath.ThirdSource, FilePath.ThirdDestination);
             Task.WaitAll(task1, task2, task3);
         }
     }
