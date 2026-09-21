@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EvenNumbers" xml:space="preserve">
-    <value>Even Numbers:</value>
+  <data name="OddNumbers" xml:space="preserve">
+    <value>Odd Numbers:</value>
   </data>
   <data name="ListOfIntegers" xml:space="preserve">
     <value>List of Integers:</value>

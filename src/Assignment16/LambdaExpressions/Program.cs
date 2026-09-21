@@ -11,9 +11,9 @@ namespace Assignments
         {
             var listOfIntegers = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
             DisplayList(DisplayResource.ListOfIntegers, listOfIntegers);
-            var evenNumbers = FilterEvenNumbers(listOfIntegers);
-            DisplayList(DisplayResource.EvenNumbers, evenNumbers);
-            var squaresOfFilteredNumbers = FindSquare(evenNumbers);
+            var oddNumbers = FilterOddNumbers(listOfIntegers);
+            DisplayList(DisplayResource.OddNumbers, oddNumbers);
+            var squaresOfFilteredNumbers = FindSquare(oddNumbers);
             DisplayList(DisplayResource.Squares, squaresOfFilteredNumbers);
         }
 
@@ -26,9 +26,9 @@ namespace Assignments
             }
         }
 
-        private static List<int> FilterEvenNumbers(List<int> listOfIntegers)
+        private static List<int> FilterOddNumbers(List<int> listOfIntegers)
         {
-            return listOfIntegers.Where((int number) => number % 2 == 0).ToList();
+            return listOfIntegers.Where((int number) => number % 2 != 0).ToList();
         }
 
         private static List<int> FindSquare(List<int> listOfIntegers)

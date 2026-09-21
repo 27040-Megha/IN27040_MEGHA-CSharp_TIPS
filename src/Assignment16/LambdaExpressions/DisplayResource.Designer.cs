@@ -61,20 +61,20 @@ namespace LambdaExpressions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Even Numbers:.
-        /// </summary>
-        internal static string EvenNumbers {
-            get {
-                return ResourceManager.GetString("EvenNumbers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to List of Integers:.
         /// </summary>
         internal static string ListOfIntegers {
             get {
                 return ResourceManager.GetString("ListOfIntegers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odd Numbers:.
+        /// </summary>
+        internal static string OddNumbers {
+            get {
+                return ResourceManager.GetString("OddNumbers", resourceCulture);
             }
         }
         
