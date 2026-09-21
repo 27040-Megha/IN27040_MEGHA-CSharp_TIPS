@@ -8,35 +8,41 @@
 
 ---
 
-## Concept
+## Memory Issues identified in the given code Snippet
 
-- Delegates: Structure of a method (Like a pointer).
-- Events: Allows a class to provide notification to other classes.
-- Events use delegates to send notifications.
-- Publisher class: Event will be defined in the publisher class and when event is invoked, all the subscribers will get notified.
-- Subscriber class: Contains method that will be subscribed to the event.
-- When publisher notifies, the subscribed methods will be executed automatically.
+1. Using MemoryStream to write to memory, then getting data from MemoryStream to read using FileStream is a memory overhead.
+2. FileStreams require byte data, so raw data has to be converted to bytes and stored in a byte[] which will occupy space in Managed heap.
+3. Using a for loop to write each data is inefficient, heavy IO operation is performed here.
 
----
 
-## Notifier.cs
+## Solution 
 
-- Publisher class that has event defined and publishes the notification to its subscribers
-- Delegate: void Notify(string message)
-- Event: Notify OnAction
-- Method: Trigger(string message) - Publishes the notification to all its Subscribers
+1. Removed Memorystream completely.
+2. Used StreamReader and StreamWriter instead of FileStreams as they can read/write raw data directly.
+3. Removed for loop and read data at once completely and printed using Console.WriteLine().
+4. Use Console.WriteLine(), only if needed because printing to console is also an expensive IO operation.
+With all these Optimizations, there is no need of byte array(managed at heap), RAM memory, Converting to byte array and inefficient loop to print the file data
 
----
 
-## Program.cs
 
-## Methods: (Subscriber methods)
+## How memory Issue was identified
 
-1. SendWhatsAppNotification(string message) 
-2. SendEmailNotification(string message) 
+- Using Diagnostic tool, to find memory occupied in the managed heap.
+- Using Task Manager, to find memory occupied in the RAM.
+- Used GC.GetTotalAllocatedBytes() to know memory allocated in the heap.
+- Used Process.GetCurrentProcess() - Returns all information about the actively running process.
+- CurrentProcess.WorkingSet64 - Returns the amount of physical memory in bytes allocated for the process.
 
-## Main()
+## Performance Difference when tested for large test data of size 10 MB
 
-- Create Object for Notifier class
-- Subscribe SendWhatsAppNotification and SendEmailNotification methods to the event OnAction
-- Call Trigger() that publishes notification to its subscribers
+Given Code Snippet
+Performance Metrics
+Execution Time: 72
+Heap Allocated : 26220488
+Physical RAM Consumed: 26574848
+ 
+Optimized Version of Code
+Performance Metrics
+Execution Time: 42
+Heap Allocated : 10502120
+Physical RAM Consumed: 10567680

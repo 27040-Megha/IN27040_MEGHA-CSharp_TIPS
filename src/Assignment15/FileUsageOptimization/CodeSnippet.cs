@@ -33,7 +33,7 @@ namespace FileUsageOptimization
                 {
                     for (int i = 0; i < bytesRead; i++)
                     {
-                        // Console.Write((char)buffer[i]);
+                        Console.Write((char)buffer[i]);
                     }
                 }
             }

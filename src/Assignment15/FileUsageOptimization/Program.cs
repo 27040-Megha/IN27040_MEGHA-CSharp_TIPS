@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 using FileUsageOptimization;
 
 namespace Assignments

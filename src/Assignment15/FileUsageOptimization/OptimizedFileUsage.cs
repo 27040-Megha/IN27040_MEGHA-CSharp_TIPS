@@ -25,7 +25,7 @@ namespace FileUsageOptimization
 
             using (var reader = new StreamReader(path))
             {
-                // Console.WriteLine(reader.ReadToEnd());
+                Console.WriteLine(reader.ReadToEnd());
             }
         }
     }
