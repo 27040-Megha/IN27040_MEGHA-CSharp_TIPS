@@ -12,15 +12,12 @@ namespace Assignments
         private static void Main(string[] args)
         {
             var products = LoadProducts();
-            SortDelegate sortDelegates = ProductSortingService.SortByName;
             TextColor.WriteColorLine(DisplayResource.SortByName, ConsoleColor.Cyan);
-            SortAndDisplay(sortDelegates, products);
-            sortDelegates = ProductSortingService.SortByCategory;
+            SortAndDisplay(ProductSortingService.SortByName, products);
             TextColor.WriteColorLine(DisplayResource.SortByCategory, ConsoleColor.Cyan);
-            SortAndDisplay(sortDelegates, products);
-            sortDelegates = ProductSortingService.SortByPrice;
+            SortAndDisplay(ProductSortingService.SortByCategory, products);
             TextColor.WriteColorLine(DisplayResource.SortByPrice, ConsoleColor.Cyan);
-            SortAndDisplay(sortDelegates, products);
+            SortAndDisplay(ProductSortingService.SortByPrice, products);
         }
 
         private static List<Product> LoadProducts()
