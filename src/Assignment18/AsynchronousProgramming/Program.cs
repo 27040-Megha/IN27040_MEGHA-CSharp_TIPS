@@ -19,10 +19,8 @@ namespace Assignments
         {
             try
             {
-                Task.Run(() => InteractWithUser());
-                string downloadedData = await DownloadDataAsync();
-                Console.SetCursorPosition(12, 13);
-                Console.WriteLine($"Dowloaded Data: \n{downloadedData}");
+                Task<string> downloadTask = DownloadDataAsync();
+                Console.WriteLine($"Dowloaded Data: \n{downloadTask.Result}");
             }
             catch (Exception ex)
             {
@@ -32,16 +30,8 @@ namespace Assignments
 
         private static async Task<string> DownloadDataAsync()
         {
-            string responseBody = await Client.GetStringAsync("https://meghaeg.vercel.app");
-            await Task.Delay(3000);
+            string responseBody = await Client.GetStringAsync("https://www.geeksforgeeks.org/c-sharp/async-and-await-in-c-sharp/");
             return responseBody;
-        }
-
-        private static void InteractWithUser()
-        {
-            Console.WriteLine("Hi user");
-            Console.ReadLine();
-            Task.Delay(3000);
         }
     }
 }
