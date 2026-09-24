@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assignment18", "Assignment1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsynchronousProgramming", "src\Assignment18\AsynchronousProgramming\AsynchronousProgramming.csproj", "{53EC239B-FD5C-4EC4-A1B7-8163273B8E6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskParallelLibrary", "src\Assignment18\TaskParallelLibrary\TaskParallelLibrary.csproj", "{6FA432E6-D49A-49DF-B58B-39C12D3FDA1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{53EC239B-FD5C-4EC4-A1B7-8163273B8E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53EC239B-FD5C-4EC4-A1B7-8163273B8E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53EC239B-FD5C-4EC4-A1B7-8163273B8E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA432E6-D49A-49DF-B58B-39C12D3FDA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA432E6-D49A-49DF-B58B-39C12D3FDA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA432E6-D49A-49DF-B58B-39C12D3FDA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA432E6-D49A-49DF-B58B-39C12D3FDA1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +165,7 @@ Global
 		{4FB94D52-2809-47F2-ACF0-4470A389A271} = {1D03EA0E-6D21-499B-9C00-D84B7920FB8A}
 		{B1028C65-6C72-4678-BBB4-FF58A25E16AA} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{53EC239B-FD5C-4EC4-A1B7-8163273B8E6E} = {B1028C65-6C72-4678-BBB4-FF58A25E16AA}
+		{6FA432E6-D49A-49DF-B58B-39C12D3FDA1B} = {B1028C65-6C72-4678-BBB4-FF58A25E16AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
