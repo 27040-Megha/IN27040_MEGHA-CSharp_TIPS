@@ -19,8 +19,8 @@ namespace Assignments
         {
             try
             {
-                Task<string> downloadTask = DownloadDataAsync();
-                Console.WriteLine($"Dowloaded Data: \n{downloadTask.Result}");
+                var downloadTask = await DownloadDataAsync();
+                Console.WriteLine($"Dowloaded Data: \n{downloadTask}");
             }
             catch (Exception ex)
             {

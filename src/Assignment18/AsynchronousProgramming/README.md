@@ -1,93 +1,41 @@
 ﻿# Assignment-18 : Async/Await, Task Parallel Library, and Multi-Threading in C#
  
-## Overview
- 
-Create a simple C# console application Calculator App that performs Add, Subtract, Multiply and Divide operations.
+## Task 1: Understanding and Implementing Async/Await
+
+### Concept
+
+Asynchronous Programming 
+
+- Allows you to perform non-blocking execution.
+- A method has to be marked as async, which expects another method call with await keyword in it.
+- The await keyword provides a nonblocking way to start a task, then continue execution when the task completes.
 
 ---
 
-Documentation Link :  https://solitontech-my.sharepoint.com/:w:/p/megha_easwaramoorthy/IQBzD1deZWmgTa75mWFQMUuOAdzsefyB9GK0l8l_Sm3WfKo?e=xAd42E
+HttpClient class
+
+- Provides a class for sending HTTP requests and receiving HTTP responses from a resource identified by a URI.
+- HttpClient is completely thread-safe. Multiple threads can concurrently execute requests using a shared instance.
+- HttpClient has to be instantiated once and can be reused throughout. (Create static readonly object)
 
 ---
-	
-##  Project Structure
-```text
-CalculatorApp
-|
-├── ApplicationLayer
-│   └── Service
-│      └── CalculatorService.cs
-│      └── MathUtility.cs
-│
-├── PresentationLayer
-│   └── View
-│       └── ConsoleOperations.cs
-│   └── Helper
-│       └── InputValidation.cs
-│
-└── Program.cs
-```
+## Implementation
+
+### Program.cs
+
+HttpClient Object: private static readonly HttpClient Client = new ();
+
+Methods:
+
+DownloadDataAsync()
+
+- Downloads content from a URL using the HttpClient class.
+- Returns the downloaded content as String.
 
 ---
 
-# Folder Structure
- 
-# ApplicationLayer
+Main()
 
-# Service
-
-## CalculatrService
-
-- Contains all business logic to solve a complex expression using BODMAS rule.
-
-Methods
-
-- EvaluateExpression()
-- EvaluateDivide()
-- EvaluateMultiply()
-- EvaluateAdd()
-- EvaluateSubtract()
- 
-## MathUtility.cs
-
-- Static class and contains all Business logic to perform Calculator Operations.
- 
-Methods
-
-- int Add(int number1, int number2) - Returns the sum of two integers
-- int Subtract(int number1, int number2) - Returns the difference between two integers
-- int Multiply(int number1, int number2) - Returns the product of two integers
-- int Divide(int number1, int number2) - Checks if number2 is 0 and Returns the quotient
-
----
-
-# PresentationLayer
-
-## View
-
-## ConsoleOperations.cs
- 
-- Shows Output to User
-
-Methods
-
-- void Run()
-- string GetExpression()
-- void DisplayResult()
-
-## Helper
-## InputValidation.cs
- 
-- Contains helper methods that validates user input
-
-Methods
-
-- bool ValidateString(string input) - Checks if string is not null or empty
-
----
-
- 
-## Program.cs
- 
-- Creates object for ApplicationLayer and PresentationLayer and inject their dependencies and start the application by using Run().
----
+- Calls the async method DownloadDataAsync() and waits for its result.
+- After the DownloadDataAsync has returned result.
+- The result is printed to the user.
