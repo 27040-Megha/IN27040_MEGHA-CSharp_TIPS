@@ -70,6 +70,15 @@ namespace FileUsageOptimization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Path format is wrong. Should be of the format Eg:Sample.txt.
+        /// </summary>
+        internal static string InvalidFilePath {
+            get {
+                return ResourceManager.GetString("InvalidFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optimized Version of Code.
         /// </summary>
         internal static string OptimizedCode {
@@ -88,6 +97,15 @@ namespace FileUsageOptimization {
         internal static string PerformanceMetrics {
             get {
                 return ResourceManager.GetString("PerformanceMetrics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter file name:.
+        /// </summary>
+        internal static string PromptFileName {
+            get {
+                return ResourceManager.GetString("PromptFileName", resourceCulture);
             }
         }
     }

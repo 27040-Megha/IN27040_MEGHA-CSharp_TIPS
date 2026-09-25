@@ -1,4 +1,6 @@
-﻿namespace FileUsageOptimization
+﻿using System;
+
+namespace FileUsageOptimization
 {
     /// <summary>
     /// Provides method to display text in different colors

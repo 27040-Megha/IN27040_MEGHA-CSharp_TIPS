@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Text;
 
 namespace FileUsageOptimization
 {
@@ -10,9 +12,9 @@ namespace FileUsageOptimization
         /// <summary>
         /// Runs the given code snippet with memory inefficiences
         /// </summary>
-        public static void Run()
+        /// <param name="path">File Path</param>
+        public static void Run(string path)
         {
-            string path = "file.txt";
             string data = "This is some test data";
             using (var memoryStream = new MemoryStream())
             {

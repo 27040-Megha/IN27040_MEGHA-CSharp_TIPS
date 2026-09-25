@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Text;
 
 namespace FileUsageOptimization
 {
@@ -14,9 +16,9 @@ namespace FileUsageOptimization
         /// 4. Directly printed the contents read from the file
         /// With these optimizations, there is no need of byte array(managed at heap), RAM memory, Encoding and inefficient loop to print the file data
         /// </summary>
-        public static void Run()
+        /// <param name="path">File Path</param>
+        public static void Run(string path)
         {
-            string path = "optimizedFile.txt";
             string data = "This is some test data";
             using (var writer = new StreamWriter(path, false))
             {

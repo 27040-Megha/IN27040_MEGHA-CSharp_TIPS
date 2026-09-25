@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using FileUsageOptimization;
 
 namespace Assignments
@@ -11,7 +14,8 @@ namespace Assignments
         /// <summary>
         /// Custom delegate - To pass code snippet method and optimized version method as parameters
         /// </summary>
-        public delegate void FileTask();
+        /// <param name="filePath">File Path</param>
+        public delegate void FileTask(string filePath);
 
         private static void Main(string[] args)
         {
@@ -35,12 +39,49 @@ namespace Assignments
             long memoryBeforeRun = currentProcess.WorkingSet64;
             long bytesAllocatedBeforeRun = GC.GetTotalAllocatedBytes();
             stopwatch.Start();
-            fileTask();
+            var filePath = GetFileName();
+            if (filePath == null)
+            {
+                return;
+            }
+
+            fileTask(filePath);
             stopwatch.Stop();
             long bytesAllocatedAfterRun = GC.GetTotalAllocatedBytes();
             currentProcess.Refresh();
             long memoryAfterRun = currentProcess.WorkingSet64;
             DisplayPerformanceMetrics(bytesAllocatedAfterRun - bytesAllocatedBeforeRun, memoryAfterRun - memoryBeforeRun, stopwatch.ElapsedMilliseconds);
+        }
+
+        private static string GetFileName()
+        {
+            TextColor.WriteColoredLine(DisplayResource.PromptFileName, ConsoleColor.Cyan);
+            var filePath = Console.ReadLine();
+            if (!IsValidFilePath(filePath))
+            {
+                TextColor.WriteColoredLine(DisplayResource.InvalidFilePath, ConsoleColor.Red);
+                return null;
+            }
+
+            return filePath;
+        }
+
+        private static bool IsValidFilePath(string input)
+        {
+            string fileName = Path.GetFileName(input);
+            char[] invalidCharacters = Path.GetInvalidFileNameChars();
+            if (fileName.Any(ch => invalidCharacters.Contains(ch)))
+            {
+                return false;
+            }
+
+            string extension = Path.GetExtension(fileName);
+            if (!string.Equals(extension, ".txt", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

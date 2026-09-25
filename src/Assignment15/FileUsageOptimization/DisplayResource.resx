@@ -120,6 +120,9 @@
   <data name="CodeSnippet" xml:space="preserve">
     <value>Given Code Snippet</value>
   </data>
+  <data name="InvalidFilePath" xml:space="preserve">
+    <value>File Path format is wrong. Should be of the format Eg:Sample.txt</value>
+  </data>
   <data name="OptimizedCode" xml:space="preserve">
     <value>Optimized Version of Code</value>
   </data>
@@ -129,5 +132,8 @@ Execution Time: {0}
 Heap Allocated : {1}
 Physical RAM Consumed: {2}
 </value>
+  </data>
+  <data name="PromptFileName" xml:space="preserve">
+    <value>Enter file name:</value>
   </data>
 </root>
