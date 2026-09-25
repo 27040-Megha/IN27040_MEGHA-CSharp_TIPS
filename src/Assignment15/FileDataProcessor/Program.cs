@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using FileCreator;
 
 namespace Assignments
 {
@@ -10,7 +11,7 @@ namespace Assignments
     {
         private static void Main(string[] args)
         {
-            var filePath = "FileData.txt";
+            var filePath = FileConstants.FilePath;
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("File Not found!");
@@ -27,52 +28,50 @@ namespace Assignments
             stopwatch.Stop();
             Console.WriteLine($"Time taken to read files using BufferedStreams: {stopwatch.Elapsed}\n");
             stopwatch.Restart();
-            WriteFileUsingMemoryStream(filePath, "ProcessedData.txt");
+            WriteFileUsingMemoryStream(filePath, FileConstants.ProcessedFilePath);
             stopwatch.Stop();
             Console.WriteLine($"Time taken to process data and writing using Memory Stream: {stopwatch.Elapsed}");
         }
 
         private static void ReadFileUsingFileStreams(string filePath)
         {
-            int chunkSize = 4096;
-            var buffer = new byte[chunkSize];
+            var buffer = new byte[FileConstants.ChunkSize];
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                int hardwareHit = 0;
-                long filePosition = 0;
+                int fileAccessRequest = 0;
+                long lastTrackedPosition = fileStream.Position;
                 while (fileStream.Read(buffer, 0, buffer.Length) > 0)
                 {
-                    if (fileStream.Position > filePosition)
+                    if (fileStream.Position > lastTrackedPosition)
                     {
-                        hardwareHit++;
-                        filePosition = fileStream.Position;
+                        fileAccessRequest++;
+                        lastTrackedPosition = fileStream.Position;
                     }
                 }
 
-                Console.WriteLine($"TOTAL NUMBER OF HARDWARE HITS USING FILE STREAM= {hardwareHit}");
+                Console.WriteLine($"TOTAL NUMBER OF FILE ACCESS REQUESTS USING FILE STREAM= {fileAccessRequest}");
             }
         }
 
         private static void ReadFileUsingBufferedStream(string filePath)
         {
-            int chunkSize = 4096;
-            var buffer = new byte[chunkSize];
+            var buffer = new byte[FileConstants.ChunkSize];
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                using (var bufferedStream = new BufferedStream(fileStream, 1024 * 1024))
+                int fileAccessRequest = 0;
+                long lastTrackedPosition = fileStream.Position;
+                using (var bufferedStream = new BufferedStream(fileStream, FileConstants.BufferSize))
                 {
-                    int hardwareHit = 0;
-                    long filePosition = 0;
                     while (bufferedStream.Read(buffer, 0, buffer.Length) > 0)
                     {
-                        if (fileStream.Position > filePosition)
+                        if (fileStream.Position > lastTrackedPosition)
                         {
-                            hardwareHit++;
-                            filePosition = fileStream.Position;
+                            fileAccessRequest++;
+                            lastTrackedPosition = fileStream.Position;
                         }
                     }
 
-                    Console.WriteLine($"TOTAL NUMBER OF HARDWARE HITS USING BUFFERED STREAM= {hardwareHit}");
+                    Console.WriteLine($"TOTAL NUMBER OF FILE ACCESS REQUESTS USING BUFFERED STREAM= {fileAccessRequest}");
                 }
             }
         }
@@ -81,11 +80,10 @@ namespace Assignments
         {
             using (var memoryStream = new MemoryStream())
             {
-                int chunkSize = 4096;
-                var buffer = new byte[chunkSize];
+                var buffer = new byte[FileConstants.ChunkSize];
                 using (var fileStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read))
                 {
-                    using (var bufferedStream = new BufferedStream(fileStream, 1024 * 1024))
+                    using (var bufferedStream = new BufferedStream(fileStream, FileConstants.BufferSize))
                     {
                         while (bufferedStream.Read(buffer, 0, buffer.Length) > 0)
                         {
