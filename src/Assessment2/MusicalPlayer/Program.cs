@@ -25,7 +25,7 @@ namespace Assignments
                 if (musicalValue == null)
                 {
                     Console.WriteLine("Invalid input");
-                    break;
+                    continue;
                 }
 
                 int frequency = (int)musicalValue.Frequency;
