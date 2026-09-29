@@ -5,7 +5,7 @@ namespace Records
     /// <summary>
     /// Contains method to print text in specific colors
     /// </summary>
-    public class TextColor
+    public static class TextColor
     {
         /// <summary>
         /// Prints the text in Specific Color
