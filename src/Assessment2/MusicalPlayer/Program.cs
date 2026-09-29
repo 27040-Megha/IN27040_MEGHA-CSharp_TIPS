@@ -31,8 +31,6 @@ namespace Assignments
                 int frequency = (int)musicalValue.Frequency;
                 PlaySound(frequency, musicalValue.Duration);
             }
-
-            Console.ReadKey();
         }
 
         private static void PlaySound(int frequency, int duration)
