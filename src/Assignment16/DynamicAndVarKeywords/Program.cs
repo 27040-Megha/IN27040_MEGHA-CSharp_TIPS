@@ -31,7 +31,7 @@ namespace Assignments
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error occurred while, {ex.Message}");
             }
         }
     }
