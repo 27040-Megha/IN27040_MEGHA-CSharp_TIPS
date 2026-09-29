@@ -18,6 +18,8 @@ namespace Assignments
             notifier.OnAction += SendWhatsAppNotification;
             notifier.OnAction += SendEmailNotification;
             notifier.Trigger("Your Order has been confirmed!");
+            notifier.OnAction -= SendEmailNotification;
+            notifier.OnAction -= SendWhatsAppNotification;
         }
 
         private static void SendWhatsAppNotification(string message)
