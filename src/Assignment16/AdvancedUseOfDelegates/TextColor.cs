@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace EventsAndDelegates
+namespace AdvancedUseOfDelegates
 {
     /// <summary>
     /// Contains method to print text in specific colors
     /// </summary>
-    public static class TextColor
+    public class TextColor
     {
         /// <summary>
         /// Prints the text in Specific Color
