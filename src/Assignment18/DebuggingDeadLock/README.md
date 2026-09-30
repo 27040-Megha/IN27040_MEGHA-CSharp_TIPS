@@ -4,38 +4,40 @@
 
 ### Concept
 
-Asynchronous Programming 
+### Task.Result
 
-- Allows you to perform non-blocking execution.
-- A method has to be marked as async, which expects another method call with await keyword in it.
-- The await keyword provides a nonblocking way to start a task, then continue execution when the task completes.
+- Task.Result gets the value produced by a completed asynchronous task.
+- ISSUE: Accessing .Result on an unfinished task synchronously blocks the current thread until the task finishes.
+- This causes deadlock.
 
----
+### Synchronization Context
 
-HttpClient class
-
-- Provides a class for sending HTTP requests and receiving HTTP responses from a resource identified by a URI.
-- HttpClient is completely thread-safe. Multiple threads can concurrently execute requests using a shared instance.
-- HttpClient has to be instantiated once and can be reused throughout. (Create static readonly object)
-
----
-## Implementation
-
-### Program.cs
-
-HttpClient Object: private static readonly HttpClient Client = new ();
-
-Methods:
-
-DownloadDataAsync()
-
-- Downloads content from a URL using the HttpClient class.
-- Returns the downloaded content as String.
+- Ensures that after an await finishes, control must return to the original thread that started it.
+- For console applications, this will be null.
 
 ---
 
-Main()
+### Issue identified in code
 
-- Calls the async method DownloadDataAsync() and waits for its result.
-- After the DownloadDataAsync has returned result.
-- The result is printed to the user.
+var result = SomeAsyncOperation().Result; 
+
+- When SomeAsyncOperation executes await Task.Delay(1000), it captures the current thread's synchronization context to resume execution on the same thread once the delay completes.
+- Meanwhile, DeadlockMethod calls .Result on the task returned by SomeAsyncOperation. This synchronously blocks the main thread until the task finishes.
+- When the delay finishes, SomeAsyncOperation attempts to return to the captured synchronization context to complete the method and return "Hello, World!".
+- It cannot resume because that context is being held by .Result. The two operations wait for each other indefinitely.
+
+### Solution
+
+- Remove .Result and use await keyword.
+- This frees up the thread during execution of SomeAsyncOperation method.
+
+---
+
+### No deadlock was observed
+
+- Console Applications do not have SynchronizationContext by default.
+- So, when await Task.Delay(1000) finishes, it doesn't care what thread it resumes on.
+- It simply grabs any available thread from the ThreadPool to complete the method and returns "Hello, World!".
+- Deadlock will be observed in WPF applications where everything must resume on the main UI thread.
+
+---
