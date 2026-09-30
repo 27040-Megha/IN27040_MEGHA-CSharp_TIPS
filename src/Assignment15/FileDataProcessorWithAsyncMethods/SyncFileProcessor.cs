@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using FileCreator;
 
 namespace FileDataProcessorWithAsyncMethods
 {
@@ -20,7 +21,7 @@ namespace FileDataProcessorWithAsyncMethods
                 File.Delete(destinationFilePath);
             }
 
-            int chunkSize = 1024 * 1024;
+            int chunkSize = FileConstants.ChunkSize;
             var buffer = new byte[chunkSize];
             using (var fileStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read))
             {
