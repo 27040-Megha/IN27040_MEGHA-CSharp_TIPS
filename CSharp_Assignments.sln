@@ -69,6 +69,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaExpressions", "src\As
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedUseOfDelegates", "src\Assignment16\AdvancedUseOfDelegates\AdvancedUseOfDelegates.csproj", "{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assessment2", "Assessment2", "{80BB0EBF-DE49-4A5F-9894-0C1B95984467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicalPlayer", "src\Assessment2\MusicalPlayer\MusicalPlayer.csproj", "{C145B8A3-8DFE-4992-B29A-1435294770AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +155,10 @@ Global
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C145B8A3-8DFE-4992-B29A-1435294770AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C145B8A3-8DFE-4992-B29A-1435294770AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C145B8A3-8DFE-4992-B29A-1435294770AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C145B8A3-8DFE-4992-B29A-1435294770AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,6 +195,8 @@ Global
 		{7E8A5EAB-AD11-406D-812C-1AE0216CC3AE} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
 		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
+		{80BB0EBF-DE49-4A5F-9894-0C1B95984467} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
+		{C145B8A3-8DFE-4992-B29A-1435294770AF} = {80BB0EBF-DE49-4A5F-9894-0C1B95984467}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
