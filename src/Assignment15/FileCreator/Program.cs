@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using FileCreator;
 
 namespace Assignments
 {
@@ -12,22 +13,21 @@ namespace Assignments
     {
         private static void Main(string[] args)
         {
-            long targetFileSize = 1024L * 1024 * 1024;
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            CreateFileUsingStreams(targetFileSize, "FileStreamData.txt");
+            CreateFileUsingStreams(FileConstants.TargetFileSize, "FileStreamData.txt");
             stopwatch.Stop();
             Console.WriteLine($"Time taken while writing using FileStream: {stopwatch.Elapsed}");
             stopwatch.Restart();
-            CreateFileUsingFiles(targetFileSize, "FileData.txt");
+            CreateFileUsingFiles(FileConstants.TargetFileSize, "FileData.txt");
             stopwatch.Stop();
             Console.WriteLine($"Time taken while writing using File class: {stopwatch.Elapsed}");
         }
 
-        private static string GetTextToWrite()
+        private static string BuildSampleData()
         {
             var stringBuilder = new StringBuilder();
-            while (stringBuilder.Length < 4096)
+            while (stringBuilder.Length < FileConstants.ChunkSize)
             {
                 stringBuilder.Append("This is a Sample Data written using Files");
             }
@@ -38,7 +38,7 @@ namespace Assignments
         private static void CreateFileUsingStreams(long targetFileSize, string filePath)
         {
             long currentFileSize = 0;
-            var buffer = GetByteData(GetTextToWrite());
+            var buffer = GetByteData(BuildSampleData());
             using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 while (currentFileSize < targetFileSize)
@@ -64,7 +64,7 @@ namespace Assignments
             }
 
             long currentFileSize = 0;
-            var lineToWrite = GetTextToWrite();
+            var lineToWrite = BuildSampleData();
             var buffer = GetByteData(lineToWrite);
             while (currentFileSize < targetFileSize)
             {
