@@ -1,4 +1,8 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Assignments
 {
@@ -25,7 +29,7 @@ namespace Assignments
             }
         }
 
-        private static async Task<int> MethodA()
+        private static async Task<string> MethodA()
         {
             int result = await Task.Run(() =>
             {
@@ -37,28 +41,21 @@ namespace Assignments
 
                 return sum;
             });
-            return result % 100;
+            return $"test";
         }
 
         private static async Task<string> MethodB()
         {
-            int resourceId = await MethodA();
+            var resource = await MethodA();
             var client = new HttpClient();
-            return await client.GetStringAsync($"https://typicode.com{resourceId}");
+            return await client.GetStringAsync($"https://dummyjson.com/{resource}");
         }
 
         private static async Task<int> MethodC()
         {
             string data = await MethodB();
             var jsonData = JsonSerializer.Deserialize<Dictionary<string, object>>(data);
-            int count = 0;
-            foreach (var item in jsonData)
-            {
-                Console.WriteLine($"{item.Key} - {item.Value}");
-                count++;
-            }
-
-            return count;
+            return jsonData.Count;
         }
     }
 }
