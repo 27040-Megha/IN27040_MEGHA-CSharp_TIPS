@@ -47,7 +47,7 @@
             Console.WriteLine($"Thread ID after awaiting MethodA: {Thread.CurrentThread.ManagedThreadId}");
             for (int i = 0; i < 1000000; i++)
             {
-                result += i;
+                result -= i;
             }
 
             return result;
