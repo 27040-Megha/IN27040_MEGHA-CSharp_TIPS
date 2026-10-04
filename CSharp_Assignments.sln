@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaExpressions", "src\As
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedUseOfDelegates", "src\Assignment16\AdvancedUseOfDelegates\AdvancedUseOfDelegates.csproj", "{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Records", "src\Assignment16\Records\Records.csproj", "{BB2E606B-856B-4897-B299-7DD0995CE28E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,10 @@ Global
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB2E606B-856B-4897-B299-7DD0995CE28E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2E606B-856B-4897-B299-7DD0995CE28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB2E606B-856B-4897-B299-7DD0995CE28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB2E606B-856B-4897-B299-7DD0995CE28E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,6 +193,8 @@ Global
 		{7E8A5EAB-AD11-406D-812C-1AE0216CC3AE} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
 		{DD9954B6-2AB9-4704-A23A-BF7C1886F3E4} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
 		{EF06A4A9-24E5-41A0-B5B7-17ED49FF85F9} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
+		{7C3E9CB6-407A-42B6-9FC9-9C48B2BA9F8F} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
+		{BB2E606B-856B-4897-B299-7DD0995CE28E} = {E2BA3977-6E18-4EFE-B526-7FEBE64E2E5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
