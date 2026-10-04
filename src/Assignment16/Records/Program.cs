@@ -10,26 +10,9 @@ namespace Assignments
     {
         private static void Main(string[] args)
         {
-            var firstBook = new Book()
-            {
-                Title = "Jungle Book",
-                Author = "Rudyard Kipling",
-                ISBN = "1234-1234-1234",
-            };
-
-            var secondBook = new Book()
-            {
-                Title = "Harry Potter",
-                Author = "J.K. Rowling",
-                ISBN = "5678-5678-5678",
-            };
-
-            var thirdBook = new Book()
-            {
-                Title = "Jungle Book",
-                Author = "Rudyard Kipling",
-                ISBN = "1234-1234-1234",
-            };
+            var firstBook = CreateBook("Jungle Book", "Rudyard Kipling", "1234-1234-1234");
+            var secondBook = CreateBook("Harry Potter", "J.K. Rowling", "5678-5678-5678");
+            var thirdBook = CreateBook("Jungle Book", "Rudyard Kipling", "1234-1234-1234");
             DisplayBook(firstBook);
             DisplayBook(secondBook);
             DisplayBook(thirdBook);
@@ -40,6 +23,16 @@ namespace Assignments
             DisplayBook(newBook);
             TextColor.WriteColorLine(DisplayResource.OldBook, ConsoleColor.Cyan);
             DisplayBook(firstBook);
+        }
+
+        private static Book CreateBook(string title, string author, string isbn)
+        {
+            return new Book
+            {
+                Title = title,
+                Author = author,
+                ISBN = isbn,
+            };
         }
 
         private static void DisplayValueEquality(Book firstBook, Book secondBook, Book thirdBook)
