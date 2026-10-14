@@ -110,7 +110,7 @@ DisplayGreetingsMessage()
 ```
 
 Methods:
-- void PerformArithmeticCalculations() - Displays Arithmetic Operation results.
+- void Start() - Starts the execution of DisplayApp.
 - int GetInputNumbers() - Get two input numbers to perform Arithmetic Operations.
 - void DisplayAdditionResult() - Call this._mathUtility.Add(number1, number2) and print the result to the console.
 - void DisplaySubtractionResult() - Call this._mathUtility.Subtract(number1, number2) and print the result to the console.
@@ -124,7 +124,7 @@ Methods:
 - Add Project Reference - MathApp (Project B), DisplayApp (Project C)
 - Create object for MathUtility Class.
 - Create object for ConsoleOperator by passing MathUtility class object.
-- Call PerformArithmeticCalculations() in ConsoleOperator class.
+- Call Start() in ConsoleOperator class.
 
 ---
 
@@ -138,7 +138,7 @@ Build Order:
 1. UtilityApp
 2. DisplayApp
 3. MathApp
-4. ManagerApp 
-5. GreetingsApp
+4. GreetingsApp
+5. ManagerApp 
 
 ---
