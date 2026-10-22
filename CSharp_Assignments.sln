@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyMetadata", "src\Ass
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "src\Assignment17\Library\Library.csproj", "{C4BD022C-6D09-415C-BFD6-A22920894FBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicTypeBuilder", "src\Assignment17\DynamicTypeBuilder\DynamicTypeBuilder.csproj", "{5F50B8B1-F4F8-439B-9C18-6F429A1F623B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +179,10 @@ Global
 		{C4BD022C-6D09-415C-BFD6-A22920894FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4BD022C-6D09-415C-BFD6-A22920894FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4BD022C-6D09-415C-BFD6-A22920894FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F50B8B1-F4F8-439B-9C18-6F429A1F623B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F50B8B1-F4F8-439B-9C18-6F429A1F623B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F50B8B1-F4F8-439B-9C18-6F429A1F623B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F50B8B1-F4F8-439B-9C18-6F429A1F623B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -218,6 +224,7 @@ Global
 		{13A8BFA7-F45C-4940-8EE5-F1B5F979CECF} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{2BA575D5-CCF0-4BA1-A829-7D33CE445271} = {13A8BFA7-F45C-4940-8EE5-F1B5F979CECF}
 		{C4BD022C-6D09-415C-BFD6-A22920894FBA} = {13A8BFA7-F45C-4940-8EE5-F1B5F979CECF}
+		{5F50B8B1-F4F8-439B-9C18-6F429A1F623B} = {13A8BFA7-F45C-4940-8EE5-F1B5F979CECF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
